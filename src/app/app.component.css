@@ -1,0 +1,170 @@
+.nav-wrapper{
+    background-color:  #fbc844;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#dehaze{
+    color: rgb( 120, 120, 120);
+    margin-left: 1%;
+    width:2%;
+}
+.centro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+}
+.login{
+    height: 80%;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0 1rem 0;
+}
+p{
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+.date{
+    display: flex;
+    justify-content: flex-end;
+}
+img{
+    height: 20px;
+}
+.recursos{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(245,245,245)
+}
+.menu{
+    margin-left: -1.5% !important;
+}
+#area{
+    border: none;
+}
+.tables{
+    display: flex;
+    justify-content: space-between;
+}
+table{
+    margin: 0 0 0 0 !important;
+}
+.concepcao{
+    background-color: #ffc26c;
+}
+.concepcao2{
+    background-color: #ffe0b5;
+}
+th, td {
+    border-radius: 0;
+}
+.space{
+    border: none;
+}
+.name{
+    background-color: #CDCDCD;
+    border: none;
+    min-width: 105px;
+}
+.name2{
+    background-color: #CDCDCD;
+    border: none;
+    max-width: 40px;
+}
+.name3{
+    background-color: #CDCDCD;
+    border: none;
+    min-width: 185px;
+}
+.extremidades{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.row{
+    margin-bottom: 0;
+}
+.concepcao3{
+    background-color: #32CD32;
+}
+.concepcao4{
+    background-color: #98FB98;
+}
+.concepcao5{
+    background-color: #FF69B4;
+}
+.concepcao6{
+    background-color: #FFC0CB;
+}
+.concepcao7{
+    background-color: #9400D3;
+}
+.concepcao8{
+    background-color: #BA55D3;
+}
+.concepcao9{
+    background-color: #00BFFF;
+}
+.legenda{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+.legenda2{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid black;
+    margin-left: none;
+    height: 25px;
+}
+.legenda, p{
+    display: flex;
+}
+body, table{
+    background-color: rgb(235,235,235);
+}
+.card{
+    background-color: rgb(235,235,235);
+}
+table, p{
+    font-size: 12px;
+}
+td, th {
+    padding: 5px 3px;
+}
+.clente{
+    font-size: 10px;
+}
+.legendas{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 0;
+}
+.legendaDireita{
+    display: flex;
+    justify-content: space-between;
+    margin-left: initial;
+    margin-left: -120px !important;
+}
+.legendaEsquerda{
+    margin-left: 0 !important;
+}
+/*.time{
+    min-width: ;
+}*/
+.graphics{
+    display: flex;
+    flex-direction:row;
+}
+body{
+    overflow-x: hidden;
+    overflow-y: hidden !important;
+}
