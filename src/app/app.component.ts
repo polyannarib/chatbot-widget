@@ -29,11 +29,7 @@ export class AppComponent {
   public chartColors: Array<any> = [
     { // first color
       backgroundColor:['rgba(251, 200, 68, 0.8)', 'rgba(150, 150, 150, 0.8)'] ,
-      //borderColor: ['rgba(225,10,24,0.2)', 'rgba(225,10,24,0.2)'],
       pointBackgroundColor: ['rgba(225,10,24,0.2)','purple'],
-     // pointBorderColor: ['#fff','green'],
-      //pointHoverBackgroundColor: ['black','blue'],
-      //pointHoverBorderColor: ['rgba(225,10,24,0.2)','red']
     }];
 
   public pieChartLabels2: Label[] = ['Rec. no prazo', 'Rec. atrasados'];
