@@ -59,35 +59,6 @@ table{
 .concepcao2{
     background-color: #ffe0b5;
 }
-th, td {
-    border-radius: 0;
-}
-.space{
-    border: none;
-}
-.name{
-    background-color: #CDCDCD;
-    border: none;
-    min-width: 105px;
-}
-.name2{
-    background-color: #CDCDCD;
-    border: none;
-    max-width: 40px;
-}
-.name3{
-    background-color: #CDCDCD;
-    border: none;
-    min-width: 185px;
-}
-.extremidades{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.row{
-    margin-bottom: 0;
-}
 .concepcao3{
     background-color: #32CD32;
 }
@@ -108,6 +79,42 @@ th, td {
 }
 .concepcao9{
     background-color: #00BFFF;
+}
+.concepcaoeconcepcao3{
+    background-image: linear-gradient( to right, #ffc26c 50%, #32CD32 50%)
+}
+.concepcao9econcepcao7{
+    background-image: linear-gradient( to right, #00BFFF 50%, #9400D3 50%)
+}
+th, td {
+    border-radius: 0;
+}
+.space{
+    border: none;
+}
+.name{
+    background-color: #CDCDCD;
+    border: none;
+    min-width: 105px;
+}
+.name2{
+    background-color: #CDCDCD;
+    border: none;
+    max-width: 40px;
+}
+.name3{
+    background-color: #CDCDCD;
+    border: none;
+    min-width: 185px;
+    text-align: left;
+}
+.extremidades{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.row{
+    margin-bottom: 0;
 }
 .legenda{
     margin-top: 2%;
@@ -157,9 +164,6 @@ td, th {
 .legendaEsquerda{
     margin-left: 0 !important;
 }
-/*.time{
-    min-width: ;
-}*/
 .graphics{
     display: flex;
     flex-direction:row;
@@ -167,4 +171,25 @@ td, th {
 body{
     overflow-x: hidden;
     overflow-y: hidden !important;
+}
+.days{
+    height: 38px;
+}
+.progress {
+    height: 7px;
+    width: 100%;
+    background-color: rgb(235,235,235);
+    margin: .5rem 0 0.5rem 0;
+}
+.progress .determinate {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgb(251, 200, 68);
+    transition: width .3s linear;
+    font-size: 5px;
+}
+.pg2{
+    width: 640% !important;
 }
