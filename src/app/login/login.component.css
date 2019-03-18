@@ -1,0 +1,75 @@
+
+.login-page{
+    width: 310px;
+}
+/* .content-page {
+    /* background-image: url("../../assets/tela_fundo.jpg"); 
+    background-size: cover;
+    height: 100vh;
+} */
+body{
+    background-color: goldenrod;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card-panel{
+    border-radius: 7%;
+    background-color: rgb(240,240,240);
+    height: 335px;
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+}  
+.botton{
+    background: rgb(240,240,240);
+    width: 50%;
+    color: #2B1508
+}
+.botton:hover{
+    background-color: goldenrod;
+    color: white !important;
+}
+img{
+    width: 80px;
+}
+.footer{
+    margin-top: 20%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+.login-form{
+    margin-top: 10%;
+    text-align: center;
+}
+input{
+    width: 100%;
+    font-family: 'Courier New', Courier, monospace;
+}
+.rol .col{
+    padding: 0;
+}
+.link{
+    margin-top: 5% !important;
+    color: #2B1508 !important;
+    cursor: pointer !important;
+}
+.row{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.botaoEnfeite {
+    width: 130px; 
+    position: relative; 
+    top: 55px;
+ }
+/* .input-field input[type=text]:focus{
+    border-bottom: 1px solid black !important;
+    box-shadow: 0 1px 0 0 black !important;
+    font-family: 'Courier New', Courier, monospace;
+}
+.input-field input[type=text]:focus + label {
+    color: black !important;
+    font-family: 'Courier New', Courier, monospace;
+} */
