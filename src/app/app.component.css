@@ -1,0 +1,29 @@
+.nav-wrapper{
+    background-color:  #fbc844;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#dehaze{
+    color: rgb( 120, 120, 120);
+    margin-left: 1%;
+    width:2%;
+}
+.login{
+    height: 80%;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0 1rem 0;
+}
+.date{
+    display: flex;
+    justify-content: flex-end;
+}
+img{
+    height: 20px;
+}
+.menu{
+    margin-left: -1.5% !important;
+}

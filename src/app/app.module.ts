@@ -1,6 +1,9 @@
+import { AuthGuardService } from './guards/auth-guard';
+import { AuthService } from './login/auth.service';
 import { LoginComponent } from './login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,9 +23,13 @@ import { routing } from './app.routing';
     BrowserModule,
     AppRoutingModule,
     ChartsModule,
+    FormsModule,
     routing
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

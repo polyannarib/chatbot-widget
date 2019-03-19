@@ -1,46 +1,20 @@
 <body>
-<div class="main">
-  <div class="content-page">
-    <div class="login-page row">
-      <div class="col s12 card-panel">
-          <div class="login-form">
-            <div class="row">
-              <div class="input-field col s12 center">
-                <img class="responsive-img valign profile-image-login icone">
-              </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                  <!-- <input type="text" class="sem-margin-bottom" [(ngModel)]="user.username"> -->
-                  <input type="text" class="sem-margin-bottom">
-                  <label for="username" class="center-align"> Usuário </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <!-- <input  type="password" [(ngModel)]="user.password"> -->
-                  <input  type="password">
-                  <label for="password"> Senha </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <button class="btn waves-effect waves-light col s12 botton" type="submit" name="action" (click)="login(this.user)"><b>Entrar</b></button>
-                </div>
-              </div>
-              <div>
-                  <!-- <p><a class="link" (click)="senhaesquecida()"> Esqueceu a senha? </a></p>
-                  <p *ngIf="this.teste == true"  style="color: red"> Usuário inválido </p> -->
-                  <p><a class="link"> Esqueceu a senha? </a></p>
-                  <!-- <p style="color: red"> Usuário inválido </p> -->
-              </div>
+  <div class="row">
+    <div class="card panel col l4 row">
+      <div class="row col l12">
+        <div class="input-field">
+          <input id="usuario" type="text" class="validate" [(ngModel)]="user.username">
+          <label class="active" for="usuario"></label>
         </div>
       </div>
+      <div class="row col l12">
+        <div class="input-field">
+          <input  id="senha" type="password" class="validate" [(ngModel)]="user.password">
+          <label class="active" for="senha"></label>
+        </div>
+      </div>
+      <a class="waves-effect waves-light btn center" (click)="fazerLogin()">Entrar</a>
     </div>
-    <!-- <div class="footer">
-      <img src="./assets/kyros_logo.png">
-    </div> -->
   </div>
-</div>
 </body>
 <router-outlet></router-outlet>

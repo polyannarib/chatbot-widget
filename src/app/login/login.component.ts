@@ -1,7 +1,8 @@
-// import { User } from '../shared/models/user';
+import { User } from './user';
+import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
-// import { AuthService } from '../shared/services/auth.service';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-login',
@@ -10,31 +11,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-//   user: User = new User();
-//   retorno: {};
-//   teste:boolean = false;
+  private user: User = new User();
 
   constructor(
-    // private authService: AuthService,
+    private authService: AuthService,
     private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
+  fazerLogin(){
+    console.log(this.user);
+    this.authService.fazerLogin(this.user);
+  }
 }
 
-//   login(user) {
-//     const self = this;
-  
-//     this.authService.login(user).then(function(data) {
-//       self.authService.setToken(JSON.parse(data['_body'])['token']);
-//       self.router.navigate(['/home/inicio']);
-//     }).catch(err => {
-//       this.teste = true;
-//     });
-//   }
-
-//   senhaesquecida(){
-//     const self = this;
-//       self.router.navigate(['/senha-esquecida']);
-//   };

@@ -1,3 +1,4 @@
+import { AuthService } from './login/auth.service';
 import { Component } from '@angular/core';
 import { ChartOptions, ChartType } from 'chart.js';
 import { Label, SingleDataSet} from 'ng2-charts';
@@ -8,9 +9,17 @@ import { Label, SingleDataSet} from 'ng2-charts';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor() { }
+  
+  mostrarMenu: boolean = false;
+  
+  constructor(private authService: AuthService ) { }
 
   ngOnInit() {
+
+    this.authService.mostrarMenuEmitter.subscribe(
+      mostrar => this.mostrarMenu = mostrar
+    );
+
   }
 
 }
