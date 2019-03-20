@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   public pieChartLabels: Label[] = ['Recurso Disp', 'Recurso Prog'];
   public pieChartData: SingleDataSet = [1500, 800];
   public pieChartType: ChartType = 'pie';
-  public pieChartLegend = true;
+  public pieChartLegend = false;
   public chartColors: Array<any> = [
     { // first color
       backgroundColor:['rgba(251, 200, 68, 0.8)', 'rgba(150, 150, 150, 0.8)'] ,
@@ -34,19 +34,19 @@ export class DashboardComponent implements OnInit {
 
   public pieChartLabels2: Label[] = ['Rec. no prazo', 'Rec. atrasados'];
   public pieChartData2: SingleDataSet = [98, 2];
-  public pieChartLegend2 = true;
+  public pieChartLegend2 = false;
 
   public pieChartLabels3: Label[] = ['Req. no prazo', 'Req. atrasados'];
   public pieChartData3: SingleDataSet = [15, 7];
-  public pieChartLegend3 = true;
+  public pieChartLegend3 = false;
 
   public pieChartLabels4: Label[] = ['Pjt. no prazo', 'Pjt. atrasados'];
   public pieChartData4: SingleDataSet = [3, 2];
-  public pieChartLegend4 = true;
+  public pieChartLegend4 = false;
 
   public pieChartLabels5: Label[] = ['Req. no prazo', 'Req. atrasados'];
   public pieChartData5: SingleDataSet = [3, 2];
-  public pieChartLegend5 = true;
+  public pieChartLegend5 = false;
   
   constructor() { }
 

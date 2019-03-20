@@ -215,3 +215,7 @@ tr{
 .spacename{
     background-color: #CDCDCD;
 }
+.titles{
+    display: flex;
+    justify-content: center;
+}
