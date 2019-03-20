@@ -201,3 +201,17 @@ body{
 .realprev{
     font-size: 8px;
 }
+.padding-zero{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    max-height: 15px;
+}
+tr{
+    height: 25px;
+}
+.table1{
+    margin-left: 2% !important;
+}
+.spacename{
+    background-color: #CDCDCD;
+}
