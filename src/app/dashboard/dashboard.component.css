@@ -220,3 +220,15 @@ tr{
     display: flex;
     justify-content: center;
 }
+.botoes{
+    width: 30%;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2%;
+}
+.divbotoes{
+    display: flex;
+    justify-content: center;
+}
