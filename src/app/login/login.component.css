@@ -44,3 +44,8 @@ input[type=password]:focus{
 /* input[type=text]:focus + label{
     color: goldenrod !important;
 } */
+.logo{
+    margin-top: 200%;
+    width: 80px;
+    margin-left: 34%;
+}

@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, EventEmitter } from '@angular/core';
 import { ChartOptions, ChartType } from 'chart.js';
 import { Label, SingleDataSet} from 'ng2-charts';
+import { MaterializeAction } from 'angular2-materialize';
+//import $ from '';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-dashboard',
@@ -47,10 +51,25 @@ export class DashboardComponent implements OnInit {
   public pieChartLabels5: Label[] = ['Req. no prazo', 'Req. atrasados'];
   public pieChartData5: SingleDataSet = [3, 2];
   public pieChartLegend5 = false;
+
+  modalActions = new EventEmitter<string|MaterializeAction>();
+  openModal() {
+    this.modalActions.emit({action:"modal",params:['open']});
+  }
   
-  constructor() { }
+  constructor(
+    private el: ElementRef,
+
+
+    ) { }
 
   ngOnInit() {
+    jQuery(this.el.nativeElement).find('.collapsible').collapsible();
+    // jQuery(this.el.nativeElement).find('.tap-target').tapTarget();
+    // document.addEventListener('DOMContentLoaded', function() {
+    //   var elems = document.querySelectorAll('.collapsible');
+    //   var instances = M.Collapsible.init(elems, options);
+    // });
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {

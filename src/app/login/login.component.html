@@ -6,17 +6,20 @@
     <div class="card meio panel col l4 row">
       <div class="row col l12">
         <div class="input-field">
-          <input id="usuario" type="text" class="validate" [(ngModel)]="user.username">
+          <input id="usuario" type="text" class="validate" [(ngModel)]="user.username" placeholder="Usuário">
           <label class="active" for="usuario"></label>
         </div>
       </div>
       <div class="row col l12">
         <div class="input-field">
-          <input  id="senha" type="password" class="validate" [(ngModel)]="user.password">
+          <input  id="senha" type="password" class="validate" [(ngModel)]="user.password" placeholder="Senha">
           <label class="active" for="senha"></label>
         </div>
       </div>
       <a class="waves-effect waves-light btn center" (click)="fazerLogin()">Entrar</a>
+    </div>
+    <div class="logo">
+      <img style="height: 30px; width: 80px" src="./assets/kyros_logo.png">
     </div>
   </div>
 </body>
