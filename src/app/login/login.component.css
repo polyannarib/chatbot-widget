@@ -1,18 +1,36 @@
+
 body{
-    background-color: goldenrod;
+    background-image: url('../../assets/tetris.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}
+.bodyLogin{
+    background-color: balck;
+
     display: flex;
     /* align-items: center; */
     justify-content: center;
 }
 .panel{
     /* margin-left: 35% !important; */
-    margin-top: 10%;
+    padding-top: 10px;
+    border-radius: 20px ;
+    opacity: 0.8 !important;
     width: 165% !important;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding-bottom: 10px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: black;
+    height: 250px;
 }
 .btn{
     width: 35%;
@@ -24,6 +42,10 @@ body{
 img{
     width: 165%;
 }
+.loginImput{
+    height: 95%;
+    width: 95%;
+}
 .meio{
     margin-left: -30% !important;
 }
@@ -31,6 +53,7 @@ img{
     background-color: goldenrod;
 }
 .btn, .btn-large {
+    border-radius: 20px;
     background-color: black;
 }
 input[type=text]:focus{
@@ -45,7 +68,7 @@ input[type=password]:focus{
     color: goldenrod !important;
 } */
 .logo{
-    margin-top: 200%;
+    margin-top: 150%;
     width: 80px;
     margin-left: 34%;
 }

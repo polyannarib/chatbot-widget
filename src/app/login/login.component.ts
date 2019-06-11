@@ -2,6 +2,7 @@ import { User } from './user';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -15,13 +16,21 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private spinner : NgxSpinnerService,
     private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if( this.authService.getUser != undefined ){
+
+      this.router.navigate(['/dashboard']);
+    }
+  }
 
   fazerLogin(){
-    console.log(this.user);
+    this.spinner.show('wait-login')
     this.authService.fazerLogin(this.user);
+    this.spinner.hide('wait-login');
   }
+
 }
 

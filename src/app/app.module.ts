@@ -7,6 +7,8 @@ import { FormsModule }   from '@angular/forms';
 import { MaterializeModule } from 'angular2-materialize';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 //Graficos
 import { ChartsModule } from 'ng2-charts';
@@ -25,7 +27,9 @@ import { routing } from './app.routing';
     ChartsModule,
     FormsModule,
     routing,
-    MaterializeModule
+    MaterializeModule,
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [
     AuthService,
