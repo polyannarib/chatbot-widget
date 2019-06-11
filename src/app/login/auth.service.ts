@@ -35,8 +35,8 @@ export class AuthService {
       }
 
       const headers = new HttpHeaders({'Content-Type':'application/json'});
-      // http://192.168.1.229:8593/workplayer-portal/services/login
-      this.http.post('http://localhost:8080/workplayer-portal/services/login',body,{observe:'response',headers:headers}).subscribe(
+      // http://localhost:8080/workplayer-portal/services/login
+      this.http.post('http://192.168.1.229:8593/workplayer-portal/services/login',body,{observe:'response',headers:headers}).subscribe(
         resp => { 
                   if( resp.body != undefined && resp.body['status'] == 0 ){
                     this.user = new User();
