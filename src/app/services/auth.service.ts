@@ -1,7 +1,8 @@
 import { Router } from '@angular/router';
 import { User } from '../login/user';
-import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,6 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 export class AuthService {
 
   private usuarioAutenticado: boolean = false; /// remover em breve
-
   private user: User;
 
   constructor(private router: Router, 
@@ -17,18 +17,7 @@ export class AuthService {
 
   login(user: User){
 
-    if(user.username === 'admin' && user.password === 'admin'){
-      this.usuarioAutenticado = true;
-
-      this.user = new User();
-      this.user.companyName = "kyros";
-      this.user.displayName = 'Admin';
-      // TODO: retirar isso, o ideal é salvar um token
-      localStorage.setItem('user',JSON.stringify(this.user));
-      this.router.navigate(['/home/dashboard']);
-
-    }else if(user.username.includes('kyros.com.br')){
-
+    if(user.username.includes('kyros.com.br')){
       var body = {
         email : user.username ,
         password : btoa(user.password)
@@ -54,17 +43,13 @@ export class AuthService {
                     this.usuarioAutenticado = true;
 
                     // TODO: retirar isso, o ideal é salvar o token
-                    localStorage.setItem('user',this.user.username);
+                    localStorage.setItem('user',JSON.stringify(this.user));
                     this.router.navigate(['/home/dashboard']);
 
                   }else{
                     alert(resp.body["message"]);
                   }
       });
-
-    }else{
-
-      this.usuarioAutenticado = false;
 
     }
   }
@@ -78,7 +63,6 @@ export class AuthService {
       let user:User = JSON.parse(localStorage.getItem('user'));
       return user;
     }
-    
     return this.user;
   }
 
