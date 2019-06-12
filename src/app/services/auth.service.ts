@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { User } from './user';
+import { User } from '../login/user';
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
@@ -17,16 +17,19 @@ export class AuthService {
   constructor(private router: Router, 
               private http: HttpClient ) { }
 
-  fazerLogin(user: User){
+  login(user: User){
 
     if(user.username === 'admin' && user.password === 'admin'){
       this.usuarioAutenticado = true;
 
       this.mostrarMenuEmitter.emit(true);
-
-      this.router.navigate(['/dashboard']);
-
       this.user = new User();
+      this.user.companyName = "kyros";
+      this.user.displayName = 'Admin';
+      // TODO: retirar isso, o ideal é salvar um token
+      localStorage.setItem('user',JSON.stringify(this.user));
+      this.router.navigate(['/home/dashboard']);
+
     }else if(user.username.includes('kyros.com.br')){
 
       var body = {
@@ -54,8 +57,9 @@ export class AuthService {
                     this.usuarioAutenticado = true;
 
                     this.mostrarMenuEmitter.emit(true);
-              
-                    this.router.navigate(['/dashboard']);
+                    // TODO: retirar isso, o ideal é salvar o token
+                    localStorage.setItem('user',this.user.username);
+                    this.router.navigate(['/home/dashboard']);
 
                   }else{
                     alert(resp.body["message"]);
@@ -75,6 +79,11 @@ export class AuthService {
   }
 
   getUser(){
+    if(!this.user) {
+      let user:User = JSON.parse(localStorage.getItem('user'));
+      return user;
+    }
+    
     return this.user;
   }
 

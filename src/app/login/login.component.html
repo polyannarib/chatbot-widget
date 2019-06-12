@@ -12,11 +12,11 @@
       </div>
       <div class="col l12 tineline">
         <div class="input-field">
-          <input  id="senha" type="password" class="validate" [(ngModel)]="user.password" (keyup.enter)="fazerLogin()" placeholder="Senha">
+          <input  id="senha" type="password" class="validate" [(ngModel)]="user.password" (keyup.enter)="login()" placeholder="Senha">
           <label class="active" for="senha"></label>
         </div>
       </div>
-      <a class="waves-effect waves-light btn center" (click)="fazerLogin()">Entrar</a>
+      <a class="waves-effect waves-light btn center" (click)="login()">Entrar</a>
     </div>
     <div class="logo">
       <img style="height: 30px; width: 80px" src="./assets/kyros_logo.png">
