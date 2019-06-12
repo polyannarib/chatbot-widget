@@ -12,8 +12,6 @@ export class AuthService {
 
   private user: User;
 
-  mostrarMenuEmitter = new EventEmitter<boolean>();
-
   constructor(private router: Router, 
               private http: HttpClient ) { }
 
@@ -22,7 +20,6 @@ export class AuthService {
     if(user.username === 'admin' && user.password === 'admin'){
       this.usuarioAutenticado = true;
 
-      this.mostrarMenuEmitter.emit(true);
       this.user = new User();
       this.user.companyName = "kyros";
       this.user.displayName = 'Admin';
@@ -56,7 +53,6 @@ export class AuthService {
 
                     this.usuarioAutenticado = true;
 
-                    this.mostrarMenuEmitter.emit(true);
                     // TODO: retirar isso, o ideal é salvar o token
                     localStorage.setItem('user',this.user.username);
                     this.router.navigate(['/home/dashboard']);
@@ -70,7 +66,6 @@ export class AuthService {
 
       this.usuarioAutenticado = false;
 
-      this.mostrarMenuEmitter.emit(false);
     }
   }
 
