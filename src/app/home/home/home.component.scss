@@ -4,6 +4,11 @@
   }
 
 .header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1000;
     height: 50px;
     background-color:  var(--main-color);
     display: flex;
@@ -13,7 +18,7 @@
     i {
         text-align: end;
         color: white;
-        margin: 0 15px;
+        margin: 0 25px 0 15px;
         cursor: pointer;
     }
     p {
@@ -53,7 +58,7 @@ img{
 }
 
 .profile {
-    position: absolute;
+    position: fixed;
     width: 200px;
     top: 55px;
     right: 5px;
@@ -73,6 +78,18 @@ img{
     }
     i {
         margin-right: 5px;
+    }
+}
+
+.content {
+    margin-top: 60px;
+}
+
+.footer {
+    float: right;
+    margin: 5px;
+    p {
+        margin: 0;
     }
 }
 
