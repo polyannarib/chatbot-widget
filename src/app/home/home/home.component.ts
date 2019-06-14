@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
 
   pipe : DatePipe = new DatePipe('en-US'); 
   profile: boolean = false;
+  currentPage: string = "COCKPIT"
 
   constructor(private authService:AuthService, private router:Router) { }
 

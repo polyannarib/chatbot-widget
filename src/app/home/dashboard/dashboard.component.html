@@ -446,14 +446,15 @@
 </ul> -->
       
 <div class="titles row">
-  <div class="col l3 centro"><h6>Recurso disponível e planejado</h6></div>
-  <div class="col l3 centro"><h6>Recursos atrasados</h6></div>
-  <div class="col l3 centro"><h6>Requisitos atrasados</h6></div>
-  <div class="col l3 centro"><h6>Projetos atrasados x N° total de projetos</h6></div>
-
+  <div class="col l2 centro"><h6>Recurso disponível e planejado</h6></div>
+  <div class="col l2 centro"><h6>Recursos atrasados</h6></div>
+  <div class="col l2 centro"><h6>Requisitos atrasados</h6></div>
+  <div class="col l2 centro"><h6>Projetos atrasados x N° total de projetos</h6></div>
+  <div class="col l2 centro"><h6>Projetos alterados</h6></div>
+  <div class="col l2 centro"><h6>Conhecimento aproveitado</h6></div>
 </div>
   <div class="row graphics">
-    <div class="col 3">
+    <div class="col l2">
         <div style="display: block">
           <canvas baseChart
             [data]="pieChartData"
@@ -465,7 +466,7 @@
           </canvas>
         </div>
     </div>
-    <div class="col 3">
+    <div class="col l2">
         <div style="display: block">
           <canvas baseChart
             [data]="pieChartData2"
@@ -477,7 +478,7 @@
           </canvas>
         </div>
     </div>
-    <div class="col 3">
+    <div class="col l2">
         <div style="display: block">
           <canvas baseChart
             [data]="pieChartData3"
@@ -489,7 +490,7 @@
           </canvas>
         </div>
     </div>
-    <div class="col 3">
+    <div class="col l2">
         <div style="display: block">
           <canvas baseChart
             [data]="pieChartData4"
@@ -501,7 +502,32 @@
           </canvas>
         </div>
     </div>
+    <div class="col l2">
+      <div style="display: block">
+        <canvas baseChart
+          [data]="pieChartData6"
+          [colors]="chartColors"
+          [labels]="pieChartLabels6"
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          [legend]="pieChartLegend6">
+        </canvas>
+      </div>
+    </div>
+    <div class="col l2">
+      <div style="display: block">
+        <canvas baseChart
+          [data]="pieChartData7"
+          [colors]="chartColors"
+          [labels]="pieChartLabels7"
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          [legend]="pieChartLegend7">
+        </canvas>
+      </div>
+    </div>
   </div>
+ 
          
   <div class="row col l3 divbotoes">
     <div class="botoes center">

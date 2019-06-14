@@ -1,11 +1,11 @@
 <div class="header">
     <div class="menu">
         <!-- <li><a href="#!"><i class="material-icons" id="dehaze">dehaze</i></a></li> -->
-        <a routerLink="/home/dashboard"><i class="material-icons">insert_chart</i></a>
-        <a routerLink="/home/project"><i class="material-icons">note_add</i></a>
-        <a routerLink="/home/player"><i class="material-icons">person_add</i></a>
-        <a routerLink="/home/card"><i class='material-icons'>bookmarks</i></a>
-        <a routerLink="/home/calendar"><i class="material-icons">date_range</i></a>
+        <a routerLink="/home/dashboard" (click)="currentPage = 'COCKPIT'"><i class="material-icons">insert_chart</i></a>
+        <a routerLink="/home/project" (click)="currentPage = 'PROJECT'"><i class="material-icons">note_add</i></a>
+        <a routerLink="/home/player" (click)="currentPage = 'PLAYER'"><i class="material-icons">person_add</i></a>
+        <a routerLink="/home/card" (click)="currentPage = 'CARD'"><i class='material-icons'>bookmarks</i></a>
+        <a routerLink="/home/calendar" (click)="currentPage = 'CALENDAR'"><i class="material-icons">date_range</i></a>
     </div>
     <!-- <ul class="card login col s4 m4 l3">
         <div><span>{{getUserInfo()}}</span></div>
@@ -13,9 +13,11 @@
     <ul class="date col s4 m4 l4">
         <p>{{getDate()}}</p>
     </ul> -->
-    <div class="image"><img src="./assets/images/bradesco_logo.png"></div>
-    
-    <i class="material-icons" (click)="profile = !profile">perm_identity</i>
+    <p>{{currentPage}} WORKPLAYER</p>
+    <div class="end">
+        <img src="./assets/images/bradesco_logo.png">
+        <i class="material-icons" (click)="profile = !profile">perm_identity</i>
+    </div>    
 </div>
 
 <div class="profile" *ngIf="profile">
