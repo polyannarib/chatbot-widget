@@ -1,0 +1,19 @@
+[
+    {
+        "name":"kyros",
+        "theme": 
+        {
+            "--main-color": "#fbc844",
+            "--constrast-color": "#fbc844"
+        }
+        
+    },
+    {
+        "name":"bradesco",
+        "theme": 
+        {
+            "--main-color": "#CE332F",
+            "--constrast-color": "#fbc844"
+        }
+    }
+]  

@@ -9,7 +9,7 @@ declare var jQuery: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   title = 'Gamefication';
@@ -45,12 +45,20 @@ export class DashboardComponent implements OnInit {
   public pieChartLegend3 = false;
 
   public pieChartLabels4: Label[] = ['Pjt. no prazo', 'Pjt. atrasados'];
-  public pieChartData4: SingleDataSet = [3, 2];
+  public pieChartData4: SingleDataSet = [5, 2];
   public pieChartLegend4 = false;
 
   public pieChartLabels5: Label[] = ['Req. no prazo', 'Req. atrasados'];
   public pieChartData5: SingleDataSet = [3, 2];
   public pieChartLegend5 = false;
+
+  public pieChartLabels6: Label[] = ['Projeto sem alteração', 'Projeto alterado'];
+  public pieChartData6: SingleDataSet = [3, 4];
+  public pieChartLegend6 = false;
+
+  public pieChartLabels7: Label[] = ['Conhecimento utilizado', 'Conhecimento não utilizado'];
+  public pieChartData7: SingleDataSet = [70, 30];
+  public pieChartLegend7 = false;
 
   modalActions = new EventEmitter<string|MaterializeAction>();
   openModal() {

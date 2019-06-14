@@ -3,8 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  back_end_url: 'http://192.168.1.229:8593/workplayer-portal/services',
   production: false
 };
+
+export var company:string = 'bradesco';
 
 /*
  * For easier debugging in development mode, you can import the following file

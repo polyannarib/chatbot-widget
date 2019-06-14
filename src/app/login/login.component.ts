@@ -1,5 +1,5 @@
 import { User } from './user';
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -8,7 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
@@ -20,15 +20,14 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    if( this.authService.getUser != undefined ){
-
-      this.router.navigate(['/dashboard']);
+    if( this.authService.getUser() ){
+      this.router.navigate(['/home/dashboard']);
     }
   }
 
-  fazerLogin(){
+  login(){
     this.spinner.show('wait-login')
-    this.authService.fazerLogin(this.user);
+    this.authService.login(this.user);
     this.spinner.hide('wait-login');
   }
 
