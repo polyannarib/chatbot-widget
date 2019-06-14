@@ -6,29 +6,40 @@
     align-items: center;
     justify-content: center;
     i {
-        flex-grow: 1;
-        flex-basis: 0;
         text-align: end;
         color: white;
-        margin-right: 15px;
+        margin: 0 15px;
         cursor: pointer;
+    }
+    p {
+        flex-grow: 1;
+        flex-basis: 0;  
+        text-align: center;
+        font-size: 1.25rem;
+        color: var(--main-color);
+        filter: brightness(60%); 
     }
 }
 
 .menu {
     flex-grow: 1;
     flex-basis: 0;
-    margin: 0 10px;
+    i{
+        margin: 0 10px;
+    }
     a {
         margin: 0 5px;
     }
 }
-.image {
+
+.end {
     flex-grow: 1;
     flex-basis: 0;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-end;
 }
+
 img{
     height: 40px;
     margin-left: -40px;
