@@ -12,7 +12,7 @@
         "name":"bradesco",
         "theme": 
         {
-            "--main-color": "#CC092F",
+            "--main-color": "#cc092f",
             "--constrast-color": "#fbc844"
         }
     }
