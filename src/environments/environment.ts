@@ -7,7 +7,7 @@ export const environment = {
   production: false
 };
 
-export var company:string = 'kyros';
+export var company:string = 'bradesco';
 
 /*
  * For easier debugging in development mode, you can import the following file
