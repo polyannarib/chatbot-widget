@@ -78,6 +78,9 @@ export class DashboardComponent implements OnInit {
     //   var elems = document.querySelectorAll('.collapsible');
     //   var instances = M.Collapsible.init(elems, options);
     // });
+    var main = getComputedStyle(document.body).getPropertyValue('--graph-main-color');
+    var second = getComputedStyle(document.body).getPropertyValue('--graph-color');
+    this.chartColors[0].backgroundColor = [main,second];
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {

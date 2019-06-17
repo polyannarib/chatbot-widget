@@ -1,9 +1,15 @@
 .theme-wrapper {
     --main-color: #fbc844;
+    --graph-main-color: #fbc844cc;
+    --graph-color: #969696cc;
+    --progress-color:#fbc844cc; 
 }
 
 $variables: (
     --main-color: var(--main-color),
+    --graph-main-color: var(--graph-main-color),
+    --graph-color: var(--graph-color),
+    --progress-color: var(--progress-color)
 );
 
 @function var($variable) {
