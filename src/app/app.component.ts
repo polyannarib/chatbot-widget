@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get<any[]>("../assets/themes.json").subscribe(data => {
+    this.http.get<any[]>("assets/themes.json").subscribe(data => {
       data.forEach(companyTheme => {
         if(companyTheme.name == company){
           Object.keys(companyTheme.theme).forEach(key => {
