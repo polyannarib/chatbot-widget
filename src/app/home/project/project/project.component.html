@@ -1,3 +1,16 @@
-<p>
-  project works!
-</p>
+<div class="filter">
+  <input type="text">
+</div>
+
+<div class="list">
+  <div class="projectHeader">
+    <p>ID</p>
+    <p>Nome</p>
+    <p>Descrição</p>
+  </div>
+  <div class="project" *ngFor="let project of projects">
+    <p>{{project.id}}</p>
+    <p>{{project.name}}</p>
+    <p>{{project.description}}</p>
+  </div>
+</div>
