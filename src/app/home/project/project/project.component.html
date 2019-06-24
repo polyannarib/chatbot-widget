@@ -8,7 +8,7 @@
     <p>{{'NAME' | translate}}</p>
     <p>{{'DESCRIPTION' | translate}}</p>
   </div>
-  <div class="project" *ngFor="let project of projects">
+  <div class="project" *ngFor="let project of projects" (click)="details(project.id)">
     <p>{{project.id}}</p>
     <p>{{project.name}}</p>
     <p>{{project.description}}</p>
@@ -20,5 +20,6 @@
   <div class="projectModal" (click)="$event.stopPropagation()">
     <input type="text" placeholder="{{'NAME' | translate}}" formControlName="name">
     <input type="text" placeholder="{{'DESCRIPTION' | translate}}" formControlName="description">
+    <button (click)="submit()">Submit</button>
   </div>
 </div>

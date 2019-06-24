@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project',
@@ -12,7 +13,7 @@ export class ProjectComponent implements OnInit {
   projectModal:boolean = false;
   project: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
 
@@ -43,4 +44,11 @@ export class ProjectComponent implements OnInit {
     ]
   }
 
+  submit() {
+
+  }
+
+  details(id:any) {
+    this.router.navigate(['home/project/details', id]);
+  }
 }

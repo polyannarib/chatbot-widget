@@ -27,8 +27,16 @@
 }
 .project {
     display: table-row;
-    
+    cursor: pointer;
     p {
         display: table-cell;
     }
+}
+.project:hover {
+    background-color: #bbb7b7;
+}
+
+.projectModal {
+    background-color: white;
+    width: 70%;
 }
