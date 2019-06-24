@@ -5,3 +5,12 @@ body{
     overflow: auto;
     background-color: #EBEBEB;
 }
+
+.modalBg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #0000001A;
+}

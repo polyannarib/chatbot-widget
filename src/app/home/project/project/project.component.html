@@ -15,8 +15,10 @@
   </div>
 </div>
 <button (click)="projectModal = true">Adicionar</button>
-<div class="projectModal" *ngIf="projectModal">
-  <div class="modal">
-    <input type="text" placeholder="NOME">
+
+<div class="modalBg" *ngIf="projectModal" (click)="projectModal = false">
+  <div class="projectModal" (click)="$event.stopPropagation()">
+    <input type="text" placeholder="{{'NAME' | translate}}" formControlName="name">
+    <input type="text" placeholder="{{'DESCRIPTION' | translate}}" formControlName="description">
   </div>
 </div>

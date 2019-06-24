@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-project',
@@ -9,10 +10,17 @@ export class ProjectComponent implements OnInit {
 
   projects: any[];
   projectModal:boolean = false;
+  project: FormGroup;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
+    this.project = this.formBuilder.group({
+      name: [null, Validators.required],
+      description: [null, Validators.required],
+    });
+
     this.projects = [
       {
         id: 9098080808,
