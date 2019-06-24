@@ -83,33 +83,12 @@ img{
 
 .content {
     margin-top: 60px;
+    min-height: calc(100vh - 110px);
 }
-
 .footer {
     float: right;
-    margin: 5px;
+    margin: 0 10px;
     p {
         margin: 0;
     }
 }
-
-// #dehaze{
-//     color: rgb( 120, 120, 120);
-//     margin-left: 1%;
-//     width:2%;
-// }
-// .login{
-//     height: 80%;
-//     color: black;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     margin: 1rem 0 1rem 0;
-// }
-// .date{
-//     display: flex;
-//     justify-content: flex-end;
-// }
-// .menu{
-//     margin-left: -1.5% !important;
-// }

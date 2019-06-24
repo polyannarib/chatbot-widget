@@ -1,16 +1,20 @@
-.list {
-    margin: 25px;
-    display: table;
+.filter {
+    width: 100%;
+    height: 35px;
+    input {
+        float: right;
+        width: 250px;
+        height: 35px;
+        margin-right: 20px;
+        border: 0;
+        border-bottom: 1px solid #838282;
+    }
 }
 
-.filter {
-    width: 300px;
-    float: right;
-    margin-right: 20px;
-    input {
-        border: 0;
-        border-bottom: 1px solid var(--main-color);
-    }
+.list {
+    width: 90%;
+    display: table;
+    margin: 0 auto;
 }
 
 .projectHeader {
@@ -23,6 +27,7 @@
 }
 .project {
     display: table-row;
+    
     p {
         display: table-cell;
     }
