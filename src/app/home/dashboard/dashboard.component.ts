@@ -13,28 +13,22 @@ declare var jQuery: any;
 })
 export class DashboardComponent implements OnInit {
   title = 'Gamefication';
-  // Pie
-  public pieChartOptions: ChartOptions = {
-    responsive: true,
-    plugins: {
-      datalabels: {
-        formatter: (value, ctx) => {
-          const label = ctx.chart.data.labels[ctx.dataIndex];
-          return label;
-        },
-      },
-    }
-  };
-  //public pieChartTitle: Title = 'teste';
-  public pieChartLabels: Label[] = ['Recurso Disp', 'Recurso Prog'];
-  public pieChartData: SingleDataSet = [1500, 800];
-  public pieChartType: ChartType = 'pie';
-  public pieChartLegend = false;
+
   public chartColors: Array<any> = [
     { // first color
       backgroundColor:['rgba(251, 200, 68, 0.8)', 'rgba(150, 150, 150, 0.8)'] ,
       pointBackgroundColor: ['rgba(225,10,24,0.2)','purple'],
     }];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = false;
+  public pieChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  private graphics: Array<any> = [];
+  //public pieChartTitle: Title = 'teste';
+  public pieChartLabels: Label[] = ['Recurso Disp', 'Recurso Prog'];
+  public pieChartData: SingleDataSet = [1500, 800];
+
 
   public pieChartLabels2: Label[] = ['Rec. no prazo', 'Rec. atrasados'];
   public pieChartData2: SingleDataSet = [98, 2];
@@ -61,28 +55,44 @@ export class DashboardComponent implements OnInit {
   public pieChartLegend7 = false;
 
   modalActions = new EventEmitter<string|MaterializeAction>();
-  openModal() {
-    this.modalActions.emit({action:"modal",params:['open']});
-  }
-  
-  constructor(
-    private el: ElementRef,
 
-
-    ) { }
+  constructor( private el: ElementRef) {}
 
   ngOnInit() {
     jQuery(this.el.nativeElement).find('.collapsible').collapsible();
-    // jQuery(this.el.nativeElement).find('.tap-target').tapTarget();
-    // document.addEventListener('DOMContentLoaded', function() {
-    //   var elems = document.querySelectorAll('.collapsible');
-    //   var instances = M.Collapsible.init(elems, options);
-    // });
     var main = getComputedStyle(document.body).getPropertyValue('--graph-main-color');
     var second = getComputedStyle(document.body).getPropertyValue('--graph-color');
     this.chartColors[0].backgroundColor = [main,second];
+    this.graphics.push({
+      title: "Gráfico",
+      data: [5,2],
+      labels: ['Conhecimento utilizado', 'Conhecimento não utilizado'],
+      type: 'pie'
+    })
+    this.graphics.push({
+      title: "Gráfico2",
+      data: [5,20],
+      labels: ['Recurso utilizado', 'Recurso não utilizado'],
+      type: 'pie'
+    })
+    this.graphics.push({
+      title: "Gráfico3",
+      data: [15,2,8],
+      labels: ['JS', 'Java','.Net'],
+      type: 'bar'
+    })
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
-  }}
+  }
+
+  openModal() {
+    this.modalActions.emit({action:"modal",params:['open']});
+  }
+
+  // getChartType(type: string): ChartType{
+    
+  // }
+
+}

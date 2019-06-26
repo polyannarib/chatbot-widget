@@ -239,8 +239,11 @@ tr{
 }
 
 .collapsible-body {
-    padding-bottom: 45px;
-    padding-top: 16px;
+    padding: 4px 0 45px 0;
+    max-height: 175px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .graphicsDiv {
@@ -250,4 +253,15 @@ tr{
     width: 100%;
     margin: 0;
     background-color: #EBEBEB;
+}
+
+.graphic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+canvas {
+   height: 120px;
+
 }

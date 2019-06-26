@@ -408,112 +408,26 @@
     </table>
 </div> 
 
-
-
-<!-- <ul class="collapsible">
-  <li>
-    <div class="collapsible-header">
-      <p><b>Legenda</b></p>
-    </div>
-    <div class="collapsible-body">
-      <div class="legenda">
-        <p><i class="material-icons" style="color: #FFD700; font-size:18px">report_problem</i> Atenção </p>
-        <p><i class="material-icons" style="color: #32CD32; font-size:18px">fiber_manual_record</i> Em progresso </p>
-        <p><i class="material-icons" style="color: #0000CD; font-size:18px">thumb_up_alt</i> Concluído com sucesso </p>
-        <p><i class="material-icons" style="color: rgb(240, 0, 0)">thumb_down_alt</i> Concluído com atraso </p>
-      </div>
-    </div>
-  </li>
-</ul> -->
+<!-- Gráficos -->
 <ul class="collapsible graphicsDiv" data-collapsible = "accordion">
   <li>
-  <div class="collapsible-header active">
-    <p><b>{{'GRAPHICS' | translate}}</b></p>
-  </div>
-  <div class="collapsible-body">
-    <div class="titles row">
-      <div class="col l2 centro"><h6>Recurso disponível e planejado</h6></div>
-      <div class="col l2 centro"><h6>Recursos atrasados</h6></div>
-      <div class="col l2 centro"><h6>Requisitos atrasados</h6></div>
-      <div class="col l2 centro"><h6>Projetos atrasados x N° total de projetos</h6></div>
-      <div class="col l2 centro"><h6>Projetos alterados</h6></div>
-      <div class="col l2 centro"><h6>Conhecimento aproveitado</h6></div>
+    <div class="collapsible-header active">
+      <p><b>{{'GRAPHICS' | translate}}</b></p>
     </div>
-    <div class="row graphics">
-      <div class="col l2">
-          <div style="display: block">
-            <canvas baseChart
-              [data]="pieChartData"
-              [colors]="chartColors"
-              [labels]="pieChartLabels"
-              [chartType]="pieChartType"
-              [options]="pieChartOptions"
-              [legend]="pieChartLegend">
-            </canvas>
-          </div>
-      </div>
-      <div class="col l2">
-          <div style="display: block">
-            <canvas baseChart
-              [data]="pieChartData2"
-              [colors]="chartColors"            
-              [labels]="pieChartLabels2"
-              [chartType]="pieChartType"
-              [options]="pieChartOptions"
-              [legend]="pieChartLegend2">
-            </canvas>
-          </div>
-      </div>
-      <div class="col l2">
-          <div style="display: block">
-            <canvas baseChart
-              [data]="pieChartData3"
-              [colors]="chartColors"
-              [labels]="pieChartLabels3"
-              [chartType]="pieChartType"
-              [options]="pieChartOptions"
-              [legend]="pieChartLegend3">
-            </canvas>
-          </div>
-      </div>
-      <div class="col l2">
-          <div style="display: block">
-            <canvas baseChart
-              [data]="pieChartData4"
-              [colors]="chartColors"
-              [labels]="pieChartLabels4"
-              [chartType]="pieChartType"
-              [options]="pieChartOptions"
-              [legend]="pieChartLegend4">
-            </canvas>
-          </div>
-      </div>
-      <div class="col l2">
-        <div style="display: block">
-          <canvas baseChart
-            [data]="pieChartData6"
+    <div class="collapsible-body ">
+      <div class="graphic" *ngFor="let graphic of graphics">
+        <h6>{{graphic.title}}</h6>
+        <canvas baseChart
+            [data]="graphic.data"
             [colors]="chartColors"
-            [labels]="pieChartLabels6"
-            [chartType]="pieChartType"
+            [labels]="graphic.labels"
+            [chartType]="graphic.type"
             [options]="pieChartOptions"
-            [legend]="pieChartLegend6">
-          </canvas>
-        </div>
-      </div>
-      <div class="col l2">
-        <div style="display: block">
-          <canvas baseChart
-            [data]="pieChartData7"
-            [colors]="chartColors"
-            [labels]="pieChartLabels7"
-            [chartType]="pieChartType"
-            [options]="pieChartOptions"
-            [legend]="pieChartLegend7">
-          </canvas>
-        </div>
+            [legend]="pieChartLegend">
+        </canvas>
       </div>
     </div>
-  </div>
   </li>
 </ul> 
+
 </body>
