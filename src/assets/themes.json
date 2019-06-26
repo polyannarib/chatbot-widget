@@ -3,8 +3,11 @@
         "name":"kyros",
         "theme": 
         {
-            "--main-color": "#fbc844",
-            "--constrast-color": "#fbc844"
+            "--main-color": "#F8C326",
+            "--graph-main-color": "#fbc844cc",
+            "--graph-color": "#969696cc",
+            "--progress-color": "#fbc844cc",
+            "--logo-height": "25px"
         }
         
     },
@@ -13,7 +16,10 @@
         "theme": 
         {
             "--main-color": "#cc092f",
-            "--constrast-color": "#fbc844"
+            "--graph-main-color": "#96969666",
+            "--graph-color": "#cc092f99",
+            "--progress-color": "#cc092f99",
+            "--logo-height": "40px"
         }
     }
 ]  

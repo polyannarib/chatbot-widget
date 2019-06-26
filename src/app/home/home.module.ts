@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
 import { HomeComponent } from './home/home.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes = [
   {
@@ -23,6 +24,7 @@ const routes = [
   imports: [
     CommonModule,
     ChartsModule,
+    TranslateModule,
     RouterModule.forChild(routes)
   ]
 })

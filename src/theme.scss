@@ -1,9 +1,17 @@
 .theme-wrapper {
-    --main-color: #fbc844;
+    --main-color: #F8C326;
+    --graph-main-color: #fbc844cc;
+    --graph-color: #969696cc;
+    --progress-color:#fbc844cc; 
+    --logo-height: 30px;
 }
 
 $variables: (
     --main-color: var(--main-color),
+    --graph-main-color: var(--graph-main-color),
+    --graph-color: var(--graph-color),
+    --progress-color: var(--progress-color),
+    --logo-height: var(--logo-height)
 );
 
 @function var($variable) {

@@ -1,0 +1,9 @@
+{
+    "ADD": "Add",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "INSPECT": "Inspect",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "GRAPHICS": "Graphics"
+}
