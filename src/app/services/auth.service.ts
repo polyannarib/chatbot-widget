@@ -22,7 +22,8 @@ export class AuthService {
 
     var body = {
       email: user.username,
-      password: btoa(user.password)
+      password: btoa(user.password),
+      type: 'WEBPORTAL'
     }
 
     this.http.post(this.url + '/login', body,
