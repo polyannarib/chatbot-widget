@@ -4,11 +4,13 @@ import { ProjectComponent } from './project/project.component';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
+import { ReactiveFormsModule }   from '@angular/forms';
 
 @NgModule({
   declarations: [ProjectComponent, ProjectDetailsComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule.forChild([
       {
         path: '',

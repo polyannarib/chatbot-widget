@@ -20,19 +20,20 @@
 .projectHeader {
     display: table-header-group;
     p {
+        padding: 8px 15px;
         display: table-cell;
         font-weight: bold;
-        text-align: center;
     }
 }
 .project {
     display: table-row;
     cursor: pointer;
     p {
+        padding: 8px 15px;
         display: table-cell;
     }
 }
-.project:hover {
+.project:hover, .project.selected {
     background-color: #bbb7b7;
 }
 

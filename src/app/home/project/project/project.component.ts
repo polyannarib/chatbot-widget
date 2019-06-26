@@ -12,6 +12,7 @@ export class ProjectComponent implements OnInit {
   projects: any[];
   projectModal:boolean = false;
   project: FormGroup;
+  selected: any;
 
   constructor(private formBuilder: FormBuilder, private router: Router) { }
 
@@ -48,7 +49,23 @@ export class ProjectComponent implements OnInit {
 
   }
 
-  details(id:any) {
-    this.router.navigate(['home/project/details', id]);
+  select(project:any) {
+    if(this.selected == project){
+      this.router.navigate(['home/project/details', project.id]);
+    } else {
+      this.selected = project;
+    }
+  }
+
+  edit(){
+    this.project.patchValue({
+      name: this.selected.name,
+      description: this.selected.description
+    });
+    this.projectModal = true;
+  }
+
+  delete(){
+
   }
 }

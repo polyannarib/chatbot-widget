@@ -229,14 +229,25 @@ tr{
     display: flex;
     justify-content: center;
 }
-/* .collapsible{
-    width: 15%;
-    display: flex;
-    justify-content: center;
+
+.collapsible-header {
     align-items: center;
+    p {
+        height: 12px;
+        line-height: 12px;
+    }
 }
-.collapsible-header{
-    padding: 0;
-    display: flex;
-    justify-content: center;
-} */
+
+.collapsible-body {
+    padding-bottom: 45px;
+    padding-top: 16px;
+}
+
+.graphicsDiv {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    background-color: #EBEBEB;
+}

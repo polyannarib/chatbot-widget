@@ -410,7 +410,7 @@
 
 
 
-<ul class="collapsible">
+<!-- <ul class="collapsible">
   <li>
     <div class="collapsible-header">
       <p><b>Legenda</b></p>
@@ -424,117 +424,96 @@
       </div>
     </div>
   </li>
-</ul>
-
-<!-- <ul class="collapsible popout">
-  <li>
-    <div class="collapsible-header"><i class="material-icons">info</i></div>
-<div class="col l6 legendaDireita">
-  <div class="legenda col l3">
-    <p><i class="material-icons" style="color: #ffc26c; font-size:18px">stop</i> Concepção </p>
-    <p><i class="material-icons" style="color: #32CD32; font-size:18px">stop</i> Implementação </p>
-    <p><i class="material-icons" style="color: #00BFFF; font-size:18px">stop</i> Homologação </p>
-    <p><i class="material-icons" style="color: #9400D3; font-size:18px">stop</i> Produção </p>
-  </div>
-  <div class="legenda2 col l7">
-    <p><i class="material-icons" style="color: #32CD32; font-size:18px">fiber_manual_record</i> Completed </p>
-    <p><i class="material-icons" style="color: #FFD700; font-size:18px">fiber_manual_record</i> In progress </p>
-    <p><i class="material-icons" style="color: rgb(240, 0, 0); font-size:18px">fiber_manual_record</i> Delayed </p>
-  </div>
-</div>
-</li>
 </ul> -->
-      
-<div class="titles row">
-  <div class="col l2 centro"><h6>Recurso disponível e planejado</h6></div>
-  <div class="col l2 centro"><h6>Recursos atrasados</h6></div>
-  <div class="col l2 centro"><h6>Requisitos atrasados</h6></div>
-  <div class="col l2 centro"><h6>Projetos atrasados x N° total de projetos</h6></div>
-  <div class="col l2 centro"><h6>Projetos alterados</h6></div>
-  <div class="col l2 centro"><h6>Conhecimento aproveitado</h6></div>
-</div>
-  <div class="row graphics">
-    <div class="col l2">
-        <div style="display: block">
-          <canvas baseChart
-            [data]="pieChartData"
-            [colors]="chartColors"
-            [labels]="pieChartLabels"
-            [chartType]="pieChartType"
-            [options]="pieChartOptions"
-            [legend]="pieChartLegend">
-          </canvas>
-        </div>
+<ul class="collapsible graphicsDiv" data-collapsible = "accordion">
+  <li>
+  <div class="collapsible-header active">
+    <p><b>{{'GRAPHICS' | translate}}</b></p>
+  </div>
+  <div class="collapsible-body">
+    <div class="titles row">
+      <div class="col l2 centro"><h6>Recurso disponível e planejado</h6></div>
+      <div class="col l2 centro"><h6>Recursos atrasados</h6></div>
+      <div class="col l2 centro"><h6>Requisitos atrasados</h6></div>
+      <div class="col l2 centro"><h6>Projetos atrasados x N° total de projetos</h6></div>
+      <div class="col l2 centro"><h6>Projetos alterados</h6></div>
+      <div class="col l2 centro"><h6>Conhecimento aproveitado</h6></div>
     </div>
-    <div class="col l2">
-        <div style="display: block">
-          <canvas baseChart
-            [data]="pieChartData2"
-            [colors]="chartColors"            
-            [labels]="pieChartLabels2"
-            [chartType]="pieChartType"
-            [options]="pieChartOptions"
-            [legend]="pieChartLegend2">
-          </canvas>
-        </div>
-    </div>
-    <div class="col l2">
-        <div style="display: block">
-          <canvas baseChart
-            [data]="pieChartData3"
-            [colors]="chartColors"
-            [labels]="pieChartLabels3"
-            [chartType]="pieChartType"
-            [options]="pieChartOptions"
-            [legend]="pieChartLegend3">
-          </canvas>
-        </div>
-    </div>
-    <div class="col l2">
-        <div style="display: block">
-          <canvas baseChart
-            [data]="pieChartData4"
-            [colors]="chartColors"
-            [labels]="pieChartLabels4"
-            [chartType]="pieChartType"
-            [options]="pieChartOptions"
-            [legend]="pieChartLegend4">
-          </canvas>
-        </div>
-    </div>
-    <div class="col l2">
-      <div style="display: block">
-        <canvas baseChart
-          [data]="pieChartData6"
-          [colors]="chartColors"
-          [labels]="pieChartLabels6"
-          [chartType]="pieChartType"
-          [options]="pieChartOptions"
-          [legend]="pieChartLegend6">
-        </canvas>
+    <div class="row graphics">
+      <div class="col l2">
+          <div style="display: block">
+            <canvas baseChart
+              [data]="pieChartData"
+              [colors]="chartColors"
+              [labels]="pieChartLabels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [legend]="pieChartLegend">
+            </canvas>
+          </div>
       </div>
-    </div>
-    <div class="col l2">
-      <div style="display: block">
-        <canvas baseChart
-          [data]="pieChartData7"
-          [colors]="chartColors"
-          [labels]="pieChartLabels7"
-          [chartType]="pieChartType"
-          [options]="pieChartOptions"
-          [legend]="pieChartLegend7">
-        </canvas>
+      <div class="col l2">
+          <div style="display: block">
+            <canvas baseChart
+              [data]="pieChartData2"
+              [colors]="chartColors"            
+              [labels]="pieChartLabels2"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [legend]="pieChartLegend2">
+            </canvas>
+          </div>
+      </div>
+      <div class="col l2">
+          <div style="display: block">
+            <canvas baseChart
+              [data]="pieChartData3"
+              [colors]="chartColors"
+              [labels]="pieChartLabels3"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [legend]="pieChartLegend3">
+            </canvas>
+          </div>
+      </div>
+      <div class="col l2">
+          <div style="display: block">
+            <canvas baseChart
+              [data]="pieChartData4"
+              [colors]="chartColors"
+              [labels]="pieChartLabels4"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [legend]="pieChartLegend4">
+            </canvas>
+          </div>
+      </div>
+      <div class="col l2">
+        <div style="display: block">
+          <canvas baseChart
+            [data]="pieChartData6"
+            [colors]="chartColors"
+            [labels]="pieChartLabels6"
+            [chartType]="pieChartType"
+            [options]="pieChartOptions"
+            [legend]="pieChartLegend6">
+          </canvas>
+        </div>
+      </div>
+      <div class="col l2">
+        <div style="display: block">
+          <canvas baseChart
+            [data]="pieChartData7"
+            [colors]="chartColors"
+            [labels]="pieChartLabels7"
+            [chartType]="pieChartType"
+            [options]="pieChartOptions"
+            [legend]="pieChartLegend7">
+          </canvas>
+        </div>
       </div>
     </div>
   </div>
- 
-         
-  <div class="row col l3 divbotoes">
-    <div class="botoes center">
-      <a class="btn-floating btn-large btn-generate" title="Anterior"><i class="material-icons">arrow_back</i></a>
-      <a class="btn-floating btn-large btn-generate" title="Próximo"><i class="material-icons">arrow_forward</i></a>
-      <a class="btn-floating btn-large btn-generate" title="Renderizar"><i class="material-icons">play_circle_filled</i></a>
-      <a class="btn-floating btn-large btn-generate" title="Enviar"><i class="material-icons">send</i></a>
-    </div>
-  </div>
+  </li>
+</ul> 
 </body>
