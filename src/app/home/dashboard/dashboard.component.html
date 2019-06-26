@@ -1,6 +1,5 @@
 <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
 
-<body>
 <div class="row">
   <div class="row extremidades col l5">
     <div class="card recursos col l3"><h6>RECURSOS</h6><i class="fa fa-filter"></i></div>
@@ -412,6 +411,7 @@
 <ul class="collapsible graphicsDiv" data-collapsible = "accordion">
   <li>
     <div class="collapsible-header active">
+      <!-- <i class="far fa-chart-bar"></i> -->
       <p><b>{{'GRAPHICS' | translate}}</b></p>
     </div>
     <div class="collapsible-body ">
@@ -419,15 +419,13 @@
         <h6>{{graphic.title}}</h6>
         <canvas baseChart
             [data]="graphic.data"
-            [colors]="chartColors"
             [labels]="graphic.labels"
             [chartType]="graphic.type"
-            [options]="pieChartOptions"
-            [legend]="pieChartLegend">
+            [colors]="chartColors"
+            [options]="chartOptions"
+            [legend]="false">
         </canvas>
       </div>
     </div>
   </li>
 </ul> 
-
-</body>
