@@ -42,10 +42,28 @@ export class DashboardComponent implements OnInit {
       type: 'pie'
     })
     this.graphics.push({
-      title: "Cards",
-      data: [15,2,8],
-      labels: ['JS', 'Java','.Net'],
-      type: 'bar'
+      title: "Cards Utilizados",
+      data: [15,2],
+      labels: ['JS', 'Java'],
+      type: 'pie'
+    })
+    this.graphics.push({
+      title: "Projeto alterado",
+      data: [15,5],
+      labels: ['Projetos alterados', 'Projeto não alterados'],
+      type: 'pie'
+    })
+    this.graphics.push({
+      title: "Recurso disponível",
+      data: [15,2],
+      labels: ['Recurso disponível', 'Recurso não disponível'],
+      type: 'pie'
+    })
+    this.graphics.push({
+      title: "Projetos no prazo",
+      data: [15,2],
+      labels: ['Projetos no prazo', 'Projetos atrasados'],
+      type: 'pie'
     })
   }
 }
