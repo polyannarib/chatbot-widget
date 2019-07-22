@@ -12,6 +12,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Interceptor } from './login/auth-interceptor';
+import { ProjectService } from './services/project.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -30,6 +32,7 @@ export function createTranslateLoader(http: HttpClient) {
     MaterializeModule,
     HttpClientModule,
     NgxSpinnerModule,
+    Interceptor,
     ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {
@@ -41,7 +44,8 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    ProjectService
   ],
   bootstrap: [AppComponent]
 })

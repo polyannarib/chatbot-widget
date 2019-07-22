@@ -42,7 +42,6 @@ export class AuthService {
             this.user.permissions = userInfo['permissions'];
             this.user.scopes = userInfo['scopes'];
 
-
             this.usuarioAutenticado = true;
 
             // TODO: retirar isso, o ideal é salvar o token

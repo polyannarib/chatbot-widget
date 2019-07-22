@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ChartOptions } from 'chart.js';
+import { ProjectService } from 'src/app/services/project.service';
 
 declare var jQuery: any;
 
@@ -14,7 +15,7 @@ export class DashboardComponent implements OnInit {
   private chartColors: Array<any> = [];
   private chartOptions: ChartOptions;
  
-  constructor( private el: ElementRef) {}
+  constructor( private el: ElementRef, private projectService: ProjectService) {}
 
   ngOnInit() {
     jQuery(this.el.nativeElement).find('.collapsible').collapsible();
