@@ -44,8 +44,8 @@ export class AuthService {
 
             this.usuarioAutenticado = true;
 
-            // TODO: retirar isso, o ideal é salvar o token
             localStorage.setItem('user', JSON.stringify(this.user));
+            localStorage.setItem('token', resp.headers.get('X-Token'));
             this.router.navigate(['/home/dashboard']);
 
           } else {

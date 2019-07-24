@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   constructor( private el: ElementRef, private projectService: ProjectService) {}
 
   ngOnInit() {
+    this.projectService.listProjects().subscribe();
     jQuery(this.el.nativeElement).find('.collapsible').collapsible();
     var main = getComputedStyle(document.body).getPropertyValue('--graph-main-color');
     var second = getComputedStyle(document.body).getPropertyValue('--graph-color');
