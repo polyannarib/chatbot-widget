@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
 import { HomeComponent } from './home/home.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MzModalModule, MzButtonModule, MzInputModule } from 'ngx-materialize'
+import { FormsModule }   from '@angular/forms';
 
 const routes = [
   {
@@ -22,9 +24,13 @@ const routes = [
 @NgModule({
   declarations: [DashboardComponent, HomeComponent],
   imports: [
+    FormsModule,
     CommonModule,
     ChartsModule,
     TranslateModule,
+    MzModalModule,
+    MzButtonModule,
+    MzInputModule,
     RouterModule.forChild(routes)
   ]
 })

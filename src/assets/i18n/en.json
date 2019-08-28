@@ -5,5 +5,7 @@
     "INSPECT": "Inspect",
     "NAME": "Name",
     "DESCRIPTION": "Description",
-    "GRAPHICS": "Graphics"
+    "GRAPHICS": "Graphics",
+    "DAILYACTIVITY": "Daily Activity",
+    "CLOSE": "Close"
 }

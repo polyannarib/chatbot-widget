@@ -1,6 +1,11 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Type } from '@angular/core';
 import { ChartOptions } from 'chart.js';
 import { ProjectService } from 'src/app/services/project.service';
+import { PlayerService } from 'src/app/services/player.service';
+import { TaskService } from 'src/app/services/task.service';
+import { DatePipe } from '@angular/common';
+import { MzModalComponent } from 'ngx-materialize';
+import { ActivityModel } from '../../model/ActivityModel';
 
 declare var jQuery: any;
 
@@ -11,14 +16,51 @@ declare var jQuery: any;
 })
 export class DashboardComponent implements OnInit {
 
+  startDate: Date;
+  endDate: Date;
+  players: Array<any>;
+  daysOfWeek: Array<String> = [];
+  activityDetail: MzModalComponent;
+  dailyActivity: ActivityModel = new ActivityModel();
+
   private graphics: Array<any> = [];
   private chartColors: Array<any> = [];
   private chartOptions: ChartOptions;
- 
-  constructor( private el: ElementRef, private projectService: ProjectService) {}
+
+  public modalOptions: Materialize.ModalOptions = {
+    dismissible: false,
+    opacity: .5, 
+    inDuration: 300, 
+    outDuration: 200, 
+    startingTop: '100%', 
+    endingTop: '10%'
+  };
+
+  constructor( 
+    private el: ElementRef, 
+    private projectService: ProjectService,
+    private playerService: PlayerService,
+    private taskService: TaskService,
+    private datePipe: DatePipe ) {
+    }
 
   ngOnInit() {
-    this.projectService.listProjects().subscribe();
+    this.loadCalendar();
+    this.startDate = new Date();
+    this.endDate = new Date();
+    this.endDate.setDate( this.startDate.getDate() + 14 );
+
+    let params = {
+
+    }
+
+    this.playerService.findPlayers(params).subscribe(
+      (response) => {
+        this.players = response;
+      }
+    );
+
+    //this.projectService.listProjects().subscribe();
     jQuery(this.el.nativeElement).find('.collapsible').collapsible();
     var main = getComputedStyle(document.body).getPropertyValue('--graph-main-color');
     var second = getComputedStyle(document.body).getPropertyValue('--graph-color');
@@ -67,5 +109,35 @@ export class DashboardComponent implements OnInit {
       labels: ['Projetos no prazo', 'Projetos atrasados'],
       type: 'pie'
     })
+  }
+
+  loadCalendar() {
+    let today = new Date();
+    for( let i = 0 ; i < 14 ; i++ ) {
+      this.daysOfWeek.push( this.datePipe.transform(today, 'E') );
+      today.setDate( today.getDate() + 1 );
+    }
+  }
+
+  openModal(modal: MzModalComponent, id: Number, day: any, month: any, year: any) {
+    /*let params = {
+      "player": id,
+      "date": day + '/' + month + '/' + year
+    }*/
+
+    let params = {};
+
+    this.taskService.findTasks(params).subscribe(
+      (response) => {
+        debugger;
+        this.dailyActivity.playerName = response.player.name;
+        this.dailyActivity.day = day;
+        this.dailyActivity.month = month;
+        this.dailyActivity.progress = response.progress;
+      }
+    )
+
+    modal.openModal();
+
   }
 }

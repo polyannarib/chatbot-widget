@@ -5,5 +5,8 @@
     "INSPECT": "Inspecionar",
     "NAME": "Nome",
     "DESCRIPTION": "Descrição",
-    "GRAPHICS": "Gráficos"
+    "GRAPHICS": "Gráficos",
+    "RESOURCES": "Recursos",
+    "DAILYACTIVITY": "Atividades diárias",
+    "CLOSE": "Fechar"
 }

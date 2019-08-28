@@ -14,6 +14,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Interceptor } from './login/auth-interceptor';
 import { ProjectService } from './services/project.service';
+import { DatePipe } from '@angular/common';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -45,7 +46,8 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     AuthService,
     AuthGuardService,
-    ProjectService
+    ProjectService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

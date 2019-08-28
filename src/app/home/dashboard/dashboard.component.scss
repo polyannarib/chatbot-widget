@@ -177,6 +177,8 @@ body{
     height: 7px;
     width: 100%;
     background-color: #ffffff;
+    border-color: black;
+    border: 1px solid black;
     margin: .5rem 0 0.5rem 0;
 }
 .progress .determinate {
@@ -269,4 +271,34 @@ tr{
 
 canvas {
     height: 110px;
+}
+
+.transparent-button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.activity-day {
+    border: 1px solid #eee;
+    margin: 7px 0;
+    text-align: center;
+    line-height: 35px;
+    font-size: 28px;
+    background-color: rgb(255, 157, 140);
+    color: white;
+    border-radius: 10px;
+    padding: 0;
+}
+
+.activity-day-text {
+    font-size: 22px;
+}
+
+.label {
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
 }
