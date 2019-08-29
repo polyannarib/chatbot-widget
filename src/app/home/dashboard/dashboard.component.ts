@@ -124,16 +124,17 @@ export class DashboardComponent implements OnInit {
       "player": id,
       "date": day + '/' + month + '/' + year
     }*/
-
+    let date = new Date( year, month - 1, day );
+    this.dailyActivity.dayText = this.datePipe.transform( date, 'EEEE' );
     let params = {};
 
     this.taskService.findTasks(params).subscribe(
       (response) => {
-        debugger;
         this.dailyActivity.playerName = response.player.name;
         this.dailyActivity.day = day;
         this.dailyActivity.month = month;
         this.dailyActivity.progress = response.progress;
+        this.dailyActivity.activities = response.activities;
       }
     )
 

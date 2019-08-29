@@ -4,7 +4,7 @@
 <div class="row">
   <div class="row extremidades col l5">
     <div class="card recursos col l3">
-      <h6>{{ 'RESOURCE' | translate }}</h6><i class="fa fa-filter"></i>
+      <h6>{{ 'RESOURCES' | translate }}</h6><i class="fa fa-filter"></i>
     </div>
     <div class="col l3">
       <div><i class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></div>
@@ -321,7 +321,7 @@
         <div class="col l3 m3 s3">
           <div class="ml-m-25">
             <div class="col l8 m8 s8 center-align">
-              <span class="label">Segunda</span>
+              <span class="activity-text title">{{ dailyActivity.dayText }}</span>
               <div class="col l12 m12 s12 center-align">
                 <div class="activity-day">
                   <span class="activity-day-text">{{ dailyActivity.day }}/{{ dailyActivity.month }}</span>
@@ -331,7 +331,7 @@
           </div>
         </div>
         <div class="col l8 m8 s8">
-          <span class="label">Progresso</span>
+          <span class="activity-text title">{{ 'PROGRESS' | translate}}</span>
           <div class="row mt-15">
             <div class="col l2 m2 s2">
               <span>33%</span>
@@ -346,8 +346,45 @@
       </div>
     </div>
     <div class="divider"></div>
+    <div class="row mt-10">
+      <div class="col l2 m2 s2 left-align">
+        <span class="activity-text title">{{ 'PROJECT' | translate }}</span>
+      </div>
+      <div class="col l6 m6 s6 left-align">
+        <span class="activity-text title">{{ 'ACTIVITY' | translate }}</span>
+      </div>
+      <div class="col l2 m2 s2 left-align">
+        <span class="activity-text title">{{ 'DUEDATE' | translate }}</span>
+      </div>
+      <div class="col l1 m1 s1 left-align">
+        <span class="activity-text title">{{ 'EFFORT' | translate }}</span>
+      </div>
+    </div>
     <div class="row">
-      
+      <ng-container *ngFor="let activity of dailyActivity.activities">
+        <div class="row">
+          <div class="rounded-activity mt-10">
+            <div class="row valign-wrapper">
+              <div title="{{activity.project.name}}" class="col l2 m2 s2 left-align">
+                <span class="activity-text">{{ activity.project.code }}</span>
+              </div>
+              <div class="col l6 m6 s6 left-align">
+                <span class="activity-text">{{ activity.name }}</span>
+              </div>
+              <div class="col l2 m2 s2 left-align">
+                <span class="activity-text">{{ activity.dueDate }}</span>
+              </div>
+              <div class="col l1 m1 s1 left-align">
+                <span class="activity-text">{{ activity.effort }}h</span>
+              </div>
+              <div class="col l1 m1 s1 right-align">
+                <i class="material-icons"
+                  [ngClass]="{ 'warning': activity.status == 'W', 'ok': activity.status == 'O', 'delayed': activity.status == 'D'}">fiber_manual_record</i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </mz-modal-content>
   <mz-modal-footer>

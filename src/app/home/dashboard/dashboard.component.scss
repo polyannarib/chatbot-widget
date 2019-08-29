@@ -282,6 +282,14 @@ canvas {
     outline:none;
 }
 
+.rounded-activity {
+    border: 1px solid rgb(250, 2, 2);
+    text-align: center;
+    border-radius: 10px;
+    line-height: 45px;
+    padding: 0;
+}
+
 .activity-day {
     border: 1px solid #eee;
     margin: 7px 0;
@@ -298,7 +306,27 @@ canvas {
     font-size: 22px;
 }
 
+.activity-text {
+    font-size: 15px;
+}
+
+.activity-text.title {
+    font-weight: bold;
+}
+
 .label {
     font-family: Roboto, sans-serif;
     font-weight: bold;
+}
+
+.warning {
+    color: #FFD700;
+}
+
+.ok {
+    color: rgb(21, 255, 0)
+}
+
+.delayed {
+    color:rgb(255, 0, 0)
 }

@@ -8,5 +8,11 @@
     "GRAPHICS": "Gráficos",
     "RESOURCES": "Recursos",
     "DAILYACTIVITY": "Atividades diárias",
-    "CLOSE": "Fechar"
+    "CLOSE": "Fechar",
+    "PROJECT": "Projeto",
+    "ACTIVITY": "Atividade",
+    "EFFORT": "Esforço",
+    "STATUS": "Status",
+    "DUEDATE": "Vencimento",
+    "PROGRESS": "Progresso"
 }
