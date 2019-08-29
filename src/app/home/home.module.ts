@@ -5,8 +5,9 @@ import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
 import { HomeComponent } from './home/home.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { MzModalModule, MzButtonModule, MzInputModule, MzCollapsibleModule } from 'ngx-materialize'
-import { FormsModule }   from '@angular/forms';
+import { MzModalModule, MzButtonModule, MzInputModule, MzCollapsibleModule, MzRadioButtonModule } from 'ngx-materialize'
+import { FormsModule } from '@angular/forms';
+import { PipesModule } from './shared/pipe/pipes.module';
 
 const routes = [
   {
@@ -27,11 +28,13 @@ const routes = [
     FormsModule,
     CommonModule,
     ChartsModule,
+    PipesModule,
     TranslateModule,
     MzModalModule,
     MzButtonModule,
     MzInputModule,
     MzCollapsibleModule,
+    MzRadioButtonModule,
     RouterModule.forChild(routes)
   ]
 })

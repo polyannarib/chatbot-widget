@@ -6,6 +6,7 @@ export class ActivityModel {
     month: Number;
     progress: Number;
     activities: Array< any >;
+    players: Array< any >;
 
     constructor() { }
 

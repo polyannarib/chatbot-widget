@@ -1,5 +1,5 @@
 import { User } from './user';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../home/shared/services/auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';

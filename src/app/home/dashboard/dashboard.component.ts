@@ -1,11 +1,11 @@
 import { Component, OnInit, ElementRef, Type } from '@angular/core';
 import { ChartOptions } from 'chart.js';
-import { ProjectService } from 'src/app/services/project.service';
-import { PlayerService } from 'src/app/services/player.service';
-import { TaskService } from 'src/app/services/task.service';
+import { ProjectService } from 'src/app/home/shared/services/project.service';
+import { PlayerService } from 'src/app/home/shared/services/player.service';
+import { TaskService } from 'src/app/home/shared/services/task.service';
 import { DatePipe } from '@angular/common';
 import { MzModalComponent } from 'ngx-materialize';
-import { ActivityModel } from '../../model/ActivityModel';
+import { ActivityModel } from '../shared/model/ActivityModel';
 
 declare var jQuery: any;
 
@@ -22,6 +22,9 @@ export class DashboardComponent implements OnInit {
   daysOfWeek: Array<String> = [];
   activityDetail: MzModalComponent;
   dailyActivity: ActivityModel = new ActivityModel();
+  isDesigning: Boolean = false;
+  isReallocating: Boolean = false;
+  selectedAvailablePlayer: String;
 
   private graphics: Array<any> = [];
   private chartColors: Array<any> = [];
@@ -48,6 +51,7 @@ export class DashboardComponent implements OnInit {
     this.loadCalendar();
     this.startDate = new Date();
     this.endDate = new Date();
+    this.startDate.setDate( this.startDate.getDate() - 2 );
     this.endDate.setDate( this.startDate.getDate() + 14 );
 
     let params = {
@@ -113,6 +117,7 @@ export class DashboardComponent implements OnInit {
 
   loadCalendar() {
     let today = new Date();
+    today.setDate( today.getDate() - 2 );
     for( let i = 0 ; i < 14 ; i++ ) {
       this.daysOfWeek.push( this.datePipe.transform(today, 'E') );
       today.setDate( today.getDate() + 1 );
@@ -141,4 +146,24 @@ export class DashboardComponent implements OnInit {
     modal.openModal();
 
   }
+
+  designate() {
+    this.isDesigning = true;
+    this.isReallocating = false;
+
+    let params = {    };
+
+    this.playerService.findDesignatePlayers(params).subscribe(
+      (response) => {
+        this.dailyActivity.players = response;
+        console.log(this.dailyActivity.players);
+      }
+    )
+
+  }
+
+  reallocate() {
+
+  }
+
 }

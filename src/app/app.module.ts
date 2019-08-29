@@ -1,5 +1,5 @@
 import { AuthGuardService } from './guards/auth-guard';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './home/shared/services/auth.service';
 import { LoginComponent } from './login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -13,7 +13,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Interceptor } from './login/auth-interceptor';
-import { ProjectService } from './services/project.service';
+import { ProjectService } from './home/shared/services/project.service';
 import { DatePipe } from '@angular/common';
 
 export function createTranslateLoader(http: HttpClient) {

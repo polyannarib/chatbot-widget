@@ -13,5 +13,13 @@
     "EFFORT": "Effort",
     "STATUS": "Status",
     "DUEDATE": "Due date",
-    "PROGRESS": "Progress"
+    "PROGRESS": "Progress",
+    "PREDICTSTARTDATE": "Predict to Begin",
+    "PREDICTENDDATE": "Predict to End",
+    "STARTDATE": "Begin at",
+    "ENDDATE": "Done at",
+    "SUSPEND": "Suspend",
+    "CANCEL": "Cancel",
+    "DESIGNATE": "Designate",
+    "REALLOCATE": "Reallocate"
 }

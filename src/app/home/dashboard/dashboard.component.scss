@@ -308,6 +308,7 @@ canvas {
 
 .activity-text {
     font-size: 15px;
+    padding: 0px;
 }
 
 .activity-text.title {
@@ -329,4 +330,8 @@ canvas {
 
 .delayed {
     color:rgb(255, 0, 0)
+}
+
+.table-info {
+    background-color: white
 }

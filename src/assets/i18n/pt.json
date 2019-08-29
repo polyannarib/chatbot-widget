@@ -14,5 +14,14 @@
     "EFFORT": "Esforço",
     "STATUS": "Status",
     "DUEDATE": "Vencimento",
-    "PROGRESS": "Progresso"
+    "PROGRESS": "Progresso",
+    "PREVIEWSTARTDATE": "Previsão de Início",
+    "PREVIEWENDDATE": "Previsão de Término",
+    "STARTDATE": "Data de Início",
+    "ENDDATE": "Data de Conclusão",
+    "SUSPEND": "Suspender",
+    "CANCEL": "Cancelar",
+    "DESIGNATE": "Designar",
+    "REALLOCATE": "Remanejar"
+
 }

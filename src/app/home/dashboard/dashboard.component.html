@@ -42,7 +42,7 @@
       <ng-container *ngFor="let player of players">
         <tr class="card">
           <td class="spacename"></td>
-          <td class="name"><b>{{ player.name }}</b></td>
+          <td class="name left-align"><b>{{ player.name }}</b></td>
           <th class="space"></th>
           <ng-container *ngFor="let activity of player.activities  let i = index">
             <td [ngStyle]="{'background-color': activity.style}">
@@ -345,58 +345,100 @@
         </div>
       </div>
     </div>
-    <div class="divider"></div>
+    <div class="divider mt-10"></div>
     <div class="row mt-10">
-      <div class="col l2 m2 s2 left-align">
-        <span class="activity-text title">{{ 'PROJECT' | translate }}</span>
+      <div class="col l2 m2 s2">
+        <span class="activity-text title ml-25">{{ 'PROJECT' | translate }}</span>
       </div>
       <div class="col l6 m6 s6 left-align">
-        <span class="activity-text title">{{ 'ACTIVITY' | translate }}</span>
+        <span class="activity-text title ml-15">{{ 'ACTIVITY' | translate }}</span>
       </div>
       <div class="col l2 m2 s2 left-align">
-        <span class="activity-text title">{{ 'DUEDATE' | translate }}</span>
+        <span class="activity-text title ml-m-12">{{ 'DUEDATE' | translate }}</span>
       </div>
       <div class="col l1 m1 s1 left-align">
-        <span class="activity-text title">{{ 'EFFORT' | translate }}</span>
+        <span class="activity-text title ml-m-15">{{ 'EFFORT' | translate }}</span>
       </div>
     </div>
-    <div class="row">
-      <ng-container *ngFor="let activity of dailyActivity.activities">
-        <div class="row">
-          <mz-collapsible [mode]="'expandable'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback"
-            [popout]="false">
-            <mz-collapsible-item [active]="false">
-              <mz-collapsible-item-header class="col l12 m12 s12">
-                <div class="mt-10">
-                  <div class="row valign-wrapper">
-                    <div title="{{activity.project.name}}" class="col l2 m2 s2 left-align">
-                      <span class="activity-text">{{ activity.project.code }}</span>
-                    </div>
-                    <div class="col l6 m6 s6 left-align">
-                      <span class="activity-text">{{ activity.name }}</span>
-                    </div>
-                    <div class="col l2 m2 s2 left-align">
-                      <span class="activity-text">{{ activity.dueDate }}</span>
-                    </div>
-                    <div class="col l1 m1 s1 left-align">
-                      <span class="activity-text">{{ activity.effort }}h</span>
-                    </div>
-                    <div class="col l1 m1 s1 right-align">
-                      <i class="material-icons"
-                        [ngClass]="{ 'warning': activity.status == 'W', 'ok': activity.status == 'O', 'delayed': activity.status == 'D'}">fiber_manual_record</i>
-                    </div>
+    <ng-container *ngFor="let activity of dailyActivity.activities">
+      <div class="row">
+        <mz-collapsible [mode]="'expandable'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback"
+          [popout]="false">
+          <mz-collapsible-item [active]="false">
+            <mz-collapsible-item-header class="col l12 m12 s12">
+              <div class="mt-10">
+                <div class="valign-wrapper">
+                  <div title="{{activity.project.name}}" class="col l2 m2 s2 left-align">
+                    <span class="activity-text">{{ activity.project.code }}</span>
+                  </div>
+                  <div class="col l6 m6 s6 left-align">
+                    <span class="activity-text">{{ activity.name }}</span>
+                  </div>
+                  <div class="col l2 m2 s2 left-align">
+                    <span class="activity-text">{{ activity.dueDate }}</span>
+                  </div>
+                  <div class="col l1 m1 s1 left-align">
+                    <span class="activity-text">{{ activity.effort }}h</span>
+                  </div>
+                  <div class="col l1 m1 s1 right-align">
+                    <i class="material-icons"
+                      [ngClass]="{ 'warning': activity.status == 'W', 'ok': activity.status == 'O', 'delayed': activity.status == 'D'}">fiber_manual_record</i>
                   </div>
                 </div>
-              </mz-collapsible-item-header>
-              <mz-collapsible-item-body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
-              </mz-collapsible-item-body>
-            </mz-collapsible-item>
-          </mz-collapsible>
-        </div>
-      </ng-container>
-    </div>
+              </div>
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body>
+              <div class="row">
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="table-info">{{ 'PROJECT' | translate}}</th>
+                      <th class="table-info">{{ 'CARD' | translate }}</th>
+                      <th class="table-info">{{ 'PREVIEWSTARTDATE' | translate}}</th>
+                      <th class="table-info">{{ 'PREVIEWENDDATE' | translate}}</th>
+                      <th class="table-info">{{ 'STARTDATE' | translate}}</th>
+                      <th class="table-info">{{ 'ENDDATE' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="table-info">{{ activity.project.name }}</td>
+                      <td class="table-info">{{ activity.card.skill.name }} - {{ activity.card.name }}</td>
+                      <td class="table-info">{{ activity.previewStartDate}}</td>
+                      <td class="table-info">{{ activity.previewEndDate }}</td>
+                      <td class="table-info">{{ activity.startDate }}</td>
+                      <td class="table-info">{{ activity.endDate }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row mt-30">
+                <div class="col l2 m2 s2">
+                  <button [disabled]="true" mz-button>
+                    {{ 'SUSPEND' | translate }}
+                  </button>
+                </div>
+                <div class="col l2 m2 s2">
+                  <button [disabled]="true" mz-button>
+                    {{ 'CANCEL' | translate }}
+                  </button>
+                </div>
+                <div class="col l2 m2 s2">
+                  <button mz-button (click)="reallocate()">
+                    {{ 'REALLOCATE' | translate }}
+                  </button>
+                </div>
+                <div class="col l2 m2 s2">
+                  <button mz-button (click)="designate()">
+                    {{ 'DESIGNATE' | translate }}
+                  </button>
+                </div>
+              </div>
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        </mz-collapsible>
+      </div>
+    </ng-container>
   </mz-modal-content>
   <mz-modal-footer>
     <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
