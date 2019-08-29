@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
   private chartOptions: ChartOptions;
 
   public modalOptions: Materialize.ModalOptions = {
-    dismissible: false,
+    dismissible: true,
     opacity: .5, 
     inDuration: 300, 
     outDuration: 200, 
