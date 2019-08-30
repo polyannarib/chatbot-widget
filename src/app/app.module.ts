@@ -15,6 +15,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Interceptor } from './login/auth-interceptor';
 import { ProjectService } from './home/shared/services/project.service';
 import { DatePipe } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
+
+import pt from '@angular/common/locales/pt';
+
+registerLocaleData(pt);
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -47,7 +53,8 @@ export function createTranslateLoader(http: HttpClient) {
     AuthService,
     AuthGuardService,
     ProjectService,
-    DatePipe
+    DatePipe,
+    { provide: LOCALE_ID, useValue: 'pt' },
   ],
   bootstrap: [AppComponent]
 })

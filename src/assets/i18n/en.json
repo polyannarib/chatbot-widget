@@ -6,6 +6,8 @@
     "NAME": "Name",
     "DESCRIPTION": "Description",
     "GRAPHICS": "Graphics",
+    "RESOURCES": "Resources",
+    "RESOURCE": "Resource",
     "DAILYACTIVITY": "Daily Activity",
     "CLOSE": "Close",
     "PROJECT": "Project",
