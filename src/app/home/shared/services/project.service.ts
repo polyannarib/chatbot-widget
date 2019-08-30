@@ -8,7 +8,7 @@ import { Observable } from 'rxjs'
 })
 export class ProjectService {
 
-  private url: string = environment.back_end_url;
+  private url: string = environment.fake_rest;
 
   constructor(private http: HttpClient) { }
 

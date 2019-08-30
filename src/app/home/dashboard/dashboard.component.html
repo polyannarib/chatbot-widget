@@ -34,7 +34,7 @@
       <tr>
         <th class="space days" colspan="2">Java</th>
         <th class="space"></th>
-        <th *ngFor="let day of daysOfWeek">{{ day }}</th>
+        <th *ngFor="let day of daysOfWeek14">{{ day }}</th>
       </tr>
     </thead>
 
@@ -46,7 +46,7 @@
           <th class="space"></th>
           <ng-container *ngFor="let activity of player.activities  let i = index">
             <td [ngStyle]="{'background-color': activity.style}">
-              <button (click)="openModal(activityDetail, player.id, activity.day, activity.month, activity.year)"
+              <button (click)="openModalPlayer(activityDetail, player.id, activity.day, activity.month, activity.year)"
                 class="transparent-button">{{ activity.day }}</button>
             </td>
           </ng-container>
@@ -62,230 +62,57 @@
       </ng-container>
     </tbody>
   </table>
+
   <table class="col s12 m12 l5 centered">
     <thead>
       <tr>
-        <th class="space">OP</th>
-        <th class="space">Nome do projeto</th>
+        <th class="space">{{ 'CODE' | translate }}</th>
+        <th class="space">{{ 'PROJECTNAME' | translate }}</th>
         <th class="space"></th>
-        <th>Dom</th>
-        <th>Seg</th>
-        <th>Ter</th>
-        <th>Qua</th>
-        <th>Qui</th>
-        <th>Sex</th>
-        <th>Sáb</th>
+        <th *ngFor="let day of daysOfWeek7">{{ day }}</th>
         <th class="space"></th>
-        <th>Horas</th>
-        <th>Data</th>
-        <th class="space">Prz.</th>
-        <th class="space">Esf.</th>
+        <th>{{ 'HOURS' | translate }}</th>
+        <th>{{ 'DATE' | translate }}</th>
+        <th class="space">{{ 'EXP' | translate }}</th>
+        <th class="space">{{ 'EFF' | translate }}</th>
         <th class="space"></th>
-        <th class="space">Status Reports</th>
+        <th class="space">{{ 'STATUSREPORT' | translate }}</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr class="card">
-        <td class="name2 padding-zero"><b>4205</b></td>
-        <td class="name3 padding-zero">5056 Integração Financeira</td>
-        <th class="space padding-zero"></th>
-        <td>-</td>
-        <td class="concepcao padding-zero">21</td>
-        <td class="concepcao padding-zero">22</td>
-        <td class="concepcao3 padding-zero">23</td>
-        <td class="concepcao3 padding-zero">24</td>
-        <td class="concepcao3 padding-zero">25</td>
-        <td class="concepcao3 padding-zero">26</td>
-        <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-        <td class="space realprev padding-zero">800<br>700</td>
-        <td class="space realprev padding-zero">15/01 14/01</td>
-        <td class="space padding-zero"><i class="material-icons" style="color: rgb(240,0,0)">fiber_manual_record</i>
-        </td>
-        <td class="space padding-zero"><i class="material-icons" style="color: #FFD700">fiber_manual_record</i></td>
-        <td class="space padding-zero" style="display: flex; justify-content: space-around"><i
-            class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></td>
-        <td class="space padding-zero"><i class="material-icons">send</i></td>
-      </tr>
-      <tr>
-        <td>35%</td>
-        <td colspan="2">
-          <div class="progress hoverable">
-            <div class="determinate" style="width: 35%"></div>
-          </div>
-        </td>
-      </tr>
-      <tr class="card">
-        <td class="name2 padding-zero"><b>370</b></td>
-        <td class="name3 padding-zero">5055 Upgrade Internet Banking</td>
-        <th class="space padding-zero"></th>
-        <td>-</td>
-        <td class="concepcao3 padding-zero">79</td>
-        <td class="concepcao3 padding-zero">80</td>
-        <td class="concepcao3 padding-zero">81</td>
-        <td class="concepcao3 padding-zero">82</td>
-        <td class="concepcao3 padding-zero">83</td>
-        <td class="concepcao3 padding-zero">84</td>
-        <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-        <td class="space realprev padding-zero">1000<br>1200</td>
-        <td class="space realprev padding-zero">30/02 25/02</td>
-        <td class="space padding-zero"><i class="material-icons" style="color: rgb(240,0,0)">fiber_manual_record</i>
-        </td>
-        <td class="space padding-zero"><i class="material-icons" style="color: #32CD32">fiber_manual_record</i></td>
-        <td class="space padding-zero"><i class="material-icons">chevron_left</i><i
-            class="material-icons">chevron_right</i></td>
-        <td class="space padding-zero"><i class="material-icons">send</i></td>
-      </tr>
-      <tr>
-        <td>55%</td>
-        <td colspan="2">
-          <div class="progress hoverable">
-            <div class="determinate" style="width: 55%"></div>
-          </div>
-        </td>
-      </tr>
-      <tr class="card">
-        <td class="name2 padding-zero"><b>4614</b></td>
-        <td class="name3 padding-zero">5054 Relatório de Saques</td>
-        <th class="space padding-zero"></th>
-        <td>-</td>
-        <td class="concepcao padding-zero">01</td>
-        <td class="concepcao padding-zero">02</td>
-        <td class="concepcao padding-zero">03</td>
-        <td class="concepcao padding-zero">04</td>
-        <td class="concepcao padding-zero">05</td>
-        <td class="concepcao padding-zero">06</td>
-        <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-        <td class="space realprev padding-zero">90<br>110</td>
-        <td class="space realprev padding-zero">27/01 30/01</td>
-        <td class="space padding-zero"><i class="material-icons" style="color: #32CD32">fiber_manual_record</i></td>
-        <td class="space padding-zero"><i class="material-icons" style="color: #FFD700">fiber_manual_record</i></td>
-        <td class="space padding-zero"><i class="material-icons">chevron_left</i><i
-            class="material-icons">chevron_right</i></td>
-        <td class="space padding-zero"><i class="material-icons">send</i></td>
-      </tr>
-      <tr>
-        <td>70%</td>
-        <td colspan="2">
-          <div class="progress hoverable">
-            <div class="determinate" style="width: 70%"></div>
-          </div>
-        </td>
-      </tr>
-      <tr class="card">
-        <td class="name2 padding-zero"><b>4608</b></td>
-        <td class="name3 padding-zero">5053 Relatório Saque 24hrs</td>
-        <th class="space padding-zero"></th>
-        <td>-</td>
-        <td>13</td>
-        <td>14</td>
-        <td>15</td>
-        <td>16</td>
-        <td>17</td>
-        <td>18</td>
-        <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-        <td class="space realprev padding-zero">80<br>50</td>
-        <td class="space realprev padding-zero">21/01 20/01</td>
-        <td class="space padding-zero"><i class="material-icons" style="color: #32CD32">fiber_manual_record</i></td>
-        <td class="space padding-zero"><i class="material-icons" style="color: #FFD700">fiber_manual_record</i></td>
-        <td class="space padding-zero"><i class="material-icons">chevron_left</i><i
-            class="material-icons">chevron_right</i></td>
-        <td class="space padding-zero"><i class="material-icons">send</i></td>
-      </tr>
-      <tr>
-        <td>100%</td>
-        <td colspan="2">
-          <div class="progress hoverable">
-            <div class="determinate" style="width: 100%"></div>
-          </div>
-        </td>
-      </tr>
-      <tr class="card">
-        <td class="name2 padding-zero"><b>4616</b></td>
-        <td class="name3 padding-zero">5052 Site Usuário Convênio</td>
-        <th class="space padding-zero"></th>
-        <td>-</td>
-        <td class="concepcao padding-zero">89</td>
-        <td class="concepcaoeconcepcao3 padding-zero">90</td>
-        <td class="concepcao3 padding-zero">91</td>
-        <td class="concepcao3 padding-zero">92</td>
-        <td class="concepcao3 padding-zero">93</td>
-        <td class="concepcao3 padding-zero">94</td>
-        <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-        <td class="space realprev padding-zero">180<br>95</td>
-        <td class="space realprev padding-zero">02/02 31/01</td>
-        <td class="space padding-zero"><i class="material-icons" style="color: rgb(240,0,0)">fiber_manual_record</i>
-        </td>
-        <td class="space padding-zero"><i class="material-icons" style="color: #32CD32">fiber_manual_record</i></td>
-        <td class="space padding-zero"><i class="material-icons">chevron_left</i><i
-            class="material-icons">chevron_right</i></td>
-        <td class="space padding-zero"><i class="material-icons">send</i></td>
-      </tr>
-      <tr>
-        <td>40%</td>
-        <td colspan="2">
-          <div class="progress hoverable">
-            <div class="determinate" style="width: 40%"></div>
-          </div>
-        </td>
-      </tr>
-      <tr class="card">
-        <td class="name2 padding-zero"><b>3684</b></td>
-        <td class="name3 padding-zero">5051 Upgrade Sistema do Saque</td>
-        <th class="space padding-zero"></th>
-        <td>-</td>
-        <td class="concepcao9 padding-zero">44</td>
-        <td class="concepcao9 padding-zero">45</td>
-        <td class="concepcao9 padding-zero">46</td>
-        <td class="concepcao9 padding-zero">47</td>
-        <td class="concepcao9econcepcao7 padding-zero">48</td>
-        <td class="concepcao7 padding-zero">49</td>
-        <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-        <td class="space realprev padding-zero">24<br>20</td>
-        <td class="space realprev padding-zero">14/01 14/01</td>
-        <td class="space padding-zero"><i class="material-icons" style="color: #FFD700">fiber_manual_record</i></td>
-        <td class="space padding-zero"><i class="material-icons" style="color: rgb(240,0,0)">fiber_manual_record</i>
-        </td>
-        <td class="space padding-zero"><i class="material-icons">chevron_left</i><i
-            class="material-icons">chevron_right</i></td>
-        <td class="space padding-zero"><i class="material-icons">send</i></td>
-      </tr>
-      <tr>
-        <td>80%</td>
-        <td colspan="2">
-          <div class="progress hoverable">
-            <div class="determinate" style="width: 80%"></div>
-          </div>
-        </td>
-      </tr>
-      <tr class="card">
-        <td class="name2 padding-zero"><b>3647</b></td>
-        <td class="name3 padding-zero">5050 Ajustar Perfil do Saque</td>
-        <th class="space padding-zero"></th>
-        <td>-</td>
-        <td class="concepcao7 padding-zero">67</td>
-        <td class="concepcao7 padding-zero">68</td>
-        <td class="concepcao7 padding-zero">69</td>
-        <td class="concepcao7 padding-zero">70</td>
-        <td class="concepcao7 padding-zero">71</td>
-        <td class="concepcao7 padding-zero">72</td>
-        <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-        <td class="space realprev padding-zero">100<br>98</td>
-        <td class="space realprev padding-zero">02/03 28/02</td>
-        <td class="space padding-zero"><i class="material-icons" style="color: #FFD700">fiber_manual_record</i></td>
-        <td class="space padding-zero"><i class="material-icons" style="color: #FFD700">fiber_manual_record</i></td>
-        <td class="space padding-zero"><i class="material-icons">chevron_left</i><i
-            class="material-icons">chevron_right</i></td>
-        <td class="space padding-zero"><i class="material-icons">send</i></td>
-      </tr>
-      <tr>
-        <td>90%</td>
-        <td colspan="2">
-          <div class="progress hoverable">
-            <div class="determinate" style="width: 90%"></div>
-          </div>
-        </td>
-      </tr>
+      <ng-container *ngFor="let project of projects">
+        <tr class="card">
+          <td class="name2 padding-zero"><b>{{ project.code }}</b></td>
+          <td class="name3 padding-zero">{{ project.name }}</td>
+          <th class="space padding-zero"></th>
+          <ng-container *ngFor="let activity of project.activities  let i = index">
+            <td [ngStyle]="{'background-color': activity.style}">
+              <button (click)="openModalProject(projectDetail, project.id, activity.day, activity.month, activity.year)"
+                class="transparent-button">{{ activity.day }}</button>
+            </td>
+          </ng-container>
+          <td class="space realprev padding-zero"><b>Real Prev.</b></td>
+          <td class="space realprev padding-zero">{{ project.actualEffort }}<br>{{ project.predictEffort }}</td>
+          <td class="space realprev padding-zero">{{ project.actualConclusion}} {{ project.predictConclusion }}</td>
+          <td class="space padding-zero"><i class="material-icons"
+              [ngStyle]="{ 'color': project.expectedStyle }">fiber_manual_record</i>
+          </td>
+          <td class="space padding-zero"><i class="material-icons"
+              [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i></td>
+          <td class="space padding-zero" style="display: flex; justify-content: space-around"><i
+              class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></td>
+          <td class="space padding-zero"><i class="material-icons">send</i></td>
+        </tr>
+        <tr>
+          <td>{{ project.completed }}%</td>
+          <td colspan="2">
+            <div class="progress hoverable">
+              <div class="determinate" [ngStyle]="{'width': project.completed+'%'}"></div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
 </div>
@@ -309,7 +136,7 @@
 </ul>
 
 
-<!-- MODAL -->
+<!-- MODAL PLAYER TASK DETAIL-->
 <mz-modal #activityDetail [fixedFooter]="true" [fullscreen]="true" [options]="modalOptions">
   <mz-modal-header>
     <h5 class="center-align">{{ dailyActivity.playerName }}</h5>
@@ -366,24 +193,22 @@
           [popout]="false">
           <mz-collapsible-item [active]="false">
             <mz-collapsible-item-header class="col l12 m12 s12">
-              <div class="mt-10">
-                <div class="valign-wrapper">
-                  <div title="{{activity.project.name}}" class="col l2 m2 s2 left-align">
-                    <span class="activity-text">{{ activity.project.code }}</span>
-                  </div>
-                  <div class="col l6 m6 s6 left-align">
-                    <span class="activity-text">{{ activity.name }}</span>
-                  </div>
-                  <div class="col l2 m2 s2 left-align">
-                    <span class="activity-text">{{ activity.dueDate }}</span>
-                  </div>
-                  <div class="col l1 m1 s1 left-align">
-                    <span class="activity-text">{{ activity.effort }}h</span>
-                  </div>
-                  <div class="col l1 m1 s1 right-align">
-                    <i class="material-icons"
-                      [ngClass]="{ 'warning': activity.status == 'W', 'ok': activity.status == 'O', 'delayed': activity.status == 'D'}">fiber_manual_record</i>
-                  </div>
+              <div class="valign-wrapper">
+                <div title="{{activity.project.name}}" class="col l2 m2 s2 left-align">
+                  <span class="activity-text">{{ activity.project.code }}</span>
+                </div>
+                <div class="col l6 m6 s6 left-align">
+                  <span class="activity-text">{{ activity.name }}</span>
+                </div>
+                <div class="col l2 m2 s2 left-align">
+                  <span class="activity-text">{{ activity.dueDate }}</span>
+                </div>
+                <div class="col l1 m1 s1 left-align">
+                  <span class="activity-text">{{ activity.effort }}h</span>
+                </div>
+                <div class="col l1 m1 s1 padding-zero valign-wrapper">
+                  <i class="material-icons"
+                    [ngClass]="{ 'warning': activity.status == 'W', 'ok': activity.status == 'O', 'delayed': activity.status == 'D'}">fiber_manual_record</i>
                 </div>
               </div>
             </mz-collapsible-item-header>
@@ -407,7 +232,143 @@
                       <td class="table-info">{{ activity.previewStartDate}}</td>
                       <td class="table-info">{{ activity.previewEndDate }}</td>
                       <td class="table-info">{{ activity.startDate }}</td>
-                      <td class="table-info">{{ activity.endDate }}</td>
+                      <td class="table-info">{{ activity.doneIn }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row mt-30">
+                <div class="col l2 m2 s2">
+                  <button [disabled]="true" mz-button>
+                    {{ 'SUSPEND' | translate }}
+                  </button>
+                </div>
+                <div class="col l2 m2 s2">
+                  <button [disabled]="true" mz-button>
+                    {{ 'CANCEL' | translate }}
+                  </button>
+                </div>
+                <div class="col l2 m2 s2">
+                  <button mz-button (click)="reallocate()">
+                    {{ 'REALLOCATE' | translate }}
+                  </button>
+                </div>
+                <div class="col l2 m2 s2">
+                  <button mz-button (click)="designate()">
+                    {{ 'DESIGNATE' | translate }}
+                  </button>
+                </div>
+              </div>
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        </mz-collapsible>
+      </div>
+    </ng-container>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<!-- MODAL PROJECT TASK-->
+<mz-modal #projectDetail [fixedFooter]="true" [fullscreen]="true" [options]="modalOptions">
+  <mz-modal-header>
+    <h5 class="center-align">{{ projectModel.projectName }}</h5>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="divider"></div>
+    <div class="row">
+      <div class="col l12 m12 s12 mt-10">
+        <div class="col l3 m3 s3">
+          <div class="ml-m-25">
+            <div class="col l8 m8 s8 center-align">
+              <span class="activity-text title">{{ projectModel.dayText }}</span>
+              <div class="col l12 m12 s12 center-align">
+                <div class="activity-day">
+                  <span class="activity-day-text">{{ projectModel.day }}/{{ projectModel.month }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col l8 m8 s8">
+          <span class="activity-text title">{{ 'PROGRESS' | translate}}</span>
+          <div class="row mt-15">
+            <div class="col l2 m2 s2">
+              <span>33%</span>
+            </div>
+            <div class="col l10 m10 s10">
+              <div class="progress hoverable">
+                <div class="determinate" [ngStyle]="{'width': projectModel.progress+'%'}"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="divider mt-10"></div>
+    <div class="row mt-10">
+      <div class="col l6 m6 s6 left-align">
+        <span class="activity-text title ml-15">{{ 'ACTIVITY' | translate }}</span>
+      </div>
+      <div class="col l2 m2 s2">
+        <span class="activity-text title ml-25">{{ 'PLAYER' | translate }}</span>
+      </div>
+      <div class="col l2 m2 s2 left-align">
+        <span class="activity-text title ml-m-12">{{ 'DUEDATE' | translate }}</span>
+      </div>
+      <div class="col l1 m1 s1 left-align">
+        <span class="activity-text title ml-m-15">{{ 'EFFORT' | translate }}</span>
+      </div>
+    </div>
+    <ng-container *ngFor="let activity of projectModel.activities">
+      <div class="row">
+        <mz-collapsible [mode]="'expandable'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback"
+          [popout]="false">
+          <mz-collapsible-item [active]="false">
+            <mz-collapsible-item-header class="col l12 m12 s12">
+              <div class="mt-10">
+                <div class="valign-wrapper">
+                  <div class="col l6 m6 s6 left-align">
+                    <span class="activity-text">{{ activity.name }}</span>
+                  </div>
+                  <div class="col l2 m2 s2 left-align">
+                    <span class="activity-text">{{ activity.player.name }}</span>
+                  </div>
+                  <div class="col l2 m2 s2 left-align">
+                    <span class="activity-text">{{ activity.dueDate }}</span>
+                  </div>
+                  <div class="col l1 m1 s1 left-align">
+                    <span class="activity-text">{{ activity.effort }}h</span>
+                  </div>
+                  <div class="col l1 m1 s1 padding-zero valign-wrapper">
+                    <i class="material-icons"
+                      [ngClass]="{ 'warning': activity.status == 'W', 'ok': activity.status == 'O', 'delayed': activity.status == 'D'}">fiber_manual_record</i>
+                  </div>
+                </div>
+              </div>
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body>
+              <div class="row">
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="table-info">{{ 'PLAYER' | translate}}</th>
+                      <th class="table-info">{{ 'CARD' | translate }}</th>
+                      <th class="table-info">{{ 'PREVIEWSTARTDATE' | translate}}</th>
+                      <th class="table-info">{{ 'PREVIEWENDDATE' | translate}}</th>
+                      <th class="table-info">{{ 'STARTDATE' | translate}}</th>
+                      <th class="table-info">{{ 'ENDDATE' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="table-info">{{ activity.player.name }}</td>
+                      <td class="table-info">{{ activity.card.skill.name }} - {{ activity.card.name }}</td>
+                      <td class="table-info">{{ activity.previewStartDate}}</td>
+                      <td class="table-info">{{ activity.previewEndDate }}</td>
+                      <td class="table-info">{{ activity.startDate }}</td>
+                      <td class="table-info">{{ activity.doneIn }}</td>
                     </tr>
                   </tbody>
                 </table>

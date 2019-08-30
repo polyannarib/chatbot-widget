@@ -10,6 +10,7 @@
     "DAILYACTIVITY": "Atividades diárias",
     "CLOSE": "Fechar",
     "PROJECT": "Projeto",
+    "PROJECTS": "Projetos",
     "ACTIVITY": "Atividade",
     "EFFORT": "Esforço",
     "STATUS": "Status",
@@ -22,6 +23,13 @@
     "SUSPEND": "Suspender",
     "CANCEL": "Cancelar",
     "DESIGNATE": "Designar",
-    "REALLOCATE": "Remanejar"
+    "REALLOCATE": "Remanejar",
+    "CODE": "OP",
+    "PROJECTNAME": "Nome do Projeto",
+    "HOURS": "Horas",
+    "DATE": "Data",
+    "EXP": "Prz.",
+    "EFF": "Esf.",
+    "STATUSREPORT": "Status Report"
 
 }

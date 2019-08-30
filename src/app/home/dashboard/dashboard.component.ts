@@ -6,6 +6,7 @@ import { TaskService } from 'src/app/home/shared/services/task.service';
 import { DatePipe } from '@angular/common';
 import { MzModalComponent } from 'ngx-materialize';
 import { ActivityModel } from '../shared/model/ActivityModel';
+import { ProjectModel } from '../shared/model/ProjectModel';
 
 declare var jQuery: any;
 
@@ -19,9 +20,12 @@ export class DashboardComponent implements OnInit {
   startDate: Date;
   endDate: Date;
   players: Array<any>;
-  daysOfWeek: Array<String> = [];
+  projects: Array<any>;
+  daysOfWeek14: Array<String> = [];
+  daysOfWeek7: Array<String> = [];
   activityDetail: MzModalComponent;
   dailyActivity: ActivityModel = new ActivityModel();
+  projectModel: ProjectModel = new ProjectModel();
   isDesigning: Boolean = false;
   isReallocating: Boolean = false;
   selectedAvailablePlayer: String;
@@ -64,7 +68,12 @@ export class DashboardComponent implements OnInit {
       }
     );
 
-    //this.projectService.listProjects().subscribe();
+    this.projectService.listProjects().subscribe(
+      (response) => {
+        console.log(response);
+        this.projects = response;
+      }
+    );
     jQuery(this.el.nativeElement).find('.collapsible').collapsible();
     var main = getComputedStyle(document.body).getPropertyValue('--graph-main-color');
     var second = getComputedStyle(document.body).getPropertyValue('--graph-color');
@@ -119,12 +128,36 @@ export class DashboardComponent implements OnInit {
     let today = new Date();
     today.setDate( today.getDate() - 2 );
     for( let i = 0 ; i < 14 ; i++ ) {
-      this.daysOfWeek.push( this.datePipe.transform(today, 'E') );
+      this.daysOfWeek14.push( this.datePipe.transform(today, 'E') );
+      if( i < 7 ) {
+        this.daysOfWeek7.push( this.datePipe.transform(today, 'E') );
+      }
       today.setDate( today.getDate() + 1 );
     }
+
   }
 
-  openModal(modal: MzModalComponent, id: Number, day: any, month: any, year: any) {
+  openModalProject(modal: MzModalComponent, id: Number, day: any, month: any, year: any) {
+    let date = new Date( year, month - 1, day );
+    this.projectModel.dayText = this.datePipe.transform( date, 'EEEE' );
+
+    let params = {};
+
+    this.taskService.findProjectTasks(params).subscribe(
+      (response) => {
+        this.projectModel.projectName = response.name;
+        this.projectModel.day = day;
+        this.projectModel.month = month;
+        this.projectModel.progress = response.progress;
+        this.projectModel.activities = response.activities;
+      }
+    );
+
+    modal.openModal();
+
+  } 
+
+  openModalPlayer(modal: MzModalComponent, id: Number, day: any, month: any, year: any) {
     /*let params = {
       "player": id,
       "date": day + '/' + month + '/' + year

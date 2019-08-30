@@ -16,4 +16,8 @@ export class TaskService {
   findTasks(params) : Observable< any > {
     return this.http.get( this.url + '/task', { params:params } );
   }
+
+  findProjectTasks(params): Observable< any > {
+    return this.http.get( this.url + '/task_project', { params: params } );
+  }
 }

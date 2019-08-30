@@ -325,7 +325,7 @@ canvas {
 }
 
 .ok {
-    color: rgb(21, 255, 0)
+    color: rgb(21, 255, 0);
 }
 
 .delayed {
@@ -334,4 +334,8 @@ canvas {
 
 .table-info {
     background-color: white
+}
+
+.collapsible li {
+    height:10px
 }
