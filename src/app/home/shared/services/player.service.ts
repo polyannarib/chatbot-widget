@@ -20,4 +20,8 @@ export class PlayerService {
     return this.http.get( this.url + '/players_designate', {params : params} );
   }
 
+  findAllocation(params): Observable< any > {
+    return this.http.get( this.url + '/player_allocation', {params:params} );
+  }
+
 }

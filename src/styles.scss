@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import './theme.scss';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 body{
     overflow: auto;
@@ -52,4 +53,24 @@ body{
 
 .ml-m-12 {
     margin-left: -12px;
+}
+
+.front {
+    z-index: 2000;
+}
+
+td.full-day {
+    background:rgba(255, 0, 0, 0.5)!important;
+    font-weight: bold;
+    border-radius: 100%;
+}
+
+.unallocated {
+    background: rgba(0, 128, 0, 0.7);
+    font-weight: bold;
+    border-radius: 100%;
+}
+
+.modal-text {
+    font-size: 15px;
 }

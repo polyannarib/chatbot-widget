@@ -24,13 +24,23 @@
     "SUSPEND": "Suspender",
     "CANCEL": "Cancelar",
     "DESIGNATE": "Designar",
-    "REALLOCATE": "Remanejar",
+    "RELOCATE": "Remanejar",
     "CODE": "OP",
     "PROJECTNAME": "Nome do Projeto",
     "HOURS": "Horas",
     "DATE": "Data",
     "EXP": "Prz.",
     "EFF": "Esf.",
-    "STATUSREPORT": "Status Report"
-
+    "STATUSREPORT": "Status Report",
+    "PLAYER": "Recurso",
+    "CARD": "Carta",
+    "CONCLUDE": "Concluir",
+    "CONFIRMACTION": "Confirmação de Ação",
+    "CONFIRMMESSAGE": "ATENÇÃO: Esse dia já está preenchido com o número máximo de horas.",
+    "CONFIRMMESSAGE2": "Você confirma o remanejamento da atividade?",
+    "OVERTIME": "Hora extra",
+    "DIRECTORY": "Aprovado pela Diretoria",
+    "DATEFROM": "Data Atual",
+    "DATETO": "Nova Data",
+    "DAYSDELAYED": "Delay (days)"
 }

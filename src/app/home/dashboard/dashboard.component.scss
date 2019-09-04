@@ -339,3 +339,12 @@ canvas {
 .collapsible li {
     height:10px
 }
+
+::ng-deep .cdk-overlay-container{ z-index:2000; }
+
+.invisible{
+    display: block;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+}

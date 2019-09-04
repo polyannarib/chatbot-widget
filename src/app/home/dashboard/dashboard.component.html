@@ -237,7 +237,12 @@
                   </tbody>
                 </table>
               </div>
-              <div class="row mt-30">
+              <div *ngIf="activity.status != 'O'" class="row mt-30">
+                <div class="col l2 m2 s2">
+                  <button [disabled]="true" mz-button>
+                    {{ 'CONCLUDE' | translate }}
+                  </button>
+                </div>
                 <div class="col l2 m2 s2">
                   <button [disabled]="true" mz-button>
                     {{ 'SUSPEND' | translate }}
@@ -248,14 +253,21 @@
                     {{ 'CANCEL' | translate }}
                   </button>
                 </div>
-                <div class="col l2 m2 s2">
-                  <button mz-button (click)="reallocate()">
-                    {{ 'REALLOCATE' | translate }}
+                <div class=" col l2 m2 s2">
+                  <button mz-button (click)="designate()">
+                    {{ 'DESIGNATE' | translate }}
                   </button>
                 </div>
                 <div class="col l2 m2 s2">
-                  <button mz-button (click)="designate()">
-                    {{ 'DESIGNATE' | translate }}
+                  <mat-form-field class="invisible example-full-width">
+                    <input [matDatepickerFilter]="weekend" [min]="today"
+                      (dateInput)="relocateTaskResource(confirm, $event, dailyActivity.playerId, activity.id, activity.name)"
+                      matInput [matDatepicker]="picker" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker [dateClass]="dateClass"></mat-datepicker>
+                  </mat-form-field>
+                  <button mz-button (click)="picker.open()">
+                    {{ 'RELOCATE' | translate }}
                   </button>
                 </div>
               </div>
@@ -373,7 +385,7 @@
                   </tbody>
                 </table>
               </div>
-              <div class="row mt-30">
+              <div *ngIf="activity.status != 'O'" class="row mt-30">
                 <div class="col l2 m2 s2">
                   <button [disabled]="true" mz-button>
                     {{ 'SUSPEND' | translate }}
@@ -385,8 +397,8 @@
                   </button>
                 </div>
                 <div class="col l2 m2 s2">
-                  <button mz-button (click)="reallocate()">
-                    {{ 'REALLOCATE' | translate }}
+                  <button mz-button (click)="relocateTaskProject()">
+                    {{ 'RELOCATE' | translate }}
                   </button>
                 </div>
                 <div class="col l2 m2 s2">
@@ -403,5 +415,52 @@
   </mz-modal-content>
   <mz-modal-footer>
     <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
+  </mz-modal-footer>
+</mz-modal>
+
+
+<!-- MODAL PROJECT TASK-->
+<mz-modal #confirm [fullscreen]="false">
+  <mz-modal-header>
+    <h5 class="center-align">{{ 'CONFIRMACTION' | translate }}</h5>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="row mt-13">
+      <span class="modal-text">
+        {{ 'CONFIRMMESSAGE' | translate }}
+      </span>
+    </div>
+    <div class="row col l6 m6 s6 mt-30">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-info">{{ 'ACTIVITY' | translate}}</th>
+            <th class="table-info">{{ 'DAYSDELAYED' | translate }}</th>
+            <th class="table-info">{{ 'DATEFROM' | translate }}</th>
+            <th class="table-info">{{ 'DATETO' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="table-info">{{ confirmModel.activityName }}</td>
+            <td class="table-info">{{ confirmModel.delay }}</td>
+            <td class="table-info">{{ confirmModel.dateFrom }}</td>
+            <td class="table-info">{{ confirmModel.dateTo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row mt-30">
+      <span class="modal-text">
+        {{ 'CONFIRMMESSAGE2' | translate }}
+      </span>
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
+    <button class="ml-15" mz-button [flat]="true"
+      (click)="confirmRelocateTaskResource('overtime', dailyActivity.playerId)">{{ 'OVERTIME' | translate }}</button>
+    <button mz-button [flat]="true"
+      (click)="confirmRelocateTaskResource('directory', dailyActivity.playerId)">{{ 'DIRECTORY' | translate }}</button>
   </mz-modal-footer>
 </mz-modal>

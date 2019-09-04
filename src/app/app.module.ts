@@ -2,6 +2,7 @@ import { AuthGuardService } from './guards/auth-guard';
 import { AuthService } from './home/shared/services/auth.service';
 import { LoginComponent } from './login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { MaterializeModule } from 'angular2-materialize';
@@ -34,6 +35,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     MaterializeModule,
