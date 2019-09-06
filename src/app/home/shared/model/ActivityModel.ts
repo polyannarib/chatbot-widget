@@ -1,3 +1,5 @@
+import { PlayerModel } from './PlayerModel';
+
 export class ActivityModel {
 
     playerId: Number;
@@ -8,7 +10,10 @@ export class ActivityModel {
     year: number;
     progress: Number;
     activities: Array< any >;
-    players: Array< any >;
+    playersRated: Array< any > = new Array< any >();
+    playersAvailable: Array< any > = new Array< any >();
+    playersRatedFiltered: Array< any > = new Array< any >();
+    playersAvailableFiltered: Array< any > = new Array< any >();
     minDate: any;
 
     constructor() { }

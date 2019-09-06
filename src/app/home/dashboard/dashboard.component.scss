@@ -318,6 +318,7 @@ canvas {
 .label {
     font-family: Roboto, sans-serif;
     font-weight: bold;
+    color: black;
 }
 
 .warning {
@@ -330,6 +331,10 @@ canvas {
 
 .delayed {
     color:rgb(255, 0, 0)
+}
+
+.suspended {
+    color: gray;
 }
 
 .table-info {
@@ -348,3 +353,31 @@ canvas {
     height: 0;
     width: 0;
 }
+
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+  
+.example-radio-button {
+    margin: 5px;
+}
+
+.radio-text {
+    font-family: Roboto, sans-serif;
+    color: black;
+}
+
+.input-50 {
+    width: 50%;
+}
+
+.red {
+    color: red;
+}
+
+.action-btn {
+    font-size: 3rem;
+}
+  

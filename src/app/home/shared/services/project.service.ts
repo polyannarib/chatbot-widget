@@ -15,4 +15,8 @@ export class ProjectService {
   listProjects(): Observable<any> {
     return this.http.get(this.url + '/project');
   }
+
+  findAllocation(params): Observable<any> {
+    return this.http.get(this.url + '/project_allocation', {params:params} );
+  }
 }

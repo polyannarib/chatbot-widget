@@ -3,6 +3,7 @@
     "EDIT": "Edit",
     "DELETE": "Delete",
     "INSPECT": "Inspect",
+    "CONFIRM": "Confirmar",
     "NAME": "Name",
     "DESCRIPTION": "Description",
     "GRAPHICS": "Graphics",
@@ -42,4 +43,10 @@
     "DIRECTORY": "Approved by CEO",
     "DATEFROM": "Current Date",
     "DATETO": "New Date",
-    "DAYSDELAYED": "Delay (days)"
+    "DAYSDELAYED": "Delay (days)",
+    "RATEDPLAYER": "Best rated",
+    "AVAILABLEPLAYER": "Available",
+    "SEARCHMORE": "Search for More",
+    "BUSYDESIGNATECONFIRMMESSAGE": "Your chosen resource is busy on this day.",
+    "TASK": "Task"
+}

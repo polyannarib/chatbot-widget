@@ -3,6 +3,7 @@
     "EDIT": "Editar",
     "DELETE": "Excluir",
     "INSPECT": "Inspecionar",
+    "CONFIRM": "Confirmar",
     "NAME": "Nome",
     "DESCRIPTION": "Descrição",
     "GRAPHICS": "Gráficos",
@@ -42,5 +43,10 @@
     "DIRECTORY": "Aprovado pela Diretoria",
     "DATEFROM": "Data Atual",
     "DATETO": "Nova Data",
-    "DAYSDELAYED": "Delay (days)"
+    "DAYSDELAYED": "Atraso (dias)",
+    "RATEDPLAYER": "Melhores avaliados",
+    "AVAILABLEPLAYER": "Disponíveis",
+    "SEARCHMORE": "Busque por mais",
+    "BUSYDESIGNATECONFIRMMESSAGE": "O recurso escolhido está ocupado, ou a quantidade de horas excede o proposto pelo trabalho diário.",
+    "TASK": "Atividade"
 }

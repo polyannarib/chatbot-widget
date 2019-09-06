@@ -6,9 +6,10 @@ import { ChartsModule } from 'ng2-charts';
 import { HomeComponent } from './home/home.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MzModalModule, MzButtonModule, MzInputModule, MzCollapsibleModule, MzRadioButtonModule } from 'ngx-materialize'
-import { MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule } from '@angular/material';
+import { MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from './shared/pipe/pipes.module';
+
 const routes = [
   {
     path: '', 
@@ -23,7 +24,10 @@ const routes = [
 ]
 
 @NgModule({
-  declarations: [DashboardComponent, HomeComponent],
+  declarations: [
+    DashboardComponent, 
+    HomeComponent
+  ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -40,6 +44,9 @@ const routes = [
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
+    MatRadioModule,
+    MatButtonModule,
+    MatIconModule,
     RouterModule.forChild(routes)
   ]
 })

@@ -18,7 +18,8 @@ import { ProjectService } from './home/shared/services/project.service';
 import { DatePipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
-
+import { LoadingServiceComponent } from './home/loading-service/loading-service.component';
+import { LoadingService } from './home/shared/services/loading.service';
 import pt from '@angular/common/locales/pt';
 
 registerLocaleData(pt);
@@ -31,7 +32,8 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    LoadingServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +57,7 @@ export function createTranslateLoader(http: HttpClient) {
     AuthService,
     AuthGuardService,
     ProjectService,
+    LoadingService,
     DatePipe,
     { provide: LOCALE_ID, useValue: 'pt' },
   ],
