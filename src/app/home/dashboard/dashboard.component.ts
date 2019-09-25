@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
 
   startDate: Date;
   endDate: Date;
+  endDateProject: Date;
   players: Array<any>;
   player: any = {};
   projects: Array<any>;
@@ -64,7 +65,6 @@ export class DashboardComponent implements OnInit {
   }
 
   dateClassProject = (d: Date) => {
-    const date = d.getDate();
     const dateText = this.datePipe.transform(d, 'dd/MM/yyyy');
     return this.projectAllocation.full.includes(dateText)
       ? 'full-day' : 'unallocated';
@@ -90,31 +90,10 @@ export class DashboardComponent implements OnInit {
     this.loadCalendar();
     this.startDate = new Date();
     this.endDate = new Date();
+    this.endDateProject = new Date();
     this.startDate.setDate(this.startDate.getDate() - 2);
-    this.endDate.setDate(this.startDate.getDate() + 14);
-    Promise.all([
-      new Promise(function (resolve, reject) {
-        let params = {
-
-        }
-        self.playerService.findPlayers(params).subscribe(
-          (response) => {
-            self.players = response;
-            resolve();
-          }
-        );
-      }),
-      new Promise(function (resolve, reject) {
-        self.projectService.listProjects().subscribe(
-          (response) => {
-            self.projects = response;
-            resolve();
-          }
-        );
-      })
-    ]).then(() => {
-      self.loadingService.hidePreloader();
-    });
+    this.endDate.setDate(this.startDate.getDate() + 13);
+    this.endDateProject.setDate(this.startDate.getDate() + 7);
 
     jQuery(this.el.nativeElement).find('.collapsible').collapsible();
     var main = getComputedStyle(document.body).getPropertyValue('--graph-main-color');
@@ -164,12 +143,42 @@ export class DashboardComponent implements OnInit {
       labels: ['Projetos no prazo', 'Projetos atrasados'],
       type: 'pie'
     })
+
+    Promise.all([
+      new Promise(function (resolve, reject) {
+        let params = {
+          "startDate": self.datePipe.transform(self.startDate, 'dd-MM-yyyy'),
+          "page": 1,
+          "pageSize": 10
+        }
+        self.playerService.findPlayers(params).subscribe(
+          (response) => {
+            self.players = response.object.list;
+            resolve();
+          }
+        );
+      }),
+      new Promise(function (resolve, reject) {
+        let params = {
+          "startDate": self.datePipe.transform(self.startDate, 'dd-MM-yyyy'),
+          "endDate": self.datePipe.transform(self.endDateProject, 'dd-MM-yyyy')
+        }
+        self.projectService.listProjects(params).subscribe(
+          (response) => {
+            self.projects = response.object.list;
+            resolve();
+          }
+        );
+      })
+    ]).then(() => {
+      self.loadingService.hidePreloader();
+    });
   }
 
   loadCalendar() {
     let today = new Date();
     today.setDate(today.getDate() - 2);
-    for (let i = 0; i < 14; i++) {
+    for (let i = 0; i < 13; i++) {
       this.daysOfWeek14.push(this.datePipe.transform(today, 'E'));
       if (i < 7) {
         this.daysOfWeek7.push(this.datePipe.transform(today, 'E'));
@@ -190,13 +199,15 @@ export class DashboardComponent implements OnInit {
       new Promise(function (resolve, reject) {
         let params = {};
 
-        self.taskService.findProjectTasks(params).subscribe(
+        self.taskService.findProjectTasks(id, day + '-' + month + '-' + year).subscribe(
           (response) => {
-            self.projectModel.projectName = response.name;
+            const obj = response.object;
+            self.projectModel.projectName = obj.name;
             self.projectModel.day = day;
             self.projectModel.month = month;
-            self.projectModel.progress = response.progress;
-            self.projectModel.activities = response.activities;
+            self.projectModel.progress = obj.progress;
+            self.projectModel.activities = obj.tasks;
+            console.log(self.projectModel);
             resolve();
           }
         );
@@ -204,12 +215,14 @@ export class DashboardComponent implements OnInit {
       new Promise(function (resolve, reject) {
         let allocationParams = {};
 
+        /*
         self.projectService.findAllocation(allocationParams).subscribe(
           (response) => {
             self.projectAllocation = response;
             resolve();
           }
-        )
+        )*/
+        resolve();
       })
     ]).then(() => {
       modal.openModal();
@@ -219,10 +232,6 @@ export class DashboardComponent implements OnInit {
   }
 
   openModalPlayer(modal: MzModalComponent, id: Number, day: any, month: any, year: any) {
-    /*let params = {
-      "player": id,
-      "date": day + '/' + month + '/' + year
-    }*/
     let self = this;
     this.loadingService.showPreloader();
     let date = new Date(year, month - 1, day);
@@ -230,24 +239,27 @@ export class DashboardComponent implements OnInit {
 
     Promise.all([
       new Promise(function (resolve, reject) {
-        let params = {};
 
-        self.taskService.findTasks(params).subscribe(
+        self.taskService.findTasks(id, day+'-'+month+'-'+year).subscribe(
           (response) => {
-            self.dailyActivity.playerId = response.player.id;
-            self.dailyActivity.playerName = response.player.name;
+            const obj = response.object;
+            self.dailyActivity.playerId = obj.player.id;
+            self.dailyActivity.playerName = obj.player.name;
             self.dailyActivity.day = day;
             self.dailyActivity.month = month;
             self.dailyActivity.year = year;
-            self.dailyActivity.progress = response.progress;
-            self.dailyActivity.activities = response.activities;
+            self.dailyActivity.progress = obj.progress;
+            self.dailyActivity.activities = obj.tasks;
             resolve();
           }
         )
       }),
       new Promise(function (resolve, reject) {
-        let allocationParams = {}
-        self.playerService.findAllocation(allocationParams).subscribe(
+        let allocationParams = {
+          "startDate": '23-09-2019',
+          "endDate": '23-12-2019'
+        }
+        self.playerService.findAllocation(id, allocationParams).subscribe(
           (response) => {
             self.playerAllocation = response;
             resolve();

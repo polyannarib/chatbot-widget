@@ -97,7 +97,6 @@ th, td {
 .name2{
     background-color: #CDCDCD;
     border: none;
-    max-width: 40px;
 }
 .name3{
     background-color: #CDCDCD;
@@ -334,7 +333,15 @@ canvas {
 }
 
 .suspended {
+    color: black;
+}
+
+.building {
     color: gray;
+}
+
+.hanging {
+    color:#85C1E9;
 }
 
 .table-info {

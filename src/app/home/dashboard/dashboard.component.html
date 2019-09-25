@@ -29,7 +29,7 @@
   </div>
 </div>
 <div class="row tables">
-  <table class="col s12 m12 l4 centered table1">
+  <table class="col s12 m12 l4 table1">
     <thead>
       <tr>
         <th class="space days" colspan="2">Java</th>
@@ -41,10 +41,10 @@
     <tbody>
       <ng-container *ngFor="let player of players">
         <tr class="card">
-          <td class="spacename"></td>
+          <td class="spacename"><i class="material-icons tiny">person</i></td>
           <td class="name left-align"><b>{{ player.name }}</b></td>
           <th class="space"></th>
-          <ng-container *ngFor="let activity of player.activities  let i = index">
+          <ng-container *ngFor="let activity of player.tasks  let i = index">
             <td [ngStyle]="{'background-color': activity.style}">
               <button (click)="openModalPlayer(activityDetail, player.id, activity.day, activity.month, activity.year)"
                 class="transparent-button">{{ activity.day }}</button>
@@ -62,8 +62,7 @@
       </ng-container>
     </tbody>
   </table>
-
-  <table class="col s12 m12 l5 centered">
+  <table class="col s12 m12 l5">
     <thead>
       <tr>
         <th class="space">{{ 'CODE' | translate }}</th>
@@ -86,7 +85,7 @@
           <td class="name2 padding-zero"><b>{{ project.code }}</b></td>
           <td class="name3 padding-zero">{{ project.name }}</td>
           <th class="space padding-zero"></th>
-          <ng-container *ngFor="let activity of project.activities  let i = index">
+          <ng-container *ngFor="let activity of project.tasks  let i = index">
             <td [ngStyle]="{'background-color': activity.style}">
               <button (click)="openModalProject(projectDetail, project.id, activity.day, activity.month, activity.year)"
                 class="transparent-button">{{ activity.day }}</button>
@@ -117,11 +116,10 @@
   </table>
 </div>
 
-<!-- Gráficos -->
-<ul class="collapsible graphicsDiv" data-collapsible="accordion">
+<!--div class="row">
+<ul class="collapsible" data-collapsible="accordion">
   <li>
     <div class="collapsible-header active">
-      <!-- <i class="far fa-chart-bar"></i> -->
       <p><b>{{'GRAPHICS' | translate}}</b></p>
     </div>
     <div class="collapsible-body ">
@@ -134,7 +132,7 @@
     </div>
   </li>
 </ul>
-
+</div-->
 
 <!-- MODAL PLAYER TASK DETAIL-->
 <mz-modal #activityDetail [fixedFooter]="true" [fullscreen]="true" [options]="modalOptions">
@@ -208,7 +206,11 @@
                 </div>
                 <div class="col l1 m1 s1 padding-zero valign-wrapper">
                   <i class="material-icons"
-                    [ngClass]="{ 'warning': activity.status == 'W', 'ok': activity.status == 'O', 'delayed': activity.status == 'D'}">fiber_manual_record</i>
+                    [ngClass]="{  'building': activity.status == 'BUILDING', 
+                                  'warning': activity.status == 'EXECUTION', 
+                                  'ok': activity.status == 'FINISHED', 
+                                  'hanging': activity.status == 'HANGING',
+                                  'delayed': activity.status == 'DELAYED' }">fiber_manual_record</i>
                 </div>
               </div>
             </mz-collapsible-item-header>
@@ -228,7 +230,7 @@
                   <tbody>
                     <tr>
                       <td class="table-info">{{ activity.project.name }}</td>
-                      <td class="table-info">{{ activity.card.skill.name }} - {{ activity.card.name }}</td>
+                      <td class="table-info">{{ activity.card.skillName }} - {{ activity.card.cardName }}</td>
                       <td class="table-info">{{ activity.previewStartDate}}</td>
                       <td class="table-info">{{ activity.previewEndDate }}</td>
                       <td class="table-info">{{ activity.startDate }}</td>
@@ -402,14 +404,18 @@
                     <span class="activity-text">{{ activity.player != null ? activity.player.name : '' }}</span>
                   </div>
                   <div class="col l2 m2 s2 left-align">
-                    <span class="activity-text">{{ activity.dueDate }}</span>
+                    <span class="activity-text">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</span>
                   </div>
                   <div class="col l1 m1 s1 left-align">
-                    <span class="activity-text">{{ activity.effort }}h</span>
+                    <span class="activity-text">{{ activity.duration }}h</span>
                   </div>
                   <div class="col l1 m1 s1 padding-zero valign-wrapper">
                     <i class="material-icons"
-                      [ngClass]="{ 'warning': activity.status == 'W', 'ok': activity.status == 'O', 'delayed': activity.status == 'D', 'suspended': activity.status == 'S'}">fiber_manual_record</i>
+                    [ngClass]="{  'building': activity.status == 'BUILDING', 
+                                  'warning': activity.status == 'EXECUTION', 
+                                  'ok': activity.status == 'FINISHED', 
+                                  'hanging': activity.status == 'HANGING',
+                                  'delayed': activity.status == 'DELAYED' }">fiber_manual_record</i>
                   </div>
                 </div>
               </div>
@@ -430,9 +436,9 @@
                   <tbody>
                     <tr>
                       <td class="table-info">{{ activity.player != null ? activity.player.name : '' }}</td>
-                      <td class="table-info">{{ activity.card.skill.name }} - {{ activity.card.name }}</td>
-                      <td class="table-info">{{ activity.previewStartDate}}</td>
-                      <td class="table-info">{{ activity.previewEndDate }}</td>
+                      <td class="table-info">{{ activity.card.skillName }} - {{ activity.card.cardName }}</td>
+                      <td class="table-info">{{ activity.expectedAt | date:'dd/MM/yyyy' }}</td>
+                      <td class="table-info">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</td>
                       <td class="table-info">{{ activity.startDate }}</td>
                       <td class="table-info">{{ activity.doneIn }}</td>
                     </tr>

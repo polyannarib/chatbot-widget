@@ -9,19 +9,20 @@ import { Observable, throwError } from 'rxjs';
 export class PlayerService {
 
   private url: string = environment.fake_rest;
+  private server: string = environment.back_end_url;
 
   constructor(private http: HttpClient) { }
 
   findPlayers(params): Observable< any > {
-    return this.http.get( this.url + '/players', {params : params} );
+    return this.http.get( this.server + '/dashboard/player', {params : params} );
   }
 
   findDesignatePlayers(params): Observable< any > {
     return this.http.get( this.url + '/players_designate', {params : params} );
   }
 
-  findAllocation(params): Observable< any > {
-    return this.http.get( this.url + '/player_allocation', {params:params} );
+  findAllocation(id: Number, params: any): Observable< any > {
+    return this.http.get( this.server + '/dashboard/player/' + id + '/allocation', {params:params} );
   }
 
 }

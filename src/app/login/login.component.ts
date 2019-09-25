@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    if( this.authService.getUser() ){
+    if( this.authService.getUser() && localStorage.getItem( 'token' ) != null ){
       this.router.navigate(['/home/dashboard']);
     }
   }

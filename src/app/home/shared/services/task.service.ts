@@ -10,14 +10,15 @@ import { tap, filter, catchError, mergeMap } from 'rxjs/operators';
 export class TaskService {
 
   private url: string = environment.fake_rest;
+  private server: string = environment.back_end_url;
   
   constructor(private http: HttpClient) { }
 
-  findTasks(params) : Observable< any > {
-    return this.http.get( this.url + '/task', { params:params } );
+  findTasks(playerId: Number, date: String) : Observable< any > {
+    return this.http.get( this.server + '/dashboard/player/' + playerId + '/task/date/' + date );
   }
 
-  findProjectTasks(params): Observable< any > {
-    return this.http.get( this.url + '/task_project', { params: params } );
+  findProjectTasks(id: Number, date: String): Observable< any > {
+    return this.http.get( this.server + '/dashboard/project/' + id + '/task/date/' + date );
   }
 }
