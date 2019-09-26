@@ -8,21 +8,20 @@ import { Observable, throwError } from 'rxjs';
 })
 export class PlayerService {
 
-  private url: string = environment.fake_rest;
-  private server: string = environment.back_end_url;
+  private url: string = environment.back_end_url;
 
   constructor(private http: HttpClient) { }
 
-  findPlayers(params): Observable< any > {
-    return this.http.get( this.server + '/dashboard/player', {params : params} );
+  findPlayers(params: any): Observable< any > {
+    return this.http.get( this.url + '/dashboard/player', {params : params} );
   }
 
-  findDesignatePlayers(params): Observable< any > {
-    return this.http.get( this.url + '/players_designate', {params : params} );
+  findDesignatePlayers(taskId: Number): Observable< any > {
+    return this.http.get( this.url + '/dashboard/task/' + taskId + '/player/available' );
   }
 
   findAllocation(id: Number, params: any): Observable< any > {
-    return this.http.get( this.server + '/dashboard/player/' + id + '/allocation', {params:params} );
+    return this.http.get( this.url + '/dashboard/player/' + id + '/allocation', {params:params} );
   }
 
 }

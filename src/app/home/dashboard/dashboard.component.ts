@@ -250,6 +250,7 @@ export class DashboardComponent implements OnInit {
             self.dailyActivity.year = year;
             self.dailyActivity.progress = obj.progress;
             self.dailyActivity.activities = obj.tasks;
+            console.log(self.dailyActivity);
             resolve();
           }
         )
@@ -272,12 +273,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  designate() {
+  designate(taskId) {
     if (!this.isDesigning) {
       this.isDesigning = true;
-      let params = {};
 
-      this.playerService.findDesignatePlayers(params).subscribe(
+      this.playerService.findDesignatePlayers(taskId).subscribe(
         (response) => {
           this.dailyActivity.playersRatedFiltered = response.rated;
           this.dailyActivity.playersAvailableFiltered = response.available;

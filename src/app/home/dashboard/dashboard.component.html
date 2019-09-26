@@ -199,10 +199,10 @@
                   <span class="activity-text">{{ activity.name }}</span>
                 </div>
                 <div class="col l2 m2 s2 left-align">
-                  <span class="activity-text">{{ activity.dueDate }}</span>
+                  <span class="activity-text">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</span>
                 </div>
                 <div class="col l1 m1 s1 left-align">
-                  <span class="activity-text">{{ activity.effort }}h</span>
+                  <span class="activity-text">{{ activity.duration }}h</span>
                 </div>
                 <div class="col l1 m1 s1 padding-zero valign-wrapper">
                   <i class="material-icons"
@@ -210,7 +210,8 @@
                                   'warning': activity.status == 'EXECUTION', 
                                   'ok': activity.status == 'FINISHED', 
                                   'hanging': activity.status == 'HANGING',
-                                  'delayed': activity.status == 'DELAYED' }">fiber_manual_record</i>
+                                  'delayed': activity.status == 'DELAYED',
+                                  'waiting' : activity.status == 'WAITING' }">fiber_manual_record</i>
                 </div>
               </div>
             </mz-collapsible-item-header>
@@ -231,10 +232,10 @@
                     <tr>
                       <td class="table-info">{{ activity.project.name }}</td>
                       <td class="table-info">{{ activity.card.skillName }} - {{ activity.card.cardName }}</td>
-                      <td class="table-info">{{ activity.previewStartDate}}</td>
-                      <td class="table-info">{{ activity.previewEndDate }}</td>
-                      <td class="table-info">{{ activity.startDate }}</td>
-                      <td class="table-info">{{ activity.doneIn }}</td>
+                      <td class="table-info">{{ activity.expectedAt | date:'dd/MM/yyyy' }}</td>
+                      <td class="table-info">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</td>
+                      <td class="table-info">{{ activity.startedAt | date:'dd/MM/yyyy' }}</td>
+                      <td class="table-info">{{ activity.finalizedAt | date:'dd/MM/yyyy' }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -253,11 +254,6 @@
                 <div class="col l1 m1 s1">
                   <button mat-icon-button>
                     <i class="material-icons action-btn orange-text">do_not_disturb_on</i>
-                  </button>
-                </div>
-                <div class="col l1 m1 s1">
-                  <button mat-icon-button>
-                    <i class="material-icons action-btn" (click)="designate()">person_add</i>
                   </button>
                 </div>
                 <div class="col l1 m1 s1">
@@ -415,7 +411,8 @@
                                   'warning': activity.status == 'EXECUTION', 
                                   'ok': activity.status == 'FINISHED', 
                                   'hanging': activity.status == 'HANGING',
-                                  'delayed': activity.status == 'DELAYED' }">fiber_manual_record</i>
+                                  'delayed': activity.status == 'DELAYED',
+                                  'waiting': activity.status == 'WAITING' }">fiber_manual_record</i>
                   </div>
                 </div>
               </div>
@@ -461,12 +458,12 @@
                     <i class="material-icons action-btn orange-text">do_not_disturb_on</i>
                   </button>
                 </div>
-                <div class="col l1 m1 s1">
+                <div class="col l1 m1 s1" *ngIf="activity.status == 'BUILDING'"> 
                   <button mat-icon-button>
-                    <i class="material-icons action-btn" (click)="designate()">person_add</i>
+                    <i class="material-icons action-btn" (click)="designate(activity.id)">person_add</i>
                   </button>
                 </div>
-                <div class="col l1 m1 s1">
+                <div class="col l1 m1 s1" *ngIf="activity.status != 'EXECUTION'">
                   <mat-form-field class="invisible example-full-width">
                     <input [matDatepickerFilter]="weekend" [min]="today" matInput [matDatepicker]="pickerProject"
                       placeholder="Choose a date">

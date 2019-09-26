@@ -8,13 +8,12 @@ import { Observable } from 'rxjs'
 })
 export class ProjectService {
 
-  private url: string = environment.fake_rest;
-  private server: string = environment.back_end_url;
+  private url: string = environment.back_end_url;
 
   constructor(private http: HttpClient) { }
 
   listProjects(params: any): Observable<any> {
-    return this.http.get(this.server + '/dashboard/project', {params:params});
+    return this.http.get(this.url + '/dashboard/project', {params:params});
   }
 
   findAllocation(params): Observable<any> {
