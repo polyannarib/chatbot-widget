@@ -97,7 +97,6 @@ th, td {
 .name2{
     background-color: #CDCDCD;
     border: none;
-    max-width: 40px;
 }
 .name3{
     background-color: #CDCDCD;
@@ -177,6 +176,8 @@ body{
     height: 7px;
     width: 100%;
     background-color: #ffffff;
+    border-color: black;
+    border: 1px solid black;
     margin: .5rem 0 0.5rem 0;
 }
 .progress .determinate {
@@ -270,3 +271,124 @@ tr{
 canvas {
     height: 110px;
 }
+
+.transparent-button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.rounded-activity {
+    border: 1px solid rgb(250, 2, 2);
+    text-align: center;
+    border-radius: 10px;
+    line-height: 45px;
+    padding: 0;
+}
+
+.activity-day {
+    border: 1px solid #eee;
+    margin: 7px 0;
+    text-align: center;
+    line-height: 35px;
+    font-size: 28px;
+    background-color: rgb(255, 157, 140);
+    color: white;
+    border-radius: 10px;
+    padding: 0;
+}
+
+.activity-day-text {
+    font-size: 22px;
+}
+
+.activity-text {
+    font-size: 15px;
+    padding: 0px;
+}
+
+.activity-text.title {
+    font-weight: bold;
+}
+
+.label {
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: black;
+}
+
+.warning {
+    color: #FFD700;
+}
+
+.ok {
+    color: rgb(21, 255, 0);
+}
+
+.waiting {
+    color: #ae6634
+}
+
+.delayed {
+    color:rgb(255, 0, 0)
+}
+
+.suspended {
+    color: black;
+}
+
+.building {
+    color: gray;
+}
+
+.hanging {
+    color:#85C1E9;
+}
+
+.table-info {
+    background-color: white
+}
+
+.collapsible li {
+    height:10px
+}
+
+::ng-deep .cdk-overlay-container{ z-index:2000; }
+
+.invisible{
+    display: block;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+}
+
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+  
+.example-radio-button {
+    margin: 5px;
+}
+
+.radio-text {
+    font-family: Roboto, sans-serif;
+    color: black;
+}
+
+.input-50 {
+    width: 50%;
+}
+
+.red {
+    color: red;
+}
+
+.action-btn {
+    font-size: 3rem;
+}
+  

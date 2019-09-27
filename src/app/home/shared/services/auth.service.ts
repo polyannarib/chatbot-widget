@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
-import { User } from '../login/user';
+import { User } from '../../../login/user';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment'
+import { environment } from '../../../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -42,11 +42,10 @@ export class AuthService {
             this.user.permissions = userInfo['permissions'];
             this.user.scopes = userInfo['scopes'];
 
-
             this.usuarioAutenticado = true;
 
-            // TODO: retirar isso, o ideal é salvar o token
             localStorage.setItem('user', JSON.stringify(this.user));
+            localStorage.setItem('token', resp.headers.get('X-Token'));
             this.router.navigate(['/home/dashboard']);
 
           } else {

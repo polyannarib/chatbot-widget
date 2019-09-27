@@ -1,5 +1,5 @@
 import { User } from './user';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../home/shared/services/auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    if( this.authService.getUser() ){
+    if( this.authService.getUser() && localStorage.getItem( 'token' ) != null ){
       this.router.navigate(['/home/dashboard']);
     }
   }

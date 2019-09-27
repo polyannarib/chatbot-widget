@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/home/shared/services/auth.service';
 import { Router } from '@angular/router';
 import { company } from '../../../environments/environment'
 
