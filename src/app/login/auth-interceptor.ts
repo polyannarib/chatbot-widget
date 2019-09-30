@@ -5,6 +5,9 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } fr
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from '../home/shared/services/auth.service';
 import { LoadingService } from 'src/app/home/shared/services/loading.service';
+import { ModalErrorComponent } from 'src/app/home/modal/error/modal-error.component';
+import { MzModalService } from 'ngx-materialize';
+
 
 import {tap} from 'rxjs/operators';
 
@@ -14,7 +17,8 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
     constructor( 
         private authService: AuthService, 
         private router: Router,
-        private loadingService: LoadingService ) {}
+        private loadingService: LoadingService,
+        private modalService: MzModalService ) {}
 
     intercept(req: HttpRequest<any>,next: HttpHandler,): Observable<HttpEvent<any>> {
         let returnReq = req;
@@ -41,6 +45,7 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
                 this.router.navigate(['/login']);
                 this.loadingService.hidePreloader();
             } else if( error.status == 500 ) {
+                this.modalService.open( ModalErrorComponent );
             }
         }
         ));

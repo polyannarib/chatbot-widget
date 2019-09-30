@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ModalSuccessComponent } from './modal/success/modal-success.component';
 import { RouterModule } from '@angular/router';
-import { ChartsModule } from 'ng2-charts';
 import { HomeComponent } from './home/home.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MzModalModule, MzButtonModule, MzInputModule, MzCollapsibleModule, MzRadioButtonModule } from 'ngx-materialize'
@@ -26,13 +26,16 @@ const routes = [
 @NgModule({
   declarations: [
     DashboardComponent, 
-    HomeComponent
+    HomeComponent,
+    ModalSuccessComponent
+  ],
+  entryComponents: [
+    ModalSuccessComponent,
   ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    ChartsModule,
     PipesModule,
     TranslateModule,
     MzModalModule,

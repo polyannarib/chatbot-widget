@@ -4,6 +4,8 @@ export class ProjectModel {
     dayText: String;
     day: Number;
     month: Number;
+    date: String;
+    dateFmt: String;
     progress: Number;
     activities: Array< any >;
 

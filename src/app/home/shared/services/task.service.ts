@@ -20,4 +20,20 @@ export class TaskService {
   findProjectTasks(id: Number, date: String): Observable< any > {
     return this.http.get( this.url + '/dashboard/project/' + id + '/task/date/' + date );
   }
+
+  finalize(id: Number): Observable< any > {
+    return this.http.get( this.url + '/task/' + id + '/finalize' );
+  }
+
+  suspend(id: Number, reason: String ): Observable< any > {
+    return this.http.get( this.url + '/task/' + id + '/suspend?reason=' + reason );
+  }
+
+  removePlayer(id: Number, reason: String ): Observable< any > {
+    return this.http.get( this.url + '/task/' + id + '/giveBack?reason=' + reason );
+  }
+
+  assignTask(taskId: Number, playerId: Number ): Observable< any > {
+    return this.http.get( this.url + '/task/' + taskId + '/assign/player/' + playerId );
+  }
 }

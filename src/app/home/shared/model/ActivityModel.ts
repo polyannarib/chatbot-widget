@@ -5,6 +5,8 @@ export class ActivityModel {
     playerId: Number;
     playerName: String;
     dayText: String;
+    date: String;
+    dateFmt: String;
     day: number;
     month: number;
     year: number;

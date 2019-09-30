@@ -18,8 +18,10 @@ import { ProjectService } from './home/shared/services/project.service';
 import { DatePipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
+import { MzModalModule, MzButtonModule, MzInputModule, MzCollapsibleModule, MzRadioButtonModule } from 'ngx-materialize'
 import { LoadingServiceComponent } from './home/loading-service/loading-service.component';
 import { LoadingService } from './home/shared/services/loading.service';
+import { ModalErrorComponent } from './home/modal/error/modal-error.component';
 import pt from '@angular/common/locales/pt';
 
 registerLocaleData(pt);
@@ -33,13 +35,22 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     AppComponent,
     LoginComponent,
-    LoadingServiceComponent
+    LoadingServiceComponent,
+    ModalErrorComponent
+  ],
+  entryComponents: [
+    ModalErrorComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    MzModalModule,
+    MzButtonModule,
+    MzInputModule,
+    MzCollapsibleModule,
+    MzRadioButtonModule,
     MaterializeModule,
     HttpClientModule,
     NgxSpinnerModule,
