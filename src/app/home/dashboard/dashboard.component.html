@@ -3,20 +3,20 @@
 
 <div class="row">
   <div class="row extremidades col l5">
-    <div class="card recursos col l3 ml-10">
-      <h6>{{ 'RESOURCES' | translate }}</h6><i class="fa fa-filter"></i>
+    <div class="card recursos col l4 ml-10">
+      <input autocomplete="off" (input)="onSearchChangeResource($event.target.value)" matInput
+        placeholder="{{ 'RESOURCES' | translate }}" value=""><i class="fa fa-filter"></i>
     </div>
     <div class="col l3">
-      <div><i class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></div>
     </div>
     <div class="col l3"></div>
     <div class="col l3">
-      <div><i class="material-icons">zoom_out</i><i class="material-icons">zoom_in</i></div>
     </div>
   </div>
   <div class="row extremidades col l6">
     <div class="card recursos col l3 ml-20">
-      <h6>{{ 'PROJECTS' | translate }}</h6><i class="fa fa-filter"></i>
+        <input autocomplete="off" (input)="onSearchChangeProject($event.target.value)" matInput
+        placeholder="{{ 'PROJECTS' | translate }}" value=""><i class="fa fa-filter"></i>
     </div>
     <div class="col l3">
       <div>
@@ -41,7 +41,7 @@
     </thead>
 
     <tbody>
-      <ng-container *ngFor="let player of players">
+      <ng-container *ngFor="let player of filteredPlayers | slice:0:8; let i=index">
         <tr class="card">
           <td class="spacename"><i class="material-icons tiny">person</i></td>
           <td class="name left-align"><b>{{ player.name }}</b></td>
@@ -81,7 +81,7 @@
     </thead>
 
     <tbody>
-      <ng-container *ngFor="let project of projects">
+      <ng-container *ngFor="let project of filteredProjects | slice:0:8; let i=index">
         <tr class="card">
           <td class="name2 padding-zero"><b>{{ project.code }}</b></td>
           <td class="name3 padding-zero">{{ project.name }}</td>

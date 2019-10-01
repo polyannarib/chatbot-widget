@@ -32,8 +32,10 @@ export class DashboardComponent implements OnInit {
   endDate: Date;
   endDateProject: Date;
   players: Array<any>;
+  filteredPlayers: Array<any>;
   player: any = {};
   projects: Array<any>;
+  filteredProjects: Array<any>;
   playerAllocation: AllocationModel = new AllocationModel();
   projectAllocation: AllocationModel = new AllocationModel();
   daysOfWeek14: Array<String> = [];
@@ -114,6 +116,7 @@ export class DashboardComponent implements OnInit {
         self.playerService.findPlayers(params).subscribe(
           (response) => {
             self.players = response.object.list;
+            self.filteredPlayers = response.object.list;
             resolve();
           }
         );
@@ -125,8 +128,8 @@ export class DashboardComponent implements OnInit {
         }
         self.projectService.listProjects(params).subscribe(
           (response) => {
-            console.log(response);
             self.projects = response.object.list;
+            self.filteredProjects = response.object.list;
             resolve();
           }
         );
@@ -201,7 +204,6 @@ export class DashboardComponent implements OnInit {
         self.taskService.findProjectTasks(id, day + '-' + month + '-' + year).subscribe(
           (response) => {
             const obj = response.object;
-            console.log(obj);
             self.projectModel.projectName = obj.name;
             self.projectModel.date = self.editingDate;
             self.projectModel.dateFmt = day+'/'+month+'/'+year;
@@ -236,7 +238,6 @@ export class DashboardComponent implements OnInit {
         self.taskService.findTasks(id, day+'-'+month+'-'+year).subscribe(
           (response) => {
             const obj = response.object;
-            console.log(obj);
             self.dailyActivity.playerId = obj.player.id;
             self.dailyActivity.playerName = obj.player.name;
             self.dailyActivity.date = self.editingDate;
@@ -346,6 +347,22 @@ export class DashboardComponent implements OnInit {
       }
     )
 
+  }
+
+  onSearchChangeProject(searchValue: string): void {
+    this.filteredProjects = this.projects.filter(
+      (curr) => {
+        return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+      }
+    )
+  }
+
+  onSearchChangeResource(searchValue: string): void {
+    this.filteredPlayers = this.players.filter(
+      (curr) => {
+        return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+      }
+    )
   }
 
   onSearchChange(searchValue: string): void {
