@@ -15,16 +15,19 @@
     </div>
   </div>
   <div class="row extremidades col l6">
-    <div class="card recursos col l3 ml-10">
+    <div class="card recursos col l3 ml-20">
       <h6>{{ 'PROJECTS' | translate }}</h6><i class="fa fa-filter"></i>
     </div>
     <div class="col l3">
-      <div><i class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></div>
+      <div>
+        <button (click)="changeProjectWeek('LEFT')" class="transparent-button">
+          <i class="material-icons">chevron_left</i></button>
+        <button (click)="changeProjectWeek('RIGHT')" class="transparent-button">
+          <i class="material-icons">chevron_right</i>
+        </button>
+      </div>
     </div>
     <div class="col l3"></div>
-    <div class="col l3">
-      <div><i class="material-icons">zoom_out</i><i class="material-icons">zoom_in</i></div>
-    </div>
   </div>
 </div>
 <div class="row tables">
@@ -73,8 +76,6 @@
         <th>{{ 'DATE' | translate }}</th>
         <th class="space">{{ 'EXP' | translate }}</th>
         <th class="space">{{ 'EFF' | translate }}</th>
-        <th class="space"></th>
-        <th class="space"></th>
         <th class="space">{{ 'STATUSREPORT' | translate }}</th>
       </tr>
     </thead>
@@ -99,12 +100,6 @@
           </td>
           <td class="space padding-zero"><i class="material-icons"
               [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i></td>
-          <td class="space padding-zero">
-            <i class="material-icons">chevron_left</i>
-          </td>
-          <td>
-            <i class="material-icons">chevron_right</i>
-          </td>
           <td class="space padding-zero"><i class="material-icons">send</i></td>
         </tr>
         <tr>
@@ -229,16 +224,18 @@
                       <th class="table-info">{{ 'PREVIEWENDDATE' | translate}}</th>
                       <th class="table-info">{{ 'STARTDATE' | translate}}</th>
                       <th class="table-info">{{ 'ENDDATE' | translate}}</th>
+                      <th class="table-info">{{ 'EFFORT' | translate }} </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td class="table-info">{{ activity.project.name }}</td>
                       <td class="table-info">{{ activity.card.skillName }} - {{ activity.card.cardName }}</td>
-                      <td class="table-info">{{ activity.expectedAt | date:'dd/MM/yyyy' }}</td>
-                      <td class="table-info">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</td>
-                      <td class="table-info">{{ activity.startedAt | date:'dd/MM/yyyy' }}</td>
-                      <td class="table-info">{{ activity.finalizedAt | date:'dd/MM/yyyy' }}</td>
+                      <td class="table-info">{{ activity.expectedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.finalizedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.effort }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -262,10 +259,10 @@
                       class="material-icons action-btn orange-text">do_not_disturb_on</i>
                   </button>
                 </div>
-                <div class="col l1 m1 s1">
+                <div class="col l1 m1 s1" *ngIf="activity.status != 'FINISHED'">
                   <mat-form-field class="invisible example-full-width">
-                    <input [matDatepickerFilter]="weekend" [min]="today"
-                      (dateInput)="relocateTaskResource(confirm, $event, dailyActivity.playerId, activity.id, activity.name)"
+                    <input [matDatepickerFilter]="weekend" [min]="checkDate(activity.previewedAt)"
+                      (dateInput)="relocateTaskResource(confirm, $event, dailyActivity.playerId, activity.id, activity.name, activity.previewedAt)"
                       matInput [matDatepicker]="picker" placeholder="Choose a date">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker [dateClass]="dateClassPlayer"></mat-datepicker>
@@ -440,10 +437,11 @@
                     <tr>
                       <td class="table-info">{{ activity.player != null ? activity.player.name : '' }}</td>
                       <td class="table-info">{{ activity.card.skillName }} - {{ activity.card.cardName }}</td>
-                      <td class="table-info">{{ activity.expectedAt | date:'dd/MM/yyyy' }}</td>
-                      <td class="table-info">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</td>
-                      <td class="table-info">{{ activity.startedAt | date:'dd/MM/yyyy'}} </td>
-                      <td class="table-info">{{ activity.finalizedAt | date:'dd/MM/yyyy' }}</td>
+                      <td class="table-info">{{ activity.expectedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss'}} </td>
+                      <td class="table-info">{{ activity.finalizedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.effort }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -469,17 +467,20 @@
                 </div>
                 <div class="col l1 m1 s1" *ngIf="activity.player == null && activity.player == null">
                   <button mat-icon-button>
-                    <i title="{{ 'DESIGNATE' | translate }}" class="material-icons action-btn" (click)="designate(activity.id)">person_add</i>
+                    <i title="{{ 'DESIGNATE' | translate }}" class="material-icons action-btn"
+                      (click)="designate(activity.id)">person_add</i>
                   </button>
                 </div>
-                <div class="col l1 m1 s1" *ngIf="activity.status != 'EXECUTION'">
+                <div class="col l1 m1 s1" *ngIf="activity.status != 'FINISHED'">
                   <mat-form-field class="invisible example-full-width">
-                    <input [matDatepickerFilter]="weekend" [min]="today" matInput [matDatepicker]="pickerProject"
+                    <input [matDatepickerFilter]="weekend" [min]="checkDate(activity.previewedAt)" 
+                      (dateInput)="relocateTaskResource(confirm, $event, dailyActivity.playerId, activity.id, activity.name, activity.previewedAt)"
+                      matInput [matDatepicker]="pickerProject"
                       placeholder="Choose a date">
                     <mat-datepicker-toggle matSuffix [for]="pickerProject"></mat-datepicker-toggle>
                     <mat-datepicker #pickerProject [dateClass]="dateClassProject"></mat-datepicker>
                   </mat-form-field>
-                  <button mat-icon-button (click)="pickerProject.open()">
+                  <button mat-icon-button (click)="findProjectAllocation(activity.player, pickerProject)">
                     <i title="{{ 'REPLAN' | translate }}" class="material-icons action-btn blue-text">event</i>
                   </button>
                 </div>
@@ -611,15 +612,18 @@
   </mz-modal-header>
   <mz-modal-content>
     <div class="divider"></div>
-    <div *ngIf="fullWorkingDay" class="row mt-30">
-      <span class="modal-text">
-        {{ 'CONFIRMMESSAGE' | translate }}
-      </span>
-    </div>
     <div class="row mt-30">
       <span class="modal-text">
         {{ 'CONFIRMMESSAGE2' | translate }}
       </span>
+    </div>
+    <div class="row">
+      <div class="col l3 m3 s3">
+          <input [disabled]="true" type="text" [(ngModel)]="selectedDate">
+      </div>
+      <div class="col l3 m3 s3">
+          <input type="time" max="18:00" min="08:00" [(ngModel)]="selectedTime">
+      </div>
     </div>
     <div class="row col l6 m6 s6 mt-30">
       <table>
@@ -644,13 +648,8 @@
   </mz-modal-content>
   <mz-modal-footer>
     <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
-    <button *ngIf="!fullWorkingDay" mz-button [flat]="true"
-      (click)="confirmRelocateTaskResource('ok', dailyActivity.playerId)"
+    <button mz-button [flat]="true" (click)="confirmRelocateTaskResource()"
       mz-modal-close>{{ 'CONFIRM' | translate }}</button>
-    <button *ngIf="fullWorkingDay" class="ml-15" mz-button [flat]="true"
-      (click)="confirmRelocateTaskResource('overtime', dailyActivity.playerId)">{{ 'OVERTIME' | translate }}</button>
-    <button *ngIf="fullWorkingDay" mz-button [flat]="true"
-      (click)="confirmRelocateTaskResource('directory', dailyActivity.playerId)">{{ 'DIRECTORY' | translate }}</button>
   </mz-modal-footer>
 </mz-modal>
 

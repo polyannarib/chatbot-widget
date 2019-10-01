@@ -36,4 +36,8 @@ export class TaskService {
   assignTask(taskId: Number, playerId: Number ): Observable< any > {
     return this.http.get( this.url + '/task/' + taskId + '/assign/player/' + playerId );
   }
+
+  rescheduleTask(taskId: Number, dateTo: String): Observable< any > {
+    return this.http.get( this.url + '/task/' + taskId + '/reschedule?previewedAt=' + dateTo );
+  }
 }

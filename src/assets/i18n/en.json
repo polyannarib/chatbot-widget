@@ -56,5 +56,6 @@
     "MESSAGECONFIRMREMOVEPLAYER": "Do you wish to remove the player from this task?",
     "MESSAGECONFIRMSUSPEND": "Do you wish to suspend this task?",
     "SUCCESSTITLE": "Success!",
-    "SUCCESSMESSAGE": "Register updated successful!"
+    "SUCCESSMESSAGE": "Register updated successful!",
+    "REASON": "Reason"
 }

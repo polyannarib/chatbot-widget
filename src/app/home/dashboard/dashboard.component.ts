@@ -25,7 +25,10 @@ export class DashboardComponent implements OnInit {
   @ViewChild( 'success' )
   successModal: any;
 
+  selectedTime: String;
+  selectedDate: String;
   startDate: Date;
+  startDatePlayer: Date;
   endDate: Date;
   endDateProject: Date;
   players: Array<any>;
@@ -49,6 +52,8 @@ export class DashboardComponent implements OnInit {
   editingPlayer: Number;
   editingDate: String;
   editingProject: any;
+  editingHour: any;
+  editingDatetime: any;
   projectModal: Boolean;
   reason: String;
 
@@ -63,15 +68,14 @@ export class DashboardComponent implements OnInit {
   };
 
   dateClassPlayer = (d: Date) => {
-    const date = d.getDate();
-    const dateText = this.datePipe.transform(d, 'dd/MM/yyyy');
-    return this.playerAllocation.full.includes(dateText)
+    const dateText = this.datePipe.transform(d, 'dd-MM-yyyy');
+    return this.playerAllocation.allocated.includes(dateText)
       ? 'full-day' : 'unallocated';
   }
 
   dateClassProject = (d: Date) => {
-    const dateText = this.datePipe.transform(d, 'dd/MM/yyyy');
-    return this.projectAllocation.full.includes(dateText)
+    const dateText = this.datePipe.transform(d, 'dd-MM-yyyy');
+    return this.projectAllocation.allocated.includes(dateText)
       ? 'full-day' : 'unallocated';
   }
 
@@ -98,8 +102,8 @@ export class DashboardComponent implements OnInit {
     this.endDateProject = new Date();
     this.startDate.setDate(this.startDate.getDate() - 2);
     this.endDate.setDate(this.startDate.getDate() + 13);
-    this.endDateProject.setDate(this.startDate.getDate() + 7);
-    
+    this.endDateProject.setDate(this.startDate.getDate() + 9);
+    this.startDatePlayer = this.startDate;
     Promise.all([
       new Promise(function (resolve, reject) {
         let params = {
@@ -121,6 +125,7 @@ export class DashboardComponent implements OnInit {
         }
         self.projectService.listProjects(params).subscribe(
           (response) => {
+            console.log(response);
             self.projects = response.object.list;
             resolve();
           }
@@ -131,12 +136,49 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  checkDate( date: any ): Date {
+    return new Date( date );
+  }
+
+  changeProjectWeek( orientation: any ) {
+    let today = new Date();
+    this.daysOfWeek7 = [];
+    this.loadingService.showPreloader();
+    if( orientation == 'RIGHT' ) {
+      today.setDate(this.endDateProject.getDate());
+      this.startDate.setDate(today.getDate());
+      for (let i = 0; i < 9; i++) {
+          this.daysOfWeek7.push(this.datePipe.transform(today, 'E'));
+        today.setDate(today.getDate() + 1);
+      }
+      this.endDateProject.setDate( today.getDate() );
+    } else if( orientation == 'LEFT' ) {
+      today.setDate(this.startDate.getDate());
+      this.endDateProject.setDate( today.getDate() );
+      for (let i = 0; i < 9; i++) {
+          this.daysOfWeek7.push(this.datePipe.transform(today, 'E'));
+        today.setDate(today.getDate() - 1);
+      }
+      this.startDate.setDate(today.getDate());
+    }
+    let params = {
+      "startDate": this.datePipe.transform(this.startDate, 'dd-MM-yyyy'),
+      "endDate": this.datePipe.transform(this.endDateProject, 'dd-MM-yyyy')
+    }
+    this.projectService.listProjects(params).subscribe(
+      (response) => {
+        this.projects = response.object.list;
+        this.loadingService.hidePreloader();
+      }
+    );
+  }
+
   loadCalendar() {
     let today = new Date();
     today.setDate(today.getDate() - 2);
     for (let i = 0; i < 13; i++) {
       this.daysOfWeek14.push(this.datePipe.transform(today, 'E'));
-      if (i < 7) {
+      if (i < 9) {
         this.daysOfWeek7.push(this.datePipe.transform(today, 'E'));
       }
       today.setDate(today.getDate() + 1);
@@ -163,23 +205,14 @@ export class DashboardComponent implements OnInit {
             self.projectModel.projectName = obj.name;
             self.projectModel.date = self.editingDate;
             self.projectModel.dateFmt = day+'/'+month+'/'+year;
+            self.dailyActivity.day = day;
+            self.dailyActivity.month = month;
+            self.dailyActivity.year = year;
             self.projectModel.progress = obj.progress;
             self.projectModel.activities = obj.tasks;
             resolve();
           }
         );
-      }),
-      new Promise(function (resolve, reject) {
-        let allocationParams = {};
-
-        /*
-        self.projectService.findAllocation(allocationParams).subscribe(
-          (response) => {
-            self.projectAllocation = response;
-            resolve();
-          }
-        )*/
-        resolve();
       })
     ]).then(() => {
       modal.openModal();
@@ -207,6 +240,9 @@ export class DashboardComponent implements OnInit {
             self.dailyActivity.playerId = obj.player.id;
             self.dailyActivity.playerName = obj.player.name;
             self.dailyActivity.date = self.editingDate;
+            self.dailyActivity.day = day;
+            self.dailyActivity.month = month;
+            self.dailyActivity.year = year;
             self.dailyActivity.dateFmt = day+'/'+month+'/'+year;
             self.dailyActivity.progress = obj.progress;
             self.dailyActivity.activities = obj.tasks;
@@ -221,7 +257,8 @@ export class DashboardComponent implements OnInit {
         }
         self.playerService.findAllocation(id, allocationParams).subscribe(
           (response) => {
-            self.playerAllocation = response;
+            self.playerAllocation = response.object;
+            console.log(self.playerAllocation);
             resolve();
           }
         )
@@ -230,6 +267,29 @@ export class DashboardComponent implements OnInit {
       self.loadingService.hidePreloader();
       modal.openModal();
     });
+  }
+
+  findProjectAllocation( player: any, picker: any ) {
+    this.loadingService.showPreloader();
+    if( player == null ) {
+      this.projectAllocation.full = [];
+      this.projectAllocation.allocated = [];
+      this.projectAllocation.unallocated = [];
+      picker.open();
+      this.loadingService.hidePreloader();
+    } else {
+      let allocationParams = {
+        "startDate": '23-09-2019',
+        "endDate": '23-12-2019'
+      }
+      this.playerService.findAllocation(player.id, allocationParams).subscribe(
+        (response) => {
+          this.projectAllocation = response.object;
+          picker.open();
+          this.loadingService.hidePreloader();
+        }
+      )
+    }
   }
 
   designate(taskId) {
@@ -256,26 +316,35 @@ export class DashboardComponent implements OnInit {
 
   relocateTaskResource(
     modal: MzModalComponent, event: MatDatepickerInputEvent<Date>,
-    playerId: Number, taskId: Number, taskName: String) {
+    playerId: Number, taskId: Number, taskName: String, previewedAt: any) {
+    
     this.confirmModel.activityName = taskName;
     this.confirmModel.dateFrom = this.dailyActivity.day + '/' + this.dailyActivity.month + '/' + this.dailyActivity.year;
     this.confirmModel.dateTo = this.datePipe.transform(event.value, 'dd/MM/yyyy');
+    this.editingDate = this.datePipe.transform(event.value, 'dd-MM-yyyy');
+    this.selectedTime = this.datePipe.transform(previewedAt, 'HH:mm:ss');
+    this.selectedDate = this.datePipe.transform(event.value, 'dd/MM/yyyy');
+    this.editingDatetime = this.editingDate + ' ' + this.selectedTime;
+    this.editingTask = taskId;
     this.confirmModel.taskId = taskId;
     this.confirmModel.playerId = playerId;
     let date1 = new Date(this.dailyActivity.year, this.dailyActivity.month - 1, this.dailyActivity.day);
     var date2 = event.value;
-    this.confirmModel.delay = (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24);
-
-    if (this.playerAllocation.full.includes(this.confirmModel.dateTo)) {
-      this.fullWorkingDay = true;
-    } else {
-      this.fullWorkingDay = false;
-    }
+    this.confirmModel.delay = Math.trunc( (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24) );
 
     modal.openModal();
+
   }
 
   confirmRelocateTaskResource() {
+
+    this.taskService.rescheduleTask(this.editingTask, this.editingDate + ' ' + this.selectedTime).subscribe(
+      (response) => {
+        this.refreshModalData();
+        this.refreshTableData();
+        this.modalService.open( ModalSuccessComponent );
+      }
+    )
 
   }
 
@@ -338,28 +407,8 @@ export class DashboardComponent implements OnInit {
   confirmFinalize(confirm: MzModalComponent) {
     this.taskService.finalize(this.editingTask).subscribe(
       (response) =>{
-        if( this.projectModal ) {
-          this.taskService.findProjectTasks(this.editingProject, this.editingDate).subscribe(
-            (response) => {
-              const obj = response.object;
-              this.projectModel.projectName = obj.name;
-              this.projectModel.date = this.editingDate;
-              this.projectModel.progress = obj.progress;
-              this.projectModel.activities = obj.tasks;
-            }
-          );
-        } else {
-          this.taskService.findTasks(this.editingPlayer, this.editingDate).subscribe(
-            (response) => {
-              const obj = response.object;
-              this.dailyActivity.playerId = obj.player.id;
-              this.dailyActivity.playerName = obj.player.name;
-              this.dailyActivity.date = this.editingDate;
-              this.dailyActivity.progress = obj.progress;
-              this.dailyActivity.activities = obj.tasks;
-            }
-          )
-        }
+        this.refreshModalData();
+        this.refreshTableData();
         this.modalService.open( ModalSuccessComponent );
       }
     );
@@ -373,29 +422,9 @@ export class DashboardComponent implements OnInit {
   confirmRemovePlayer(confirm: MzModalComponent) {
     this.taskService.removePlayer(this.editingTask, this.reason).subscribe(
       (response) => {
-        if( this.projectModal ) {
-          this.taskService.findProjectTasks(this.editingProject, this.editingDate).subscribe(
-            (response) => {
-              const obj = response.object;
-              this.projectModel.projectName = obj.name;
-              this.projectModel.date = this.editingDate;
-              this.projectModel.progress = obj.progress;
-              this.projectModel.activities = obj.tasks;
-            }
-          );
-        } else {
-          this.taskService.findTasks(this.editingPlayer, this.editingDate).subscribe(
-            (response) => {
-              const obj = response.object;
-              this.dailyActivity.playerId = obj.player.id;
-              this.dailyActivity.playerName = obj.player.name;
-              this.dailyActivity.date = this.editingDate;
-              this.dailyActivity.progress = obj.progress;
-              this.dailyActivity.activities = obj.tasks;
-            }
-          )
-        }
-        this.modalService.open( ModalSuccessComponent );
+          this.refreshModalData();
+          this.refreshTableData();
+          this.modalService.open( ModalSuccessComponent );
       }
     )
   }
@@ -408,31 +437,73 @@ export class DashboardComponent implements OnInit {
   confirmSuspend( confirm: MzModalComponent ) {
     this.taskService.suspend(this.editingTask, this.reason).subscribe(
       (response) => {
-        if( this.projectModal ) {
-          this.taskService.findProjectTasks(this.editingProject, this.editingDate).subscribe(
-            (response) => {
-              const obj = response.object;
-              this.projectModel.projectName = obj.name;
-              this.projectModel.date = this.editingDate;
-              this.projectModel.progress = obj.progress;
-              this.projectModel.activities = obj.tasks;
-            }
-          );
-        } else {
-          this.taskService.findTasks(this.editingPlayer, this.editingDate).subscribe(
-            (response) => {
-              const obj = response.object;
-              this.dailyActivity.playerId = obj.player.id;
-              this.dailyActivity.playerName = obj.player.name;
-              this.dailyActivity.date = this.editingDate;
-              this.dailyActivity.progress = obj.progress;
-              this.dailyActivity.activities = obj.tasks;
-            }
-          )
-        }
+        this.refreshModalData();
         this.modalService.open( ModalSuccessComponent );
       }
     )
+  }
+
+  refreshTableData() {
+    let self = this;
+
+    self.loadingService.showPreloader();
+
+    Promise.all([
+      new Promise(function (resolve, reject) {
+        let params = {
+          "startDate": self.datePipe.transform(self.startDatePlayer, 'dd-MM-yyyy'),
+          "page": 1,
+          "pageSize": 10
+        }
+        self.playerService.findPlayers(params).subscribe(
+          (response) => {
+            self.players = response.object.list;
+            resolve();
+          }
+        );
+      }),
+      new Promise(function (resolve, reject) {
+        let params = {
+          "startDate": self.datePipe.transform(self.startDate, 'dd-MM-yyyy'),
+          "endDate": self.datePipe.transform(self.endDateProject, 'dd-MM-yyyy')
+        }
+        self.projectService.listProjects(params).subscribe(
+          (response) => {
+            console.log(response);
+            self.projects = response.object.list;
+            resolve();
+          }
+        );
+      })
+    ]).then(() => {
+      self.loadingService.hidePreloader();
+    });
+
+  }
+
+  refreshModalData() {
+    if( this.projectModal ) {
+      this.taskService.findProjectTasks(this.editingProject, this.editingDate).subscribe(
+        (response) => {
+          const obj = response.object;
+          this.projectModel.projectName = obj.name;
+          this.projectModel.date = this.editingDate;
+          this.projectModel.progress = obj.progress;
+          this.projectModel.activities = obj.tasks;
+        }
+      );
+    } else {
+      this.taskService.findTasks(this.editingPlayer, this.editingDate).subscribe(
+        (response) => {
+          const obj = response.object;
+          this.dailyActivity.playerId = obj.player.id;
+          this.dailyActivity.playerName = obj.player.name;
+          this.dailyActivity.date = this.editingDate;
+          this.dailyActivity.progress = obj.progress;
+          this.dailyActivity.activities = obj.tasks;
+        }
+      )
+    }
   }
 
   clean() {
