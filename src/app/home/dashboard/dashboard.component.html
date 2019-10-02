@@ -47,7 +47,7 @@
           <td class="name left-align"><b>{{ player.name }}</b></td>
           <th class="space"></th>
           <ng-container *ngFor="let activity of player.tasks  let i = index">
-            <td [ngStyle]="{'background-color': activity.style}">
+            <td [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}" [ngStyle]="{'background-color': activity.style}">
               <button [disabled]="!activity.validDay"
                 (click)="openModalPlayer(activityDetail, player.id, activity.day, activity.month, activity.year)"
                 class="transparent-button">{{ activity.day }}</button>
