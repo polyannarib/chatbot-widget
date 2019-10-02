@@ -57,5 +57,6 @@
     "MESSAGECONFIRMSUSPEND": "Do you wish to suspend this task?",
     "SUCCESSTITLE": "Success!",
     "SUCCESSMESSAGE": "Register updated successful!",
-    "REASON": "Reason"
+    "REASON": "Reason",
+    "EXPEFFORT": "Expected Effort"
 }

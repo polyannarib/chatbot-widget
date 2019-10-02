@@ -57,6 +57,13 @@
     "MESSAGECONFIRMSUSPEND": "Deseja realmente suspender a atividade?",
     "SUCCESSTITLE": "Sucesso!",
     "SUCCESSMESSAGE": "Registro atualizado com sucesso!",
-    "REASON": "Motivo"
+    "REASON": "Motivo",
+    "EXPEFFORT": "Esforço Esperado",
+    "BUILDING": "Em construção",
+    "EXECUTION": "Executando",
+    "FINISHED": "Concluída",
+    "HANGING": "Suspendida",
+    "DELAYED": "Atrasada",
+    "WAITING": "Aguardando Execução"
 
 }

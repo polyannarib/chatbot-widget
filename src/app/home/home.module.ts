@@ -5,8 +5,8 @@ import { ModalSuccessComponent } from './modal/success/modal-success.component';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { MzModalModule, MzButtonModule, MzInputModule, MzCollapsibleModule, MzRadioButtonModule } from 'ngx-materialize'
-import { MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MzModalModule, MzTooltipModule, MzButtonModule, MzInputModule, MzCollapsibleModule, MzRadioButtonModule } from 'ngx-materialize'
+import { MatDatepickerModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from './shared/pipe/pipes.module';
 
@@ -49,7 +49,9 @@ const routes = [
     MatNativeDateModule,
     MatRadioModule,
     MatButtonModule,
+    MatTooltipModule,
     MatIconModule,
+    MzTooltipModule,
     RouterModule.forChild(routes)
   ]
 })

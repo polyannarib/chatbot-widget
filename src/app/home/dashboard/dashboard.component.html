@@ -15,7 +15,7 @@
   </div>
   <div class="row extremidades col l6">
     <div class="card recursos col l3 ml-20">
-        <input autocomplete="off" (input)="onSearchChangeProject($event.target.value)" matInput
+      <input autocomplete="off" (input)="onSearchChangeProject($event.target.value)" matInput
         placeholder="{{ 'PROJECTS' | translate }}" value=""><i class="fa fa-filter"></i>
     </div>
     <div class="col l3">
@@ -48,7 +48,8 @@
           <th class="space"></th>
           <ng-container *ngFor="let activity of player.tasks  let i = index">
             <td [ngStyle]="{'background-color': activity.style}">
-              <button (click)="openModalPlayer(activityDetail, player.id, activity.day, activity.month, activity.year)"
+              <button [disabled]="!activity.validDay"
+                (click)="openModalPlayer(activityDetail, player.id, activity.day, activity.month, activity.year)"
                 class="transparent-button">{{ activity.day }}</button>
             </td>
           </ng-container>
@@ -88,8 +89,10 @@
           <th class="space padding-zero"></th>
           <ng-container *ngFor="let activity of project.tasks  let i = index">
             <td [ngStyle]="{'background-color': activity.style}">
-              <button (click)="openModalProject(projectDetail, project.id, activity.day, activity.month, activity.year)"
-                class="transparent-button">{{ activity.day }}</button>
+              <button [disabled]="!activity.validDay"
+                (click)="openModalProject(projectDetail, project.id, activity.day, activity.month, activity.year)"
+                class="transparent-button"><span
+                  [ngClass]="{'animated infinite fadeIn': !activity.allocated}">{{ activity.day }}</span></button>
             </td>
           </ng-container>
           <td class="space realprev padding-zero"><b>Real Prev.</b></td>
@@ -158,7 +161,7 @@
           <span class="activity-text title">{{ 'PROGRESS' | translate}}</span>
           <div class="row mt-15">
             <div class="col l2 m2 s2">
-              <span>33%</span>
+              <span>{{ dailyActivity.progress }}%</span>
             </div>
             <div class="col l10 m10 s10">
               <div class="progress hoverable">
@@ -201,15 +204,17 @@
                   <span class="activity-text">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</span>
                 </div>
                 <div class="col l1 m1 s1 left-align">
-                  <span class="activity-text">{{ activity.duration }}h</span>
+                  <span class="activity-text">{{ activity.dailyEffort }}h</span>
                 </div>
                 <div class="col l1 m1 s1 padding-zero valign-wrapper">
-                  <i class="material-icons" [ngClass]="{  'building': activity.status == 'BUILDING', 
+                  <button class="transparent-button" matTooltip="{{ activity.status | translate }}">
+                    <i class="material-icons" [ngClass]="{  'building': activity.status == 'BUILDING', 
                                   'warning': activity.status == 'EXECUTION', 
                                   'ok': activity.status == 'FINISHED', 
                                   'hanging': activity.status == 'HANGING',
                                   'delayed': activity.status == 'DELAYED',
                                   'waiting' : activity.status == 'WAITING' }">fiber_manual_record</i>
+                  </button>
                 </div>
               </div>
             </mz-collapsible-item-header>
@@ -224,6 +229,7 @@
                       <th class="table-info">{{ 'PREVIEWENDDATE' | translate}}</th>
                       <th class="table-info">{{ 'STARTDATE' | translate}}</th>
                       <th class="table-info">{{ 'ENDDATE' | translate}}</th>
+                      <th class="table-info">{{ 'EXPEFFORT' | translate }}</th>
                       <th class="table-info">{{ 'EFFORT' | translate }} </th>
                     </tr>
                   </thead>
@@ -235,7 +241,8 @@
                       <td class="table-info">{{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
                       <td class="table-info">{{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
                       <td class="table-info">{{ activity.finalizedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
-                      <td class="table-info">{{ activity.effort }}</td>
+                      <td class="table-info">{{ activity.duration }}h</td>
+                      <td class="table-info">{{ activity.effort }}h</td>
                     </tr>
                   </tbody>
                 </table>
@@ -361,7 +368,7 @@
           <span class="activity-text title">{{ 'PROGRESS' | translate}}</span>
           <div class="row mt-15">
             <div class="col l2 m2 s2">
-              <span>33%</span>
+              <span>{{ dailyActivity.progress }}%</span>
             </div>
             <div class="col l10 m10 s10">
               <div class="progress hoverable">
@@ -405,16 +412,18 @@
                     <span class="activity-text">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</span>
                   </div>
                   <div class="col l1 m1 s1 left-align">
-                    <span class="activity-text">{{ activity.duration }}h</span>
+                    <span class="activity-text">{{ activity.dailyEffort }}h</span>
                   </div>
                   <div class="col l1 m1 s1 padding-zero valign-wrapper">
-                    <i class="material-icons" [ngClass]="{  
+                    <button class="transparent-button" matTooltip="{{ activity.status | translate }}">
+                      <i class="material-icons" [ngClass]="{  
                                   'building': activity.status == 'BUILDING', 
                                   'warning': activity.status == 'EXECUTION', 
                                   'ok': activity.status == 'FINISHED', 
                                   'hanging': activity.status == 'HANGING',
                                   'delayed': activity.status == 'DELAYED',
                                   'waiting': activity.status == 'WAITING' }">fiber_manual_record</i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -430,6 +439,7 @@
                       <th class="table-info">{{ 'PREVIEWENDDATE' | translate}}</th>
                       <th class="table-info">{{ 'STARTDATE' | translate}}</th>
                       <th class="table-info">{{ 'ENDDATE' | translate }}</th>
+                      <th class="table-info">{{ 'EXPEFFORT' | translate }}</th>
                       <th class="table-info">{{ 'EFFORT' | translate }}</th>
                     </tr>
                   </thead>
@@ -441,7 +451,8 @@
                       <td class="table-info">{{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
                       <td class="table-info">{{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss'}} </td>
                       <td class="table-info">{{ activity.finalizedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
-                      <td class="table-info">{{ activity.effort }}</td>
+                      <td class="table-info">{{ activity.duration }}h</td>
+                      <td class="table-info">{{ activity.effort }}h</td>
                     </tr>
                   </tbody>
                 </table>
@@ -473,10 +484,9 @@
                 </div>
                 <div class="col l1 m1 s1" *ngIf="activity.status != 'FINISHED'">
                   <mat-form-field class="invisible example-full-width">
-                    <input [matDatepickerFilter]="weekend" [min]="checkDate(activity.previewedAt)" 
+                    <input [matDatepickerFilter]="weekend" [min]="checkDate(activity.previewedAt)"
                       (dateInput)="relocateTaskResource(confirm, $event, dailyActivity.playerId, activity.id, activity.name, activity.previewedAt)"
-                      matInput [matDatepicker]="pickerProject"
-                      placeholder="Choose a date">
+                      matInput [matDatepicker]="pickerProject" placeholder="Choose a date">
                     <mat-datepicker-toggle matSuffix [for]="pickerProject"></mat-datepicker-toggle>
                     <mat-datepicker #pickerProject [dateClass]="dateClassProject"></mat-datepicker>
                   </mat-form-field>
@@ -619,10 +629,10 @@
     </div>
     <div class="row">
       <div class="col l3 m3 s3">
-          <input [disabled]="true" type="text" [(ngModel)]="selectedDate">
+        <input [disabled]="true" type="text" [(ngModel)]="selectedDate">
       </div>
       <div class="col l3 m3 s3">
-          <input type="time" max="18:00" min="08:00" [(ngModel)]="selectedTime">
+        <input type="time" max="18:00" min="08:00" [(ngModel)]="selectedTime">
       </div>
     </div>
     <div class="row col l6 m6 s6 mt-30">

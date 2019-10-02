@@ -171,6 +171,7 @@ export class DashboardComponent implements OnInit {
     this.projectService.listProjects(params).subscribe(
       (response) => {
         this.projects = response.object.list;
+        this.filteredProjects = response.object.list;
         this.loadingService.hidePreloader();
       }
     );
@@ -475,6 +476,7 @@ export class DashboardComponent implements OnInit {
         self.playerService.findPlayers(params).subscribe(
           (response) => {
             self.players = response.object.list;
+            self.filteredPlayers = response.object.list;
             resolve();
           }
         );
@@ -486,7 +488,7 @@ export class DashboardComponent implements OnInit {
         }
         self.projectService.listProjects(params).subscribe(
           (response) => {
-            console.log(response);
+            self.filteredProjects = response.object.list;
             self.projects = response.object.list;
             resolve();
           }
