@@ -249,20 +249,20 @@
               </div>
               <div *ngIf="activity.status != 'O'" class="row mt-30">
                 <div *ngIf="activity.startedAt != null" class="col l1 m1 s1">
-                  <button mat-icon-button>
-                    <i title="{{ 'FINALIZE' | translate }}" (click)="finalize(finalizeModal, activity.id)"
+                  <button mat-icon-button matTooltip="{{ 'FINALIZE' | translate }}">
+                    <i (click)="finalize(finalizeModal, activity.id)"
                       class="material-icons action-btn green-text">check_circle</i>
                   </button>
                 </div>
                 <div class="col l1 m1 s1">
-                  <button mat-icon-button>
-                    <i title="{{ 'REMOVE' | translate }}" (click)="removePlayer(removePlayerModal, activity.id)"
+                  <button mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
+                    <i (click)="removePlayer(removePlayerModal, activity.id)"
                       class="material-icons action-btn red-text">cancel</i>
                   </button>
                 </div>
                 <div class="col l1 m1 s1">
-                  <button mat-icon-button>
-                    <i title="{{ 'SUSPEND' | translate }}" (click)="suspend(suspendModal, activity.id)"
+                  <button mat-icon-button matTooltip="{{ 'SUSPEND' | translate }}">
+                    <i (click)="suspend(suspendModal, activity.id)"
                       class="material-icons action-btn orange-text">do_not_disturb_on</i>
                   </button>
                 </div>
@@ -274,8 +274,8 @@
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker [dateClass]="dateClassPlayer"></mat-datepicker>
                   </mat-form-field>
-                  <button mat-icon-button (click)="picker.open()">
-                    <i title="{{ 'REPLAN' | translate }}" class="material-icons action-btn blue-text">event</i>
+                  <button mat-icon-button (click)="picker.open()" matTooltip="{{ 'REPLAN' | translate }}">
+                    <i class="material-icons action-btn blue-text">event</i>
                   </button>
                 </div>
               </div>
@@ -459,26 +459,26 @@
               </div>
               <div *ngIf="activity.status != 'O'" class="row mt-30">
                 <div *ngIf="activity.startedAt != null" class="col l1 m1 s1">
-                  <button mat-icon-button>
-                    <i title="{{ 'FINALIZE' | translate }}" (click)="finalize(finalizeModal, activity.id)"
+                  <button mat-icon-button matTooltip="{{ 'FINALIZE' | translate }}">
+                    <i (click)="finalize(finalizeModal, activity.id)"
                       class="material-icons action-btn green-text">check_circle</i>
                   </button>
                 </div>
                 <div *ngIf="activity.player != null" class="col l1 m1 s1">
-                  <button mat-icon-button>
-                    <i title="{{ 'REMOVE' | translate }}" (click)="removePlayer(removePlayerModal, activity.id)"
+                  <button mat-icon-button matTooltip="{{ 'REMOVE' | translate }}" >
+                    <i (click)="removePlayer(removePlayerModal, activity.id)"
                       class="material-icons action-btn red-text">cancel</i>
                   </button>
                 </div>
                 <div class="col l1 m1 s1">
-                  <button mat-icon-button>
-                    <i title="{{ 'SUSPEND' | translate }}" (click)="suspend(suspendModal, activity.id)"
+                  <button mat-icon-button matTooltip="{{ 'SUSPEND' | translate }}">
+                    <i (click)="suspend(suspendModal, activity.id)"
                       class="material-icons action-btn orange-text">do_not_disturb_on</i>
                   </button>
                 </div>
                 <div class="col l1 m1 s1" *ngIf="activity.player == null && activity.player == null">
-                  <button mat-icon-button>
-                    <i title="{{ 'DESIGNATE' | translate }}" class="material-icons action-btn"
+                  <button mat-icon-button matTooltip="{{ 'DESIGNATE' | translate }}" >
+                    <i class="material-icons action-btn"
                       (click)="designate(activity.id)">person_add</i>
                   </button>
                 </div>
@@ -490,8 +490,8 @@
                     <mat-datepicker-toggle matSuffix [for]="pickerProject"></mat-datepicker-toggle>
                     <mat-datepicker #pickerProject [dateClass]="dateClassProject"></mat-datepicker>
                   </mat-form-field>
-                  <button mat-icon-button (click)="findProjectAllocation(activity.player, pickerProject)">
-                    <i title="{{ 'REPLAN' | translate }}" class="material-icons action-btn blue-text">event</i>
+                  <button matTooltip="{{ 'REPLAN' | translate }}"  mat-icon-button (click)="findProjectAllocation(activity.player, pickerProject)">
+                    <i class="material-icons action-btn blue-text">event</i>
                   </button>
                 </div>
               </div>
