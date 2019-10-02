@@ -205,6 +205,7 @@ export class DashboardComponent implements OnInit {
         self.taskService.findProjectTasks(id, day + '-' + month + '-' + year).subscribe(
           (response) => {
             const obj = response.object;
+            console.log(obj);
             self.projectModel.projectName = obj.name;
             self.projectModel.date = self.editingDate;
             self.projectModel.dateFmt = day+'/'+month+'/'+year;
