@@ -58,6 +58,9 @@ export class DashboardComponent implements OnInit {
   editingDatetime: any;
   projectModal: Boolean;
   reason: String;
+  day: any;
+  month: any;
+  year: any;
 
   public modalOptions: Materialize.ModalOptions = {
     dismissible: true,
@@ -199,13 +202,15 @@ export class DashboardComponent implements OnInit {
     this.projectModel.dayText = this.datePipe.transform(date, 'EEEE');
     this.editingDate = day + '-' + month + '-' + year;
     this.editingProject = id;
+    this.day = day;
+    this.month = month;
+    this.year = year;
     Promise.all([
       new Promise(function (resolve, reject) {
 
         self.taskService.findProjectTasks(id, day + '-' + month + '-' + year).subscribe(
           (response) => {
             const obj = response.object;
-            console.log(obj);
             self.projectModel.projectName = obj.name;
             self.projectModel.date = self.editingDate;
             self.projectModel.dateFmt = day+'/'+month+'/'+year;
@@ -233,7 +238,9 @@ export class DashboardComponent implements OnInit {
     this.editingDate = day+'-'+month+'-'+year;
     let date = new Date(year, month - 1, day);
     this.dailyActivity.dayText = this.datePipe.transform(date, 'EEEE');
-
+    this.day = day;
+    this.month = month;
+    this.year = year;
     Promise.all([
       new Promise(function (resolve, reject) {
 
@@ -508,6 +515,10 @@ export class DashboardComponent implements OnInit {
           const obj = response.object;
           this.projectModel.projectName = obj.name;
           this.projectModel.date = this.editingDate;
+          this.projectModel.dateFmt = this.day+'/'+this.month+'/'+this.year;
+          this.dailyActivity.day = this.day;
+          this.dailyActivity.month = this.month;
+          this.dailyActivity.year = this.year;
           this.projectModel.progress = obj.progress;
           this.projectModel.activities = obj.tasks;
         }
@@ -516,9 +527,14 @@ export class DashboardComponent implements OnInit {
       this.taskService.findTasks(this.editingPlayer, this.editingDate).subscribe(
         (response) => {
           const obj = response.object;
+          console.log(obj);
           this.dailyActivity.playerId = obj.player.id;
           this.dailyActivity.playerName = obj.player.name;
           this.dailyActivity.date = this.editingDate;
+          this.dailyActivity.day = this.day;
+          this.dailyActivity.month = this.month;
+          this.dailyActivity.year = this.year;
+          this.dailyActivity.dateFmt = this.day+'/'+this.month+'/'+this.year;
           this.dailyActivity.progress = obj.progress;
           this.dailyActivity.activities = obj.tasks;
         }
