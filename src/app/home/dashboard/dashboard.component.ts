@@ -316,7 +316,6 @@ export class DashboardComponent implements OnInit {
           this.dailyActivity.playersRated = obj.rated;
           this.dailyActivity.playersAvailable = obj.available;
           this.loadingService.hidePreloader();
-
         }
       )
     } else {
@@ -411,7 +410,6 @@ export class DashboardComponent implements OnInit {
         this.dailyActivity.playersAvailableFiltered = null;
         this.dailyActivity.playersRated = null;
         this.dailyActivity.playersAvailable = null;
-        this.modalService.open( ModalSuccessComponent );
         this.taskService.findProjectTasks(this.editingProject, this.editingDate).subscribe(
           (response) => {
             const obj = response.object;
@@ -420,6 +418,8 @@ export class DashboardComponent implements OnInit {
             this.projectModel.date = this.editingDate;
             this.projectModel.progress = obj.progress;
             this.projectModel.activities = obj.tasks;
+            this.isDesigning = false;
+            this.modalService.open( ModalSuccessComponent );
           }
         );
       }
@@ -541,6 +541,11 @@ export class DashboardComponent implements OnInit {
         }
       )
     }
+  }
+
+  cleanDesignate() {
+    console.log(this.isDesigning);
+    this.isDesigning = false;
   }
 
   clean() {

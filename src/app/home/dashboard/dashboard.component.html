@@ -188,7 +188,7 @@
       </div>
     </div>
     <div class="row">
-      <mz-collapsible [mode]="'accordion'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback"
+      <mz-collapsible [mode]="'accordion'"
         [popout]="false">
         <ng-container *ngFor="let activity of dailyActivity.activities">
           <mz-collapsible-item [active]="false">
@@ -248,7 +248,7 @@
                 </table>
               </div>
               <div *ngIf="activity.status != 'O'" class="row mt-30">
-                <div *ngIf="activity.startedAt != null" class="col l1 m1 s1">
+                <div class="col l1 m1 s1">
                   <button mat-icon-button matTooltip="{{ 'FINALIZE' | translate }}">
                     <i (click)="finalize(finalizeModal, activity.id)"
                       class="material-icons action-btn green-text">check_circle</i>
@@ -395,11 +395,11 @@
       </div>
     </div>
     <div class="row">
-      <mz-collapsible [mode]="'accordion'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback"
+      <mz-collapsible [mode]="'accordion'"
         [popout]="false">
         <ng-container *ngFor="let activity of projectModel.activities">
           <mz-collapsible-item [active]="false">
-            <mz-collapsible-item-header class="col l12 m12 s12">
+            <mz-collapsible-item-header class="col l12 m12 s12" (click)="cleanDesignate()">
               <div class="mt-10">
                 <div class="valign-wrapper">
                   <div class="col l6 m6 s6 left-align">
