@@ -415,6 +415,7 @@ export class DashboardComponent implements OnInit {
         this.taskService.findProjectTasks(this.editingProject, this.editingDate).subscribe(
           (response) => {
             const obj = response.object;
+            this.refreshTableData();
             this.projectModel.projectName = obj.name;
             this.projectModel.date = this.editingDate;
             this.projectModel.progress = obj.progress;
