@@ -514,6 +514,7 @@ export class DashboardComponent implements OnInit {
       this.taskService.findProjectTasks(this.editingProject, this.editingDate).subscribe(
         (response) => {
           const obj = response.object;
+          console.log(obj);
           this.projectModel.projectName = obj.name;
           this.projectModel.date = this.editingDate;
           this.projectModel.dateFmt = this.day+'/'+this.month+'/'+this.year;
@@ -558,4 +559,7 @@ export class DashboardComponent implements OnInit {
     this.isDesigning = false;
   }
 
+  openReport() {
+      window.open("http://192.168.0.216:9300/bi/?pathRef=.public_folders%2FGamifica%25C3%25A7%25C3%25A3o%2FStatus%2BReport", "_blank");
+  }
 }

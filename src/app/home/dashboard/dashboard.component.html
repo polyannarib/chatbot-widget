@@ -47,7 +47,8 @@
           <td class="name left-align"><b>{{ player.name }}</b></td>
           <th class="space"></th>
           <ng-container *ngFor="let activity of player.tasks  let i = index">
-            <td [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}" [ngStyle]="{'background-color': activity.style}">
+            <td [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}"
+              [ngStyle]="{'background-color': activity.style}">
               <button [disabled]="!activity.validDay"
                 (click)="openModalPlayer(activityDetail, player.id, activity.day, activity.month, activity.year)"
                 class="transparent-button">{{ activity.day }}</button>
@@ -103,7 +104,11 @@
           </td>
           <td class="space padding-zero"><i class="material-icons"
               [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i></td>
-          <td class="space padding-zero"><i class="material-icons">send</i></td>
+          <td class="space padding-zero">
+            <button (click)="openReport()" class="transparent-button">
+              <i class="material-icons">send</i>
+            </button>
+          </td>
         </tr>
         <tr>
           <td>{{ project.completed }}%</td>
@@ -188,8 +193,7 @@
       </div>
     </div>
     <div class="row">
-      <mz-collapsible [mode]="'accordion'"
-        [popout]="false">
+      <mz-collapsible [mode]="'accordion'" [popout]="false">
         <ng-container *ngFor="let activity of dailyActivity.activities">
           <mz-collapsible-item [active]="false">
             <mz-collapsible-item-header class="col l12 m12 s12">
@@ -395,8 +399,7 @@
       </div>
     </div>
     <div class="row">
-      <mz-collapsible [mode]="'accordion'"
-        [popout]="false">
+      <mz-collapsible [mode]="'accordion'" [popout]="false">
         <ng-container *ngFor="let activity of projectModel.activities">
           <mz-collapsible-item [active]="false">
             <mz-collapsible-item-header class="col l12 m12 s12" (click)="cleanDesignate()">
@@ -465,7 +468,7 @@
                   </button>
                 </div>
                 <div *ngIf="activity.player != null" class="col l1 m1 s1">
-                  <button mat-icon-button matTooltip="{{ 'REMOVE' | translate }}" >
+                  <button mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
                     <i (click)="removePlayer(removePlayerModal, activity.id)"
                       class="material-icons action-btn red-text">cancel</i>
                   </button>
@@ -477,9 +480,8 @@
                   </button>
                 </div>
                 <div class="col l1 m1 s1" *ngIf="activity.player == null && activity.player == null">
-                  <button mat-icon-button matTooltip="{{ 'DESIGNATE' | translate }}" >
-                    <i class="material-icons action-btn"
-                      (click)="designate(activity.id)">person_add</i>
+                  <button mat-icon-button matTooltip="{{ 'DESIGNATE' | translate }}">
+                    <i class="material-icons action-btn" (click)="designate(activity.id)">person_add</i>
                   </button>
                 </div>
                 <div class="col l1 m1 s1" *ngIf="activity.status != 'FINISHED'">
@@ -490,7 +492,8 @@
                     <mat-datepicker-toggle matSuffix [for]="pickerProject"></mat-datepicker-toggle>
                     <mat-datepicker #pickerProject [dateClass]="dateClassProject"></mat-datepicker>
                   </mat-form-field>
-                  <button matTooltip="{{ 'REPLAN' | translate }}"  mat-icon-button (click)="findProjectAllocation(activity.player, pickerProject)">
+                  <button matTooltip="{{ 'REPLAN' | translate }}" mat-icon-button
+                    (click)="findProjectAllocation(activity.player, pickerProject)">
                     <i class="material-icons action-btn blue-text">event</i>
                   </button>
                 </div>
