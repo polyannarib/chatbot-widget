@@ -251,7 +251,7 @@
                   </tbody>
                 </table>
               </div>
-              <div *ngIf="activity.status != 'O'" class="row mt-30">
+              <div *ngIf="activity.status != 'FINISHED'" class="row mt-30">
                 <div class="col l1 m1 s1">
                   <button mat-icon-button matTooltip="{{ 'FINALIZE' | translate }}">
                     <i (click)="finalize(finalizeModal, activity.id)"
@@ -460,26 +460,26 @@
                   </tbody>
                 </table>
               </div>
-              <div *ngIf="activity.status != 'O'" class="row mt-30">
+              <div *ngIf="activity.status != 'FINISHED'" class="row mt-30">
                 <div *ngIf="activity.startedAt != null" class="col l1 m1 s1">
                   <button mat-icon-button matTooltip="{{ 'FINALIZE' | translate }}">
                     <i (click)="finalize(finalizeModal, activity.id)"
                       class="material-icons action-btn green-text">check_circle</i>
                   </button>
                 </div>
-                <div *ngIf="activity.player != null" class="col l1 m1 s1">
+                <div *ngIf="activity.player != null && activity.status != 'FINISHED'" class="col l1 m1 s1">
                   <button mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
                     <i (click)="removePlayer(removePlayerModal, activity.id)"
                       class="material-icons action-btn red-text">cancel</i>
                   </button>
                 </div>
-                <div class="col l1 m1 s1">
+                <div *ngIf="activity.status != 'FINISHED'" class="col l1 m1 s1">
                   <button mat-icon-button matTooltip="{{ 'SUSPEND' | translate }}">
                     <i (click)="suspend(suspendModal, activity.id)"
                       class="material-icons action-btn orange-text">do_not_disturb_on</i>
                   </button>
                 </div>
-                <div class="col l1 m1 s1" *ngIf="activity.player == null && activity.player == null">
+                <div class="col l1 m1 s1" *ngIf="activity.player == null && activity.player == null && activity.status != 'FINISHED'">
                   <button mat-icon-button matTooltip="{{ 'DESIGNATE' | translate }}">
                     <i class="material-icons action-btn" (click)="designate(activity.id)">person_add</i>
                   </button>
