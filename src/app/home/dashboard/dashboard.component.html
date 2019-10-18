@@ -1,431 +1,704 @@
-<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
+  integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
 
 <div class="row">
   <div class="row extremidades col l5">
-    <div class="card recursos col l3"><h6>RECURSOS</h6><i class="fa fa-filter"></i></div>
+    <div class="card recursos col l4 ml-10">
+      <input autocomplete="off" (input)="onSearchChangeResource($event.target.value)" matInput
+        placeholder="{{ 'RESOURCES' | translate }}" value=""><i class="fa fa-filter"></i>
+    </div>
     <div class="col l3">
-      <div><i class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></div>
     </div>
     <div class="col l3"></div>
     <div class="col l3">
-      <div><i class="material-icons">zoom_out</i><i class="material-icons">zoom_in</i></div>
     </div>
   </div>
-  <div class="row extremidades col l1"></div>
   <div class="row extremidades col l6">
-      <div class="card recursos col l3"><h6>PROJETOS</h6><i class="fa fa-filter"></i></div>
-      <div class="col l3">
-        <div><i class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></div>
-      </div>
-      <div class="col l3"></div>
-      <div class="col l3">
-        <div><i class="material-icons">zoom_out</i><i class="material-icons">zoom_in</i></div>
+    <div class="card recursos col l3 ml-20">
+      <input autocomplete="off" (input)="onSearchChangeProject($event.target.value)" matInput
+        placeholder="{{ 'PROJECTS' | translate }}" value=""><i class="fa fa-filter"></i>
+    </div>
+    <div class="col l3">
+      <div>
+        <button (click)="changeProjectWeek('LEFT')" class="transparent-button">
+          <i class="material-icons">chevron_left</i></button>
+        <button (click)="changeProjectWeek('RIGHT')" class="transparent-button">
+          <i class="material-icons">chevron_right</i>
+        </button>
       </div>
     </div>
+    <div class="col l3"></div>
+  </div>
 </div>
 <div class="row tables">
-  <table class="col s12 m12 l4 centered table1">
+  <table class="col s12 m12 l4 table1">
     <thead>
       <tr>
-          <th class="space days" colspan="2">Java</th>
-          <th class="space"></th>
-          <th >Dom</th>
-          <th>Seg</th>
-          <th>Ter</th>
-          <th>Qua</th>
-          <th>Qui</th>
-          <th>Sex</th>
-          <th>Sáb</th>
-          <!-- <th class="space"></th> -->
-          <th>Dom</th>
-          <th>Seg</th>
-          <th>Ter</th>
-          <th>Qua</th>
-          <th>Qui</th>
-          <th>Sex</th>
-          <th>Sáb</th>
+        <th class="space days" colspan="2">Java</th>
+        <th class="space"></th>
+        <th *ngFor="let day of daysOfWeek14">{{ day }}</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr class="card">
-        <td class="spacename"></td>
-        <td class="name"><b>Thiago Arantes</b></td>
-        <th class="space"></th>
-        <td>-</td>
-        <td class="concepcao">08</td>
-        <td class="concepcao">09</td>
-        <td class="concepcao">10</td>
-        <td class="concepcao">11</td>
-        <td class="concepcao">12</td>
-        <td>13</td>
-        <!-- <td class="space"></td> -->
-        <td>14</td>
-        <td class="concepcao2">15</td>
-        <td class="concepcao2">16</td>
-        <td class="concepcao2">17</td>
-        <td class="concepcao2">18</td>
-        <td class="concepcao2">19</td>
-        <td>20</td>
-      </tr>
-      <tr>
-        <td>75%</td>
-        <td>
-          <div class="progress hoverable">
-            <div class="determinate" style="width: 75%"></div>
-          </div>
-        </td>
-      </tr>
-      <tr class="card">
-          <td class="spacename"></td>
-        <td class="name"><b>Kim Ruan</b></td>
-        <th class="space"></th>
-        <td>-</td>
-        <td class="concepcao">08</td>
-        <td class="concepcao">09</td>
-        <td class="concepcao">10</td>
-        <td class="concepcaoeconcepcao3">11</td>
-        <td class="concepcao3">12</td>
-        <td>13</td>
-        <!-- <td class="space"></td> -->
-        <td>14</td>
-        <td class="concepcao4">15</td>
-        <td class="concepcao4">16</td>
-        <td class="concepcao4">17</td>
-        <td class="concepcao4">18</td>
-        <td class="concepcao4">19</td>
-        <td>20</td>
-      </tr>
-      <tr>
-        <td>45%</td>
-        <td>
-          <div class="progress hoverable">
-            <div class="determinate" style="width: 45%"></div>
-          </div>
-        </td>
-      </tr>
-      <tr class="card">
-          <td class="spacename"></td>
-        <td class="name"><b>Luiza Souza</b></td>
-        <th class="space"></th>
-        <td>-</td>
-        <td class="concepcao5">08</td>
-        <td class="concepcao5">09</td>
-        <td class="concepcao5">10</td>
-        <td class="concepcao5">11</td>
-        <td class="concepcao5">12</td>
-        <td>13</td>
-        <!-- <td class="space"></td> -->
-        <td>14</td>
-        <td class="concepcao6">15</td>
-        <td class="concepcao6">16</td>
-        <td class="concepcao6">17</td>
-        <td class="concepcao6">18</td>
-        <td class="concepcao6">19</td>
-        <td>20</td>
-      </tr>
-      <tr>
-        <td>15%</td>
-        <td>
-          <div class="progress hoverable">
-            <div class="determinate" style="width: 15%"></div>
-          </div>
-        </td>
-      </tr>
-      <tr class="card">
-          <td class="spacename"></td>
-        <td class="name"><b>Matheus Ribeiro</b></td>
-        <th class="space"></th>
-        <td>-</td>
-        <td class="concepcao7">08</td>
-        <td class="concepcao7">09</td>
-        <td class="concepcao7">10</td>
-        <td class="concepcao7">11</td>
-        <td class="concepcao7">12</td>
-        <td>13</td>
-        <!-- <td class="space"></td> -->
-        <td>14</td>
-        <td class="concepcao8">15</td>
-        <td class="concepcao8">16</td>
-        <td class="concepcao8">17</td>
-        <td class="concepcao8">18</td>
-        <td class="concepcao8">19</td>
-        <td>20</td>
-      </tr>
-      <tr>
-        <td>90%</td>
-        <td>
-          <div class="progress hoverable">
-            <div class="determinate" style="width: 90%"></div>
-        </div>
-        </td>
-      </tr>
-      <tr class="card">
-          <td class="spacename"></td>
-        <td class="name"><b>Vinícius Vense</b></td>
-        <th class="space"></th>
-        <td>-</td>
-        <td class="concepcao9">08</td>
-        <td class="concepcao9">09</td>
-        <td class="concepcao9">10</td>
-        <td>11</td>
-        <td>12</td>
-        <td>13</td>
-        <!-- <td class="space"></td> -->
-        <td>14</td>
-        <td>15</td>
-        <td>16</td>
-        <td>17</td>
-        <td>18</td>
-        <td>19</td>
-        <td>20</td>
-      </tr>
-      <tr>
-        <td>10%</td>
-        <td>  
-          <div class="progress hoverable">
-            <div class="determinate" style="width: 10%"></div>
-          </div>
-        </td>
-      </tr>
+      <ng-container *ngFor="let player of filteredPlayers | slice:0:8; let i=index">
+        <tr class="card">
+          <td class="spacename"><i class="material-icons tiny">person</i></td>
+          <td class="name left-align"><b>{{ player.name }}</b></td>
+          <th class="space"></th>
+          <ng-container *ngFor="let activity of player.tasks  let i = index">
+            <td [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}"
+              [ngStyle]="{'background-color': activity.style}">
+              <button [disabled]="!activity.validDay"
+                (click)="openModalPlayer(activityDetail, player.id, activity.day, activity.month, activity.year)"
+                class="transparent-button">{{ activity.day }}</button>
+            </td>
+          </ng-container>
+        </tr>
+        <tr>
+          <td>{{ player.allocated }}%</td>
+          <td>
+            <div class="progress hoverable">
+              <div class="determinate" [ngStyle]="{'width': player.allocated+'%'}"></div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
-  <table class="col s12 m12 l5 centered">
-      <thead>
-        <tr>
-            <th class="space">OP</th>
-            <th class="space">Nome do projeto</th>
-            <th class="space"></th>
-            <th >Dom</th>
-            <th>Seg</th>
-            <th>Ter</th>
-            <th>Qua</th>
-            <th>Qui</th>
-            <th>Sex</th>
-            <th>Sáb</th>
-            <th class="space"></th>
-            <th>Horas</th>
-            <th>Data</th>
-            <th class="space">Prz.</th>
-            <th class="space">Esf.</th>
-            <th class="space"></th>
-            <th class="space">Status Reports</th>
-        </tr>
-      </thead>
-  
-      <tbody>
-        <tr class="card">
-          <td class="name2 padding-zero"><b>4205</b></td>
-          <td class="name3 padding-zero">5056 Integração Financeira</td>
-          <th class="space padding-zero"></th>
-          <td>-</td>
-          <td class="concepcao padding-zero">21</td>
-          <td class="concepcao padding-zero">22</td>
-          <td class="concepcao3 padding-zero">23</td>
-          <td class="concepcao3 padding-zero">24</td>
-          <td class="concepcao3 padding-zero">25</td>
-          <td class="concepcao3 padding-zero">26</td>
-          <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-          <td class="space realprev padding-zero">800<br>700</td>          
-          <td class="space realprev padding-zero">15/01 14/01</td>
-          <td class="space padding-zero"><i class="material-icons" style="color: rgb(240,0,0)">fiber_manual_record</i></td>
-          <td class="space padding-zero"><i class="material-icons" style="color: #FFD700">fiber_manual_record</i></td>
-          <td class="space padding-zero" style="display: flex; justify-content: space-around"><i class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></td>
-          <td class="space padding-zero"><i class="material-icons">send</i></td>
-        </tr>
-        <tr>
-            <td>35%</td>
-            <td colspan="2">
-              <div class="progress hoverable">
-                <div class="determinate" style="width: 35%"></div>
-              </div>
-            </td>
-          </tr>
-        <tr class="card">
-          <td class="name2 padding-zero"><b>370</b></td>
-          <td class="name3 padding-zero">5055 Upgrade Internet Banking</td>
-          <th class="space padding-zero"></th>
-          <td>-</td>
-          <td class="concepcao3 padding-zero">79</td>
-          <td class="concepcao3 padding-zero">80</td>
-          <td class="concepcao3 padding-zero">81</td>
-          <td class="concepcao3 padding-zero">82</td>
-          <td class="concepcao3 padding-zero">83</td>
-          <td class="concepcao3 padding-zero">84</td>
-          <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-          <td class="space realprev padding-zero">1000<br>1200</td>          
-          <td class="space realprev padding-zero">30/02 25/02</td>
-          <td class="space padding-zero"><i class="material-icons" style="color: rgb(240,0,0)">fiber_manual_record</i></td>
-          <td class="space padding-zero"><i class="material-icons" style="color: #32CD32">fiber_manual_record</i></td>
-          <td class="space padding-zero"><i class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></td>
-          <td class="space padding-zero"><i class="material-icons">send</i></td>
-        </tr>
-        <tr>
-            <td>55%</td>
-            <td colspan="2">
-              <div class="progress hoverable">
-                <div class="determinate" style="width: 55%"></div>
-              </div>
-            </td>
-          </tr>
-        <tr class="card">
-          <td class="name2 padding-zero"><b>4614</b></td>
-          <td class="name3 padding-zero">5054 Relatório de Saques</td>
-          <th class="space padding-zero"></th>
-          <td>-</td>
-          <td class="concepcao padding-zero">01</td>
-          <td class="concepcao padding-zero">02</td>
-          <td class="concepcao padding-zero">03</td>
-          <td class="concepcao padding-zero">04</td>
-          <td class="concepcao padding-zero">05</td>
-          <td class="concepcao padding-zero">06</td>
-          <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-          <td class="space realprev padding-zero">90<br>110</td>          
-          <td class="space realprev padding-zero">27/01 30/01</td>
-          <td class="space padding-zero"><i class="material-icons" style="color: #32CD32">fiber_manual_record</i></td>
-          <td class="space padding-zero"><i class="material-icons" style="color: #FFD700">fiber_manual_record</i></td>
-          <td class="space padding-zero"><i class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></td>
-          <td class="space padding-zero"><i class="material-icons">send</i></td>
-        </tr>
-        <tr>
-            <td>70%</td>
-            <td colspan="2">
-              <div class="progress hoverable">
-                <div class="determinate" style="width: 70%"></div>
-              </div>
-            </td>
-          </tr>
-        <tr class="card">
-          <td class="name2 padding-zero"><b>4608</b></td>
-          <td class="name3 padding-zero">5053 Relatório Saque 24hrs</td>
-          <th class="space padding-zero"></th>
-          <td>-</td>
-          <td>13</td>
-          <td>14</td>
-          <td>15</td>
-          <td>16</td>
-          <td>17</td>
-          <td>18</td>
-          <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-          <td class="space realprev padding-zero">80<br>50</td>          
-          <td class="space realprev padding-zero">21/01 20/01</td>
-          <td class="space padding-zero"><i class="material-icons" style="color: #32CD32">fiber_manual_record</i></td>
-          <td class="space padding-zero"><i class="material-icons" style="color: #FFD700">fiber_manual_record</i></td>
-          <td class="space padding-zero"><i class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></td>
-          <td class="space padding-zero"><i class="material-icons">send</i></td>
-        </tr>
-        <tr>
-            <td>100%</td>
-            <td colspan="2">
-              <div class="progress hoverable">
-                <div class="determinate" style="width: 100%"></div>
-              </div>
-            </td>
-          </tr>
-        <tr class="card">
-          <td class="name2 padding-zero"><b>4616</b></td>
-          <td class="name3 padding-zero">5052 Site Usuário Convênio</td>
-          <th class="space padding-zero"></th>
-          <td>-</td>
-          <td class="concepcao padding-zero">89</td>
-          <td class="concepcaoeconcepcao3 padding-zero">90</td>
-          <td class="concepcao3 padding-zero">91</td>
-          <td class="concepcao3 padding-zero">92</td>
-          <td class="concepcao3 padding-zero">93</td>
-          <td class="concepcao3 padding-zero">94</td>
-          <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-          <td class="space realprev padding-zero">180<br>95</td>          
-          <td class="space realprev padding-zero">02/02 31/01</td>
-          <td class="space padding-zero"><i class="material-icons" style="color: rgb(240,0,0)">fiber_manual_record</i></td>
-          <td class="space padding-zero"><i class="material-icons" style="color: #32CD32">fiber_manual_record</i></td>
-          <td class="space padding-zero"><i class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></td>
-          <td class="space padding-zero"><i class="material-icons">send</i></td>
-        </tr>
-        <tr>
-            <td>40%</td>
-            <td colspan="2">
-              <div class="progress hoverable">
-                <div class="determinate" style="width: 40%"></div>
-              </div>
-            </td>
-          </tr>
-          <tr class="card">
-              <td class="name2 padding-zero"><b>3684</b></td>
-              <td class="name3 padding-zero">5051 Upgrade Sistema do Saque</td>
-              <th class="space padding-zero"></th>
-              <td>-</td>
-              <td class="concepcao9 padding-zero">44</td>
-              <td class="concepcao9 padding-zero">45</td>
-              <td class="concepcao9 padding-zero">46</td>
-              <td class="concepcao9 padding-zero">47</td>
-              <td class="concepcao9econcepcao7 padding-zero">48</td>
-              <td class="concepcao7 padding-zero">49</td>
-              <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-              <td class="space realprev padding-zero">24<br>20</td>          
-              <td class="space realprev padding-zero">14/01 14/01</td>
-              <td class="space padding-zero"><i class="material-icons" style="color: #FFD700">fiber_manual_record</i></td>
-              <td class="space padding-zero"><i class="material-icons" style="color: rgb(240,0,0)">fiber_manual_record</i></td>
-              <td class="space padding-zero"><i class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></td>
-              <td class="space padding-zero"><i class="material-icons">send</i></td>
-            </tr>
-            <tr>
-                <td>80%</td>
-                <td colspan="2">
-                  <div class="progress hoverable">
-                    <div class="determinate" style="width: 80%"></div>
-                  </div>
-                </td>
-              </tr>
-            <tr class="card">
-                <td class="name2 padding-zero"><b>3647</b></td>
-                <td class="name3 padding-zero">5050 Ajustar Perfil do Saque</td>
-                <th class="space padding-zero"></th>
-                <td>-</td>
-                <td class="concepcao7 padding-zero">67</td>
-                <td class="concepcao7 padding-zero">68</td>
-                <td class="concepcao7 padding-zero">69</td>
-                <td class="concepcao7 padding-zero">70</td>
-                <td class="concepcao7 padding-zero">71</td>
-                <td class="concepcao7 padding-zero">72</td>
-                <td class="space realprev padding-zero"><b>Real Prev.</b></td>
-                <td class="space realprev padding-zero">100<br>98</td>          
-                <td class="space realprev padding-zero">02/03 28/02</td>
-                <td class="space padding-zero"><i class="material-icons" style="color: #FFD700">fiber_manual_record</i></td>
-                <td class="space padding-zero"><i class="material-icons" style="color: #FFD700">fiber_manual_record</i></td>
-                <td class="space padding-zero"><i class="material-icons">chevron_left</i><i class="material-icons">chevron_right</i></td>
-                <td class="space padding-zero"><i class="material-icons">send</i></td>
-              </tr>
-              <tr>
-                <td>90%</td>
-                <td colspan="2">
-                  <div class="progress hoverable">
-                    <div class="determinate" style="width: 90%"></div>
-                  </div>
-                </td>
-              </tr>
-      </tbody>
-    </table>
-</div> 
+  <table class="col s12 m12 l5">
+    <thead>
+      <tr>
+        <th class="space">{{ 'CODE' | translate }}</th>
+        <th class="space">{{ 'PROJECTNAME' | translate }}</th>
+        <th class="space"></th>
+        <th *ngFor="let day of daysOfWeek7">{{ day }}</th>
+        <th class="space"></th>
+        <th>{{ 'HOURS' | translate }}</th>
+        <th>{{ 'DATE' | translate }}</th>
+        <th class="space">{{ 'EXP' | translate }}</th>
+        <th class="space">{{ 'EFF' | translate }}</th>
+        <th class="space">{{ 'STATUSREPORT' | translate }}</th>
+      </tr>
+    </thead>
 
-<!-- Gráficos -->
-<ul class="collapsible graphicsDiv" data-collapsible = "accordion">
+    <tbody>
+      <ng-container *ngFor="let project of filteredProjects | slice:0:8; let i=index">
+        <tr class="card">
+          <td class="name2 padding-zero"><b>{{ project.code }}</b></td>
+          <td class="name3 padding-zero">{{ project.name }}</td>
+          <th class="space padding-zero"></th>
+          <ng-container *ngFor="let activity of project.tasks  let i = index">
+            <td [ngStyle]="{'background-color': activity.style}">
+              <button [disabled]="!activity.validDay"
+                (click)="openModalProject(projectDetail, project.id, activity.day, activity.month, activity.year)"
+                class="transparent-button"><span
+                  [ngClass]="{'animated infinite fadeIn': !activity.allocated}">{{ activity.day }}</span></button>
+            </td>
+          </ng-container>
+          <td class="space realprev padding-zero"><b>Real Prev.</b></td>
+          <td class="space realprev padding-zero">{{ project.actualEffort }}<br>{{ project.predictEffort }}</td>
+          <td class="space realprev padding-zero">{{ project.actualConclusion}} {{ project.predictConclusion }}</td>
+          <td class="space padding-zero"><i class="material-icons"
+              [ngStyle]="{ 'color': project.expectedStyle }">fiber_manual_record</i>
+          </td>
+          <td class="space padding-zero"><i class="material-icons"
+              [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i></td>
+          <td class="space padding-zero">
+            <button (click)="openReport()" class="transparent-button">
+              <i class="material-icons">send</i>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ project.completed }}%</td>
+          <td colspan="2">
+            <div class="progress hoverable">
+              <div class="determinate" [ngStyle]="{'width': project.completed+'%'}"></div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<!--div class="row">
+<ul class="collapsible" data-collapsible="accordion">
   <li>
     <div class="collapsible-header active">
-      <!-- <i class="far fa-chart-bar"></i> -->
       <p><b>{{'GRAPHICS' | translate}}</b></p>
     </div>
     <div class="collapsible-body ">
       <div class="graphic" *ngFor="let graphic of graphics">
         <h6>{{graphic.title}}</h6>
-        <canvas baseChart
-            [data]="graphic.data"
-            [labels]="graphic.labels"
-            [chartType]="graphic.type"
-            [colors]="chartColors"
-            [options]="chartOptions"
-            [legend]="false">
+        <canvas baseChart [data]="graphic.data" [labels]="graphic.labels" [chartType]="graphic.type"
+          [colors]="chartColors" [options]="chartOptions" [legend]="false">
         </canvas>
       </div>
     </div>
   </li>
-</ul> 
+</ul>
+</div-->
+
+<!-- MODAL PLAYER TASK DETAIL-->
+<mz-modal #activityDetail [fixedFooter]="true" [fullscreen]="true" [options]="modalOptions">
+  <mz-modal-header>
+    <h5 class="center-align">{{ dailyActivity.playerName }}</h5>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="divider"></div>
+    <div class="row">
+      <div class="col l12 m12 s12 mt-10">
+        <div class="col l3 m3 s3">
+          <div class="ml-m-25">
+            <div class="col l8 m8 s8 center-align">
+              <span class="activity-text title">{{ dailyActivity.dayText }}</span>
+              <div class="col l12 m12 s12 center-align">
+                <div class="activity-day">
+                  <span class="activity-day-text">{{ dailyActivity.dateFmt }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col l8 m8 s8">
+          <span class="activity-text title">{{ 'PROGRESS' | translate}}</span>
+          <div class="row mt-15">
+            <div class="col l2 m2 s2">
+              <span>{{ dailyActivity.progress }}%</span>
+            </div>
+            <div class="col l10 m10 s10">
+              <div class="progress hoverable">
+                <div class="determinate" [ngStyle]="{'width': dailyActivity.progress+'%'}"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="divider mt-10"></div>
+    <div class="row mt-10">
+      <div class="col l2 m2 s2">
+        <span class="activity-text title ml-25">{{ 'PROJECT' | translate }}</span>
+      </div>
+      <div class="col l6 m6 s6 left-align">
+        <span class="activity-text title ml-15">{{ 'ACTIVITY' | translate }}</span>
+      </div>
+      <div class="col l2 m2 s2 left-align">
+        <span class="activity-text title ml-m-12">{{ 'DUEDATE' | translate }}</span>
+      </div>
+      <div class="col l1 m1 s1 left-align">
+        <span class="activity-text title ml-m-15">{{ 'EFFORT' | translate }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <mz-collapsible [mode]="'accordion'" [popout]="false">
+        <ng-container *ngFor="let activity of dailyActivity.activities">
+          <mz-collapsible-item [active]="false">
+            <mz-collapsible-item-header class="col l12 m12 s12">
+              <div class="valign-wrapper">
+                <div title="{{activity.project.name}}" class="col l2 m2 s2 left-align">
+                  <span class="activity-text">{{ activity.project.code }}</span>
+                </div>
+                <div class="col l6 m6 s6 left-align">
+                  <span class="activity-text">{{ activity.name }}</span>
+                </div>
+                <div class="col l2 m2 s2 left-align">
+                  <span class="activity-text">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</span>
+                </div>
+                <div class="col l1 m1 s1 left-align">
+                  <span class="activity-text">{{ activity.dailyEffort }}h</span>
+                </div>
+                <div class="col l1 m1 s1 padding-zero valign-wrapper">
+                  <button class="transparent-button" matTooltip="{{ activity.status | translate }}">
+                    <i class="material-icons" [ngClass]="{  'building': activity.status == 'BUILDING', 
+                                  'warning': activity.status == 'EXECUTION', 
+                                  'ok': activity.status == 'FINISHED', 
+                                  'hanging': activity.status == 'HANGING',
+                                  'delayed': activity.status == 'DELAYED',
+                                  'waiting' : activity.status == 'WAITING' }">fiber_manual_record</i>
+                  </button>
+                </div>
+              </div>
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body>
+              <div class="row">
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="table-info">{{ 'PROJECT' | translate}}</th>
+                      <th class="table-info">{{ 'CARD' | translate }}</th>
+                      <th class="table-info">{{ 'PREVIEWSTARTDATE' | translate}}</th>
+                      <th class="table-info">{{ 'PREVIEWENDDATE' | translate}}</th>
+                      <th class="table-info">{{ 'STARTDATE' | translate}}</th>
+                      <th class="table-info">{{ 'ENDDATE' | translate}}</th>
+                      <th class="table-info">{{ 'EXPEFFORT' | translate }}</th>
+                      <th class="table-info">{{ 'EFFORT' | translate }} </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="table-info">{{ activity.project.name }}</td>
+                      <td class="table-info">{{ activity.card.skillName }} - {{ activity.card.cardName }}</td>
+                      <td class="table-info">{{ activity.expectedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.finalizedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.duration }}h</td>
+                      <td class="table-info">{{ activity.effort }}h</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div *ngIf="activity.status != 'FINISHED'" class="row mt-30">
+                <div class="col l1 m1 s1">
+                  <button mat-icon-button matTooltip="{{ 'FINALIZE' | translate }}">
+                    <i (click)="finalize(finalizeModal, activity.id)"
+                      class="material-icons action-btn green-text">check_circle</i>
+                  </button>
+                </div>
+                <div class="col l1 m1 s1">
+                  <button mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
+                    <i (click)="removePlayer(removePlayerModal, activity.id)"
+                      class="material-icons action-btn red-text">cancel</i>
+                  </button>
+                </div>
+                <div class="col l1 m1 s1">
+                  <button mat-icon-button matTooltip="{{ 'SUSPEND' | translate }}">
+                    <i (click)="suspend(suspendModal, activity.id)"
+                      class="material-icons action-btn orange-text">do_not_disturb_on</i>
+                  </button>
+                </div>
+                <div class="col l1 m1 s1" *ngIf="activity.status != 'FINISHED'">
+                  <mat-form-field class="invisible example-full-width">
+                    <input [matDatepickerFilter]="weekend" [min]="checkDate(activity.previewedAt)"
+                      (dateInput)="relocateTaskResource(confirm, $event, dailyActivity.playerId, activity.id, activity.name, activity.previewedAt)"
+                      matInput [matDatepicker]="picker" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker [dateClass]="dateClassPlayer"></mat-datepicker>
+                  </mat-form-field>
+                  <button mat-icon-button (click)="picker.open()" matTooltip="{{ 'REPLAN' | translate }}">
+                    <i class="material-icons action-btn blue-text">event</i>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="isDesigning" class="row mt-30">
+                <div class="col l6 m6 s6">
+                  <label class="label" id="example-radio-group-label">{{ 'RATEDPLAYER' | translate }}</label>
+                  <div class="row">
+                    <div class="input-50">
+                      <input (input)="onSearchChange($event.target.value)" matInput
+                        placeholder="{{ 'SEARCHMORE' | translate }}" value="">
+                    </div>
+                  </div>
+                  <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                    [(ngModel)]="designatePlayer">
+                    <mat-radio-button (click)="activeConfirmation()" class="example-radio-button"
+                      *ngFor="let player of dailyActivity.playersRatedFiltered | slice:0:6; let i=index"
+                      [value]="player">
+                      <span class="radio-text valign-wrapper">{{ player.name }}
+                        <i *ngIf="!player.available" class="material-icons tiny red-text ml-5">event_busy</i>
+                        <i *ngIf="player.available && player.hoursAvailable != 8"
+                          class="material-icons tiny orange-text ml-5">event_available</i>
+                        <i *ngIf="player.available && player.hoursAvailable == 8"
+                          class="material-icons tiny green-text ml-5">event_available</i>
+                      </span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div class="col l6 m6 s6">
+                  <label class="label" id="example-radio-group-label">{{ 'AVAILABLEPLAYER' | translate }}</label>
+                  <div class="row">
+                    <div class="input-50">
+                      <input (input)="onSearchChange($event.target.value)" matInput
+                        placeholder="{{ 'SEARCHMORE' | translate }}" value="">
+                    </div>
+                  </div>
+                  <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                    [(ngModel)]="designatePlayer">
+                    <mat-radio-button (click)="activeConfirmation()" class="example-radio-button"
+                      *ngFor="let player of dailyActivity.playersAvailableFiltered | slice:0:5; let i=index"
+                      [value]="player">
+                      <span class="radio-text valign-wrapper">{{ player.name }}
+                        <i *ngIf="!player.available" class="material-icons tiny red-text ml-5">event_busy</i>
+                        <i *ngIf="player.available && player.hoursAvailable != 8"
+                          class="material-icons tiny orange-text ml-5">event_available</i>
+                        <i *ngIf="player.available && player.hoursAvailable == 8"
+                          class="material-icons tiny green-text ml-5">event_available</i>
+                      </span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+              <div *ngIf="isDesigning" class="row mt-30">
+                <button [disabled]="!confirmDesignate" mz-button (click)="doDesignation(confirmDesignate, activity.id)">
+                  {{ 'DESIGNATE' | translate }}
+                </button>
+              </div>
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        </ng-container>
+      </mz-collapsible>
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<!-- MODAL PROJECT TASK-->
+<mz-modal #projectDetail [fixedFooter]="true" [fullscreen]="true" [options]="modalOptions">
+  <mz-modal-header>
+    <h5 class="center-align">{{ projectModel.projectName }}</h5>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="divider"></div>
+    <div class="row">
+      <div class="col l12 m12 s12 mt-10">
+        <div class="col l3 m3 s3">
+          <div class="ml-m-25">
+            <div class="col l8 m8 s8 center-align">
+              <span class="activity-text title">{{ projectModel.dayText }}</span>
+              <div class="col l12 m12 s12 center-align">
+                <div class="activity-day">
+                  <span class="activity-day-text">{{ projectModel.dateFmt }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col l8 m8 s8">
+          <span class="activity-text title">{{ 'PROGRESS' | translate}}</span>
+          <div class="row mt-15">
+            <div class="col l2 m2 s2">
+              <span>{{ projectModel.progress }}%</span>
+            </div>
+            <div class="col l10 m10 s10">
+              <div class="progress hoverable">
+                <div class="determinate" [ngStyle]="{'width': projectModel.progress+'%'}"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="divider mt-10"></div>
+    <div class="row mt-10">
+      <div class="col l6 m6 s6 left-align">
+        <span class="activity-text title ml-25">{{ 'ACTIVITY' | translate }}</span>
+      </div>
+      <div class="col l2 m2 s2">
+        <span class="activity-text title">{{ 'RESOURCE' | translate }}</span>
+      </div>
+      <div class="col l2 m2 s2 left-align">
+        <span class="activity-text title ml-m-12">{{ 'DUEDATE' | translate }}</span>
+      </div>
+      <div class="col l1 m1 s1 left-align">
+        <span class="activity-text title ml-m-15">{{ 'EFFORT' | translate }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <mz-collapsible [mode]="'accordion'" [popout]="false">
+        <ng-container *ngFor="let activity of projectModel.activities">
+          <mz-collapsible-item [active]="false">
+            <mz-collapsible-item-header class="col l12 m12 s12" (click)="cleanDesignate()">
+              <div class="mt-10">
+                <div class="valign-wrapper">
+                  <div class="col l6 m6 s6 left-align">
+                    <span class="activity-text">{{ activity.name }}</span>
+                  </div>
+                  <div class="col l2 m2 s2 left-align">
+                    <span class="activity-text">{{ activity.player != null ? activity.player.name : '' }}</span>
+                  </div>
+                  <div class="col l2 m2 s2 left-align">
+                    <span class="activity-text">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</span>
+                  </div>
+                  <div class="col l1 m1 s1 left-align">
+                    <span class="activity-text">{{ activity.dailyEffort }}h</span>
+                  </div>
+                  <div class="col l1 m1 s1 padding-zero valign-wrapper">
+                    <button class="transparent-button" matTooltip="{{ activity.status | translate }}">
+                      <i class="material-icons" [ngClass]="{  
+                                  'building': activity.status == 'BUILDING', 
+                                  'warning': activity.status == 'EXECUTION', 
+                                  'ok': activity.status == 'FINISHED', 
+                                  'hanging': activity.status == 'HANGING',
+                                  'delayed': activity.status == 'DELAYED',
+                                  'waiting': activity.status == 'WAITING' }">fiber_manual_record</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body>
+              <div class="row">
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="table-info">{{ 'PLAYER' | translate}}</th>
+                      <th class="table-info">{{ 'CARD' | translate }}</th>
+                      <th class="table-info">{{ 'PREVIEWSTARTDATE' | translate}}</th>
+                      <th class="table-info">{{ 'PREVIEWENDDATE' | translate}}</th>
+                      <th class="table-info">{{ 'STARTDATE' | translate}}</th>
+                      <th class="table-info">{{ 'ENDDATE' | translate }}</th>
+                      <th class="table-info">{{ 'EXPEFFORT' | translate }}</th>
+                      <th class="table-info">{{ 'EFFORT' | translate }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="table-info">{{ activity.player != null ? activity.player.name : '' }}</td>
+                      <td class="table-info">{{ activity.card.skillName }} - {{ activity.card.cardName }}</td>
+                      <td class="table-info">{{ activity.expectedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss'}} </td>
+                      <td class="table-info">{{ activity.finalizedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.duration }}h</td>
+                      <td class="table-info">{{ activity.effort }}h</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div *ngIf="activity.status != 'FINISHED'" class="row mt-30">
+                <div *ngIf="activity.startedAt != null" class="col l1 m1 s1">
+                  <button mat-icon-button matTooltip="{{ 'FINALIZE' | translate }}">
+                    <i (click)="finalize(finalizeModal, activity.id)"
+                      class="material-icons action-btn green-text">check_circle</i>
+                  </button>
+                </div>
+                <div *ngIf="activity.player != null && activity.status != 'FINISHED'" class="col l1 m1 s1">
+                  <button mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
+                    <i (click)="removePlayer(removePlayerModal, activity.id)"
+                      class="material-icons action-btn red-text">cancel</i>
+                  </button>
+                </div>
+                <div *ngIf="activity.status != 'FINISHED'" class="col l1 m1 s1">
+                  <button mat-icon-button matTooltip="{{ 'SUSPEND' | translate }}">
+                    <i (click)="suspend(suspendModal, activity.id)"
+                      class="material-icons action-btn orange-text">do_not_disturb_on</i>
+                  </button>
+                </div>
+                <div class="col l1 m1 s1" *ngIf="activity.player == null && activity.player == null && activity.status != 'FINISHED'">
+                  <button mat-icon-button matTooltip="{{ 'DESIGNATE' | translate }}">
+                    <i class="material-icons action-btn" (click)="designate(activity.id)">person_add</i>
+                  </button>
+                </div>
+                <div class="col l1 m1 s1" *ngIf="activity.status != 'FINISHED'">
+                  <mat-form-field class="invisible example-full-width">
+                    <input [matDatepickerFilter]="weekend" [min]="checkDate(activity.previewedAt)"
+                      (dateInput)="relocateTaskResource(confirm, $event, dailyActivity.playerId, activity.id, activity.name, activity.previewedAt)"
+                      matInput [matDatepicker]="pickerProject" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="pickerProject"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerProject [dateClass]="dateClassProject"></mat-datepicker>
+                  </mat-form-field>
+                  <button matTooltip="{{ 'REPLAN' | translate }}" mat-icon-button
+                    (click)="findProjectAllocation(activity.player, pickerProject)">
+                    <i class="material-icons action-btn blue-text">event</i>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="isDesigning" class="row mt-30">
+                <div class="col l6 m6 s6">
+                  <label class="label" id="example-radio-group-label">{{ 'RATEDPLAYER' | translate }}</label>
+                  <div class="row">
+                    <div class="input-50">
+                      <input (input)="onSearchChange($event.target.value)" matInput
+                        placeholder="{{ 'SEARCHMORE' | translate }}" value="">
+                    </div>
+                  </div>
+                  <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                    [(ngModel)]="designatePlayer">
+                    <mat-radio-button (click)="activeConfirmation()" class="example-radio-button"
+                      *ngFor="let player of dailyActivity.playersRatedFiltered | slice:0:6; let i=index"
+                      [value]="player">
+                      <span class="radio-text valign-wrapper">{{ player.name }}
+                        <i class="material-icons tiny green-text ml-5">event_available</i>
+                      </span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div class="col l6 m6 s6">
+                  <label class="label" id="example-radio-group-label">{{ 'AVAILABLEPLAYER' | translate }}</label>
+                  <div class="row">
+                    <div class="input-50">
+                      <input (input)="onSearchChange($event.target.value)" matInput
+                        placeholder="{{ 'SEARCHMORE' | translate }}" value="">
+                    </div>
+                  </div>
+                  <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                    [(ngModel)]="designatePlayer">
+                    <mat-radio-button (click)="activeConfirmation()" class="example-radio-button"
+                      *ngFor="let player of dailyActivity.playersAvailableFiltered | slice:0:5; let i=index"
+                      [value]="player">
+                      <span class="radio-text valign-wrapper">{{ player.name }}
+                        <i class="material-icons tiny green-text ml-5">event_available</i>
+                      </span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+              <div *ngIf="isDesigning" class="row mt-30">
+                <button [disabled]="!confirmDesignate" mz-button
+                  (click)="doDesignation(confirmDesignate, dailyActivity.playerId, activity.id)">
+                  {{ 'DESIGNATE' | translate }}
+                </button>
+              </div>
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        </ng-container>
+      </mz-collapsible>
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<!-- MODAL CONFIRM FINALIZE -->
+<mz-modal #finalizeModal [fullscreen]="false">
+  <mz-modal-header>
+    <h5 class="center-align">{{ 'CONFIRMACTION' | translate }}</h5>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="divider"></div>
+    <div class="row mt-30">
+      <span class="modal-text">
+        {{ 'MESSAGECONFIRMFINALIZE' | translate }}
+      </span>
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
+    <button mz-button [flat]="true" (click)="confirmFinalize()" mz-modal-close>{{ 'CONFIRM' | translate }}</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<!-- MODAL CONFIRM REMOVE PLAYER -->
+<mz-modal #removePlayerModal [fullscreen]="false">
+  <mz-modal-header>
+    <h5 class="center-align">{{ 'CONFIRMACTION' | translate }}</h5>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="divider"></div>
+    <div class="row mt-30">
+      <span class="modal-text">
+        {{ 'MESSAGECONFIRMREMOVEPLAYER' | translate }}
+      </span>
+    </div>
+    <div class="row">
+      <input matInput placeholder="{{ 'REASON' | translate }}" value="" [(ngModel)]="reason">
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
+    <button mz-button [flat]="true" (click)="confirmRemovePlayer()" mz-modal-close>{{ 'CONFIRM' | translate }}</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<!-- MODAL CONFIRM SUSPEND TASK -->
+<mz-modal #suspendModal [fullscreen]="false">
+  <mz-modal-header>
+    <h5 class="center-align">{{ 'CONFIRMACTION' | translate }}</h5>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="divider"></div>
+    <div class="row mt-30">
+      <span class="modal-text">
+        {{ 'MESSAGECONFIRMSUSPEND' | translate }}
+      </span>
+    </div>
+    <div class="row">
+      <input matInput placeholder="{{ 'REASON' | translate }}" value="" [(ngModel)]="reason">
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
+    <button mz-button [flat]="true" (click)="confirmSuspend()" mz-modal-close>{{ 'CONFIRM' | translate }}</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<!-- MODAL CONFIRM RELOCATE-->
+<mz-modal #confirm [fullscreen]="false">
+  <mz-modal-header>
+    <h5 class="center-align">{{ 'CONFIRMACTION' | translate }}</h5>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="divider"></div>
+    <div class="row mt-30">
+      <span class="modal-text">
+        {{ 'CONFIRMMESSAGE2' | translate }}
+      </span>
+    </div>
+    <div class="row">
+      <div class="col l3 m3 s3">
+        <input [disabled]="true" type="text" [(ngModel)]="selectedDate">
+      </div>
+      <div class="col l3 m3 s3">
+        <input type="time" max="18:00" min="08:00" [(ngModel)]="selectedTime">
+      </div>
+    </div>
+    <div class="row col l6 m6 s6 mt-30">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-info">{{ 'ACTIVITY' | translate}}</th>
+            <th class="table-info">{{ 'DAYSDELAYED' | translate }}</th>
+            <th class="table-info">{{ 'DATEFROM' | translate }}</th>
+            <th class="table-info">{{ 'DATETO' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="table-info">{{ confirmModel.activityName }}</td>
+            <td class="table-info">{{ confirmModel.delay }}</td>
+            <td class="table-info">{{ confirmModel.dateFrom }}</td>
+            <td class="table-info">{{ confirmModel.dateTo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
+    <button mz-button [flat]="true" (click)="confirmRelocateTaskResource()"
+      mz-modal-close>{{ 'CONFIRM' | translate }}</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<!-- MODAL CONFIRM DESIGNATE -->
+<mz-modal #confirmDesignate [fullscreen]="false">
+  <mz-modal-header>
+    <h5 class="center-align">{{ 'CONFIRMACTION' | translate }}</h5>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="divider"></div>
+    <div class="row mt-30">
+      <span class="modal-text">
+        {{ 'CONFIRMMESSAGE2' | translate }}
+      </span>
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
+    <button mz-button [flat]="true" (click)="confirmDesignTaskResource(success)"
+      mz-modal-close>{{ 'CONFIRM' | translate }}</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<mz-modal #success [fullscreen]="false">
+  <mz-modal-header>
+    <h5 class="center-align">{{ 'SUCCESS' | translate }}</h5>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="divider"></div>
+    <div class="row mt-30">
+      <span class="modal-text">
+        {{ 'SUCCESS' | translate }}
+      </span>
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
+  </mz-modal-footer>
+</mz-modal>

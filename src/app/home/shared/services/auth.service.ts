@@ -1,8 +1,9 @@
 import { Router } from '@angular/router';
-import { User } from '../login/user';
+import { User } from '../../../login/user';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment'
+import { environment } from '../../../../environments/environment'
+import { LoadingService } from 'src/app/home/shared/services/loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,12 @@ export class AuthService {
   private header: any = { 'Content-Type': 'application/json' };
 
   constructor(private router: Router,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private loadingService: LoadingService ) { }
 
   login(user: User) {
 
+    this.loadingService.showPreloader();
 
     var body = {
       email: user.username,
@@ -42,14 +45,16 @@ export class AuthService {
             this.user.permissions = userInfo['permissions'];
             this.user.scopes = userInfo['scopes'];
 
-
             this.usuarioAutenticado = true;
 
-            // TODO: retirar isso, o ideal é salvar o token
             localStorage.setItem('user', JSON.stringify(this.user));
+            localStorage.setItem('token', resp.headers.get('X-Token'));
+            this.loadingService.hidePreloader();
             this.router.navigate(['/home/dashboard']);
+         
 
           } else {
+            this.loadingService.hidePreloader();
             alert(resp.body["message"]);
           }
         });
