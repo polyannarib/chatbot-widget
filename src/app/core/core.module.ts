@@ -7,10 +7,17 @@ import { ProjectService } from './services/project.service';
 import { LoadingService } from './services/loading.service';
 import { TaskService } from './services/task.service';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpsRequestInterceptor } from './interceptors/auth-interceptor';
+
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     AuthService,
@@ -18,7 +25,12 @@ import { TaskService } from './services/task.service';
     ProjectService,
     LoadingService, 
     TaskService,
-    AuthGuardService
+    AuthGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpsRequestInterceptor,
+      multi: true,
+    },
   ]
 })
 export class CoreModule { }
