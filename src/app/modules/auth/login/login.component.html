@@ -4,19 +4,23 @@
         <img class="WorkPlayer meio" src="../../../../assets/images/WorkPlayer.png">
     </div>
     <div class="card meio panel col l4 row">
-      <div class="col l12 tineline">
-        <div class="input-field">
-          <input id="usuario" type="text" class="validate" [(ngModel)]="user.username" placeholder="Usuário">
-          <label class="active" for="usuario"></label>
+
+      <form [formGroup]="form" (ngSubmit)="onLogin()">
+        <div class="col l12 tineline">
+          <div class="input-field">
+            <input id="usuario" type="text" class="validate" formControlName="email" placeholder="Usuário" required>
+            <label class="active" for="usuario"></label>
+          </div>
         </div>
-      </div>
-      <div class="col l12 tineline">
-        <div class="input-field">
-          <input  id="senha" type="password" class="validate" [(ngModel)]="user.password" (keyup.enter)="login()" placeholder="Senha">
-          <label class="active" for="senha"></label>
+        <div class="col l12 tineline">
+          <div class="input-field">
+            <input id="senha" type="password" class="validate" formControlName="password" placeholder="Senha" required>
+            <label class="active" for="senha"></label>
+          </div>
         </div>
-      </div>
-      <a class="waves-effect waves-light btn center" (click)="login()">Entrar</a>
+        <button type="submit" class="waves-effect waves-light btn center">Entrar</button>
+      </form>
+
     </div>
     <div class="logo">
       <img style="height: 30px; width: 80px" src="../../../../assets/images/kyros_logo.png">
@@ -26,7 +30,3 @@
 
   </div>
 </body>
-
-<div>
-  <router-outlet></router-outlet>
-</div>

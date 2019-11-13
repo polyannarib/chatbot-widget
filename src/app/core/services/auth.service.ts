@@ -16,19 +16,15 @@ export class AuthService {
   private header: any = { 'Content-Type': 'application/json' };
 
   constructor(private router: Router,
-    private http: HttpClient,
-    private loadingService: LoadingService ) { }
+    private http: HttpClient
+  ) { }
 
   login(user: User) {
-
-    this.loadingService.showPreloader();
-
     var body = {
       email: user.username,
       password: btoa(user.password),
       type: 'WEBPORTAL'
     }
-
     this.http.post(this.url + '/login', body,
       { observe: 'response', headers: new HttpHeaders(this.header) }).subscribe(
         resp => {
@@ -48,16 +44,15 @@ export class AuthService {
 
             localStorage.setItem('user', JSON.stringify(this.user));
             localStorage.setItem('token', resp.headers.get('X-Token'));
-            this.loadingService.hidePreloader();
+            // this.loadingService.hidePreloader();
             this.router.navigate(['/home/dashboard']);
          
 
           } else {
-            this.loadingService.hidePreloader();
+            // this.loadingService.hidePreloader();
             alert(resp.body["message"]);
           }
         });
-
   }
 
   usuarioEstaAutenticado() {
