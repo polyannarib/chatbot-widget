@@ -253,7 +253,7 @@
                 </table>
               </div>
               <div *ngIf="activity.status != 'FINISHED'" class="row mt-30">
-                <div *ngIf="activity.startedAt != null" class="col l1 m1 s1">
+                <div class="col l1 m1 s1">
                   <button mat-icon-button matTooltip="{{ 'FINALIZE' | translate }}">
                     <i (click)="finalize(finalizeModal, activity.id)"
                       class="material-icons action-btn green-text">check_circle</i>
