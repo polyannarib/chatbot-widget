@@ -1,9 +1,9 @@
-import { User } from '../../../shared/models/UserModels';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { User } from 'src/app/shared/models/user';
+import { MzToastService } from 'ngx-materialize';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 })
 export class LoginComponent implements OnInit {
 
-  private user: User = new User();
+  user: User;
   form: FormGroup = this.formBuilder.group({
     email: [null, [Validators.required, Validators.email]],
     password: [null, [Validators.required]],
@@ -22,23 +22,25 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastService: MzToastService
   ) { }
 
   ngOnInit() {}
 
   onLogin() {
-    if (this.form.invalid) {
-      alert('o formulário esta com problemas');
+    if (this.form.valid) {
+      this.authService.login(this.form.value.email, btoa(this.form.value.password), this.form.value.type);
+      // .subscribe(
+      //   (response) => {
+      //     this.router.navigate(['/auth/login']);
+      //   }, (error) => {
+      //     this.toastService.show('Algum problema aconteceu', 4000, 'toastrDanger');
+      //   }
+      // ); 
+    } else {
+      this.toastService.show('Favor preencher todos campos!', 4000, 'toastrDanger');
     }
-    this.authService.login(this.form.value.email, btoa(this.form.value.password), this.form.value.type).subscribe(
-      (response) => {
-        this.router.navigate(['/auth/login']);
-      }, (error) => {
-        console.log('deu problema');
-      }
-    );
-      
   }
 
 }

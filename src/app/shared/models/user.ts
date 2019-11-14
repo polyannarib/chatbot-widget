@@ -1,12 +1,12 @@
 export interface User {
-    username: string;
-    password: string;
-    token: string;
-    name: string;
-    displayName: string;
-    email : string;
-    companyName: string;
-    permissions: string[];
-    scopes: string[];
-    grant_type: string;
+    username: String;
+    password: String;
+    token: String;
+    name: String;
+    displayName: String;
+    email : String;
+    companyName: String;
+    permissions: String[];
+    scopes: String[];
+    grant_type: String;
 }

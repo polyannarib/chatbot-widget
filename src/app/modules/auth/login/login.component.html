@@ -1,4 +1,29 @@
-<body class="bodyLogin">
+<section class="loginBackground">
+  <div class="center">
+    <img src="../../../../assets/images/WorkPlayer.png">
+    <div class="card">
+      <form [formGroup]="form" (ngSubmit)="onLogin()">
+        
+        <div class="input-field">
+          <input id="usuario" type="text" class="validate" formControlName="email" required>
+          <label for="usuario">Usuário</label>
+        </div>
+      
+        <div class="input-field">
+          <input id="senha" type="password" class="validate" formControlName="password" required>
+          <label for="senha">Senha</label>
+        </div>
+        
+        <button type="submit" class="waves-effect waves-light btn center">Entrar</button>
+
+      </form>
+    </div>
+    <img class="logoKyros" src="../../../../assets/images/kyros_logo.png">
+  </div>
+</section>
+
+
+<!-- <body class="bodyLogin">
   <div class="row">
     <div>
         <img class="WorkPlayer meio" src="../../../../assets/images/WorkPlayer.png">
@@ -26,7 +51,7 @@
       <img style="height: 30px; width: 80px" src="../../../../assets/images/kyros_logo.png">
     </div>
 
-    <!-- <ngx-spinner name="wait-login" [fullScreen]="true" type="pacman" size="medium"></ngx-spinner> -->
+    <ngx-spinner name="wait-login" [fullScreen]="true" type="pacman" size="medium"></ngx-spinner>
 
   </div>
-</body>
+</body> -->

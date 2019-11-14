@@ -1,9 +1,9 @@
 export interface Activity {
     playerId: number;
-    playerName: string;
-    dayText: string;
-    date: string;
-    dateFmt: string;
+    playerName: String;
+    dayText: String;
+    date: String;
+    dateFmt: String;
     day: number;
     month: number;
     year: number;

@@ -17,6 +17,9 @@ import pt from '@angular/common/locales/pt';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
+// NgxMaterial componentes importados no projeto
+import { MzToastModule } from 'ngx-materialize'
+
 registerLocaleData(pt);
 
 export function createTranslateLoader(http: HttpClient) {
@@ -27,6 +30,7 @@ export function createTranslateLoader(http: HttpClient) {
   imports: [
     CommonModule,
     CoreModule,
+    MzToastModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,

@@ -6,12 +6,11 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class HttpsRequestInterceptor implements HttpInterceptor {
 
-    token: any;
     contentType: any;
     
     constructor() { }
 
-    intercept(request: HttpRequest<any>, next: HttpHandler,): Observable<HttpEvent<any>> {
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         const requestUrl: Array<any> = request.url.split('/');
         const apiUrl: Array<any> = environment.back_end_url.split('/');
@@ -20,7 +19,7 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
             this.contentType = request.headers.get('Content-Type');
         }
 
-        if( localStorage.getItem('acessToken') && (requestUrl[2] === apiUrl[2])) {
+        if(localStorage.getItem('acessToken') && (requestUrl[2] === apiUrl[2])) {
             const newRequest = request.clone({
                 setHeaders: {
                     'Content-Type': (this.contentType != 'application/json' ? 'application/text' :  this.contentType),

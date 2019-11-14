@@ -1,10 +1,10 @@
 export interface Project {
-    projectName: string;
-    dayText: string;
+    projectName: String;
+    dayText: String;
     day: number;
     month: number;
-    date: string;
-    dateFmt: string;
+    date: String;
+    dateFmt: String;
     progress: number;
     activities: any;
 }

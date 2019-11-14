@@ -1,17 +1,21 @@
 import { Component, OnInit, ElementRef, Type, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { MzModalComponent } from 'ngx-materialize';
-import { ActivityModel } from '../../../shared/models/ActivityModel';
-import { ProjectModel } from '../../../shared/models/ProjectModel';
-import { AllocationModel } from '../../../shared/models/AllocationModel';
+// import { ActivityModel } from '../../../shared/models/ActivityModel';
+// import { ProjectModel } from '../../../shared/models/ProjectModel';
+// import { AllocationModel } from '../../../shared/models/AllocationModel';
+// import { ConfirmModel } from '../../../shared/models/ConfirmModel';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { ConfirmModel } from '../../../shared/models/ConfirmModel';
 import { MzModalService } from 'ngx-materialize';
 import { ProjectService } from 'src/app/core/services/project.service';
 import { PlayerService } from 'src/app/core/services/player.service';
 import { TaskService } from 'src/app/core/services/task.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { ModalSuccessComponent } from '../shared/modal/success/modal-success.component';
+import { Allocation } from 'src/app/shared/models/allocation';
+import { Activity } from 'src/app/shared/models/activity';
+import { Project } from 'src/app/shared/models/project';
+import { Player } from '@angular/core/src/render3/interfaces/player';
 
 declare var jQuery: any;
 
@@ -33,17 +37,17 @@ export class DashboardComponent implements OnInit {
   endDateProject: Date;
   players: Array<any>;
   filteredPlayers: Array<any>;
-  player: any = {};
+  player: Player;
   projects: Array<any>;
   filteredProjects: Array<any>;
-  playerAllocation: AllocationModel = new AllocationModel();
-  projectAllocation: AllocationModel = new AllocationModel();
+  playerAllocation: Allocation;
+  projectAllocation: Allocation;
   daysOfWeek14: Array<String> = [];
   daysOfWeek7: Array<String> = [];
   activityDetail: MzModalComponent;
-  dailyActivity: ActivityModel = new ActivityModel();
-  projectModel: ProjectModel = new ProjectModel();
-  confirmModel: ConfirmModel = new ConfirmModel();
+  dailyActivity: Activity;
+  projectModel: Project;
+  confirmModel: any;
   isDesigning: Boolean = false;
   selectedAvailablePlayer: String;
   today: Date = new Date();
@@ -69,7 +73,9 @@ export class DashboardComponent implements OnInit {
     outDuration: 200,
     startingTop: '100%',
     endingTop: '10%',
-    complete: () => { this.clean() }
+    complete: () => { 
+      // this.clean() 
+    }
   };
 
   dateClassPlayer = (d: Date) => {
@@ -542,15 +548,15 @@ export class DashboardComponent implements OnInit {
     this.isDesigning = false;
   }
 
-  clean() {
-    this.confirmDesignate = false;
-    this.playerAllocation = new AllocationModel();
-    this.projectAllocation = new AllocationModel();
-    this.dailyActivity = new ActivityModel();
-    this.projectModel = new ProjectModel();
-    this.confirmModel = new ConfirmModel();
-    this.isDesigning = false;
-  }
+  // clean() {
+  //   this.confirmDesignate = false;
+  //   this.playerAllocation = new AllocationModel();
+  //   this.projectAllocation = new AllocationModel();
+  //   this.dailyActivity = new ActivityModel();
+  //   this.projectModel = new ProjectModel();
+  //   this.confirmModel = new ConfirmModel();
+  //   this.isDesigning = false;
+  // }
 
   openReport() {
       window.open("http://192.168.0.216:9300/bi/?pathRef=.public_folders%2FGamifica%25C3%25A7%25C3%25A3o%2FStatus%2BReport", "_blank");
