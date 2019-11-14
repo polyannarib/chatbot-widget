@@ -16,19 +16,20 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  login(user: User): Observable<any> {
-    return this.http.post<User>(`${environment.back_end_url}/login`, user)
+  login(email: string, password: string, type: string): Observable<any> {
+    return this.http.post<User>(`${environment.back_end_url}/login`, {email, password, type})
       .pipe(map(response => {
         localStorage.setItem('currentUser', JSON.stringify(response));
+        localStorage.setItem('token', response.headers.get('X-Token'));
         return response;
-    }));
+      }));
   }
-
+  
   logout() {
     localStorage.removeItem('currentUser');
   }
 
-  getUSer() {
+  getUser() {
     return localStorage.getItem('currentUser');
   }
 

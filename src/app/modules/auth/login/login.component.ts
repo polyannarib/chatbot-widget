@@ -21,37 +21,24 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private spinner : NgxSpinnerService,
     private router: Router,
     private formBuilder: FormBuilder
   ) { }
 
-  ngOnInit() {
-    // if(this.authService.getUser() && localStorage.getItem('token') != null) {
-    //   this.router.navigate(['/home/dashboard']);
-    // }
-  }
-    
-  login(){
-    this.spinner.show('wait-login');
-    this.authService.login(this.user);
-    this.spinner.hide('wait-login');
-  }
+  ngOnInit() {}
 
   onLogin() {
-    if (this.form.valid) {
-      
-      // this.authService.login(this.user);
-      this.authService.login(this.form.value).subscribe(
-        (response) => {
-          this.router.navigate(['/auth/login']);
-        }, (error) => {
-          console.log('deu problema');
-        }
-      );
-    } else {
-      
+    if (this.form.invalid) {
+      alert('o formulário esta com problemas');
     }
+    this.authService.login(this.form.value.email, btoa(this.form.value.password), this.form.value.type).subscribe(
+      (response) => {
+        this.router.navigate(['/auth/login']);
+      }, (error) => {
+        console.log('deu problema');
+      }
+    );
+      
   }
 
 }

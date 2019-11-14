@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  pipe : DatePipe = new DatePipe('en-US'); 
+  pipe: DatePipe = new DatePipe('en-US'); 
   profile: boolean = false;
   currentPage: string = "COCKPIT"
   logoUrl: string = 'kyros_logo.png'
@@ -27,13 +27,13 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  getUserInfo(){
-    let user = this.authService.getUser();
-    if(user != undefined){
-      return user.displayName;
-    }
-    return '';
-  }
+  // getUserInfo(){
+  //   let user = this.authService.getUser();
+  //   if(user != undefined){
+  //     return user.displayName;
+  //   }
+  //   return '';
+  // }
 
   // getDate(){
   //   let date = new Date();
