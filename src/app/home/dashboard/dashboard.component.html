@@ -105,7 +105,7 @@
           <td class="space padding-zero"><i class="material-icons"
               [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i></td>
           <td class="space padding-zero">
-            <button (click)="openModalProject(projectStatusReport, project.id, activity.day, activity.month, activity.year)" class="transparent-button">
+            <button (click)="openModalStatusReport(projectStatusReport, project.id)" class="transparent-button">
             <!-- <button (click)="openReport()" class="transparent-button"> -->
               <i class="material-icons">send</i>
             </button>
@@ -745,44 +745,34 @@
 
     <div class="row">
       <mz-collapsible [mode]="'accordion'" [popout]="false">
-        <ng-container *ngFor="let activity of projectModel.activities">
+        <!-- <ng-container *ngFor="let activity of projectModel.activities"> -->
+        <!-- <ng-container> -->
           <mz-collapsible-item [active]="false">
             <mz-collapsible-item-header class="col l12 m12 s12" (click)="cleanDesignate()">
               <div class="mt-10">
                 <div class="valign-wrapper">
                   <div class="col l6 m6 s6 left-align">
-                    <span class="activity-text">{{ activity.name }}</span>
+                    <span class="activity-text">activity.name</span>
                   </div>
                   <div class="col l2 m2 s2 left-align">
-                    <span class="activity-text">{{ activity.player != null ? activity.player.name : '' }}</span>
+                    <span class="activity-text">activity.player</span>
                   </div>
                   <div class="col l2 m2 s2 left-align">
-                    <span class="activity-text">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</span>
+                    <span class="activity-text">activity.previewedAt</span>
                   </div>
                   <div class="col l1 m1 s1 left-align">
-                    <span class="activity-text">{{ activity.dailyEffort }}h</span>
-                  </div>
-                  <div class="col l1 m1 s1 padding-zero valign-wrapper">
-                    <button class="transparent-button" matTooltip="{{ activity.status | translate }}">
-                      <i class="material-icons" [ngClass]="{  
-                                  'building': activity.status == 'BUILDING', 
-                                  'warning': activity.status == 'EXECUTION', 
-                                  'ok': activity.status == 'FINISHED', 
-                                  'hanging': activity.status == 'HANGING',
-                                  'delayed': activity.status == 'DELAYED',
-                                  'waiting': activity.status == 'WAITING' }">fiber_manual_record</i>
-                    </button>
+                    <span class="activity-text">activity.dailyEffort</span>
                   </div>
                 </div>
               </div>
             </mz-collapsible-item-header>
             <mz-collapsible-item-body>
               <div class="row">
-                <!-- AQUI VAI A DESCRIÇÃO -->
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ipsum sapien, malesuada nec massa ac, euismod interdum velit. Nam eget odio in turpis porttitor sagittis in non diam. Phasellus vitae ultricies leo, eu vulputate sem. Aliquam placerat in enim eu dictum. Ut pretium velit nulla, a sodales quam commodo in. Curabitur eleifend ullamcorper rhoncus. Donec eget mattis arcu. Aenean posuere lorem in dolor sollicitudin, id vehicula tortor viverra. Morbi ultrices varius molestie. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent id vehicula metus, id congue leo.</p>
               </div>
             </mz-collapsible-item-body>
           </mz-collapsible-item>
-        </ng-container>
+        <!-- </ng-container> -->
       </mz-collapsible>
     </div>
   </mz-modal-content>
