@@ -27,28 +27,6 @@ export function createTranslateLoader(http: HttpClient) {
   imports: [
     CommonModule,
     CoreModule,
-    MzModalModule,
-    MzButtonModule,
-    MzTooltipModule,
-    MzInputModule,
-    MzCollapsibleModule,
-    MzRadioButtonModule,
-    MaterializeModule,
-    NgxSpinnerModule,
-    MzModalModule,
-    MzButtonModule,
-    MzInputModule,
-    MzCollapsibleModule,
-    MzRadioButtonModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatRadioModule,
-    MatButtonModule,
-    MatTooltipModule,
-    MatIconModule,
-    MzTooltipModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -59,15 +37,15 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule
   ],
   declarations: [
-    LoadingServiceComponent,
-    ModalErrorComponent,
-    ModalSuccessComponent,
+    // LoadingServiceComponent,
+    // ModalErrorComponent,
+    // ModalSuccessComponent,
     FilterListPipe
   ],
   exports: [
-    LoadingServiceComponent,
-    ModalErrorComponent,
-    ModalSuccessComponent,
+    // LoadingServiceComponent,
+    // ModalErrorComponent,
+    // ModalSuccessComponent,
     FilterListPipe
   ],
   providers: [

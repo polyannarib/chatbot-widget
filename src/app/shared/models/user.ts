@@ -1,4 +1,4 @@
-export class User {
+export interface User {
     username: string;
     password: string;
     token: string;
@@ -8,5 +8,5 @@ export class User {
     companyName: string;
     permissions: string[];
     scopes: string[];
-    grant_type: string = 'password';
+    grant_type: string;
 }
