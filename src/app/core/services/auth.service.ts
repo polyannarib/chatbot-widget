@@ -10,7 +10,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
   
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private http: HttpClient
   ) { }
 

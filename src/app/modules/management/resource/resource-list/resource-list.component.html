@@ -1,0 +1,41 @@
+
+  <div class="row">
+    <div class="col s12">
+      <div class="input-field">
+        <input autocomplete="off" id="senha" matInput type="text" class="validate" value="">
+        <label for="senha">Testando</label>
+        <!-- <i class="fa fa-filter"></i> -->
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th class="days">Player</th>
+          <th *ngFor="let day of daysOfWeek13">{{ day | date:'E' }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let player of filteredPlayers | slice:0:8; let i=index">
+          <tr class="card">
+            <td class="name left-align"><b>{{ player.name }}</b></td>
+            <ng-container *ngFor="let activity of player.tasks let i = index">
+              <td [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}"
+                [ngStyle]="{'background-color': activity.style}">
+                <button class="btn-floating disabled" [disabled]="!activity.validDay">{{ activity.day }}</button>
+              </td>
+            </ng-container>
+          </tr>
+          <div class="progress hoverable">
+            <div class="determinate" [ngStyle]="{'width': player.allocated+'%'}"></div>
+          </div>
+          <!-- <tr>
+            <td>{{ player.allocated }}%</td>
+            <td>
+            </td>
+          </tr> -->
+        </ng-container>
+      </tbody>
+    </table>
+  </div>

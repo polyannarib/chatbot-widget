@@ -12,7 +12,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 // Interceptors
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpsRequestInterceptor } from './interceptors/auth-interceptor';
+import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { ErrorInterceptor } from './interceptors/error-interceptor';
 
 @NgModule({
@@ -29,7 +29,7 @@ import { ErrorInterceptor } from './interceptors/error-interceptor';
     LoadingService, 
     TaskService,
     AuthGuardService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpsRequestInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ]
 })

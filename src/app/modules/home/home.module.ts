@@ -11,19 +11,19 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
-    DashboardComponent, 
-    HomeComponent,
+    // DashboardComponent, 
+    // HomeComponent,
   ],
   // entryComponents: [
   //   ModalSuccessComponent,
   // ],
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    CoreModule,
-    SharedModule,
-    TranslateModule
+    // FormsModule,
+    // ReactiveFormsModule,
+    // CommonModule,
+    // CoreModule,
+    // SharedModule,
+    // TranslateModule
   ]
 })
 export class HomeModule { }

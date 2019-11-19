@@ -1,0 +1,46 @@
+<header>
+    <nav>
+        <div class="nav-wrapper">
+            <a class="brand-logo center">COCKPIT WORKPLAYER</a>
+            <ul class="left hide-on-med-and-down">
+                <li><a routerLink="/home/dashboard" (click)="currentPage = 'COCKPIT'"><i class="material-icons">insert_chart</i></a></li>
+                <li><a routerLink="/home/project" (click)="currentPage = 'PROJECT'"><i class="material-icons">note_add</i></a></li>
+                <li><a routerLink="/home/player" (click)="currentPage = 'PLAYER'"><i class="material-icons">person_add</i></a></li>
+                <li><a routerLink="/home/card" (click)="currentPage = 'CARD'"><i class='material-icons'>bookmarks</i></a></li>
+                <li><a routerLink="/home/calendar" (click)="currentPage = 'CALENDAR'"><i class="material-icons">date_range</i></a></li>
+            </ul>
+            <ul class="right hide-on-med-and-down">
+                <li><a class="dropdown-trigger" href="" data-target="dropdown1"><i class="material-icons">perm_identity</i></a></li>
+                <ul id="dropdown1" class="dropdown-content">
+                    <li><a href="#!">Player</a></li>
+                    <li><a (click)="logout()"><i class="material-icons">exit_to_app</i>Logout</a></li>
+                </ul>
+                <!-- <img src="../../../../assets/images/bradesco_logo.png"> -->
+            </ul>
+        </div>
+    </nav>
+  <!-- <div class="menu">
+      <button routerLink="/home/dashboard" (click)="currentPage = 'COCKPIT'"><i class="material-icons">insert_chart</i></a>
+      <button routerLink="/home/project" (click)="currentPage = 'PROJECT'"><i class="material-icons">note_add</i></a>
+      <button routerLink="/home/player" (click)="currentPage = 'PLAYER'"><i class="material-icons">person_add</i></a>
+      <button routerLink="/home/card" (click)="currentPage = 'CARD'"><i class='material-icons'>bookmarks</i></a>
+      <button routerLink="/home/calendar" (click)="currentPage = 'CALENDAR'"><i class="material-icons">date_range</i></a>
+  </div> -->
+  <!-- <ul class="card login col s4 m4 l3">
+      <div><span>{{getUserInfo()}}</span></div>
+  </ul>
+  <ul class="date col s4 m4 l4">
+      <p>{{getDate()}}</p>
+  </ul> -->
+  <!-- <p> WORKPLAYER</p>
+  <div class="end">
+      <img [src]="logoUrl">
+      <i class="material-icons" (click)="profile = !profile">perm_identity</i>
+  </div>    
+  <div class="profile" *ngIf="profile">
+    <ul>
+        <li>Player</li>
+        <li (click)="logout()"><i class="material-icons">exit_to_app</i>Logout</li> 
+    </ul>
+  </div> -->
+</header>

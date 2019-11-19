@@ -4,7 +4,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } fr
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class HttpsRequestInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
 
     contentType: any;
     
@@ -19,7 +19,7 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
             this.contentType = request.headers.get('Content-Type');
         }
 
-        if(localStorage.getItem('acessToken') && (requestUrl[2] === apiUrl[2])) {
+        if(localStorage.getItem('acessToken')) {
             const newRequest = request.clone({
                 setHeaders: {
                     'Content-Type': (this.contentType != 'application/json' ? 'application/text' :  this.contentType),

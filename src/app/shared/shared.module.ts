@@ -3,57 +3,34 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 
 import { FilterListPipe } from './pipe/filter.pipe';
 
-import { ModalErrorComponent } from './components/modal/error/modal-error.component';
-import { ModalSuccessComponent } from '../modules/home/shared/modal/success/modal-success.component';
-import { LoadingServiceComponent } from './components/loading-service/loading-service.component';
-import { MzModalModule, MzButtonModule, MzTooltipModule, MzInputModule, MzCollapsibleModule, MzRadioButtonModule, MaterializeModule } from 'ngx-materialize';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatButtonModule, MatTooltipModule, MatIconModule } from '@angular/material';
 import { CoreModule } from '../core/core.module';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { LOCALE_ID } from '@angular/core';
-import pt from '@angular/common/locales/pt';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 // NgxMaterial componentes importados no projeto
-import { MzToastModule } from 'ngx-materialize'
+import { MzToastModule } from 'ngx-materialize';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component'
 
-registerLocaleData(pt);
-
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     CoreModule,
     MzToastModule,
-    TranslateModule.forRoot({
-      loader: {
-          provide: TranslateLoader,
-          useFactory: createTranslateLoader,
-          deps: [HttpClient]
-      }
-    }),
     HttpClientModule
   ],
   declarations: [
-    // LoadingServiceComponent,
-    // ModalErrorComponent,
-    // ModalSuccessComponent,
-    FilterListPipe
+    FilterListPipe,
+    HeaderComponent,
+    FooterComponent
   ],
   exports: [
-    // LoadingServiceComponent,
-    // ModalErrorComponent,
-    // ModalSuccessComponent,
-    FilterListPipe
-  ],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'pt' },
+    FilterListPipe,
+    HeaderComponent,
+    FooterComponent,
+    TranslateModule
   ]
 })
 export class SharedModule { }

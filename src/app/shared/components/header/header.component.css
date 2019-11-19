@@ -1,0 +1,6 @@
+header nav {
+    background-color: #cc092f;
+}
+header nav img {
+    height: var(--logo-height);
+}
