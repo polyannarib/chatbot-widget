@@ -1,11 +1,29 @@
 /* .card {
     padding: 15px 15px 0px 15px;
 } */
-table thead th {
-    height: 38px;
-}
 table{
     font-size: 12px;
+}
+/* table thead th {
+} */
+table thead tr th {
+    height: 38px;
+    text-align: center;
+}
+table tbody tr .days {
+    height: 33px;
+    width: 33px;
+    text-align: center;
+}
+table tbody tr .playerAllocated {
+    text-align: center;
+    position: relative;
+    top: -3px;
+}
+table tbody tr .spacename {
+    width: 30px;
+    height: 30px;
+    text-align: center;
 }
 td, th {
     padding: 0px;
@@ -13,4 +31,22 @@ td, th {
     text-align: left;
     vertical-align: middle;
     border-radius: 2px;
+}
+.btn-floating {
+    display: inline-block;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 33px;
+    height: 33px;
+    line-height: 33px;
+    padding: 0;
+    background-color: #26a69a;
+    border-radius: 0%;
+    -webkit-transition: .3s;
+    transition: .3s;
+    cursor: pointer;
+    vertical-align: middle;
+    box-shadow: none;
 }

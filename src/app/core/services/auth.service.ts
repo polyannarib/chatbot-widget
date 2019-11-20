@@ -1,34 +1,36 @@
-import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-
-import { Observable, BehaviorSubject } from 'rxjs';
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  
-  constructor(
-    private router: Router,
-    private http: HttpClient
-  ) { }
 
-  login(email: string, password: string, type: string) {
-    return this.http.post<any>(`${environment.back_end_url}/login`, {email, password, type}, { observe: 'response' })
-      .subscribe(resp => {
-        const token = resp.headers.get('X-Token');
-        localStorage.setItem('currentUser', token);
-      })
-  }
+  getToken: string = localStorage.getItem('acessToken');
+  jwtHelper = new JwtHelperService();
+
+  constructor() { }
+
+  // login(email: string, password: string, type: string) {
+  //   return this.http.post<any>(`${environment.back_end_url}/login`, {email, password, type}, { observe: 'response' })
+  //     .subscribe(resp => {
+  //       const token = resp.headers.get('X-Token');
+  //       localStorage.setItem('currentUser', token);
+  //     })
+  // }
   
   logout() {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('acessToken');
   }
 
   getUser() {
-    return localStorage.getItem('currentUser');
+    if(this.getToken) {
+      return this.jwtHelper.decodeToken(this.getToken);
+    }
+  }
+
+  isAuthenticated(): boolean {
+    return !this.jwtHelper.isTokenExpired(this.getToken);
   }
 
 }

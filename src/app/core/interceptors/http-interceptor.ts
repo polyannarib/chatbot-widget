@@ -4,16 +4,13 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } fr
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class HttpInverceptor implements HttpInterceptor {
 
     contentType: any;
     
     constructor() { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-        const requestUrl: Array<any> = request.url.split('/');
-        const apiUrl: Array<any> = environment.back_end_url.split('/');
         
         if (request.headers.has('Content-Type')) {
             this.contentType = request.headers.get('Content-Type');

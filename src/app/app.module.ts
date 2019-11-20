@@ -4,16 +4,14 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './routing/app-routing.module';
+
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
 
-// Modulos importados
-import { AuthModule } from './modules/auth/auth.module';
-import { ManagementModule } from './modules/management/management.module';
+import { HttpClient } from '@angular/common/http';
 
 import pt from '@angular/common/locales/pt';
 
@@ -32,7 +30,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    CoreModule,
     SharedModule,
     TranslateModule.forRoot({
       loader: {

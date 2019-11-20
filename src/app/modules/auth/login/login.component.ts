@@ -1,18 +1,19 @@
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/models/user';
-import { MzToastService } from 'ngx-materialize';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+
+import { MzToastService } from 'ngx-materialize';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
   user: User;
   form: FormGroup = this.formBuilder.group({
@@ -29,12 +30,17 @@ export class LoginComponent implements OnInit {
     private http: HttpClient
   ) { }
 
+  ngAfterViewInit() {
+    if(this.authService.isAuthenticated()) {
+      this.router.navigate(['/management/dashboard']);
+    }
+  }
+
   ngOnInit() {}
 
   onLogin() {
     if (this.form.valid) {
       this.form.value.password = btoa(this.form.value.password);
-      this.authService.login(this.form.value.email, btoa(this.form.value.password), this.form.value.type);
       this.http.post<any>(`${environment.back_end_url}/login`, this.form.value, { observe: 'response' })
         .subscribe(resp => {
           if (resp.body.status == 0) {

@@ -3,17 +3,14 @@ import { CommonModule } from '@angular/common';
 
 // Todos os serviços
 import { AuthService } from './services/auth.service';
-import { AuthGuardService } from './guards/auth-guard';
+import { AuthGuard } from './guards/auth-guard';
 import { ProjectService } from './services/project.service';
 import { LoadingService } from './services/loading.service';
 import { TaskService } from './services/task.service';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
-// Interceptors
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './interceptors/auth-interceptor';
-import { ErrorInterceptor } from './interceptors/error-interceptor';
+import { HttpInverceptor } from './interceptors/http-interceptor';
 
 @NgModule({
   declarations: [],
@@ -23,14 +20,12 @@ import { ErrorInterceptor } from './interceptors/error-interceptor';
     FormsModule
   ],
   providers: [
+    AuthGuard,
     AuthService,
-    AuthGuardService,
     ProjectService,
     LoadingService, 
     TaskService,
-    AuthGuardService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInverceptor, multi: true }
   ]
 })
 export class CoreModule { }

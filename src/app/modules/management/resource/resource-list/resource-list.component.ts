@@ -9,8 +9,9 @@ import { format, eachDayOfInterval, addDays } from 'date-fns';
 })
 export class ResourceListComponent implements OnInit {
 
-  filteredPlayers: any;
+  players: any;
   daysOfWeek13: any;
+  filteredPlayers: any;
 
   constructor(
     private playerService: PlayerService
@@ -19,12 +20,12 @@ export class ResourceListComponent implements OnInit {
   ngOnInit() {
     this.daysOfWeek13 = eachDayOfInterval({
       start: new Date(Date.now()),
-      end: addDays(new Date(Date.now()), 13)
+      end: addDays(new Date(Date.now()), 12)
     })
-    this.filterPlayers();
+    this.findPlayers();
   }
 
-  filterPlayers() {
+  findPlayers() {
     let params = {
       "startDate": format(new Date(Date.now()), 'dd-MM-yyyy'),
       "page": 1,
@@ -32,12 +33,20 @@ export class ResourceListComponent implements OnInit {
     }
     this.playerService.findPlayers(params).subscribe(
       (response) => {
-        this.filteredPlayers = response.object.list;
+        this.players = response.object.list;
       }, (err) => {
         console.log('------- err -------');
         console.log(err);
       }
     );
+  }
+
+  onSearchChangeResource(searchValue: string): void {
+    this.players = this.players.filter(
+      (curr) => {
+        return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+      }
+    )
   }
 
 }

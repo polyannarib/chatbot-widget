@@ -7,19 +7,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ManagementRoutingModule } from './routing/management-routing.module';
 
 import { ManagementComponent } from './management.component';
-import { ResourceComponent } from './resource/resource.component';
 import { ResourceListComponent } from './resource/resource-list/resource-list.component';
-import { ProjectsComponent } from './projects/projects.component';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    ManagementComponent, 
-    ResourceComponent,
+    ManagementComponent,
     ResourceListComponent,
-    ProjectsComponent,
     ProjectsListComponent
   ],
   imports: [

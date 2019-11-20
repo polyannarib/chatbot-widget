@@ -13,10 +13,11 @@ export class ProjectService {
   constructor(private http: HttpClient) { }
 
   listProjects(params: any): Observable<any> {
-    return this.http.get(this.url + '/dashboard/project', {params:params});
+    return this.http.get(this.url + '/dashboard/project', {params: params});
   }
 
   findAllocation(params): Observable<any> {
-    return this.http.get(this.url + '/project_allocation', {params:params} );
+    return this.http.get(this.url + '/project_allocation', {params: params} );
   }
+  
 }
