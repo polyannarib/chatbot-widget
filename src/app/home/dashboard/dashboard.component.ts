@@ -193,7 +193,7 @@ export class DashboardComponent implements OnInit {
   }
 
   openModalProject(modal: MzModalComponent, id: Number, day: any, month: any, year: any) {
-
+    
     let self = this;
     this.loadingService.showPreloader();
     this.projectModal = true;
@@ -227,7 +227,12 @@ export class DashboardComponent implements OnInit {
       modal.openModal();
       self.loadingService.hidePreloader();
     })
+  }
 
+  openModalStatusReport(modal: MzModalComponent, id: Number) {
+    let self = this;
+    this.projectModal = true;
+    modal.openModal();
   }
 
   openModalPlayer(modal: MzModalComponent, id: Number, day: any, month: any, year: any) {
