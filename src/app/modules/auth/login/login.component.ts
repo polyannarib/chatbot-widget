@@ -11,7 +11,7 @@ import { MzToastService } from 'ngx-materialize';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
   user: User;
   form: FormGroup = this.formBuilder.group({
@@ -27,11 +27,11 @@ export class LoginComponent implements OnInit {
     private toastService: MzToastService
   ) { }
 
-  // ngAfterViewInit() {
-  //   if(this.authService.isAuthenticated()) {
-  //     this.router.navigate(['/management/dashboard']);
-  //   }
-  // }
+  ngAfterViewInit() {
+    if(this.authService.isAuthenticated()) {
+      this.router.navigate(['/management/dashboard']);
+    }
+  }
 
   ngOnInit() { }
 
@@ -40,21 +40,29 @@ export class LoginComponent implements OnInit {
       this.form.value.password = btoa(this.form.value.password);
       this.authService.login(this.form.value).subscribe(
         (response) => {
-          switch (response.status) {
-            case 0:
-              localStorage.setItem('acessToken', response.object.token);
-              this.router.navigate(['/management/dashboard']);
-              break;
-            case 1:
-              this.toastService.show(response.object.message, 4000, 'toastrDanger');
-              break;
-            default:
-              this.toastService.show('Ops, ocorreu algum erro. Contate o administrador', 4000, 'toastrDanger');
-              break;
+          if(response.status === 0) {
+            this.authService.setToken(response.object.token);
+            return;
           }
+          this.toastService.show(response.object.message, 4000, 'toastrDanger');
+          // switch (response.status) {
+          //   case 0:
+          //     console.log('entrou dentro do case 0');
+          //     localStorage.setItem('acessToken', response.object.token);
+          //     console.log(localStorage.getItem('acessToken'));
+          //     this.router.navigate(['/management/dashboard']);
+          //     return;
+          //   case 1:
+          //       console.log('entrou dentro do case');
+          //     this.toastService.show(response.object.message, 4000, 'toastrDanger');
+          //     return;
+          //   default:
+          //     this.toastService.show('Ops, ocorreu algum erro. Contate o administrador', 4000, 'toastrDanger');
+          //     return;
+          // }
         }, (err) => {
           console.log(err);
-          this.toastService.show('E-mail ou senha invalidos', 4000, 'toastrDanger');
+          this.toastService.show('Por favor, digite os campos corretamente', 4000, 'toastrDanger');
       })
     } else {
       this.toastService.show('Favor preencher todos campos!', 4000, 'toastrDanger');
@@ -62,4 +70,3 @@ export class LoginComponent implements OnInit {
   }
 
 }
-

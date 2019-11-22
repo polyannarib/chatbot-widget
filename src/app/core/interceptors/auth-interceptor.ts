@@ -9,22 +9,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         
-        if (request.headers.has('X-Token')) {
-            const xToken = request.headers.get('X-Token');
-
-            console.log('----- xToken -----');
-            console.log(xToken);
-
-            const newRequest = request.clone({
-                setHeaders: {
-                    'Content-Type': 'application/json',
-                    'X-Token': `${xToken}`
-                }
-            });
-            return next.handle(newRequest);
-        } else {
-            return next.handle(request);
-        }
-
+        const newRequest = request.clone({
+            setHeaders: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        return next.handle(newRequest);
+        
     }
 }

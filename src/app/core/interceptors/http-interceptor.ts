@@ -1,13 +1,16 @@
 import { Injectable, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class HttpInverceptor implements HttpInterceptor {
 
     contentType: any;
     
-    constructor() { }
+    constructor(
+        private authService: AuthService
+    ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         
@@ -15,7 +18,7 @@ export class HttpInverceptor implements HttpInterceptor {
             this.contentType = request.headers.get('Content-Type');
         }
 
-        if(localStorage.getItem('acessToken')) {
+        if(this.authService.isAuthenticated()) {
             const newRequest = request.clone({
                 setHeaders: {
                     'Content-Type': (this.contentType != 'application/json' ? 'application/json' :  this.contentType),

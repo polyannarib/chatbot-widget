@@ -1,16 +1,24 @@
+
 <h2 mat-dialog-title class="center-align">{{ playerActivity?.player.name }}</h2>
+
+<hr>
 
 <mat-dialog-content class="mat-typography">
   <div class="row">
-    <div class="col s12 m4">  
-      <div class="title">{{ data.activityDate | date:'E' }}</div>
+    <div class="col s12 m4 datePlayerActivity center-align">  
+      <div class="title">{{ data.activityDate | date:'EEEE' }}</div>
       <span>{{ data.activityDate | date:'dd/MM/yyyy'}}</span>
     </div>
     <div class="col s12 m8">
       <div class="title">{{ 'PROGRESS' | translate }}</div>
-      {{ playerActivity.progress }}
+      {{ playerActivity?.progress }}
+
+      <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" >   
+        <span  class="popOver" data-toggle="tooltip" data-placement="top" title="85%"> </span>     
+      </div>
+
       <div class="progress hoverable">
-        <div class="determinate" [ngStyle]="{'width': playerActivity.progress+'%'}"></div>
+        <div class="determinate" [ngStyle]="{'width': playerActivity?.progress+'%'}"></div>
       </div>
     </div>
   </div>
@@ -32,7 +40,6 @@
 <mat-dialog-actions align="end">
   <button class="btn waves-effect waves-light" mat-dialog-close>Fechar</button>
 </mat-dialog-actions>
-
 
 
 

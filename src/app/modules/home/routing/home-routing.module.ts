@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from '../home.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-// import { AuthGuardService } from './guards/auth-guard';
 
 const APP_ROUTES: Routes = [
     { path: '', component: HomeComponent, children: [
