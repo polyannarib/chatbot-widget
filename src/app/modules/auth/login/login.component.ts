@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/models/user';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 
 import { MzToastService } from 'ngx-materialize';
 
@@ -13,7 +11,7 @@ import { MzToastService } from 'ngx-materialize';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
 
   user: User;
   form: FormGroup = this.formBuilder.group({
@@ -26,31 +24,38 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private toastService: MzToastService,
-    private http: HttpClient
+    private toastService: MzToastService
   ) { }
 
-  ngAfterViewInit() {
-    if(this.authService.isAuthenticated()) {
-      this.router.navigate(['/management/dashboard']);
-    }
-  }
+  // ngAfterViewInit() {
+  //   if(this.authService.isAuthenticated()) {
+  //     this.router.navigate(['/management/dashboard']);
+  //   }
+  // }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onLogin() {
     if (this.form.valid) {
       this.form.value.password = btoa(this.form.value.password);
-      this.http.post<any>(`${environment.back_end_url}/login`, this.form.value, { observe: 'response' })
-        .subscribe(resp => {
-          if (resp.body.status == 0) {
-            const token = resp.headers.get('X-Token');
-            localStorage.setItem('acessToken', token);
-            this.router.navigate(['/management/dashboard']);
-          } else {
-            this.toastService.show('E-mail ou senha invalidos', 4000, 'toastrDanger');
+      this.authService.login(this.form.value).subscribe(
+        (response) => {
+          switch (response.status) {
+            case 0:
+              localStorage.setItem('acessToken', response.object.token);
+              this.router.navigate(['/management/dashboard']);
+              break;
+            case 1:
+              this.toastService.show(response.object.message, 4000, 'toastrDanger');
+              break;
+            default:
+              this.toastService.show('Ops, ocorreu algum erro. Contate o administrador', 4000, 'toastrDanger');
+              break;
           }
-        })
+        }, (err) => {
+          console.log(err);
+          this.toastService.show('E-mail ou senha invalidos', 4000, 'toastrDanger');
+      })
     } else {
       this.toastService.show('Favor preencher todos campos!', 4000, 'toastrDanger');
     }

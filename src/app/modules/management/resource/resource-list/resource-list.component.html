@@ -25,7 +25,7 @@
         <ng-container *ngFor="let activity of player.tasks">
           <td class="days" [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}"
             [ngStyle]="{'background-color': activity.style}">
-            <button class="btn-floating" [disabled]="!activity.validDay">{{ activity.day }}</button>
+            <button class="btn-floating hoverable" [disabled]="!activity.validDay" (click)="modalResourceDetails(player.id, activity)">{{ activity.day }}</button>
           </td>
         </ng-container>
       </tr>
@@ -40,4 +40,3 @@
     </ng-container>
   </tbody>
 </table>
-  

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayerService } from 'src/app/core/services/player.service';
 import { format, eachDayOfInterval, addDays } from 'date-fns';
+import { PageEvent, MatDialog } from '@angular/material';
+import { ResourceDetailsComponent } from '../resource-details/resource-details.component';
 
 @Component({
   selector: 'app-resource-list',
@@ -12,9 +14,13 @@ export class ResourceListComponent implements OnInit {
   players: any;
   daysOfWeek13: any;
   filteredPlayers: any;
+  pageLength: number;
+  pageSize: number;
+  pageSizeOptions: number[] = [10, 25, 50];
 
   constructor(
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -47,6 +53,17 @@ export class ResourceListComponent implements OnInit {
         return curr.name.toUpperCase().includes(searchValue.toUpperCase());
       }
     )
+  }
+
+  modalResourceDetails(playerId, activity): void {
+    const dataSend = {
+      playerId: playerId,
+      activityDate: new Date(activity.year, activity.month, activity.day)
+    }
+    const dialogRef = this.dialog.open(ResourceDetailsComponent, {
+      width: '90vw',
+      data: dataSend
+    });
   }
 
 }

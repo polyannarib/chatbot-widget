@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { environment } from 'src/environments/environment';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+
+import { Login } from 'src/app/shared/models/login';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,28 +14,31 @@ export class AuthService {
   getToken: string = localStorage.getItem('acessToken');
   jwtHelper = new JwtHelperService();
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  // login(email: string, password: string, type: string) {
-  //   return this.http.post<any>(`${environment.back_end_url}/login`, {email, password, type}, { observe: 'response' })
-  //     .subscribe(resp => {
-  //       const token = resp.headers.get('X-Token');
-  //       localStorage.setItem('currentUser', token);
-  //     })
-  // }
+  login(data): Observable<any> {
+    return this.http.post<any>(`${environment.back_end_url}/login`, data);
+  }
   
-  logout() {
+  logout(): void {
     localStorage.removeItem('acessToken');
   }
 
   getUser() {
-    if(this.getToken) {
+    if(this.getToken && this.isAuthenticated()) {
       return this.jwtHelper.decodeToken(this.getToken);
     }
   }
 
   isAuthenticated(): boolean {
-    return !this.jwtHelper.isTokenExpired(this.getToken);
+    if(!this.jwtHelper.isTokenExpired(this.getToken)) {
+      return true;
+    } else {
+      this.logout();
+      return false;
+    }
   }
 
 }

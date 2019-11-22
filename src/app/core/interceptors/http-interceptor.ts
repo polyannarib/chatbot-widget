@@ -1,7 +1,6 @@
 import { Injectable, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HttpInverceptor implements HttpInterceptor {
@@ -19,7 +18,8 @@ export class HttpInverceptor implements HttpInterceptor {
         if(localStorage.getItem('acessToken')) {
             const newRequest = request.clone({
                 setHeaders: {
-                    'Content-Type': (this.contentType != 'application/json' ? 'application/text' :  this.contentType),
+                    'Content-Type': (this.contentType != 'application/json' ? 'application/json' :  this.contentType),
+                    // 'Content-Type': 'application/json',
                     'X-Token': `${localStorage.getItem('acessToken')}`
                 }
             });
@@ -27,5 +27,6 @@ export class HttpInverceptor implements HttpInterceptor {
         } else {
             return next.handle(request);
         }
+
     }
 }

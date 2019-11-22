@@ -39,7 +39,6 @@
         <th *ngFor="let day of daysOfWeek14">{{ day }}</th>
       </tr>
     </thead>
-
     <tbody>
       <ng-container *ngFor="let player of filteredPlayers | slice:0:8; let i=index">
         <tr class="card">
