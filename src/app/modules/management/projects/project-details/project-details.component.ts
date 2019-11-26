@@ -83,30 +83,30 @@ export class ProjectDetailsComponent implements OnInit {
     });
   }
 
-  findDesignatePlayers(taskId) {
-    if (!this.openPlayerRated) {
-      this.openPlayerRated = true;
-      this.loaderPlayerRated = true;
-      this.playerService.findDesignatePlayers(taskId).subscribe(
-        (response) => {
-          console.log('-------- playerService -------');
-          console.log(response);
+  // findDesignatePlayers(taskId) {
+  //   if (!this.openPlayerRated) {
+  //     this.openPlayerRated = true;
+  //     this.loaderPlayerRated = true;
+  //     this.playerService.findDesignatePlayers(taskId).subscribe(
+  //       (response) => {
+  //         console.log('-------- playerService -------');
+  //         console.log(response);
 
-          this.playerRate = response.object.rated;
-          this.playerAllocated = response.object.allocated;
+  //         this.playerRate = response.object.rated;
+  //         this.playerAllocated = response.object.allocated;
 
-          this.loaderPlayerRated = false;
-          // this.openPlayerRated = false;
-        }, (err) => {
-          this.loaderPlayerRated = false;
-          console.log('------ err ------');
-          console.log(err);
-        }
-      )
-    } else { 
-      this.openPlayerRated = false;
-    }
-  }
+  //         this.loaderPlayerRated = false;
+  //         // this.openPlayerRated = false;
+  //       }, (err) => {
+  //         this.loaderPlayerRated = false;
+  //         console.log('------ err ------');
+  //         console.log(err);
+  //       }
+  //     )
+  //   } else { 
+  //     this.openPlayerRated = false;
+  //   }
+  // }
 
 
 }

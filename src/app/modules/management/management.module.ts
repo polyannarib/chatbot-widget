@@ -15,6 +15,8 @@ import { FormsModule } from '@angular/forms';
 // Components modal
 import { ResourceDetailsComponent } from './resource/resource-details/resource-details.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
+import { PlayerFindComponent } from './player/player-find/player-find.component';
+import { PlayersFindComponent } from './players/players-find/players-find.component';
 
 @NgModule({
   imports: [
@@ -29,7 +31,9 @@ import { ProjectDetailsComponent } from './projects/project-details/project-deta
     ResourceListComponent,
     ProjectsListComponent,
     ProjectDetailsComponent,
-    ResourceDetailsComponent
+    ResourceDetailsComponent,
+    PlayerFindComponent,
+    PlayersFindComponent
   ],
   entryComponents: [
     ProjectDetailsComponent,
