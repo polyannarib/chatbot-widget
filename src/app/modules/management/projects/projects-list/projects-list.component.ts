@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { format, eachDayOfInterval, addDays } from 'date-fns';
 import { ProjectService } from 'src/app/core/services/project.service';
 import { Project } from 'src/app/shared/models/project';
+import { MatDialog } from '@angular/material';
+import { ProjectDetailsComponent } from '../project-details/project-details.component';
 
 @Component({
   selector: 'app-projects-list',
@@ -12,9 +14,11 @@ export class ProjectsListComponent implements OnInit {
 
   daysOfWeek10: any;
   projectsList: any;
+  loader: boolean = false;
 
   constructor(
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -26,6 +30,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   findProjects() {
+    this.loader = true;
     let params = {
       "startDate": format(new Date(Date.now()), 'dd-MM-yyyy'),
       "endDate": format(addDays(new Date(Date.now()), 8), 'dd-MM-yyyy'),
@@ -34,12 +39,25 @@ export class ProjectsListComponent implements OnInit {
     };
     this.projectService.listProjects(params).subscribe(
       (response) => {
+        this.loader = false;
         this.projectsList = response.object.list;
       }, (err) => {
+        this.loader = false;
         console.log('----- deu erro -----');
         console.log(err);
       }
     );
+  }
+
+  modalProjectDetails(projectId, activity): void {
+    const dataSend = {
+      projectId: projectId,
+      projectDate: new Date(activity.year, activity.month, activity.day)
+    }
+    const dialogRef = this.dialog.open(ProjectDetailsComponent, {
+      width: '90vw',
+      data: dataSend
+    });
   }
 
 }

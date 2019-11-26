@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PlayerService } from 'src/app/core/services/player.service';
 import { format, eachDayOfInterval, addDays } from 'date-fns';
 import { PageEvent, MatDialog } from '@angular/material';
@@ -17,6 +17,7 @@ export class ResourceListComponent implements OnInit {
   pageLength: number;
   pageSize: number;
   pageSizeOptions: number[] = [10, 25, 50];
+  loader: boolean = false;
 
   constructor(
     private playerService: PlayerService,
@@ -32,6 +33,7 @@ export class ResourceListComponent implements OnInit {
   }
 
   findPlayers() {
+    this.loader = true;
     let params = {
       "startDate": format(new Date(Date.now()), 'dd-MM-yyyy'),
       "page": 1,
@@ -39,8 +41,10 @@ export class ResourceListComponent implements OnInit {
     }
     this.playerService.findPlayers(params).subscribe(
       (response) => {
+        this.loader = false;
         this.players = response.object.list;
       }, (err) => {
+        this.loader = false;
         console.log('------- err -------');
         console.log(err);
       }

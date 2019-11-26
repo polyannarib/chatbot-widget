@@ -4,6 +4,9 @@ img {
 .card {
     padding: 20px;
     width: 400px;
+    height: 264px;
+    border: 5px solid black;
+    border-radius: 20px;
 }
 .loginBackground {
     background-image: url('../../../../assets/images/tetris.jpg');
@@ -19,6 +22,11 @@ img {
     height: 30px;
     width: 80px;
     margin-top: 50px;
+}
+button {
+    margin-top: 11px;
+    border-radius: 20px;
+    background-color: black;
 }
 
 

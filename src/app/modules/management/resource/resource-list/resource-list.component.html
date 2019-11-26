@@ -1,42 +1,44 @@
-<div class="card">
-  <div class="row">
-    <div class="col s12">
-      <div class="input-field">
-        <input autocomplete="off" (input)="onSearchChangeResource($event.target.value)" matInput id="find" matInput type="text" class="validate" value="">
-        <label for="find">{{ 'RESOURCES' | translate }}</label>
-        <!-- <i class="fa fa-filter"></i> -->
+<app-loading [loader]="loader"></app-loading>
+<div *ngIf="players">
+  <div class="card">
+    <div class="row">
+      <div class="col s12">
+        <div class="input-field">
+          <input autocomplete="off" (input)="onSearchChangeResource($event.target.value)" matInput id="find" matInput type="text" class="validate" value="">
+          <label for="find">{{ 'RESOURCES' | translate }}</label>
+          <!-- <i class="fa fa-filter"></i> -->
+        </div>
       </div>
     </div>
-  </div>
-</div>  
-<table class="responsive-table">
-  <thead>
-    <tr>
-      <th></th>
-      <th class="days">Player</th>
-      <th *ngFor="let day of daysOfWeek13">{{ day | date:'E' }}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngFor="let player of players">
-      <tr class="card">
-        <td class="spacename"><i class="material-icons tiny">person</i></td>
-        <td class="left-align"><b>{{ player.name }}</b></td>
-        <ng-container *ngFor="let activity of player.tasks">
-          <td class="days" [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}"
-            [ngStyle]="{'background-color': activity.style}">
-            <button class="btn-floating hoverable" [disabled]="!activity.validDay" (click)="modalResourceDetails(player.id, activity)">{{ activity.day }}</button>
-          </td>
-        </ng-container>
-      </tr>
+  </div>  
+  <table class="responsive-table">
+    <thead>
       <tr>
-        <td class="playerAllocated">{{ player.allocated }}%</td>
-        <td>
-          <div class="progress hoverable">
-            <div class="determinate" [ngStyle]="{'width': player.allocated+'%'}"></div>
-          </div>
-        </td>
+        <th></th>
+        <th class="days">Player</th>
+        <th *ngFor="let day of daysOfWeek13">{{ day | date:'E' }}</th>
       </tr>
-    </ng-container>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let player of players">
+        <tr class="card">
+          <td class="spacename"><i class="material-icons tiny">person</i></td>
+          <td class="left-align"><b>{{ player.name }}</b></td>
+          <ng-container *ngFor="let activity of player.tasks">
+            <td class="days">
+              <button [ngStyle]="{'background-color': activity.style}" [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}" class="btnDayCalendar hoverable" [disabled]="!activity.validDay" (click)="modalResourceDetails(player.id, activity)">{{ activity.day }}</button>
+            </td>
+          </ng-container>
+        </tr>
+        <tr>
+          <td class="playerAllocated">{{ player.allocated }}%</td>
+          <td>
+            <div class="progress hoverable">
+              <div class="determinate" [ngStyle]="{'width': player.allocated+'%'}"></div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,12 @@
+<app-loading [loader]="loader"></app-loading>
+<div *ngIf="!loader">
+  <h2 mat-dialog-title class="center-align">{{ 'MESSAGECONFIRMFINALIZE' | translate }}</h2>
+  <mat-dialog-content class="mat-typography">
+    <div *ngIf="statusErr != 0">{{ errMessage | translate }}</div>
+    <div *ngIf="statusErr === 0 || !statusErr">{{ 'MESSAGECONFIRMFINALIZE' | translate }}</div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button class="btn waves-effect waves-light" mat-dialog-close>{{ 'CLOSE' | translate }}</button>
+    <button class="btn waves-effect waves-light" (click)="confirmFinalize()">{{ 'CONFIRM' | translate }}</button>
+  </mat-dialog-actions>
+</div>

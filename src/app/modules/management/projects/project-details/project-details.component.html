@@ -1,0 +1,164 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div *ngIf="projectTasks != null && !loader">
+
+  <h2 mat-dialog-title class="center-align">{{ projectTasks.name }}</h2>
+
+  <mat-dialog-content class="mat-typography">
+    
+    <div class="row headerDialog">
+      <div class="col s12 m4 datePlayerActivity center-align">  
+        <div class="title">{{ data.projectDate | date:'EEEE' }}</div>
+        <span class="activityDay">{{ data.projectDate | date:'dd/MM/yyyy'}}</span>
+      </div>
+      <div class="col s12 m8">
+        <div class="title">{{ 'PROGRESS' | translate }}</div>
+        <div class="progress hoverable">
+          <div class="determinate" [ngStyle]="{'width': projectDate?.progress+'%'}"></div>
+        </div>
+      </div>
+    </div>
+
+    <app-count *ngIf="projectTasks?.tasks === null">Esse projeto está sem task no momento!</app-count>
+
+    <section *ngIf="projectTasks?.tasks != null">
+      <div class="row hide-on-small-only text-header">
+        <div class="col m6">
+          <span>{{ 'PROJECT' | translate }}</span>
+        </div>
+        <div class="col m2">
+          <span>{{ 'ACTIVITY' | translate }}</span>
+        </div>
+        <div class="col m2">
+          <span>{{ 'DUEDATE' | translate }}</span>
+        </div>
+        <div class="col m1">
+          <span>{{ 'EFFORT' | translate }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <mz-collapsible [mode]="'accordion'" [popout]="false">
+          <ng-container *ngFor="let activity of projectTasks.tasks">
+            <mz-collapsible-item [active]="false">
+
+              <mz-collapsible-item-header>
+                <div class="valign-wrapper">
+                  <div class="col m6 s12 left-align">
+                    {{ activity.name }}
+                  </div>
+                  <div class="col m2 s12 left-align">
+                    {{ activity.player != null ? activity.player.name : '' }}
+                  </div>
+                  <div class="col m2 s12 left-align">
+                    {{ activity.previewedAt | date:'dd/MM/yyyy' }}
+                  </div>
+                  <div class="col m1 s12 left-align">
+                    {{ activity.dailyEffort }}h
+                  </div>
+                  <div class="col m1 s12 padding-zero valign-wrapper">
+                      <i class="material-icons" matTooltip="{{ activity.status | translate }}" [ngClass]="{  
+                                  'building': activity.status == 'BUILDING', 
+                                  'warning': activity.status == 'EXECUTION', 
+                                  'ok': activity.status == 'FINISHED', 
+                                  'hanging': activity.status == 'HANGING',
+                                  'delayed': activity.status == 'DELAYED',
+                                  'waiting': activity.status == 'WAITING' }">fiber_manual_record</i>
+                  </div>
+                </div>
+              </mz-collapsible-item-header>
+              
+              <mz-collapsible-item-body>
+                <div class="row">
+                  <div class="col s12 m2">
+                    <span>{{ 'PROJECT' | translate}}</span> {{ activity.project.name }}
+                  </div>
+                  <div class="col s12 m2">
+                    <span>{{ 'CARD' | translate }}</span> {{ activity.card.skillName }} - {{ activity.card.cardName }}
+                  </div>
+                  <div class="col s12 m2">
+                    <span>{{ 'PREVIEWSTARTDATE' | translate}}</span> {{ activity.expectedAt | date:'dd/MM/yyyy HH:mm:ss' }}
+                  </div>
+                  <div class="col s12 m2">
+                    <span>{{ 'PREVIEWENDDATE' | translate}}</span> {{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}
+                  </div>
+                  <div class="col s12 m1">
+                    <span>{{ 'STARTDATE' | translate}}</span> {{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss' }}
+                  </div>
+                  <div class="col s12 m1">
+                    <span>{{ 'ENDDATE' | translate}}</span> {{ activity.finalizedAt | date:'dd/MM/yyyy HH:mm:ss' }}
+                  </div>
+                  <div class="col s12 m1">
+                    <span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration }}h
+                  </div>
+                  <div class="col s12 m1">
+                    <span>{{ 'EFFORT' | translate }} </span> {{ activity.effort }}h
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12">
+                    <div class="containerButtons center-align">
+                      <button class="btn-floating waves-effect waves-light green" mat-icon-button matTooltip="{{ 'FINALIZE' | translate }}"><i (click)="finalize(activity.id)" class="material-icons">done</i></button>
+                      <button class="btn-floating waves-effect waves-light red" mat-icon-button matTooltip="{{ 'REMOVE' | translate }}"><i (click)="remove(activity.id)" class="material-icons">clear</i></button>
+                      <button class="btn-floating waves-effect waves-light orange" mat-icon-button matTooltip="{{ 'SUSPEND' | translate }}"><i (click)="suspend(activity.id)" class="material-icons">remove</i></button>
+                      <button class="btn-floating waves-effect waves-light black" mat-icon-button matTooltip="{{ 'DESIGNATE' | translate }}"><i (click)="findDesignatePlayers(activity.id)" class="material-icons">person_add</i></button>
+                      <button class="btn-floating waves-effect waves-light blue" mat-icon-button matTooltip="{{ 'REPLAN' | translate }}"><i (click)="replan(activity.id)" class="material-icons">event</i></button>
+                    </div>
+                  </div>
+                </div>
+
+                <app-loading [loader]="loaderPlayerRated"></app-loading>
+
+                <div class="row" *ngIf="openPlayerRated">
+
+                  <div class="col m4 offset-m2 s12">
+
+                    <app-count *ngIf="!loaderPlayerRated && !playerRate">Esse projeto está sem task no momento!</app-count>
+
+                    <div *ngIf="playerRated && !loaderPlayerRated">
+                      <div class="input-field">
+                        <input matInput (input)="onSearchChange($event.target.value)" id="example-radio-group-label" value="" class="validate">
+                        <label for="example-radio-group-label">{{ 'SEARCHMORE' | translate }}</label>
+                      </div>
+                      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+                        <mat-radio-button class="example-radio-button" *ngFor="let player of playerRate" [value]="player">
+                          <span class="radio-text valign-wrapper">{{ player.name }}
+                            <i class="material-icons tiny green-text ml-5">event_available</i>
+                          </span>
+                        </mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+
+                  </div>
+                  <div class="col s12 m4">
+
+                    <app-count *ngIf="!loaderPlayerRated && !playerRatedFiltered">Esse projeto está sem task no momento!</app-count>
+
+                    <div *ngIf="playerRatedFiltered && !loaderPlayerRated">
+                      <div class="input-field">
+                        <input matInput (input)="onSearchChange($event.target.value)" id="example-radio-group-label" value="" class="validate">
+                        <label for="example-radio-group-label">{{ 'SEARCHMORE' | translate }}</label>
+                      </div>
+                      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+                        <mat-radio-button class="example-radio-button" *ngFor="let player of playerRatedFiltered" [value]="player">
+                          <span class="radio-text valign-wrapper">{{ player.name }}
+                            <i class="material-icons tiny green-text ml-5">event_available</i>
+                          </span>
+                        </mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+
+                  </div>
+                </div>
+              </mz-collapsible-item-body>
+
+            </mz-collapsible-item>
+          </ng-container>
+        </mz-collapsible>
+      </div>
+    </section>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button class="btn waves-effect waves-light" [mat-dialog-close]="true" cdkFocusInitial>Fechar</button>
+  </mat-dialog-actions>
+
+</div>

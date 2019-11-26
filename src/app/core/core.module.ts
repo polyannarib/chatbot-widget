@@ -11,6 +11,7 @@ import { TaskService } from './services/task.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInverceptor } from './interceptors/http-interceptor';
+import { ErrorInterceptor } from './interceptors/error-interceptor';
 
 @NgModule({
   declarations: [],
@@ -25,7 +26,8 @@ import { HttpInverceptor } from './interceptors/http-interceptor';
     ProjectService,
     LoadingService, 
     TaskService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpInverceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInverceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ]
 })
 export class CoreModule { }

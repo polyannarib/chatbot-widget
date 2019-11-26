@@ -1,45 +1,150 @@
+<app-loading [loader]="loader"></app-loading>
 
-<h2 mat-dialog-title class="center-align">{{ playerActivity?.player.name }}</h2>
+<div *ngIf="playerActivity != null && !loader">
 
-<hr>
+  <h2 mat-dialog-title class="center-align">{{ playerActivity.player.name }}</h2>
 
-<mat-dialog-content class="mat-typography">
-  <div class="row">
-    <div class="col s12 m4 datePlayerActivity center-align">  
-      <div class="title">{{ data.activityDate | date:'EEEE' }}</div>
-      <span>{{ data.activityDate | date:'dd/MM/yyyy'}}</span>
-    </div>
-    <div class="col s12 m8">
-      <div class="title">{{ 'PROGRESS' | translate }}</div>
-      {{ playerActivity?.progress }}
-
-      <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" >   
-        <span  class="popOver" data-toggle="tooltip" data-placement="top" title="85%"> </span>     
+  <mat-dialog-content class="mat-typography">
+    <div class="row">
+      <div class="col s12 m4 datePlayerActivity center-align">  
+        <div class="title">{{ data.activityDate | date:'EEEE' }}</div>
+        <span class="activityDay">{{ data.activityDate | date:'dd/MM/yyyy'}}</span>
       </div>
-
-      <div class="progress hoverable">
-        <div class="determinate" [ngStyle]="{'width': playerActivity?.progress+'%'}"></div>
+      <div class="col s12 m8">
+        <div class="title">{{ 'PROGRESS' | translate }}</div>
+        <div class="progress hoverable">
+          <div class="determinate" [ngStyle]="{'width': playerActivity?.progress+'%'}"></div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row show-on-medium-and-up">
-    <div class="col m2">
-      <span>{{ 'PROJECT' | translate }}</span>
-    </div>
-    <div class="col m6">
-      <span>{{ 'ACTIVITY' | translate }}</span>
-    </div>
-    <div class="col m2">
-      <span>{{ 'DUEDATE' | translate }}</span>
-    </div>
-    <div class="col m1">
-      <span>{{ 'EFFORT' | translate }}</span>
-    </div>
-  </div>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button class="btn waves-effect waves-light" mat-dialog-close>Fechar</button>
-</mat-dialog-actions>
+
+    <app-count *ngIf="playerActivity?.tasks === null">Esse jogador não possui tarefas</app-count>
+
+    <section *ngIf="playerActivity?.tasks != null">
+      <div class="row show-on-medium-and-up">
+        <div class="col m2">
+          <span>{{ 'PROJECT' | translate }}</span>
+        </div>
+        <div class="col m6">
+          <span>{{ 'ACTIVITY' | translate }}</span>
+        </div>
+        <div class="col m2">
+          <span>{{ 'DUEDATE' | translate }}</span>
+        </div>
+        <div class="col m1">
+          <span>{{ 'EFFORT' | translate }}</span>
+        </div>
+      </div>
+      <div class="row">
+
+        <mz-collapsible [mode]="'accordion'" [popout]="false">
+          <ng-container *ngFor="let activity of playerActivity.tasks">
+            <mz-collapsible-item [active]="false">
+              <mz-collapsible-item-header>
+                <div class="valign-wrapper">
+
+                  <div title="{{ tasks.project.name }}" class="col s12 m2">
+                    <span class="activity-text">{{ tasks.project.code }}</span>
+                  </div>
+                  <div class="col s12 m6">
+                    <span class="activity-text">{{ tasks.name }}</span>
+                  </div>
+                  <div class="col s12 m2">
+                    <span class="activity-text">{{ tasks.previewedAt | date:'dd/MM/yyyy' }}</span>
+                  </div>
+                  <div class="col s12 m1">
+                    <span class="activity-text">{{ tasks.dailyEffort }}h</span>
+                  </div>
+                  <div class="col s12 m1">
+                    <button class="transparent-button">
+                    <!-- <button class="transparent-button" matTooltip="{{ activity.status | translate }}"> -->
+                      <i class="material-icons" [ngClass]="{  'building': activity.status == 'BUILDING', 
+                                    'warning': activity.status == 'EXECUTION', 
+                                    'ok': activity.status == 'FINISHED', 
+                                    'hanging': activity.status == 'HANGING',
+                                    'delayed': activity.status == 'DELAYED',
+                                    'waiting' : activity.status == 'WAITING' }">fiber_manual_record</i>
+                    </button>
+                  </div>
+
+                </div>
+              </mz-collapsible-item-header>
+              
+              <mz-collapsible-item-body>
+                
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pharetra magna quis magna efficitur porttitor. Fusce sagittis convallis scelerisque. Fusce scelerisque volutpat finibus. Praesent sit amet lacus libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+                
+                <!-- <table>
+                  <thead>
+                    <tr>
+                      <th class="table-info">{{ 'PROJECT' | translate}}</th>
+                      <th class="table-info">{{ 'CARD' | translate }}</th>
+                      <th class="table-info">{{ 'PREVIEWSTARTDATE' | translate}}</th>
+                      <th class="table-info">{{ 'PREVIEWENDDATE' | translate}}</th>
+                      <th class="table-info">{{ 'STARTDATE' | translate}}</th>
+                      <th class="table-info">{{ 'ENDDATE' | translate}}</th>
+                      <th class="table-info">{{ 'EXPEFFORT' | translate }}</th>
+                      <th class="table-info">{{ 'EFFORT' | translate }} </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="table-info">{{ activity.project.name }}</td>
+                      <td class="table-info">{{ activity.card.skillName }} - {{ activity.card.cardName }}</td>
+                      <td class="table-info">{{ activity.expectedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.finalizedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                      <td class="table-info">{{ activity.duration }}h</td>
+                      <td class="table-info">{{ activity.effort }}h</td>
+                    </tr>
+                  </tbody>
+                </table> -->
+                
+                <!-- <div *ngIf="activity.status != 'FINISHED'" class="row mt-30">
+                  <div class="col l1 m1 s1">
+                    <button mat-icon-button matTooltip="{{ 'FINALIZE' | translate }}">
+                      <i (click)="finalize(finalizeModal, activity.id)"
+                        class="material-icons action-btn green-text">check_circle</i>
+                    </button>
+                  </div>
+                  <div class="col l1 m1 s1">
+                    <button mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
+                      <i (click)="removePlayer(removePlayerModal, activity.id)"
+                        class="material-icons action-btn red-text">cancel</i>
+                    </button>
+                  </div>
+                  <div class="col l1 m1 s1">
+                    <button mat-icon-button matTooltip="{{ 'SUSPEND' | translate }}">
+                      <i (click)="suspend(suspendModal, activity.id)"
+                        class="material-icons action-btn orange-text">do_not_disturb_on</i>
+                    </button>
+                  </div>
+                  <div class="col l1 m1 s1" *ngIf="activity.status != 'FINISHED'">
+                    <mat-form-field class="invisible example-full-width">
+                      <input [matDatepickerFilter]="weekend" [min]="checkDate(activity.previewedAt)"
+                        (dateInput)="relocateTaskResource(confirm, $event, dailyActivity.playerId, activity.id, activity.name, activity.previewedAt)"
+                        matInput [matDatepicker]="picker" placeholder="Choose a date">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker [dateClass]="dateClassPlayer"></mat-datepicker>
+                    </mat-form-field>
+                    <button mat-icon-button (click)="picker.open()" matTooltip="{{ 'REPLAN' | translate }}">
+                      <i class="material-icons action-btn blue-text">event</i>
+                    </button>
+                  </div>
+                </div> -->
+                
+              </mz-collapsible-item-body>
+            </mz-collapsible-item>
+          </ng-container>
+        </mz-collapsible>
+
+      </div>
+    </section>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button class="btn waves-effect waves-light" mat-dialog-close>Fechar</button>
+  </mat-dialog-actions>
 
 
 
@@ -242,3 +347,5 @@
     </ng-container>
   </mz-collapsible>
 </div> -->
+
+</div>

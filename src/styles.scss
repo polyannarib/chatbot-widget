@@ -11,6 +11,9 @@ body{
     background-color: red;
 }
 
+.toastrSucess {
+    background-color: green;
+}
 
 .modalBg {
     position: fixed;
@@ -94,4 +97,31 @@ td.full-day {
 
 .modal-text {
     font-size: 15px;
+}
+
+.collapsible-header {
+    padding: 0px !important;
+}
+
+.row {
+    margin-bottom: 0px !important;
+}
+
+.btnDayCalendar {
+    display: inline-block;
+    color: #000000;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 33px;
+    height: 33px;
+    line-height: 33px;
+    padding: 0;
+    border-radius: 0%;
+    -webkit-transition: .3s;
+    transition: .3s;
+    cursor: pointer;
+    vertical-align: middle;
+    box-shadow: none;
+    border: none;
 }

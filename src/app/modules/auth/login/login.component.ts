@@ -13,6 +13,8 @@ import { MzToastService } from 'ngx-materialize';
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 
+  loader: boolean = false;
+
   user: User;
   form: FormGroup = this.formBuilder.group({
     email: [null, [Validators.required, Validators.email]],
@@ -36,35 +38,23 @@ export class LoginComponent implements OnInit, AfterViewInit {
   ngOnInit() { }
 
   onLogin() {
+    this.loader = true;
     if (this.form.valid) {
       this.form.value.password = btoa(this.form.value.password);
       this.authService.login(this.form.value).subscribe(
         (response) => {
+          // this.loader = false;
           if(response.status === 0) {
             this.authService.setToken(response.object.token);
             return;
           }
           this.toastService.show(response.object.message, 4000, 'toastrDanger');
-          // switch (response.status) {
-          //   case 0:
-          //     console.log('entrou dentro do case 0');
-          //     localStorage.setItem('acessToken', response.object.token);
-          //     console.log(localStorage.getItem('acessToken'));
-          //     this.router.navigate(['/management/dashboard']);
-          //     return;
-          //   case 1:
-          //       console.log('entrou dentro do case');
-          //     this.toastService.show(response.object.message, 4000, 'toastrDanger');
-          //     return;
-          //   default:
-          //     this.toastService.show('Ops, ocorreu algum erro. Contate o administrador', 4000, 'toastrDanger');
-          //     return;
-          // }
         }, (err) => {
-          console.log(err);
+          this.loader = false;
           this.toastService.show('Por favor, digite os campos corretamente', 4000, 'toastrDanger');
       })
     } else {
+      this.loader = false;
       this.toastService.show('Favor preencher todos campos!', 4000, 'toastrDanger');
     }
   }

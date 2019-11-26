@@ -11,9 +11,10 @@ import { CoreModule } from './core/core.module';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import pt from '@angular/common/locales/pt';
 
-registerLocaleData(pt, 'pt-BR');
+registerLocaleData(pt, 'pt');
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -39,7 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     DatePipe,
-    { provide: LOCALE_ID, useValue: 'pt-BR' }
+    { provide: LOCALE_ID, useValue: 'pt' }
   ],
   bootstrap: [
     AppComponent

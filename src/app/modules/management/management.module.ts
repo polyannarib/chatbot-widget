@@ -11,23 +11,28 @@ import { ResourceListComponent } from './resource/resource-list/resource-list.co
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
+
+// Components modal
 import { ResourceDetailsComponent } from './resource/resource-details/resource-details.component';
+import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 
 @NgModule({
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    ManagementRoutingModule,
+  ],
   declarations: [
     DashboardComponent,
     ManagementComponent,
     ResourceListComponent,
     ProjectsListComponent,
+    ProjectDetailsComponent,
     ResourceDetailsComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    FormsModule,
-    ManagementRoutingModule
-  ],
   entryComponents: [
+    ProjectDetailsComponent,
     ResourceDetailsComponent
   ]
 })

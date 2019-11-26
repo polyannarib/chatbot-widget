@@ -1,0 +1,90 @@
+mat-dialog-content {
+    max-height: 75vh;
+    padding: 25px;
+    border-top: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+}
+mat-dialog-content .headerDialog {
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 15px;
+}
+mat-dialog-content .title {
+    font-weight: bold;
+    font-size: 15px;
+}
+mat-dialog-actions {
+    padding: 24px 0px;
+}
+mat-dialog-content .activityDay {
+    border: 1px solid #eee;
+    /* margin: 7px 0; */
+    text-align: center;
+    line-height: 35px;
+    background-color: #ff9d8c;
+    color: white;
+    border-radius: 10px;
+    padding: 5px 35px;
+    font-size: 22px;
+}
+mz-collapsible-item-header {
+    width: 100%;
+}
+mz-collapsible-item-header .collapsible-header {
+    display: -webkit-box;
+    display: flex;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1.5;
+    padding: 0 !important;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+mz-collapsible-item-header .collapsible-header {
+    display: block;
+    cursor: pointer;
+    min-height: 3rem;
+    line-height: 3rem;
+    padding: 0 !important;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+mat-dialog-content section .text-header span {
+    font-size: 15px;
+    font-weight: bold;
+}
+mat-dialog-content section {
+    padding-top: 15px;
+}
+.show-on-medium-and-up {
+    margin: 0px;
+    padding: 0px;
+}
+mz-collapsible-item-body {
+    padding: 10px;
+    margin: 0px;
+    font-size: 11px;
+}
+mz-collapsible-item-body span {
+    display: block;
+    font-weight: bold;
+}
+mz-collapsible-item-body {
+    padding: 0px !important;
+}
+.collapsible-body {
+    display: none;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    padding: 12px !important;
+}
+.green { background-color: #4CAF50; }
+.black { background-color: #000; color: #fff; }
+.orange { background-color: #ff9800; }
+.blue { background-color: #2196F3; }
+.red { background-color: #F44336; }
+
+.containerButtons button {
+    margin: 5px;
+}
+
+
