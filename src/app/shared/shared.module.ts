@@ -29,6 +29,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
+import { ButtonFinalizeComponent } from './components/buttons/button-finalize/button-finalize.component';
+import { ButtonRemoveComponent } from './components/buttons/button-remove/button-remove.component';
 
 
 @NgModule({
@@ -57,6 +59,8 @@ import { MatRadioModule } from '@angular/material/radio';
     RemoveComponent,
     SuspendComponent,
     BaseModalComponent,
+    ButtonFinalizeComponent,
+    ButtonRemoveComponent,
   ],
   exports: [
     FilterListPipe,

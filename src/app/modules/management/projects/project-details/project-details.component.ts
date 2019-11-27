@@ -45,33 +45,33 @@ export class ProjectDetailsComponent implements OnInit {
     )
   }
 
-  finalize(activityId) {
-    const dataSend = {
-      activityId: activityId
-    }
-    const dialogRef = this.dialog.open(FinalizeComponent, {
-      width: '500px',
-      data: dataSend
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('result ------- finalize component --------');
-      console.log(result);
-    });
-  }
+  // finalize(activityId) {
+  //   const dataSend = {
+  //     activityId: activityId
+  //   }
+  //   const dialogRef = this.dialog.open(FinalizeComponent, {
+  //     width: '500px',
+  //     data: dataSend
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('result ------- finalize component --------');
+  //     console.log(result);
+  //   });
+  // }
 
-  remove(activityId): void {
-    const dataSend = {
-      activityId: activityId
-    }
-    const dialogRef = this.dialog.open(RemoveComponent, {
-      width: '500px',
-      data: dataSend
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('result ------- remove component --------');
-      console.log(result);
-    });
-  }
+  // remove(activityId): void {
+  //   const dataSend = {
+  //     activityId: activityId
+  //   }
+  //   const dialogRef = this.dialog.open(RemoveComponent, {
+  //     width: '500px',
+  //     data: dataSend
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('result ------- remove component --------');
+  //     console.log(result);
+  //   });
+  // }
   
   suspend(activityId): void {
     const dataSend = {
