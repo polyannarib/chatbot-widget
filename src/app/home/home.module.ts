@@ -9,6 +9,7 @@ import { MzModalModule, MzTooltipModule, MzButtonModule, MzInputModule, MzCollap
 import { MatDatepickerModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from './shared/pipe/pipes.module';
+import { AdminComponent } from './admin/admin.component';
 
 const routes = [
   {
@@ -16,6 +17,7 @@ const routes = [
     component: HomeComponent, 
     children: [
       {path:'dashboard', component: DashboardComponent},
+      {path:'admin', component: AdminComponent},
       {path:'project', loadChildren: './project/project.module#ProjectModule'},
       {path:'card', loadChildren: './card/card.module#CardModule'},
       {path:'player', loadChildren: './player/player.module#PlayerModule'},
@@ -27,7 +29,8 @@ const routes = [
   declarations: [
     DashboardComponent, 
     HomeComponent,
-    ModalSuccessComponent
+    ModalSuccessComponent,
+    AdminComponent
   ],
   entryComponents: [
     ModalSuccessComponent,

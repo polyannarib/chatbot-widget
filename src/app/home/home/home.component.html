@@ -6,6 +6,7 @@
         <a routerLink="/home/player" (click)="currentPage = 'PLAYER'"><i class="material-icons">person_add</i></a>
         <a routerLink="/home/card" (click)="currentPage = 'CARD'"><i class='material-icons'>bookmarks</i></a>
         <a routerLink="/home/calendar" (click)="currentPage = 'CALENDAR'"><i class="material-icons">date_range</i></a>
+        <a routerLink="/home/admin" (click)="currentPage = 'ADMIN'"><i class="material-icons">settings_applications</i></a>
     </div>
     <!-- <ul class="card login col s4 m4 l3">
         <div><span>{{getUserInfo()}}</span></div>
@@ -13,7 +14,7 @@
     <ul class="date col s4 m4 l4">
         <p>{{getDate()}}</p>
     </ul> -->
-    <p>{{currentPage}} WORKPLAYER</p>
+    <p>{{ currentPage }} WORKPLAYER</p>
     <div class="end">
         <img [src]="logoUrl">
         <i class="material-icons" (click)="profile = !profile">perm_identity</i>
@@ -26,9 +27,10 @@
         <li (click)="logout()"><i class="material-icons">exit_to_app</i>Logout</li> 
     </ul>
 </div>
-<div class="content">
+
+<!-- <div class="content"> -->
     <router-outlet></router-outlet>
-</div>
+<!-- </div> -->
 
 <div class="footer">
     <p>by Kyros Tecnologia</p>
