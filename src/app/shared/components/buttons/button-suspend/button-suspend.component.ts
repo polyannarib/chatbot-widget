@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TaskService } from 'src/app/core/services/task.service';
 import { MatDialog } from '@angular/material';
-import { RemoveComponent } from '../../modal/remove/remove.component';
+import { SuspendComponent } from '../../modal/suspend/suspend.component';
 
 @Component({
-  selector: 'app-button-remove',
-  templateUrl: './button-remove.component.html',
-  styleUrls: ['./button-remove.component.css']
+  selector: 'app-button-suspend',
+  templateUrl: './button-suspend.component.html',
+  styleUrls: ['./button-suspend.component.css']
 })
-export class ButtonRemoveComponent implements OnInit {
+export class ButtonSuspendComponent implements OnInit {
 
   @Input() activityId: number;
 
@@ -20,16 +20,16 @@ export class ButtonRemoveComponent implements OnInit {
   ngOnInit() {
   }
 
-  remove() {
+  suspend() {
     const dataSend = {
       activityId: this.activityId
     }
-    const dialogRef = this.dialog.open(RemoveComponent, {
+    const dialogRef = this.dialog.open(SuspendComponent, {
       width: '500px',
       data: dataSend
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('result ------- remove component --------');
+      console.log('result ------- finalize component --------');
       console.log(result);
     });
   }

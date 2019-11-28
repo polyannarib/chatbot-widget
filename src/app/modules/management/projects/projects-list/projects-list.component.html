@@ -1,18 +1,26 @@
 <app-loading [loader]="loader"></app-loading>
 
-<div *ngIf="projectsList">
-  <div class="card">
-    <div class="row">
-      <div class="col s12">
-        <div class="input-field">
-          <input autocomplete="off" id="findProject" matInput type="text" class="validate" value="">
-          <label for="findProject">Buscar projetos</label>
-          <!-- <i class="fa fa-filter"></i> -->
-        </div>
+<div *ngIf="projectsList && !loader">
+  
+  <div class="row">
+    <div class="col s12 m6">
+      <div class="input-field">
+        <input autocomplete="off" id="findProject" matInput type="text" class="validate" value="">
+        <label for="findProject">Buscar projetos</label>
+        <!-- <i class="fa fa-filter"></i> -->
       </div>
     </div>
+    <div class="col m6 s12">
+      <ul>
+        <li><a (click)="changeDays('prev')" class="btn-floating waves-effect waves-light red"><i class="material-icons">chevron_left</i></a></li>
+        <li><a (click)="changeDays('next')" class="btn-floating waves-effect waves-light red"><i class="material-icons">chevron_right</i></a></li>
+      </ul>
+    </div>
   </div>
-  <table class="responsive-table">
+
+  <app-loading [loader]="loaderDays && !daysOfWeek10"></app-loading>
+  
+  <table class="responsive-table" *ngIf="!loaderDays && daysOfWeek10">
     <thead>
       <tr>
         <th class="projectCode">{{ 'CODE' | translate }}</th>

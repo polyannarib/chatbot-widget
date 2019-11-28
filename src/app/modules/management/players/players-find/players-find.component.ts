@@ -11,7 +11,6 @@ export class PlayersFindComponent implements OnInit {
   @Input() taskId: number;
 
   loader: boolean = false;
-  open: boolean = false;
   playerRated: any;
   playerAllocated: any;
 
@@ -20,30 +19,25 @@ export class PlayersFindComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.findDesignatePlayers(this.taskId);
   }
 
   findDesignatePlayers(taskId) {
-    if (!this.open) {
-      this.open = true;
-      this.loader = true;
-      this.playerService.findDesignatePlayers(taskId).subscribe(
-        (response) => {
-          console.log('-------- playerService -------');
-          console.log(response);
-
-          this.playerRated = response.object.rated;
-          this.playerAllocated = response.object.allocated;
-
-          this.loader = false;
-        }, (err) => {
-          this.loader = false;
-          console.log('------ err ------');
-          console.log(err);
-        }
-      )
-    } else { 
-      this.open = false;
-    }
+    // this.open = true;
+    this.loader = true;
+    this.playerService.findDesignatePlayers(taskId).subscribe(
+      (response) => {
+        console.log('------ response findDesignatePlayers ------');
+        console.log(response);
+        this.playerRated = response.object.rated;
+        this.playerAllocated = response.object.allocated;
+        this.loader = false;
+      }, (err) => {
+        this.loader = false;
+        console.log('------ err ------');
+        console.log(err);
+      }
+    )
   }
 
 }

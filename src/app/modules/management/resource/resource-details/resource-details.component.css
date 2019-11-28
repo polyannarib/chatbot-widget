@@ -1,4 +1,4 @@
-mat-dialog-content {
+/* mat-dialog-content {
     max-height: 65vh;
 }
 mat-dialog-content .title {
@@ -10,7 +10,6 @@ mat-dialog-actions {
 }
 mat-dialog-content .activityDay {
     border: 1px solid #eee;
-    /* margin: 7px 0; */
     text-align: center;
     line-height: 35px;
     background-color: #ff9d8c;
@@ -18,4 +17,4 @@ mat-dialog-content .activityDay {
     border-radius: 10px;
     padding: 5px 35px;
     font-size: 22px;
-}
+} */

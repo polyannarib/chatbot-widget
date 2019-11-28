@@ -14,20 +14,20 @@ import { PlayerService } from '../../../../core/services/player.service';
 export class ProjectDetailsComponent implements OnInit {
 
   loader: boolean = false;
-  loaderPlayerRated: boolean = false;
-
   projectTasks: any;
-  openPlayerRated: boolean = false;
-
-  playerRate: any;
-  playerAllocated: any;
+  designate: boolean = false;
+  
+  // loaderPlayerRated: boolean = false;
+  
+  // openPlayerRated: boolean = false;
+  // playerRate: any;
+  // playerAllocated: any;
 
   constructor(
     public dialogRef: MatDialogRef<ProjectDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private taskService: TaskService,
-    public dialog: MatDialog,
-    private playerService: PlayerService
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -35,14 +35,19 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   findProjectTasks() {
+    this.loader = true;
     this.taskService.findProjectTasks(this.data.projectId, format(this.data.projectDate, 'dd-MM-yyyy')).subscribe(
       (response) => {
-        this.loader = false;
         this.projectTasks = response.object;
+        this.loader = false;
       }, (err) => {
         this.loader = false;
       }
     )
+  }
+
+  reciverDesignate(value) {
+    this.designate = value;
   }
 
   // finalize(activityId) {
@@ -73,15 +78,15 @@ export class ProjectDetailsComponent implements OnInit {
   //   });
   // }
   
-  suspend(activityId): void {
-    const dataSend = {
-      activityId: activityId
-    }
-    const dialogRef = this.dialog.open(ProjectDetailsComponent, {
-      width: '90vw',
-      data: dataSend
-    });
-  }
+  // suspend(activityId): void {
+  //   const dataSend = {
+  //     activityId: activityId
+  //   }
+  //   const dialogRef = this.dialog.open(ProjectDetailsComponent, {
+  //     width: '90vw',
+  //     data: dataSend
+  //   });
+  // }
 
   // findDesignatePlayers(taskId) {
   //   if (!this.openPlayerRated) {
@@ -91,10 +96,8 @@ export class ProjectDetailsComponent implements OnInit {
   //       (response) => {
   //         console.log('-------- playerService -------');
   //         console.log(response);
-
   //         this.playerRate = response.object.rated;
   //         this.playerAllocated = response.object.allocated;
-
   //         this.loaderPlayerRated = false;
   //         // this.openPlayerRated = false;
   //       }, (err) => {
@@ -107,6 +110,5 @@ export class ProjectDetailsComponent implements OnInit {
   //     this.openPlayerRated = false;
   //   }
   // }
-
 
 }

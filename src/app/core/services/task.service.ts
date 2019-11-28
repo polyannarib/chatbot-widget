@@ -40,4 +40,5 @@ export class TaskService {
   rescheduleTask(taskId: Number, dateTo: String): Observable< any > {
     return this.http.get( this.url + '/task/' + taskId + '/reschedule?previewedAt=' + dateTo );
   }
+  
 }

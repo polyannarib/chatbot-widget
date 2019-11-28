@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TaskService } from 'src/app/core/services/task.service';
 import { MatDialog } from '@angular/material';
 import { FinalizeComponent } from '../../modal/finalize/finalize.component';
@@ -10,6 +10,8 @@ import { FinalizeComponent } from '../../modal/finalize/finalize.component';
 })
 export class ButtonFinalizeComponent implements OnInit {
 
+  @Input() activityId: number;
+
   constructor(
     private taskService: TaskService,
     public dialog: MatDialog,
@@ -18,9 +20,9 @@ export class ButtonFinalizeComponent implements OnInit {
   ngOnInit() {
   }
 
-  finalize(activityId) {
+  finalize() {
     const dataSend = {
-      activityId: activityId
+      activityId: this.activityId
     }
     const dialogRef = this.dialog.open(FinalizeComponent, {
       width: '500px',

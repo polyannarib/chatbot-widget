@@ -1,6 +1,6 @@
 <app-loading [loader]="loader"></app-loading>
 
-<div *ngIf="projectTasks != null && !loader">
+<div *ngIf="projectTasks && !loader">
 
   <h2 mat-dialog-title class="center-align">{{ projectTasks.name }}</h2>
 
@@ -69,7 +69,6 @@
               
               <mz-collapsible-item-body>
                 
-                
                 <div class="row">
                   <div class="col s12 m2">
                     <span>{{ 'PROJECT' | translate}}</span> {{ activity.project.name }}
@@ -97,21 +96,26 @@
                   </div>
                 </div>
 
-
                 <div class="row">
                   <div class="col s12">
                     <div class="containerButtons center-align">
+
+                      <app-button-finalize [activityId]="activity.id"></app-button-finalize>
+                      <app-button-remove [activityId]="activity.id"></app-button-remove>
+                      <app-button-suspend [activityId]="activity.id"></app-button-suspend>
+                      <app-button-designate (isDesign)="reciverDesignate($event)"></app-button-designate>
+                      
                       <!-- <button class="btn-floating waves-effect waves-light green" mat-icon-button matTooltip="{{ 'FINALIZE' | translate }}"><i (click)="finalize(activity.id)" class="material-icons">done</i></button> -->
                       <!-- <button class="btn-floating waves-effect waves-light red" mat-icon-button matTooltip="{{ 'REMOVE' | translate }}"><i (click)="remove(activity.id)" class="material-icons">clear</i></button> -->
-                      <button class="btn-floating waves-effect waves-light orange" mat-icon-button matTooltip="{{ 'SUSPEND' | translate }}"><i (click)="suspend(activity.id)" class="material-icons">remove</i></button>
-                      <button class="btn-floating waves-effect waves-light black" mat-icon-button matTooltip="{{ 'DESIGNATE' | translate }}"><i (click)="findDesignatePlayers(activity.id)" class="material-icons">person_add</i></button>
-                      <button class="btn-floating waves-effect waves-light blue" mat-icon-button matTooltip="{{ 'REPLAN' | translate }}"><i (click)="replan(activity.id)" class="material-icons">event</i></button>
+                      <!-- <button class="btn-floating waves-effect waves-light orange" mat-icon-button matTooltip="{{ 'SUSPEND' | translate }}"><i (click)="suspend(activity.id)" class="material-icons">remove</i></button> -->
+                      <!-- <button class="btn-floating waves-effect waves-light black" mat-icon-button matTooltip="{{ 'DESIGNATE' | translate }}"><i (click)="findDesignatePlayers(activity.id)" class="material-icons">person_add</i></button> -->
+                      <!-- <button class="btn-floating waves-effect waves-light blue" mat-icon-button matTooltip="{{ 'REPLAN' | translate }}"><i (click)="replan(activity.id)" class="material-icons">event</i></button> -->
                     </div>
                   </div>
                 </div>
 
                 <!-- <app-loading [loader]="loaderPlayerRated"></app-loading> -->
-                <app-players-find [taskId]="activity.id"></app-players-find>
+                <app-players-find [taskId]="activity.id" *ngIf="designate"></app-players-find>
 
               </mz-collapsible-item-body>
 

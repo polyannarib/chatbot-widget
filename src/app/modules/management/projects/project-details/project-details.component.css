@@ -1,4 +1,4 @@
-mat-dialog-content {
+/* mat-dialog-content {
     max-height: 75vh;
     padding: 25px;
     border-top: 1px solid #ebebeb;
@@ -17,7 +17,6 @@ mat-dialog-actions {
 }
 mat-dialog-content .activityDay {
     border: 1px solid #eee;
-    /* margin: 7px 0; */
     text-align: center;
     line-height: 35px;
     background-color: #ff9d8c;
@@ -77,6 +76,7 @@ mz-collapsible-item-body {
     box-sizing: border-box;
     padding: 12px !important;
 }
+
 .green { background-color: #4CAF50; }
 .black { background-color: #000; color: #fff; }
 .orange { background-color: #ff9800; }
@@ -87,4 +87,4 @@ mz-collapsible-item-body {
     margin: 5px;
 }
 
-
+ */

@@ -1,17 +1,24 @@
 <app-loading [loader]="loader"></app-loading>
-<div *ngIf="players">
-  <div class="card">
-    <div class="row">
-      <div class="col s12">
-        <div class="input-field">
-          <input autocomplete="off" (input)="onSearchChangeResource($event.target.value)" matInput id="find" matInput type="text" class="validate" value="">
-          <label for="find">{{ 'RESOURCES' | translate }}</label>
-          <!-- <i class="fa fa-filter"></i> -->
-        </div>
+<div *ngIf="players && !loader">
+  
+  <div class="row">
+    <div class="col m6 s12">
+      <div class="input-field">
+        <input autocomplete="off" (input)="onSearchChangeResource($event.target.value)" matInput id="find" matInput type="text" class="validate" value="">
+        <label for="find">{{ 'RESOURCES' | translate }}</label>
       </div>
     </div>
-  </div>  
-  <table class="responsive-table">
+    <div class="col m6 s12">
+      <ul>
+        <li><a (click)="changeDays('prev')" class="btn-floating waves-effect waves-light red"><i class="material-icons">chevron_left</i></a></li>
+        <li><a (click)="changeDays('next')" class="btn-floating waves-effect waves-light red"><i class="material-icons">chevron_right</i></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <app-loading [loader]="loaderDays"></app-loading>
+  
+  <table class="responsive-table" *ngIf="!loaderDays">
     <thead>
       <tr>
         <th></th>

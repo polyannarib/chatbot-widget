@@ -18,6 +18,12 @@ import { FinalizeComponent } from './components/modal/finalize/finalize.componen
 import { RemoveComponent } from './components/modal/remove/remove.component';
 import { SuspendComponent } from './components/modal/suspend/suspend.component';
 import { BaseModalComponent } from './components/modal/base-modal/base-modal.component';
+import { ButtonFinalizeComponent } from './components/buttons/button-finalize/button-finalize.component';
+import { ButtonRemoveComponent } from './components/buttons/button-remove/button-remove.component';
+import { ButtonSuspendComponent } from './components/buttons/button-suspend/button-suspend.component';
+import { ButtonDesignateComponent } from './components/buttons/button-designate/button-designate.component';
+import { ButtonReplanComponent } from './components/buttons/button-replan/button-replan.component';
+
 
 // NgxMaterial components importados
 import { MzToastModule } from 'ngx-materialize';
@@ -29,9 +35,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
-import { ButtonFinalizeComponent } from './components/buttons/button-finalize/button-finalize.component';
-import { ButtonRemoveComponent } from './components/buttons/button-remove/button-remove.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   imports: [
@@ -47,7 +52,9 @@ import { ButtonRemoveComponent } from './components/buttons/button-remove/button
     MatProgressSpinnerModule,
     MatTooltipModule,
     TranslateModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDatepickerModule,
+    MatFormFieldModule
   ],
   declarations: [
     FilterListPipe,
@@ -61,6 +68,9 @@ import { ButtonRemoveComponent } from './components/buttons/button-remove/button
     BaseModalComponent,
     ButtonFinalizeComponent,
     ButtonRemoveComponent,
+    ButtonSuspendComponent,
+    ButtonDesignateComponent,
+    ButtonReplanComponent,
   ],
   exports: [
     FilterListPipe,
@@ -78,11 +88,19 @@ import { ButtonRemoveComponent } from './components/buttons/button-remove/button
     RemoveComponent,
     SuspendComponent,
     BaseModalComponent,
-    MatRadioModule
+    MatRadioModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    ButtonFinalizeComponent,
+    ButtonRemoveComponent,
+    ButtonSuspendComponent,
+    ButtonDesignateComponent,
+    ButtonReplanComponent,
   ],
   entryComponents: [
     FinalizeComponent,
-    RemoveComponent
+    RemoveComponent,
+    SuspendComponent
   ]
 })
 export class SharedModule { }
