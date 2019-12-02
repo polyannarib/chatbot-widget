@@ -6,10 +6,15 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MzModalModule, MzTooltipModule, MzButtonModule, MzInputModule, MzCollapsibleModule, MzRadioButtonModule } from 'ngx-materialize'
-import { MatDatepickerModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatDatepickerModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from './shared/pipe/pipes.module';
 import { AdminComponent } from './admin/admin.component';
+import { PlayerCreateComponent } from './player/player-create/player-create.component';
+import { DepartmentCreateComponent } from './department/department-create/department-create.component';
+import { TeamCreateComponent } from './team/team-create/team-create.component';
+import { CardCreateComponent } from './card/card-create/card-create.component';
+
 
 const routes = [
   {
@@ -18,10 +23,12 @@ const routes = [
     children: [
       {path:'dashboard', component: DashboardComponent},
       {path:'admin', component: AdminComponent},
-      {path:'project', loadChildren: './project/project.module#ProjectModule'},
-      {path:'card', loadChildren: './card/card.module#CardModule'},
-      {path:'player', loadChildren: './player/player.module#PlayerModule'},
-      {path:'calendar', loadChildren: './calendar/calendar.module#CalendarModule'}
+      {path:'player', component: PlayerCreateComponent},
+      {path:'department', component: DepartmentCreateComponent},
+      {path:'card', component: CardCreateComponent},
+      {path:'team', component: TeamCreateComponent},
+      // {path:'project', loadChildren: './project/project.module#ProjectModule'},
+      // {path:'calendar', loadChildren: './calendar/calendar.module#CalendarModule'}
   ]},
 ]
 
@@ -30,7 +37,11 @@ const routes = [
     DashboardComponent, 
     HomeComponent,
     ModalSuccessComponent,
-    AdminComponent
+    AdminComponent,
+    PlayerCreateComponent,
+    DepartmentCreateComponent,
+    TeamCreateComponent,
+    CardCreateComponent
   ],
   entryComponents: [
     ModalSuccessComponent,
@@ -47,6 +58,7 @@ const routes = [
     MzCollapsibleModule,
     MzRadioButtonModule,
     MatDatepickerModule,
+    MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,

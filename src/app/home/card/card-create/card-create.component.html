@@ -1,0 +1,41 @@
+<section>
+  <div class="background"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <div class="header">
+          <h1 class="title">Cadastro Carta</h1>
+        </div>
+      </div>
+    </div>
+    <div class="body">
+
+      <!-- <div class="container"> -->
+        <div class="row">
+          <form action="">
+
+            <div class="col s12 m4 offset-m4">
+              <div class="form-select">
+                <select>
+                  <option value="" disabled="disabled" selected="selected">Selecione o departamento</option>
+                  <option *ngFor="let department of departments" ([value])="department.id" (click)="getFunction(department.id)">{{ department.name }}</option>
+                </select>
+              </div>
+              <div class="input-field">
+                <input type="text" placeholder="documentNumber" [(ngModel)]="documentNumber">                
+              </div>
+              <div class="input-field">
+                <textarea rows="10" type="text" placeholder="zipcode" [(ngModel)]="zipcode"></textarea>                
+              </div>
+              <div class="input-field right-align">
+                <button class="btn-send">Salvar</button>       
+              </div>
+            </div>
+
+          </form>
+        </div>
+      <!-- </div> -->
+
+    </div>
+  </div>
+</section>
