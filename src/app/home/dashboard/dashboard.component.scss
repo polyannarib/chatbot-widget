@@ -101,7 +101,7 @@ th, td {
 .name3{
     background-color: #CDCDCD;
     border: none;
-    min-width: 185px;
+    min-width: 170px;
     text-align: left;
 }
 .extremidades{
@@ -398,4 +398,13 @@ canvas {
 
 .border-delayed {
     border: solid 2px red;
+}
+.padding-all-zero{
+    padding: 0;
+}
+
+.modal{
+    width: 75% !important;
+    height: 70% !important;
+    top: 18% !important;
 }

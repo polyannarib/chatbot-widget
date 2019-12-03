@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Type, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, Type, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ProjectService } from 'src/app/home/shared/services/project.service';
 import { PlayerService } from 'src/app/home/shared/services/player.service';
 import { TaskService } from 'src/app/home/shared/services/task.service';
@@ -12,13 +12,16 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { ConfirmModel } from '../shared/model/ConfirmModel';
 import { MzModalService } from 'ngx-materialize';
 import { ModalSuccessComponent } from '../modal/success/modal-success.component';
+import  '../../../assets/js/editable-table.js';
+import { EditableTable } from '../../../../node_modules/editable-table/editable-table';
 
 declare var jQuery: any;
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
 
@@ -95,10 +98,11 @@ export class DashboardComponent implements OnInit {
     private taskService: TaskService,
     private datePipe: DatePipe,
     private loadingService: LoadingService,
-    private modalService: MzModalService ) {
+    private modalService: MzModalService) {
   }
 
   ngOnInit() {
+    //this.loadScript('../../../../node_modules/editable-table.js');
     let self = this;
     this.loadingService.showPreloader();
     this.loadCalendar();
@@ -566,5 +570,30 @@ export class DashboardComponent implements OnInit {
 
   openReport() {
       window.open("http://192.168.0.216:9300/bi/?pathRef=.public_folders%2FGamifica%25C3%25A7%25C3%25A3o%2FStatus%2BReport", "_blank");
+  }
+
+  openModalSatusReport(modal: MzModalComponent) {
+    let self = this;
+    this.loadingService.showPreloader();
+    this.projectModal = false;
+    
+    Promise.all([
+      new Promise(function (resolve, reject) {
+        var teste = '1';
+      })
+    ]).then(() => {
+      modal.openModal();
+      self.loadingService.hidePreloader();
+    })
+  }
+
+  public loadScript(url: string) {
+    const body = <HTMLDivElement> document.body;
+    const script = document.createElement('script');
+    script.innerHTML = '';
+    script.src = url;
+    script.async = true;
+    script.type = 'module';
+    body.appendChild(script);
   }
 }

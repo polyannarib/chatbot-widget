@@ -24,6 +24,7 @@ import { LoadingService } from './home/shared/services/loading.service';
 import { ModalErrorComponent } from './home/modal/error/modal-error.component';
 import pt from '@angular/common/locales/pt';
 
+
 registerLocaleData(pt);
 
 export function createTranslateLoader(http: HttpClient) {
@@ -36,7 +37,7 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     LoginComponent,
     LoadingServiceComponent,
-    ModalErrorComponent
+    ModalErrorComponent,
   ],
   entryComponents: [
     ModalErrorComponent
@@ -73,6 +74,8 @@ export function createTranslateLoader(http: HttpClient) {
     DatePipe,
     { provide: LOCALE_ID, useValue: 'pt' },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
+
 })
 export class AppModule { }
