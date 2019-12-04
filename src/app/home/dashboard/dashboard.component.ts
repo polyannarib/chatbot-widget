@@ -12,8 +12,10 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { ConfirmModel } from '../shared/model/ConfirmModel';
 import { MzModalService } from 'ngx-materialize';
 import { ModalSuccessComponent } from '../modal/success/modal-success.component';
-import  '../../../assets/js/editable-table.js';
-import { EditableTable } from '../../../../node_modules/editable-table/editable-table';
+
+import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
+
+import {CoreService} from './services/core.service';
 
 declare var jQuery: any;
 
@@ -24,6 +26,12 @@ declare var jQuery: any;
   encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
+  //STATUSREPORT
+  displayedColumns: string[] = ['nota', 'dtInicio','dtPrazo', 'dtFim', 'obs', 'status', 'concluida'];
+  dataSource = this.core.list$;
+  controls: FormArray;
+  //
+
 
   @ViewChild( 'success' )
   successModal: any;
@@ -93,6 +101,7 @@ export class DashboardComponent implements OnInit {
   }
 
   constructor(
+    private core: CoreService,
     private projectService: ProjectService,
     private playerService: PlayerService,
     private taskService: TaskService,
@@ -102,7 +111,23 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.loadScript('../../../../node_modules/editable-table.js');
+
+    //STATUSREPORT
+    const toGroups = this.core.list$.value.map(entity => {
+      return new FormGroup({
+        nota: new FormControl(entity.nota, Validators.required), 
+        dtInicio: new FormControl(entity.dtInicio, Validators.required),
+        dtPrazo: new FormControl(entity.dtPrazo, Validators.required),
+        dtFim: new FormControl(entity.dtFim, Validators.required),
+        obs: new FormControl(entity.obs, Validators.required),
+        status: new FormControl(entity.status, Validators.required),
+        concluida: new FormControl(entity.concluida, Validators.required)
+      },{updateOn: "blur"});
+    });
+    //
+
+    this.controls = new FormArray(toGroups);
+    
     let self = this;
     this.loadingService.showPreloader();
     this.loadCalendar();
@@ -595,5 +620,38 @@ export class DashboardComponent implements OnInit {
     script.async = true;
     script.type = 'module';
     body.appendChild(script);
+  }
+
+  updateField(index, field) {
+    const control = this.getControl(index, field);
+    if (control.valid) {
+      this.core.update(index,field,control.value);
+
+    }
+   }
+
+  checkConclusao(index){
+    const control = this.getControl(index, 'concluida');
+    if(control.value == 'false'){
+      return false
+    }
+    else
+      return true
+  }
+
+  updateCheckField(index) {
+    var self = this;
+    const control = this.getControl(index, 'concluida');
+    if (control.valid) {
+      var date = new Date().toLocaleDateString();
+      this.core.update(index,'concluida', 'asdasd');
+      const teste = this.getControl(index, 'concluida');
+      console.log(teste.value);
+    }
+   }
+
+  getControl(index, fieldName) {
+    const a  = this.controls.at(index).get(fieldName) as FormControl;
+    return this.controls.at(index).get(fieldName) as FormControl;
   }
 }
