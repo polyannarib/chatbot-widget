@@ -51,7 +51,7 @@ export class PlayerCreateComponent implements OnInit {
       (response) => {
         this.departments = response.object;
       }, (err) => {
-        console.log('deu ruim department');
+        // console.log('deu ruim department');
       }
     )
   }
@@ -63,7 +63,7 @@ export class PlayerCreateComponent implements OnInit {
         this.departmentStatus = true;
         this.functions = response.object;
       }, (err) => {
-        console.log('deu ruim department');
+        // console.log('deu ruim department');
       }
     )
   }
@@ -71,10 +71,10 @@ export class PlayerCreateComponent implements OnInit {
   getTeam() {
     this.teamService.findAllTeam().subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.teams = response.object;
       }, (err) => {
-        console.log('deu ruim team');
+        // console.log('deu ruim team');
       }
     )
   }
