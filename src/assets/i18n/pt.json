@@ -64,6 +64,7 @@
     "FINISHED": "Concluída",
     "HANGING": "Suspendida",
     "DELAYED": "Atrasada",
-    "WAITING": "Aguardando Execução"
-
+    "WAITING": "Aguardando Execução",
+    "ERRORTITLE": "Problemas!",
+    "ERRORMESSAGE": "Registro não criado ou atualizado, favor verificar novamente os dados"
 }
