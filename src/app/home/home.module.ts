@@ -9,6 +9,7 @@ import { MzModalModule, MzTooltipModule, MzButtonModule, MzInputModule, MzCollap
 import { MatDatepickerModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from './shared/pipe/pipes.module';
+import { ChartsModule } from 'ng2-charts';
 
 const routes = [
   {
@@ -52,6 +53,7 @@ const routes = [
     MatTooltipModule,
     MatIconModule,
     MzTooltipModule,
+    ChartsModule,
     RouterModule.forChild(routes)
   ]
 })

@@ -3,6 +3,7 @@ import { ProjectService } from 'src/app/home/shared/services/project.service';
 import { PlayerService } from 'src/app/home/shared/services/player.service';
 import { TaskService } from 'src/app/home/shared/services/task.service';
 import { LoadingService } from 'src/app/home/shared/services/loading.service';
+import { ChartService } from 'src/app/home/shared/services/chart.service';
 import { DatePipe } from '@angular/common';
 import { MzModalComponent } from 'ngx-materialize';
 import { ActivityModel } from '../shared/model/ActivityModel';
@@ -10,8 +11,11 @@ import { ProjectModel } from '../shared/model/ProjectModel';
 import { AllocationModel } from '../shared/model/AllocationModel';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { ConfirmModel } from '../shared/model/ConfirmModel';
+import { ChartModel } from '../shared/model/ChartModel';
 import { MzModalService } from 'ngx-materialize';
 import { ModalSuccessComponent } from '../modal/success/modal-success.component';
+import { ChartType, ChartOptions } from 'chart.js';
+import { Label } from 'ng2-charts';
 
 declare var jQuery: any;
 
@@ -25,6 +29,9 @@ export class DashboardComponent implements OnInit {
   @ViewChild( 'success' )
   successModal: any;
 
+  legends: Array< any > = new Array< any >();
+  chartModel: Array< ChartModel > = new Array< ChartModel >();
+  blankChartModel: Array< ChartModel > = new Array< ChartModel >();
   selectedTime: String;
   selectedDate: String;
   startDate: Date;
@@ -61,6 +68,9 @@ export class DashboardComponent implements OnInit {
   day: any;
   month: any;
   year: any;
+  page: number = 1;
+  pageSize: number = 6;
+  countChart: number = 0;
 
   public modalOptions: Materialize.ModalOptions = {
     dismissible: true,
@@ -95,7 +105,8 @@ export class DashboardComponent implements OnInit {
     private taskService: TaskService,
     private datePipe: DatePipe,
     private loadingService: LoadingService,
-    private modalService: MzModalService ) {
+    private modalService: MzModalService,
+    private chartService: ChartService ) {
   }
 
   ngOnInit() {
@@ -123,6 +134,10 @@ export class DashboardComponent implements OnInit {
             resolve();
           }
         );
+      }),
+      new Promise(function(resolve, reject) {
+        self.findCharts();
+        resolve();
       }),
       new Promise(function (resolve, reject) {
         let params = {
@@ -567,4 +582,86 @@ export class DashboardComponent implements OnInit {
   openReport() {
       window.open("http://192.168.0.216:9300/bi/?pathRef=.public_folders%2FGamifica%25C3%25A7%25C3%25A3o%2FStatus%2BReport", "_blank");
   }
+
+  findCharts() {
+    this.loadingService.showPreloader();
+    let params = {
+      "page": this.page,
+      "pageSize": this.pageSize
+    }
+    this.chartService.findCharts(params).subscribe(
+      (response) => {
+         this.countChart = response.object.count;
+         response.object.charts.forEach( (curr: any) => {
+          let tmp = new ChartModel();
+          tmp.pieChartColors = [{
+            "backgroundColor": curr.backgroundColor,
+            "hoverBackgroundColor": curr.hoverBackgroundColor,
+            "borderWidth": 2,
+          }];
+          tmp.pieChartLabels = curr.labels;
+          tmp.pieChartData = curr.data;
+          tmp.pieChartOptions = {
+            responsive: true,
+            scales: {
+              position: 'top'
+            },
+            title: {
+              display: true,
+              text: curr.label,
+              position: 'top'
+            },
+            spanGaps: false,
+            maintainAspectRatio: true,
+            tooltips: {
+              enabled: true
+            },
+            legend: {
+              position: 'top',
+              align: 'start',
+              display: true,
+              labels: {
+                boxWidth: 50
+              }
+            },
+            plugins: {
+              datalabels: {
+                formatter: (value, ctx) => {
+                  const label = ctx.chart.data.labels[ctx.dataIndex];
+                  return label;
+                },
+              },
+            }
+          };
+          this.chartModel.push( tmp );
+         });
+         this.loadingService.hidePreloader();
+      }
+    )
+  }
+
+  refreshChart() {
+    this.chartModel = new Array< ChartModel >();
+    this.findCharts();
+  }
+
+  chartToLeft() {
+    this.chartModel = new Array< ChartModel >();
+    this.page = this.page - 1;
+    this.findCharts();
+  }
+
+  chartToRight() {
+    this.chartModel = new Array< ChartModel >();
+    this.page = this.page + 1;
+    this.findCharts();
+  }
+
+  /* CHARTS */
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  public pieChartLabels: Label[] = [];
+  public pieChartData: number[] = [];
+  public pieChartColors = [{"backgroundColor": [],"hoverBackgroundColor":[],"borderWidth":2}];
+
 }
