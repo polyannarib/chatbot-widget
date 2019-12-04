@@ -15,6 +15,7 @@ import { DepartmentCreateComponent } from './department/department-create/depart
 import { TeamCreateComponent } from './team/team-create/team-create.component';
 import { CardCreateComponent } from './card/card-create/card-create.component';
 
+import { ChartsModule } from 'ng2-charts';
 
 const routes = [
   {
@@ -67,6 +68,7 @@ const routes = [
     MatTooltipModule,
     MatIconModule,
     MzTooltipModule,
+    ChartsModule,
     RouterModule.forChild(routes)
   ]
 })
