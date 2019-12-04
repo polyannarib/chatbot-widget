@@ -26,7 +26,7 @@ export class AuthService {
     var body = {
       email: user.username,
       password: btoa(user.password),
-      type: 'MOBILE'
+      type: 'WEBPORTAL'
     }
 
     this.http.post(this.url + '/login', body,
