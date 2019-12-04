@@ -10,10 +10,9 @@ section .background::before {
     top: 0; 
     left: 0;
     width: 100%; 
-    height: 100vh;  
-    opacity: .55; 
+    height: 100vh;
     z-index: -1;
-    background-image: url('../../../../assets/images/background.png');
+    background-image: url('../../../../assets/images/backgroundFilter.jpg');
     background-size: cover;
 }
 .header {
@@ -22,14 +21,16 @@ section .background::before {
 }
 .title {
     position: relative;
-    padding: 20px 75px;
-    color: #fff;
     display: inline-block;
+    padding: 20px 75px 0px;
     border-bottom: 2px solid #fff;
+}
+.title h1 {
+    color: #fff;
     font-weight: bold;
     font-size: 32px;
 }
-.title::after {
+/* .title::after {
     content: "";
     position: absolute;
     width: 2px;
@@ -52,34 +53,44 @@ section .background::before {
     transform: rotate(45deg);
     margin-right: 90px;
     right: -104px;
-}
-
-form input {
-    border: 2px solid #00FFFF;
+} */
+form input,
+form select {
+    border: 2px solid #6589a4;
     border-radius: 10px;
     color: #fff;
     font-size: 15px;
-    opacity: 0.6;
+    opacity: 0.9;
     font-weight: bold;
     background: linear-gradient(to right bottom, #1e6689, #1d5f80, #1b5877, #1a516e, #184a65, #17465f, #15425a, #143e54, #143b51, #13394d, #13364a, #123447);
     -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    padding: 0px 15px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;  
+    display: block;
 }
-form input:focus, form input:active, form input:hover {
-    background-color: #6589a4;
-    border: 2px solid #00FFFF;
+form input:focus, 
+form input:active, 
+form input:hover,
+form select:focus, 
+form select:active, 
+form select:hover {
+    background: #6589a4;
+    border: 2px solid #6589a4 !important;
     border-radius: 10px;
     transform: scale(1.01);
     -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4);
     -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4);
-    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4);
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4) !important; 
 }
 .btn-send {
     font-size: 18px;
     font-weight: bold;
     border-radius: 10px;
     padding: 10px 25px;
-    background-color: rgb(31, 229, 229);
+    background-color: #6589a4;
     color: #fff;
     border: none;
     -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
@@ -90,4 +101,33 @@ form input:focus, form input:active, form input:hover {
     -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4);
     -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4);
     box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4);
+}
+.footer {
+    background-image: url('../../../../assets/images/footer.png');
+    background-size: cover;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 100px;
+}
+.line {
+    position: fixed;
+    margin-top: 0px;
+    height: 2px;
+    width: 100%;
+    left: 0px;
+    background-color: #fff;
+}
+.back {
+    margin: 0px;
+    padding: 12px;
+    color: #fff;
+    border: none;
+    position: fixed;
+    left: 20px;
+    top: 90px;
+    background: #cc092f;
+    width: 50px;
+    border-radius: 50%;
+    height: 50px;
 }

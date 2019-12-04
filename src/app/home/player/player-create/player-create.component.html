@@ -3,8 +3,10 @@
   <div class="container">
     <div class="row">
       <div class="col s12">
-        <div class="header">
-          <h1 class="title">Cadastro Jogador</h1>
+        <div class="title">
+          <h1>Cadastro Player</h1>
+          <span class="line"></span>
+          <a [routerLink]="['/home/admin']" class="back"><i _ngcontent-uom-c19="" class="material-icons icon-image-preview">keyboard_arrow_left</i></a>
         </div>
       </div>
     </div>
@@ -28,15 +30,15 @@
                     <option *ngFor="let department of departments">{{ department.name }}</option>
                 </select>
               </div>
-              <div class="form-select">
-                <select formControlName="teamId">
+              <div class="form-select" *ngIf="this.value.departmentId != null && this.value.departmentId != ''">
+                <select formControlName="functionId">
                   <option value="" disabled="disabled" selected="selected">Selecione a função</option>
                   <option *ngFor="let function of functions">{{ function.name }}</option>
                 </select>
               </div>
               <div class="form-select">
                 <select formControlName="teamId">
-                  <option value="" disabled="disabled" selected="selected">Selecione a função</option>
+                  <option value="" disabled="disabled" selected="selected">Selecione a equipe</option>
                   <option *ngFor="let team of teams">{{ team.name }}</option>
                 </select>
               </div>
@@ -114,3 +116,5 @@
     </div>
   </div>
 </section>
+
+<div class="footer"></div>

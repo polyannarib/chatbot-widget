@@ -11,9 +11,9 @@ section .background::before {
     left: 0;
     width: 100%; 
     height: 100vh;  
-    opacity: .55; 
+    /* opacity: .55;  */
     z-index: -1;
-    background-image: url('../../../../assets/images/background.png');
+    background-image: url('../../../../assets/images/backgroundFilter.jpg');
     background-size: cover;
 }
 .header {
@@ -22,14 +22,16 @@ section .background::before {
 }
 .title {
     position: relative;
-    padding: 20px 75px;
-    color: #fff;
     display: inline-block;
+    padding: 20px 75px 0px;
     border-bottom: 2px solid #fff;
+}
+.title h1 {
+    color: #fff;
     font-weight: bold;
     font-size: 32px;
 }
-.title::after {
+/* .title::after {
     content: "";
     position: absolute;
     width: 2px;
@@ -52,7 +54,7 @@ section .background::before {
     transform: rotate(45deg);
     margin-right: 90px;
     right: -104px;
-}
+} */
 form input,
 form select,
 form textarea {
@@ -110,4 +112,33 @@ form textarea:hover {
     position: relative;
     margin-top: 1rem;
     padding-bottom: 5px;
+}
+.footer {
+    background-image: url('../../../../assets/images/footer.png');
+    background-size: cover;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 100px;
+}
+.line {
+    position: fixed;
+    margin-top: 0px;
+    height: 2px;
+    width: 100%;
+    left: 0px;
+    background-color: #fff;
+}
+.back {
+    margin: 0px;
+    padding: 12px;
+    color: #fff;
+    border: none;
+    position: fixed;
+    left: 20px;
+    top: 90px;
+    background: #cc092f;
+    width: 50px;
+    border-radius: 50%;
+    height: 50px;
 }

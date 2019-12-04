@@ -14,8 +14,12 @@ export class DepartmentService {
 
   private prefixService = 'department';
 
+  save(data: any): Observable<any> {
+    return this.http.post(`${environment.back_end_url}/${this.prefixService}/save`, data);
+  }
+
   findAllDepartments(): Observable<any> {
-    return this.http.get(`${environment.back_end_url}/${this.prefixService}`);
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/list`);
   }
 
   findDepartment(name: string): Observable<any> {

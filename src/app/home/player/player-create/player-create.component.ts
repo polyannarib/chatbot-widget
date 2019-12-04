@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { DepartmentService } from '../../shared/services/department.service';
 import { TeamService } from '../../shared/services/team.service';
 import { FunctionService } from '../../shared/services/function.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-player-create',
@@ -11,7 +12,7 @@ import { FunctionService } from '../../shared/services/function.service';
 })
 export class PlayerCreateComponent implements OnInit {
 
-  form = this.formBuilder.group({
+  form: FormGroup = this.formBuilder.group({
     name: ['', Validators.required],
     email: ['', Validators.required],
     departmentId: ['', Validators.required],
@@ -33,7 +34,7 @@ export class PlayerCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private departmentService: DepartmentService,
     private teamService: TeamService,
-    private functionService: FunctionService
+    private functionService: FunctionService,
   ) { }
 
   ngOnInit() {
@@ -56,7 +57,6 @@ export class PlayerCreateComponent implements OnInit {
   }
 
   getFunction(id) {
-    console.log('entrou dentro do getFunction');
     this.departmentStatus = false;
     this.functionService.findFunctionByDepartment(id).subscribe(
       (response) => {
@@ -71,7 +71,6 @@ export class PlayerCreateComponent implements OnInit {
   getTeam() {
     this.teamService.findAllTeam().subscribe(
       (response) => {
-        console.log('entrou dentro do getTeam');
         console.log(response);
         this.teams = response.object;
       }, (err) => {
