@@ -20,6 +20,60 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ChartsModule } from 'ng2-charts';
 import { PlayerListComponent } from './player/player-list/player-list.component';
 
+
+
+//TABELA EDITAVEL
+import '../polyfills';
+import {HttpClientModule} from '@angular/common/http';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import { EditableComponent } from './dashboard/editable/editable.component';
+import { ViewModeDirective } from './dashboard/editable/view-mode.directive';
+import { EditModeDirective } from './dashboard/editable/edit-mode.directive';
+import { FocusableDirective } from './dashboard/focusable.directive';
+import { EditableOnEnterDirective } from './dashboard/editable/edit-on-enter.directive';
+
+
+
+//ANGULAR MATERIAL
+import {A11yModule} from '@angular/cdk/a11y';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {PortalModule} from '@angular/cdk/portal';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import {CdkTableModule} from '@angular/cdk/table';
+import {CdkTreeModule} from '@angular/cdk/tree';
+import {
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatListModule,
+  MatMenuModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTreeModule,
+} from '@angular/material';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+
 const routes = [
   {
     path: '', 
@@ -47,6 +101,11 @@ const routes = [
     TeamCreateComponent,
     CardCreateComponent,
     PlayerListComponent
+
+
+    EditableComponent,ViewModeDirective,
+    EditModeDirective, FocusableDirective, 
+    EditableOnEnterDirective
   ],
   entryComponents: [
     ModalSuccessComponent,
@@ -75,7 +134,61 @@ const routes = [
     AutocompleteLibModule,
     MzTooltipModule,
     ChartsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+
+    
+    FormsModule,
+    HttpClientModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+
+
+
+    A11yModule,
+    CdkStepperModule,
+    CdkTableModule,
+    CdkTreeModule,
+    DragDropModule,
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,
+    PortalModule,
+    ScrollingModule,
+    AutocompleteLibModule,
   ]
 })
+
 export class HomeModule { }
+
