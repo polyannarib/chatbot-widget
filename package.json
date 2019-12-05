@@ -32,6 +32,7 @@
     "mdbootstrap": "^4.8.8",
     "ngx-materialize": "^6.1.3",
     "ngx-spinner": "^7.1.4",
+    "ngx-take-until-destroy": "^5.4.0",
     "rxjs": "6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
