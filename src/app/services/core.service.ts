@@ -9,7 +9,7 @@ import { PeriodicElement } from '../home/dashboard/models/periodic';
 export class CoreService {
 
   list: PeriodicElement[] = [
-    { nota: 'teste', dtInicio: new Date('09-11-2015').toLocaleDateString(), dtPrazo: new Date('09-11-2025').toLocaleDateString(), dtFim: '', obs: 'obs', status: 2, concluida: 'false'}
+    {noteId:undefined, nota: 'teste', dtInicio: new Date('09-11-2015').toLocaleDateString(), dtPrazo: new Date('09-11-2025').toLocaleDateString(), dtFim: '', obs: 'obs', status: 2, concluida: 'false'}
   ];
   list$: BehaviorSubject<PeriodicElement[]> = new BehaviorSubject(this.list);
 

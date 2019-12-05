@@ -62,6 +62,7 @@ import {
   MatToolbarModule,
   MatTreeModule,
 } from '@angular/material';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 const routes = [
   {
@@ -162,6 +163,7 @@ const routes = [
     MatTreeModule,
     PortalModule,
     ScrollingModule,
+    AutocompleteLibModule,
   ]
 })
 

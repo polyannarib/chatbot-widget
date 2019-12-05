@@ -112,7 +112,7 @@
             </button>
           </td>
           <td class="space padding-all-zero">
-            <button (click)="openModalStatusReport(srEdit)" class="transparent-button padding-all-zero">
+            <button (click)="openModalStatusReport(srEdit,project.id)" class="transparent-button padding-all-zero">
               <i class="material-icons">edit</i>
             </button>
           </td>
@@ -780,6 +780,28 @@
 
 <!-- MODAL STATUS REPORT EDIT -->
 <mz-modal #srEdit id="srEdit" [fixedFooter]="true" [fullscreen]="false" [options]="modalOptions">
+  <mz-modal-header>
+    <div class="ng-autocomplete">
+      <ng-autocomplete 
+        [data]="data"
+        [searchKeyword]="keyword"
+        (selected)='selectEvent($event)'
+        (inputChanged)='onChangeSearch($event)'
+        (inputFocused)='onFocused($event)'
+        [itemTemplate]="itemTemplate"
+        [notFoundTemplate]="notFoundTemplate">                                 
+      </ng-autocomplete>
+      
+      <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+      </ng-template>
+      
+      <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+      </ng-template>
+      </div>
+
+  </mz-modal-header>
   <mz-modal-content>
 
     <mat-tab-group>
@@ -1204,8 +1226,9 @@
             </div>
       </mat-tab>
     </mat-tab-group>
-
   </mz-modal-content>
   <mz-modal-footer>
+      <button mat-icon-button color="confirm" (click)="saveNotes()" style="margin-left: 95%"
+      >SAVE</button>
   </mz-modal-footer>
 </mz-modal>

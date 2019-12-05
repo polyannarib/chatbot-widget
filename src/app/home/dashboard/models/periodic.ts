@@ -1,5 +1,6 @@
 
 export interface PeriodicElement {
+  noteId: Number;
   nota: string;
   dtInicio: string;
   dtPrazo: string;

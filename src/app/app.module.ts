@@ -23,7 +23,8 @@ import { LoadingServiceComponent } from './home/loading-service/loading-service.
 import { LoadingService } from './home/shared/services/loading.service';
 import { ModalErrorComponent } from './home/modal/error/modal-error.component';
 import pt from '@angular/common/locales/pt';
-
+import { NoteService } from './home/shared/services/note.service';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 registerLocaleData(pt);
 
@@ -71,6 +72,7 @@ export function createTranslateLoader(http: HttpClient) {
     AuthGuardService,
     ProjectService,
     LoadingService,
+    NoteService,
     DatePipe,
     { provide: LOCALE_ID, useValue: 'pt' },
   ],

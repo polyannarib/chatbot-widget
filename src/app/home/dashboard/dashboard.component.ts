@@ -20,6 +20,7 @@ import {MatTableDataSource} from '@angular/material';
 import { PeriodicElement } from './models/periodic';
 
 import { BehaviorSubject } from 'rxjs'
+import { NoteService } from '../shared/services/note.service';
 
 
 
@@ -79,6 +80,31 @@ export class DashboardComponent implements OnInit {
   day: any;
   month: any;
   year: any;
+  statusReportFilter: any;
+  projectId: any;
+
+  keyword = 'name';
+  data = [{
+    'id':1,
+    'name':"Concluido dentro do prazo"
+  }, 
+  {
+    'id':2,
+    'name':"Concluido com anexo"
+  }, 
+  {
+    'id':3,
+    'name':"Em andamento - dentro do prazo"
+  }, 
+  {
+    'id':4,
+    'name':"Em andamento - probabilidade de desvio"
+  }, 
+  {
+    'id':5,
+    'name':"Em andamento - atrasado"
+  }
+]
 
   public modalOptions: Materialize.ModalOptions = {
     dismissible: true,
@@ -114,12 +140,14 @@ export class DashboardComponent implements OnInit {
     private taskService: TaskService,
     private datePipe: DatePipe,
     private loadingService: LoadingService,
-    private modalService: MzModalService) {
+    private modalService: MzModalService,
+    private noteService: NoteService) {
   }
 
   ngOnInit() {
 
     //STATUSREPORT
+   
     var toGroups = this.core.list$.value.map(entity => {
       return new FormGroup({
         nota: new FormControl(entity.nota, Validators.required), 
@@ -131,6 +159,7 @@ export class DashboardComponent implements OnInit {
         concluida: new FormControl(entity.concluida, Validators.required)
       },{updateOn: "blur"});
     });
+    this.refreshTable();
     //
 
     this.controls = new FormArray(toGroups);
@@ -268,7 +297,28 @@ export class DashboardComponent implements OnInit {
   openModalStatusReport(modal: MzModalComponent, id: Number) {
     let self = this;
     this.projectModal = true;
+    this.projectId = id;
+    console.log(id);
+    console.log("teste");
     modal.openModal();
+    this.core.list = [];
+    this.core.list2 = [];
+    this.noteService.findNotes({"page":1,"pageSize":50,"projectId":id }).subscribe((resp) =>
+    {
+      resp.object.list.forEach(element => {
+        
+          this.core.list.push(
+              {noteId: element.noteId, nota: element.noteDescription, dtInicio: new Date(element.noteDate).toLocaleDateString(), dtPrazo: new Date(element.noteDate).toLocaleDateString(), dtFim: '', obs: element.observation, status: element.status.id, concluida: 'false'},  
+          )
+          this.core.list2.push(
+            {noteId: element.noteId, nota: element.noteDescription, dtInicio: new Date(element.noteDate).toLocaleDateString(), dtPrazo: new Date(element.noteDate).toLocaleDateString(), dtFim: '', obs: element.observation, status: element.status.id, concluida: 'false'},  
+        )
+        
+      });
+      this.refreshTable(); 
+    });
+
+   
   }
 
   openModalPlayer(modal: MzModalComponent, id: Number, day: any, month: any, year: any) {
@@ -445,6 +495,7 @@ export class DashboardComponent implements OnInit {
   }
 
   confirmDesignTaskResource() {
+
     this.taskService.assignTask(this.editingTask, this.editingPlayer).subscribe(
       (response) => {
         this.dailyActivity.playersRatedFiltered = null;
@@ -671,16 +722,26 @@ export class DashboardComponent implements OnInit {
   }
 
   addRow() {
-    var newRow = {nota: 'Adicionar nota', dtInicio: new Date('09-11-2019').toLocaleDateString(), dtPrazo: new Date('09-11-2019').toLocaleDateString(), dtFim: '', obs: 'Observação', status: 3, concluida: 'false'};
+    var newRow = {noteId: undefined, nota: 'Adicionar nota', dtInicio: new Date('09-11-2019').toLocaleDateString(), dtPrazo: new Date('09-11-2019').toLocaleDateString(), dtFim: '', obs: 'Observação', status: 3, concluida: 'false'};
     this.core.list.push(newRow);
+    this.core.list2.push(newRow);
 
     this.refreshTable()
   }
+
+  changeReport(){
+    console.log(this.statusReportFilter);
+
+
+
+  }
+
 
   refreshTable(){
     var newlist$: BehaviorSubject<PeriodicElement[]> = new BehaviorSubject(this.core.list);
     this.core.list$ = newlist$;
     this.dataSource = this.core.list$;
+    
     var toGroups = this.core.list$.value.map(entity => {
       return new FormGroup({
         nota: new FormControl(entity.nota, Validators.required), 
@@ -700,7 +761,56 @@ export class DashboardComponent implements OnInit {
     const control = this.getControl(index, 'status');
     return control.value;
   }
+  selectEvent(item) {
+    this.core.refreshListFilter(item.id);
+    this.refreshTable();
+    // do something with selected item
+  }
 
+  onChangeSearch(val: string) {
+    console.log(val);
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+  
+  onFocused(e){
+    console.log(e);
+    this.core.refreshListFilter(null);
+    this.refreshTable();
+    // do something when input is focused
+  }
+
+
+  saveNotes(){
+    let lista = [];
+    this.core.list2.forEach((element)=>{
+      lista.push(
+        { 
+          'noteId': element.noteId,
+          'noteDescription':element.nota,
+          'noteDate':new Date().getTime(),
+          'status':{
+            'id':element.status
+          },
+          'type':{
+            'id':1
+          },
+          'project':{ 
+            'id':this.projectId
+          },
+          'noteNum':1,          
+          'observation':element.obs
+        }
+
+      );
+      this.noteService.saveNotes(lista).subscribe((res) => {
+        console.log(res);
+      });
+
+    })
+
+
+  }
 }
 
 /* export interface Element {
