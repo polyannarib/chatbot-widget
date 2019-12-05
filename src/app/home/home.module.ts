@@ -14,7 +14,6 @@ import { PlayerCreateComponent } from './player/player-create/player-create.comp
 import { DepartmentCreateComponent } from './department/department-create/department-create.component';
 import { TeamCreateComponent } from './team/team-create/team-create.component';
 import { CardCreateComponent } from './card/card-create/card-create.component';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 
 import { ChartsModule } from 'ng2-charts';
@@ -43,7 +42,6 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 import {
-  MatAutocompleteModule,
   MatBadgeModule,
   MatBottomSheetModule,
   MatButtonToggleModule,
@@ -60,7 +58,6 @@ import {
   MatProgressBarModule,
   MatProgressSpinnerModule,
   MatRippleModule,
-  MatSelectModule,
   MatSidenavModule,
   MatSliderModule,
   MatSlideToggleModule,
@@ -100,7 +97,7 @@ const routes = [
     DepartmentCreateComponent,
     TeamCreateComponent,
     CardCreateComponent,
-    PlayerListComponent
+    PlayerListComponent,
 
 
     EditableComponent,ViewModeDirective,

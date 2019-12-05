@@ -151,7 +151,7 @@ export class DashboardComponent implements OnInit {
     private datePipe: DatePipe,
     private loadingService: LoadingService,
     private modalService: MzModalService,
-    private chartService: ChartService ) {
+    private chartService: ChartService ,
     private noteService: NoteService) {
   }
 
