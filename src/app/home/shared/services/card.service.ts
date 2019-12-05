@@ -22,4 +22,12 @@ export class CardService {
     return this.http.post(`${environment.back_end_url}/${this.prefixService}`, data);
   }
 
+  listCardByPlayer(id: number): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/listCardByPlayer/${id}`);
+  }
+
+  findAllCards(): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}`);
+  }
+
 }

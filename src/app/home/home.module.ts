@@ -16,18 +16,19 @@ import { TeamCreateComponent } from './team/team-create/team-create.component';
 import { CardCreateComponent } from './card/card-create/card-create.component';
 
 import { ChartsModule } from 'ng2-charts';
+import { PlayerListComponent } from './player/player-list/player-list.component';
 
 const routes = [
   {
     path: '', 
     component: HomeComponent, 
     children: [
-      {path:'dashboard', component: DashboardComponent},
-      {path:'admin', component: AdminComponent},
-      {path:'player', component: PlayerCreateComponent},
-      {path:'department', component: DepartmentCreateComponent},
-      {path:'card', component: CardCreateComponent},
-      {path:'team', component: TeamCreateComponent},
+      { path:'dashboard', component: DashboardComponent },
+      { path:'admin', component: AdminComponent },
+      { path:'player', component: PlayerListComponent },
+      { path:'department', component: DepartmentCreateComponent },
+      { path:'card', component: CardCreateComponent },
+      { path:'team', component: TeamCreateComponent },
       // {path:'project', loadChildren: './project/project.module#ProjectModule'},
       // {path:'calendar', loadChildren: './calendar/calendar.module#CalendarModule'}
   ]},
@@ -42,7 +43,8 @@ const routes = [
     PlayerCreateComponent,
     DepartmentCreateComponent,
     TeamCreateComponent,
-    CardCreateComponent
+    CardCreateComponent,
+    PlayerListComponent
   ],
   entryComponents: [
     ModalSuccessComponent,
