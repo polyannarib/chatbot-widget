@@ -24,4 +24,8 @@ export class PlayerService {
     return this.http.get( this.url + '/dashboard/player/' + id + '/allocation', {params:params} );
   }
 
+  findAllPlayers(): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/user`);
+  }
+
 }

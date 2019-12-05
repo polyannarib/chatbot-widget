@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MzModalModule, MzTooltipModule, MzButtonModule, MzInputModule, MzCollapsibleModule, MzRadioButtonModule } from 'ngx-materialize'
-import { MatDatepickerModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatDatepickerModule, MatTooltipModule, MatAutocompleteModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from './shared/pipe/pipes.module';
 import { AdminComponent } from './admin/admin.component';
@@ -14,20 +14,23 @@ import { PlayerCreateComponent } from './player/player-create/player-create.comp
 import { DepartmentCreateComponent } from './department/department-create/department-create.component';
 import { TeamCreateComponent } from './team/team-create/team-create.component';
 import { CardCreateComponent } from './card/card-create/card-create.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+
 
 import { ChartsModule } from 'ng2-charts';
+import { PlayerListComponent } from './player/player-list/player-list.component';
 
 const routes = [
   {
     path: '', 
     component: HomeComponent, 
     children: [
-      {path:'dashboard', component: DashboardComponent},
-      {path:'admin', component: AdminComponent},
-      {path:'player', component: PlayerCreateComponent},
-      {path:'department', component: DepartmentCreateComponent},
-      {path:'card', component: CardCreateComponent},
-      {path:'team', component: TeamCreateComponent},
+      { path:'dashboard', component: DashboardComponent },
+      { path:'admin', component: AdminComponent },
+      { path:'player', component: PlayerListComponent },
+      { path:'department', component: DepartmentCreateComponent },
+      { path:'card', component: CardCreateComponent },
+      { path:'team', component: TeamCreateComponent },
       // {path:'project', loadChildren: './project/project.module#ProjectModule'},
       // {path:'calendar', loadChildren: './calendar/calendar.module#CalendarModule'}
   ]},
@@ -42,7 +45,8 @@ const routes = [
     PlayerCreateComponent,
     DepartmentCreateComponent,
     TeamCreateComponent,
-    CardCreateComponent
+    CardCreateComponent,
+    PlayerListComponent
   ],
   entryComponents: [
     ModalSuccessComponent,
@@ -67,6 +71,8 @@ const routes = [
     MatButtonModule,
     MatTooltipModule,
     MatIconModule,
+    MatAutocompleteModule,
+    AutocompleteLibModule,
     MzTooltipModule,
     ChartsModule,
     RouterModule.forChild(routes)
