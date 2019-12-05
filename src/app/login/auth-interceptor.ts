@@ -44,9 +44,10 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
                 localStorage.removeItem( 'token' );
                 this.router.navigate(['/login']);
                 this.loadingService.hidePreloader();
-            } else if( error.status == 500 ) {
-                this.modalService.open( ModalErrorComponent );
-            }
+            } 
+            // else if( error.status == 500 ) {
+            //     this.modalService.open( ModalErrorComponent );
+            // }
         }
         ));
     }

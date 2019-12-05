@@ -105,6 +105,7 @@
           <td class="space padding-zero"><i class="material-icons"
               [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i></td>
           <td class="space padding-zero">
+            <!-- <button (click)="openModalStatusReport(projectStatusReport, project.id)" class="transparent-button"> -->
             <button (click)="openReport()" class="transparent-button">
               <i class="material-icons">send</i>
             </button>
@@ -122,25 +123,53 @@
     </tbody>
   </table>
 </div>
-
-<!--div class="row">
-<ul class="collapsible" data-collapsible="accordion">
-  <li>
-    <div class="collapsible-header active">
-      <p><b>{{'GRAPHICS' | translate}}</b></p>
+<div class="row mt-30">
+  <div class="col s1 m1 l1">
+    <button *ngIf="page > 1" (click)="chartToLeft()" class="transparent-button">
+      <i class="material-icons">arrow_back</i>
+    </button>
+  </div>
+  <div class="col s10 m10 l10">
+    <div style="text-align: center">
+      <button (click)="refreshChart()" class="transparent-button">
+        <i class="material-icons">refresh</i>
+      </button>
     </div>
-    <div class="collapsible-body ">
-      <div class="graphic" *ngFor="let graphic of graphics">
-        <h6>{{graphic.title}}</h6>
-        <canvas baseChart [data]="graphic.data" [labels]="graphic.labels" [chartType]="graphic.type"
-          [colors]="chartColors" [options]="chartOptions" [legend]="false">
+  </div>
+  <div class="col s1 m1 l1">
+    <button *ngIf="(page*pageSize) < countChart" (click)="chartToRight()" class="transparent-button">
+      <i class="material-icons">arrow_forward</i>
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l12">
+    <ng-container *ngFor="let chart of chartModel">
+      <div class="col s2 m2 l2">
+        <canvas baseChart
+          width="50" height="50"
+          [data]="chart.pieChartData"
+          [labels]="chart.pieChartLabels"
+          [chartType]="pieChartType"
+          [options]="chart.pieChartOptions"
+          [plugins]="pieChartPlugins"
+          [colors]="chart.pieChartColors"
+          [legend]="false">
         </canvas>
       </div>
+    </ng-container>       
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l12">
+    <div class="col s2 m2 l2" *ngFor="let chart of chartModel">
+      <ng-container *ngFor="let color of chart.pieChartColors[0].backgroundColor let i = index">
+        <p><i class="material-icons"
+          [ngStyle]="{ 'color': color }">fiber_manual_record</i>
+           - {{ chart.pieChartLabels[i] }}</p>
+      </ng-container>
     </div>
-  </li>
-</ul>
-</div-->
-
+</div>
 <!-- MODAL PLAYER TASK DETAIL-->
 <mz-modal #activityDetail [fixedFooter]="true" [fullscreen]="true" [options]="modalOptions">
   <mz-modal-header>
@@ -292,7 +321,7 @@
                         placeholder="{{ 'SEARCHMORE' | translate }}" value="">
                     </div>
                   </div>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                  <!-- <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
                     [(ngModel)]="designatePlayer">
                     <mat-radio-button (click)="activeConfirmation()" class="example-radio-button"
                       *ngFor="let player of dailyActivity.playersRatedFiltered | slice:0:6; let i=index"
@@ -305,7 +334,7 @@
                           class="material-icons tiny green-text ml-5">event_available</i>
                       </span>
                     </mat-radio-button>
-                  </mat-radio-group>
+                  </mat-radio-group> -->
                 </div>
                 <div class="col l6 m6 s6">
                   <label class="label" id="example-radio-group-label">{{ 'AVAILABLEPLAYER' | translate }}</label>
@@ -666,6 +695,8 @@
   </mz-modal-footer>
 </mz-modal>
 
+
+
 <!-- MODAL CONFIRM DESIGNATE -->
 <mz-modal #confirmDesignate [fullscreen]="false">
   <mz-modal-header>
@@ -696,6 +727,75 @@
       <span class="modal-text">
         {{ 'SUCCESS' | translate }}
       </span>
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>{{ 'CLOSE' | translate }}</button>
+  </mz-modal-footer>
+</mz-modal>
+
+
+
+<!-- MODAL STATUS REPORT LIST -->
+<mz-modal #projectStatusReport [fixedFooter]="true" [fullscreen]="true" [options]="modalOptions">
+  <mz-modal-header>
+    <!-- <h5 class="center-align">{{ projectModel.projectName }}</h5> -->
+    <h5 class="center-align">Project name</h5>
+  </mz-modal-header>
+  <mz-modal-content>
+
+    <div class="divider"></div>
+    
+    <div class="row mt-10">
+      <div class="col l6 m6 s6 left-align">
+        <span class="activity-text title ml-25">ACTIVITY</span>
+        <!-- <span class="activity-text title ml-25">{{ 'ACTIVITY' | translate }}</span> -->
+      </div>
+      <div class="col l2 m2 s2">
+        <span class="activity-text title">RESOURCE</span>
+        <!-- <span class="activity-text title">{{ 'RESOURCE' | translate }}</span> -->
+      </div>
+      <div class="col l2 m2 s2 left-align">
+        <span class="activity-text title ml-m-12">DUEDATE</span>
+        <!-- <span class="activity-text title ml-m-12">{{ 'DUEDATE' | translate }}</span> -->
+      </div>
+      <div class="col l1 m1 s1 left-align">
+        <span class="activity-text title ml-m-15">EFFORT</span>
+        <!-- <span class="activity-text title ml-m-15">{{ 'EFFORT' | translate }}</span> -->
+      </div>
+    </div>
+
+    <div class="row">
+      <mz-collapsible [mode]="'accordion'" [popout]="false">
+        <!-- <ng-container *ngFor="let activity of projectModel.activities"> -->
+        <!-- <ng-container> -->
+          <mz-collapsible-item [active]="false">
+            <mz-collapsible-item-header class="col l12 m12 s12" (click)="cleanDesignate()">
+              <div class="mt-10">
+                <div class="valign-wrapper">
+                  <div class="col l6 m6 s6 left-align">
+                    <span class="activity-text">activity.name</span>
+                  </div>
+                  <div class="col l2 m2 s2 left-align">
+                    <span class="activity-text">activity.player</span>
+                  </div>
+                  <div class="col l2 m2 s2 left-align">
+                    <span class="activity-text">activity.previewedAt</span>
+                  </div>
+                  <div class="col l1 m1 s1 left-align">
+                    <span class="activity-text">activity.dailyEffort</span>
+                  </div>
+                </div>
+              </div>
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body>
+              <div class="row">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ipsum sapien, malesuada nec massa ac, euismod interdum velit. Nam eget odio in turpis porttitor sagittis in non diam. Phasellus vitae ultricies leo, eu vulputate sem. Aliquam placerat in enim eu dictum. Ut pretium velit nulla, a sodales quam commodo in. Curabitur eleifend ullamcorper rhoncus. Donec eget mattis arcu. Aenean posuere lorem in dolor sollicitudin, id vehicula tortor viverra. Morbi ultrices varius molestie. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent id vehicula metus, id congue leo.</p>
+              </div>
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        <!-- </ng-container> -->
+      </mz-collapsible>
     </div>
   </mz-modal-content>
   <mz-modal-footer>

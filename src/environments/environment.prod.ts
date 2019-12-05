@@ -1,5 +1,5 @@
 export const environment = {
-  backend_url: 'https://www.kyros.com.br/workplayer-portal/services',
+  back_end_url: 'https://www.kyros.com.br/workplayer-portal/services',
   production: false
 };
 
