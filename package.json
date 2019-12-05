@@ -24,6 +24,7 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "angular-bootstrap-md": "^8.7.0",
+    "angular-ng-autocomplete": "^1.1.14",
     "angular2-materialize": "^15.1.10",
     "chart.js": "^2.9.3",
     "core-js": "^2.5.4",

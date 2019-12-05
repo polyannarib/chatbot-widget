@@ -29,5 +29,9 @@ export class CardService {
   findAllCards(): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}`);
   }
+  
+  giveToPlayer(data): Observable<any> {
+    return this.http.post(`${environment.back_end_url}/${this.prefixService}/giveToPlayer`, data);
+  }
 
 }

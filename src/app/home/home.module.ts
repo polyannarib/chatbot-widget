@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MzModalModule, MzTooltipModule, MzButtonModule, MzInputModule, MzCollapsibleModule, MzRadioButtonModule } from 'ngx-materialize'
-import { MatDatepickerModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatDatepickerModule, MatTooltipModule, MatAutocompleteModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from './shared/pipe/pipes.module';
 import { AdminComponent } from './admin/admin.component';
@@ -14,6 +14,8 @@ import { PlayerCreateComponent } from './player/player-create/player-create.comp
 import { DepartmentCreateComponent } from './department/department-create/department-create.component';
 import { TeamCreateComponent } from './team/team-create/team-create.component';
 import { CardCreateComponent } from './card/card-create/card-create.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+
 
 import { ChartsModule } from 'ng2-charts';
 import { PlayerListComponent } from './player/player-list/player-list.component';
@@ -69,6 +71,8 @@ const routes = [
     MatButtonModule,
     MatTooltipModule,
     MatIconModule,
+    MatAutocompleteModule,
+    AutocompleteLibModule,
     MzTooltipModule,
     ChartsModule,
     RouterModule.forChild(routes)

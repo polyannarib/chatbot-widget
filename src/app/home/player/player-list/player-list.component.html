@@ -43,20 +43,36 @@
   </mz-modal-header>
   <mz-modal-content>
     <div class="divider"></div>
-    <div class="row mt-30">
-      <div class="row">
-        <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of options" [value]="option">
-                {{option}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-        </form>
-      </div>
-      <div class="row">
+    <div class="row">
+
+        <div class="ng-autocomplete">
+          <ng-autocomplete #auto
+            [data]="cards"
+            name="cardPlayerSelect"
+            [(ngModel)]="cardPlayerSelect"
+            [initialValue]=""
+            [searchKeyword]="'cardName'"
+            [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate">                                 
+          </ng-autocomplete>
+
+          <!-- (selected)='selectEvent($event)' -->
+          
+          <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.cardName"></a>
+          </ng-template>
+          
+          <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="'Carta não encontrada'"></div>
+          </ng-template>
+        </div>
+
+        <div class="center-align mt-30">
+          <button class="waves-effect waves-light btn" (click)="selectEvent()">Adicionar</button>
+        </div>
+
+      <!-- </div> -->
+      <div class="row mt-30">
         <div class="chip" *ngFor="let cardsPlayer of cardsPlayers">
           {{ cardsPlayer.cardName }}
           <i class="close material-icons">close</i>

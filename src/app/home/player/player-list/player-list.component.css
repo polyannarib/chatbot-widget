@@ -178,3 +178,24 @@ select::-ms-expand {
     border-radius: 50%;
     height: 50px;
 }
+.ng-autocomplete .input-container input {
+    margin-bottom: 0px !important;
+}
+
+.ng-autocomplete {
+    width: 100%;
+}
+
+.ng-autocomplete .suggestions-container {
+    position: absolute;
+    width: 100%;
+    background: #fff;
+    height: auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,.25);
+    box-sizing: border-box;
+    margin-top: -20px !important;
+}
+
+.btnAdd {
+    position: absolute;
+}

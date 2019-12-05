@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PlayerService } from '../../shared/services/player.service';
 import { LoadingService } from '../../shared/services/loading.service';
 import { MzModalService, MzModalComponent } from 'ngx-materialize';
 import { ModalErrorComponent } from '../../modal/error/modal-error.component';
 import { CardService } from '../../shared/services/card.service';
+import { ModalSuccessComponent } from '../../modal/success/modal-success.component';
 
 @Component({
   selector: 'app-player-list',
@@ -12,20 +13,31 @@ import { CardService } from '../../shared/services/card.service';
 })
 export class PlayerListComponent implements OnInit {
 
+  @ViewChild('auto') auto;
+
   constructor(
     private playerService: PlayerService,
     private loadingService: LoadingService,
     private modalService: MzModalService,
-    private cardService: CardService
+    private cardService: CardService,
+    
   ) { }
 
   players: any;
   cards: any;
   cardsPlayers: any;
   arrayCards: any[] = [];
+  playerId: number;
+  cardPlayerSelect: any;
+  cardId: number;
 
   ngOnInit() {
     this.findAllPlayers();
+  }
+
+  clear(e): void {
+    e.stopPropagation();
+    this.auto.clear();
   }
 
   findAllPlayers() {
@@ -53,7 +65,23 @@ export class PlayerListComponent implements OnInit {
     )
   }
 
+  selectEvent() {
+    document.querySelector("input").value = '';
+    if(this.cardPlayerSelect != null) {
+      this.arrayCards.push({
+        "playerId": this.playerId,
+        "cardId": this.cardPlayerSelect.cardId,
+        "action": "ADD"
+      });
+      this.cardsPlayers.push(this.cardPlayerSelect);
+      this.auto.clear();
+    } else {
+      return;
+    }
+  }
+
   listCardsByPlayer(id) {
+    this.playerId = id;
     this.cardService.listCardByPlayer(id).subscribe(
       (response) => {
         this.cardsPlayers = response.object;
@@ -70,7 +98,16 @@ export class PlayerListComponent implements OnInit {
   }
 
   confirmFinalize() {
-    console.log('confirm');
+    this.loadingService.showPreloader();
+    this.cardService.giveToPlayer(this.arrayCards).subscribe(
+      (response) => {
+        this.loadingService.hidePreloader();
+        this.modalService.open(ModalSuccessComponent);
+      }, (err) => {
+        this.loadingService.hidePreloader();
+        this.modalService.open(ModalErrorComponent);
+      }
+    )
   }
 
 
