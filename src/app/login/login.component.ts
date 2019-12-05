@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    this.spinner.show('wait-login')
+    this.spinner.show('wait-login');
     this.authService.login(this.user);
     this.spinner.hide('wait-login');
   }

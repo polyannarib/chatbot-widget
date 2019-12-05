@@ -1,9 +1,9 @@
-import { Component, OnInit, ElementRef, ViewEncapsulation } from '@angular/core';
-import { ChartOptions } from 'chart.js';
+import { Component, OnInit, ElementRef, Type, ViewChild } from '@angular/core';
 import { ProjectService } from 'src/app/home/shared/services/project.service';
 import { PlayerService } from 'src/app/home/shared/services/player.service';
 import { TaskService } from 'src/app/home/shared/services/task.service';
 import { LoadingService } from 'src/app/home/shared/services/loading.service';
+import { ChartService } from 'src/app/home/shared/services/chart.service';
 import { DatePipe } from '@angular/common';
 import { MzModalComponent } from 'ngx-materialize';
 import { ActivityModel } from '../shared/model/ActivityModel';
@@ -11,6 +11,11 @@ import { ProjectModel } from '../shared/model/ProjectModel';
 import { AllocationModel } from '../shared/model/AllocationModel';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { ConfirmModel } from '../shared/model/ConfirmModel';
+import { ChartModel } from '../shared/model/ChartModel';
+import { MzModalService } from 'ngx-materialize';
+import { ModalSuccessComponent } from '../modal/success/modal-success.component';
+import { ChartType, ChartOptions } from 'chart.js';
+import { Label } from 'ng2-charts';
 
 declare var jQuery: any;
 
@@ -21,12 +26,23 @@ declare var jQuery: any;
 })
 export class DashboardComponent implements OnInit {
 
+  @ViewChild( 'success' )
+  successModal: any;
+
+  legends: Array< any > = new Array< any >();
+  chartModel: Array< ChartModel > = new Array< ChartModel >();
+  blankChartModel: Array< ChartModel > = new Array< ChartModel >();
+  selectedTime: String;
+  selectedDate: String;
   startDate: Date;
+  startDatePlayer: Date;
   endDate: Date;
   endDateProject: Date;
   players: Array<any>;
+  filteredPlayers: Array<any>;
   player: any = {};
   projects: Array<any>;
+  filteredProjects: Array<any>;
   playerAllocation: AllocationModel = new AllocationModel();
   projectAllocation: AllocationModel = new AllocationModel();
   daysOfWeek14: Array<String> = [];
@@ -39,13 +55,22 @@ export class DashboardComponent implements OnInit {
   selectedAvailablePlayer: String;
   today: Date = new Date();
   fullWorkingDay: Boolean;
-  busy: Boolean = false;
   designatePlayer: any;
   confirmDesignate: Boolean = false;
-
-  private graphics: Array<any> = [];
-  private chartColors: Array<any> = [];
-  private chartOptions: ChartOptions;
+  editingTask: Number;
+  editingPlayer: Number;
+  editingDate: String;
+  editingProject: any;
+  editingHour: any;
+  editingDatetime: any;
+  projectModal: Boolean;
+  reason: String;
+  day: any;
+  month: any;
+  year: any;
+  page: number = 1;
+  pageSize: number = 6;
+  countChart: number = 0;
 
   public modalOptions: Materialize.ModalOptions = {
     dismissible: true,
@@ -58,15 +83,14 @@ export class DashboardComponent implements OnInit {
   };
 
   dateClassPlayer = (d: Date) => {
-    const date = d.getDate();
-    const dateText = this.datePipe.transform(d, 'dd/MM/yyyy');
-    return this.playerAllocation.full.includes(dateText)
+    const dateText = this.datePipe.transform(d, 'dd-MM-yyyy');
+    return this.playerAllocation.allocated.includes(dateText)
       ? 'full-day' : 'unallocated';
   }
 
   dateClassProject = (d: Date) => {
-    const dateText = this.datePipe.transform(d, 'dd/MM/yyyy');
-    return this.projectAllocation.full.includes(dateText)
+    const dateText = this.datePipe.transform(d, 'dd-MM-yyyy');
+    return this.projectAllocation.allocated.includes(dateText)
       ? 'full-day' : 'unallocated';
   }
 
@@ -76,12 +100,13 @@ export class DashboardComponent implements OnInit {
   }
 
   constructor(
-    private el: ElementRef,
     private projectService: ProjectService,
     private playerService: PlayerService,
     private taskService: TaskService,
     private datePipe: DatePipe,
-    private loadingService: LoadingService) {
+    private loadingService: LoadingService,
+    private modalService: MzModalService,
+    private chartService: ChartService ) {
   }
 
   ngOnInit() {
@@ -93,8 +118,8 @@ export class DashboardComponent implements OnInit {
     this.endDateProject = new Date();
     this.startDate.setDate(this.startDate.getDate() - 2);
     this.endDate.setDate(this.startDate.getDate() + 13);
-    this.endDateProject.setDate(this.startDate.getDate() + 7);
-
+    this.endDateProject.setDate(this.startDate.getDate() + 9);
+    this.startDatePlayer = this.startDate;
     Promise.all([
       new Promise(function (resolve, reject) {
         let params = {
@@ -105,9 +130,14 @@ export class DashboardComponent implements OnInit {
         self.playerService.findPlayers(params).subscribe(
           (response) => {
             self.players = response.object.list;
+            self.filteredPlayers = response.object.list;
             resolve();
           }
         );
+      }),
+      new Promise(function(resolve, reject) {
+        self.findCharts();
+        resolve();
       }),
       new Promise(function (resolve, reject) {
         let params = {
@@ -117,6 +147,7 @@ export class DashboardComponent implements OnInit {
         self.projectService.listProjects(params).subscribe(
           (response) => {
             self.projects = response.object.list;
+            self.filteredProjects = response.object.list;
             resolve();
           }
         );
@@ -126,12 +157,50 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  checkDate( date: any ): Date {
+    return new Date( date );
+  }
+
+  changeProjectWeek( orientation: any ) {
+    let today = new Date();
+    this.daysOfWeek7 = [];
+    this.loadingService.showPreloader();
+    if( orientation == 'RIGHT' ) {
+      today.setDate(this.endDateProject.getDate());
+      this.startDate.setDate(today.getDate());
+      for (let i = 0; i < 9; i++) {
+          this.daysOfWeek7.push(this.datePipe.transform(today, 'E'));
+        today.setDate(today.getDate() + 1);
+      }
+      this.endDateProject.setDate( today.getDate() );
+    } else if( orientation == 'LEFT' ) {
+      today.setDate(this.startDate.getDate());
+      this.endDateProject.setDate( today.getDate() );
+      for (let i = 0; i < 9; i++) {
+          this.daysOfWeek7.push(this.datePipe.transform(today, 'E'));
+        today.setDate(today.getDate() - 1);
+      }
+      this.startDate.setDate(today.getDate());
+    }
+    let params = {
+      "startDate": this.datePipe.transform(this.startDate, 'dd-MM-yyyy'),
+      "endDate": this.datePipe.transform(this.endDateProject, 'dd-MM-yyyy')
+    }
+    this.projectService.listProjects(params).subscribe(
+      (response) => {
+        this.projects = response.object.list;
+        this.filteredProjects = response.object.list;
+        this.loadingService.hidePreloader();
+      }
+    );
+  }
+
   loadCalendar() {
     let today = new Date();
     today.setDate(today.getDate() - 2);
     for (let i = 0; i < 13; i++) {
       this.daysOfWeek14.push(this.datePipe.transform(today, 'E'));
-      if (i < 7) {
+      if (i < 9) {
         this.daysOfWeek7.push(this.datePipe.transform(today, 'E'));
       }
       today.setDate(today.getDate() + 1);
@@ -139,55 +208,59 @@ export class DashboardComponent implements OnInit {
   }
 
   openModalProject(modal: MzModalComponent, id: Number, day: any, month: any, year: any) {
-
+    
     let self = this;
     this.loadingService.showPreloader();
+    this.projectModal = true;
 
     let date = new Date(year, month - 1, day);
     this.projectModel.dayText = this.datePipe.transform(date, 'EEEE');
-
+    this.editingDate = day + '-' + month + '-' + year;
+    this.editingProject = id;
+    this.day = day;
+    this.month = month;
+    this.year = year;
     Promise.all([
       new Promise(function (resolve, reject) {
-        let params = {};
 
         self.taskService.findProjectTasks(id, day + '-' + month + '-' + year).subscribe(
           (response) => {
             const obj = response.object;
             self.projectModel.projectName = obj.name;
-            self.projectModel.day = day;
-            self.projectModel.month = month;
+            self.projectModel.date = self.editingDate;
+            self.projectModel.dateFmt = day+'/'+month+'/'+year;
+            self.dailyActivity.day = day;
+            self.dailyActivity.month = month;
+            self.dailyActivity.year = year;
             self.projectModel.progress = obj.progress;
             self.projectModel.activities = obj.tasks;
-            console.log(self.projectModel);
             resolve();
           }
         );
-      }),
-      new Promise(function (resolve, reject) {
-        let allocationParams = {};
-
-        /*
-        self.projectService.findAllocation(allocationParams).subscribe(
-          (response) => {
-            self.projectAllocation = response;
-            resolve();
-          }
-        )*/
-        resolve();
       })
     ]).then(() => {
       modal.openModal();
       self.loadingService.hidePreloader();
     })
+  }
 
+  openModalStatusReport(modal: MzModalComponent, id: Number) {
+    let self = this;
+    this.projectModal = true;
+    modal.openModal();
   }
 
   openModalPlayer(modal: MzModalComponent, id: Number, day: any, month: any, year: any) {
     let self = this;
     this.loadingService.showPreloader();
+    this.projectModal = false;
+    this.editingPlayer = id;
+    this.editingDate = day+'-'+month+'-'+year;
     let date = new Date(year, month - 1, day);
     this.dailyActivity.dayText = this.datePipe.transform(date, 'EEEE');
-
+    this.day = day;
+    this.month = month;
+    this.year = year;
     Promise.all([
       new Promise(function (resolve, reject) {
 
@@ -196,12 +269,13 @@ export class DashboardComponent implements OnInit {
             const obj = response.object;
             self.dailyActivity.playerId = obj.player.id;
             self.dailyActivity.playerName = obj.player.name;
+            self.dailyActivity.date = self.editingDate;
             self.dailyActivity.day = day;
             self.dailyActivity.month = month;
             self.dailyActivity.year = year;
+            self.dailyActivity.dateFmt = day+'/'+month+'/'+year;
             self.dailyActivity.progress = obj.progress;
             self.dailyActivity.activities = obj.tasks;
-            console.log(self.dailyActivity);
             resolve();
           }
         )
@@ -213,7 +287,8 @@ export class DashboardComponent implements OnInit {
         }
         self.playerService.findAllocation(id, allocationParams).subscribe(
           (response) => {
-            self.playerAllocation = response;
+            self.playerAllocation = response.object;
+            console.log(self.playerAllocation);
             resolve();
           }
         )
@@ -224,16 +299,43 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  findProjectAllocation( player: any, picker: any ) {
+    this.loadingService.showPreloader();
+    if( player == null ) {
+      this.projectAllocation.full = [];
+      this.projectAllocation.allocated = [];
+      this.projectAllocation.unallocated = [];
+      picker.open();
+      this.loadingService.hidePreloader();
+    } else {
+      let allocationParams = {
+        "startDate": '23-09-2019',
+        "endDate": '23-12-2019'
+      }
+      this.playerService.findAllocation(player.id, allocationParams).subscribe(
+        (response) => {
+          this.projectAllocation = response.object;
+          picker.open();
+          this.loadingService.hidePreloader();
+        }
+      )
+    }
+  }
+
   designate(taskId) {
     if (!this.isDesigning) {
       this.isDesigning = true;
 
+      this.loadingService.showPreloader();
+
       this.playerService.findDesignatePlayers(taskId).subscribe(
         (response) => {
-          this.dailyActivity.playersRatedFiltered = response.rated;
-          this.dailyActivity.playersAvailableFiltered = response.available;
-          this.dailyActivity.playersRated = response.rated;
-          this.dailyActivity.playersAvailable = response.available;
+          const obj = response.object;
+          this.dailyActivity.playersRatedFiltered = obj.rated;
+          this.dailyActivity.playersAvailableFiltered = obj.available;
+          this.dailyActivity.playersRated = obj.rated;
+          this.dailyActivity.playersAvailable = obj.available;
+          this.loadingService.hidePreloader();
         }
       )
     } else {
@@ -243,28 +345,52 @@ export class DashboardComponent implements OnInit {
 
   relocateTaskResource(
     modal: MzModalComponent, event: MatDatepickerInputEvent<Date>,
-    playerId: Number, taskId: Number, taskName: String) {
+    playerId: Number, taskId: Number, taskName: String, previewedAt: any) {
+    
     this.confirmModel.activityName = taskName;
     this.confirmModel.dateFrom = this.dailyActivity.day + '/' + this.dailyActivity.month + '/' + this.dailyActivity.year;
     this.confirmModel.dateTo = this.datePipe.transform(event.value, 'dd/MM/yyyy');
+    this.editingDate = this.datePipe.transform(event.value, 'dd-MM-yyyy');
+    this.selectedTime = this.datePipe.transform(previewedAt, 'HH:mm:ss');
+    this.selectedDate = this.datePipe.transform(event.value, 'dd/MM/yyyy');
+    this.editingDatetime = this.editingDate + ' ' + this.selectedTime;
+    this.editingTask = taskId;
     this.confirmModel.taskId = taskId;
     this.confirmModel.playerId = playerId;
     let date1 = new Date(this.dailyActivity.year, this.dailyActivity.month - 1, this.dailyActivity.day);
     var date2 = event.value;
-    this.confirmModel.delay = (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24);
-
-    debugger;
-    if (this.playerAllocation.full.includes(this.confirmModel.dateTo)) {
-      this.fullWorkingDay = true;
-    } else {
-      this.fullWorkingDay = false;
-    }
+    this.confirmModel.delay = Math.trunc( (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24) );
 
     modal.openModal();
+
   }
 
   confirmRelocateTaskResource() {
 
+    this.taskService.rescheduleTask(this.editingTask, this.editingDate + ' ' + this.selectedTime).subscribe(
+      (response) => {
+        this.refreshModalData();
+        this.refreshTableData();
+        this.modalService.open( ModalSuccessComponent );
+      }
+    )
+
+  }
+
+  onSearchChangeProject(searchValue: string): void {
+    this.filteredProjects = this.projects.filter(
+      (curr) => {
+        return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+      }
+    )
+  }
+
+  onSearchChangeResource(searchValue: string): void {
+    this.filteredPlayers = this.players.filter(
+      (curr) => {
+        return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+      }
+    )
   }
 
   onSearchChange(searchValue: string): void {
@@ -285,20 +411,162 @@ export class DashboardComponent implements OnInit {
   }
 
   doDesignation(modal: MzModalComponent, playerFrom: any, task: any) {
+    this.editingTask = task;
+    this.editingPlayer = this.designatePlayer.id;
     this.player = this.dailyActivity.playersAvailable.filter(
       (curr) => {
         return curr.id == this.designatePlayer.id;
       }
     )[0];
 
-    if (this.player.activities != null) {
-      this.busy = true;
-    } else {
-      this.busy = false;
-    }
-
     modal.openModal();
 
+  }
+
+  confirmDesignTaskResource() {
+    this.taskService.assignTask(this.editingTask, this.editingPlayer).subscribe(
+      (response) => {
+        this.dailyActivity.playersRatedFiltered = null;
+        this.dailyActivity.playersAvailableFiltered = null;
+        this.dailyActivity.playersRated = null;
+        this.dailyActivity.playersAvailable = null;
+        this.taskService.findProjectTasks(this.editingProject, this.editingDate).subscribe(
+          (response) => {
+            const obj = response.object;
+            this.refreshTableData();
+            this.projectModel.projectName = obj.name;
+            this.projectModel.date = this.editingDate;
+            this.projectModel.progress = obj.progress;
+            this.projectModel.activities = obj.tasks;
+            this.isDesigning = false;
+            this.modalService.open( ModalSuccessComponent );
+          }
+        );
+      }
+    )
+  }
+
+  finalize(modal: MzModalComponent, taskId) {
+    this.editingTask = taskId;
+    modal.openModal();
+  }
+
+  confirmFinalize(confirm: MzModalComponent) {
+    this.taskService.finalize(this.editingTask).subscribe(
+      (response) =>{
+        this.refreshModalData();
+        this.refreshTableData();
+        this.modalService.open( ModalSuccessComponent );
+      }
+    );
+  }
+
+  removePlayer(modal: MzModalComponent, taskId) {
+    this.editingTask = taskId;
+    modal.openModal();
+  }
+
+  confirmRemovePlayer(confirm: MzModalComponent) {
+    this.taskService.removePlayer(this.editingTask, this.reason).subscribe(
+      (response) => {
+          this.refreshModalData();
+          this.refreshTableData();
+          this.modalService.open( ModalSuccessComponent );
+      }
+    )
+  }
+
+  suspend(modal: MzModalComponent, taskId) {
+    this.editingTask = taskId;
+    modal.openModal();
+  }
+
+  confirmSuspend( confirm: MzModalComponent ) {
+    this.taskService.suspend(this.editingTask, this.reason).subscribe(
+      (response) => {
+        this.refreshModalData();
+        this.modalService.open( ModalSuccessComponent );
+      }
+    )
+  }
+
+  refreshTableData() {
+    let self = this;
+
+    self.loadingService.showPreloader();
+
+    Promise.all([
+      new Promise(function (resolve, reject) {
+        let params = {
+          "startDate": self.datePipe.transform(self.startDatePlayer, 'dd-MM-yyyy'),
+          "page": 1,
+          "pageSize": 10
+        }
+        self.playerService.findPlayers(params).subscribe(
+          (response) => {
+            self.players = response.object.list;
+            self.filteredPlayers = response.object.list;
+            resolve();
+          }
+        );
+      }),
+      new Promise(function (resolve, reject) {
+        let params = {
+          "startDate": self.datePipe.transform(self.startDate, 'dd-MM-yyyy'),
+          "endDate": self.datePipe.transform(self.endDateProject, 'dd-MM-yyyy')
+        }
+        self.projectService.listProjects(params).subscribe(
+          (response) => {
+            self.filteredProjects = response.object.list;
+            self.projects = response.object.list;
+            resolve();
+          }
+        );
+      })
+    ]).then(() => {
+      self.loadingService.hidePreloader();
+    });
+
+  }
+
+  refreshModalData() {
+    if( this.projectModal ) {
+      this.taskService.findProjectTasks(this.editingProject, this.editingDate).subscribe(
+        (response) => {
+          const obj = response.object;
+          console.log(obj);
+          this.projectModel.projectName = obj.name;
+          this.projectModel.date = this.editingDate;
+          this.projectModel.dateFmt = this.day+'/'+this.month+'/'+this.year;
+          this.dailyActivity.day = this.day;
+          this.dailyActivity.month = this.month;
+          this.dailyActivity.year = this.year;
+          this.projectModel.progress = obj.progress;
+          this.projectModel.activities = obj.tasks;
+        }
+      );
+    } else {
+      this.taskService.findTasks(this.editingPlayer, this.editingDate).subscribe(
+        (response) => {
+          const obj = response.object;
+          console.log(obj);
+          this.dailyActivity.playerId = obj.player.id;
+          this.dailyActivity.playerName = obj.player.name;
+          this.dailyActivity.date = this.editingDate;
+          this.dailyActivity.day = this.day;
+          this.dailyActivity.month = this.month;
+          this.dailyActivity.year = this.year;
+          this.dailyActivity.dateFmt = this.day+'/'+this.month+'/'+this.year;
+          this.dailyActivity.progress = obj.progress;
+          this.dailyActivity.activities = obj.tasks;
+        }
+      )
+    }
+  }
+
+  cleanDesignate() {
+    console.log(this.isDesigning);
+    this.isDesigning = false;
   }
 
   clean() {
@@ -310,5 +578,90 @@ export class DashboardComponent implements OnInit {
     this.confirmModel = new ConfirmModel();
     this.isDesigning = false;
   }
+
+  openReport() {
+      window.open("http://192.168.0.216:9300/bi/?pathRef=.public_folders%2FGamifica%25C3%25A7%25C3%25A3o%2FStatus%2BReport", "_blank");
+  }
+
+  findCharts() {
+    this.loadingService.showPreloader();
+    let params = {
+      "page": this.page,
+      "pageSize": this.pageSize
+    }
+    this.chartService.findCharts(params).subscribe(
+      (response) => {
+         this.countChart = response.object.count;
+         response.object.charts.forEach( (curr: any) => {
+          let tmp = new ChartModel();
+          tmp.pieChartColors = [{
+            "backgroundColor": curr.backgroundColor,
+            "hoverBackgroundColor": curr.hoverBackgroundColor,
+            "borderWidth": 2,
+          }];
+          tmp.pieChartLabels = curr.labels;
+          tmp.pieChartData = curr.data;
+          tmp.pieChartOptions = {
+            responsive: true,
+            scales: {
+              position: 'top'
+            },
+            title: {
+              display: true,
+              text: curr.label,
+              position: 'top'
+            },
+            spanGaps: false,
+            maintainAspectRatio: true,
+            tooltips: {
+              enabled: true
+            },
+            legend: {
+              position: 'top',
+              align: 'start',
+              display: true,
+              labels: {
+                boxWidth: 50
+              }
+            },
+            plugins: {
+              datalabels: {
+                formatter: (value, ctx) => {
+                  const label = ctx.chart.data.labels[ctx.dataIndex];
+                  return label;
+                },
+              },
+            }
+          };
+          this.chartModel.push( tmp );
+         });
+         this.loadingService.hidePreloader();
+      }
+    )
+  }
+
+  refreshChart() {
+    this.chartModel = new Array< ChartModel >();
+    this.findCharts();
+  }
+
+  chartToLeft() {
+    this.chartModel = new Array< ChartModel >();
+    this.page = this.page - 1;
+    this.findCharts();
+  }
+
+  chartToRight() {
+    this.chartModel = new Array< ChartModel >();
+    this.page = this.page + 1;
+    this.findCharts();
+  }
+
+  /* CHARTS */
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  public pieChartLabels: Label[] = [];
+  public pieChartData: number[] = [];
+  public pieChartColors = [{"backgroundColor": [],"hoverBackgroundColor":[],"borderWidth":2}];
 
 }

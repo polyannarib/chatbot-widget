@@ -48,5 +48,15 @@
     "AVAILABLEPLAYER": "Available",
     "SEARCHMORE": "Search for More",
     "BUSYDESIGNATECONFIRMMESSAGE": "Your chosen resource is busy on this day.",
-    "TASK": "Task"
+    "TASK": "Task",
+    "FINALIZE": "Conclude",
+    "REMOVE": "Remove player",
+    "REPLAN": "Replan",
+    "MESSAGECONFIRMFINALIZE": "Do you wish to finalize this task?",
+    "MESSAGECONFIRMREMOVEPLAYER": "Do you wish to remove the player from this task?",
+    "MESSAGECONFIRMSUSPEND": "Do you wish to suspend this task?",
+    "SUCCESSTITLE": "Success!",
+    "SUCCESSMESSAGE": "Register updated successful!",
+    "REASON": "Reason",
+    "EXPEFFORT": "Expected Effort"
 }
