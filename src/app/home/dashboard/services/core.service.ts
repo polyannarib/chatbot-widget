@@ -9,7 +9,11 @@ import { PeriodicElement } from '../models/periodic';
 export class CoreService {
 
   list: PeriodicElement[] = [
-    { nota: 'teste', dtInicio: new Date('09-11-2015').toLocaleDateString(), dtPrazo: new Date('09-11-2025').toLocaleDateString(), dtFim: '', obs: 'obs', status: 2, concluida: 'false'}
+    {nota: 'Adicionar nota', dtInicio: new Date('09-11-2019').toLocaleDateString(), dtPrazo: new Date('09-11-2019').toLocaleDateString(), dtFim: '', obs: 'Observação', status: 1, concluida: 'false'},
+    {nota: 'Adicionar nota', dtInicio: new Date('09-11-2019').toLocaleDateString(), dtPrazo: new Date('09-11-2019').toLocaleDateString(), dtFim: '', obs: 'Observação', status: 2, concluida: 'false'},
+    {nota: 'Adicionar nota', dtInicio: new Date('09-11-2019').toLocaleDateString(), dtPrazo: new Date('09-11-2019').toLocaleDateString(), dtFim: '', obs: 'Observação', status: 3, concluida: 'false'},
+    {nota: 'Adicionar nota', dtInicio: new Date('09-11-2019').toLocaleDateString(), dtPrazo: new Date('09-11-2019').toLocaleDateString(), dtFim: '', obs: 'Observação', status: 4, concluida: 'false'},
+    {nota: 'Adicionar nota', dtInicio: new Date('09-11-2019').toLocaleDateString(), dtPrazo: new Date('09-11-2019').toLocaleDateString(), dtFim: '', obs: 'Observação', status: 5, concluida: 'false'}
   ];
   list$: BehaviorSubject<PeriodicElement[]> = new BehaviorSubject(this.list);
 
@@ -18,8 +22,10 @@ export class CoreService {
 
 
   update(index, field, value) {
+    var self = this;
     this.list = this.list.map((e, i) => {
       if (index === i) {
+        self.list[index][field] = value;
         return {
           ...e,
           [field]: value

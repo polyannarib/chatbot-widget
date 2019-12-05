@@ -16,6 +16,12 @@ import { ModalSuccessComponent } from '../modal/success/modal-success.component'
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
 
 import {CoreService} from './services/core.service';
+import {MatTableDataSource} from '@angular/material';
+import { PeriodicElement } from './models/periodic';
+
+import { BehaviorSubject } from 'rxjs'
+
+
 
 declare var jQuery: any;
 
@@ -29,6 +35,7 @@ export class DashboardComponent implements OnInit {
   //STATUSREPORT
   displayedColumns: string[] = ['nota', 'dtInicio','dtPrazo', 'dtFim', 'obs', 'status', 'concluida'];
   dataSource = this.core.list$;
+  newDatasource = this.core.list;
   controls: FormArray;
   //
 
@@ -113,7 +120,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
 
     //STATUSREPORT
-    const toGroups = this.core.list$.value.map(entity => {
+    var toGroups = this.core.list$.value.map(entity => {
       return new FormGroup({
         nota: new FormControl(entity.nota, Validators.required), 
         dtInicio: new FormControl(entity.dtInicio, Validators.required),
@@ -625,8 +632,9 @@ export class DashboardComponent implements OnInit {
   updateField(index, field) {
     const control = this.getControl(index, field);
     if (control.valid) {
-      this.core.update(index,field,control.value);
-
+      let value = control.value.toLocaleDateString();
+      console.log(value);
+      this.core.update(index,field,value);
     }
    }
 
@@ -640,13 +648,20 @@ export class DashboardComponent implements OnInit {
   }
 
   updateCheckField(index) {
-    var self = this;
-    const control = this.getControl(index, 'concluida');
+    var field = 'concluida'
+    const control = this.getControl(index, field);
     if (control.valid) {
-      var date = new Date().toLocaleDateString();
-      this.core.update(index,'concluida', 'asdasd');
-      const teste = this.getControl(index, 'concluida');
-      console.log(teste.value);
+      if(control.value != 'false'){
+        this.core.update(index, field, 'false');
+        this.core.update(index, 'dtFim', '');
+        this.refreshTable();
+      }
+      else{
+        var date = new Date().toLocaleDateString();
+        this.core.update(index, field, date);
+        this.core.update(index, 'dtFim', date);
+        this.refreshTable();
+      }
     }
    }
 
@@ -654,4 +669,47 @@ export class DashboardComponent implements OnInit {
     const a  = this.controls.at(index).get(fieldName) as FormControl;
     return this.controls.at(index).get(fieldName) as FormControl;
   }
+
+  addRow() {
+    var newRow = {nota: 'Adicionar nota', dtInicio: new Date('09-11-2019').toLocaleDateString(), dtPrazo: new Date('09-11-2019').toLocaleDateString(), dtFim: '', obs: 'Observação', status: 3, concluida: 'false'};
+    this.core.list.push(newRow);
+
+    this.refreshTable()
+  }
+
+  refreshTable(){
+    var newlist$: BehaviorSubject<PeriodicElement[]> = new BehaviorSubject(this.core.list);
+    this.core.list$ = newlist$;
+    this.dataSource = this.core.list$;
+    var toGroups = this.core.list$.value.map(entity => {
+      return new FormGroup({
+        nota: new FormControl(entity.nota, Validators.required), 
+        dtInicio: new FormControl(entity.dtInicio, Validators.required),
+        dtPrazo: new FormControl(entity.dtPrazo, Validators.required),
+        dtFim: new FormControl(entity.dtFim, Validators.required),
+        obs: new FormControl(entity.obs, Validators.required),
+        status: new FormControl(entity.status, Validators.required),
+        concluida: new FormControl(entity.concluida, Validators.required)
+      },{updateOn: "blur"});
+    });
+
+    this.controls = new FormArray(toGroups);
+  }
+
+  getStatus(index){
+    const control = this.getControl(index, 'status');
+    return control.value;
+  }
+
 }
+
+/* export interface Element {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
+const ELEMENT_DATA: Element[] = [
+  {nota: 'teste', dtInicio: new Date('09-11-2015').toLocaleDateString(), dtPrazo: new Date('09-11-2025').toLocaleDateString(), dtFim: '', obs: 'obs', status: 2, concluida: 'false'}
+]; */

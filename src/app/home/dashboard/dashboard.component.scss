@@ -413,25 +413,25 @@ canvas {
 
 //TABELA STATUS REPORT
 #nota-td{
-    width: 30%;
+    width: 28%;
 }
 #dtInicio-td{
-    width: 13%;
+    width: 15%;
 }
 #dtPrazo-td{
-    width: 13%;
+    width: 15%;
 }
 #dtFim-td{
-    width: 13%;
+    width: 15%;
 }
 #obs-td{
-    width: 19%;
+    width: 15%;
 }
 #status-td{
-    width: 7%;
+    width: 9%;
 }
 #concluida-td{
-    width: 5%;
+    width: 3%;
 }
 
 
@@ -490,4 +490,15 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell{
 
 #srTable.mat-elevation-z8{
     box-shadow: 0 0 4px 1px rgba(0,0,0,0.1);
+}
+
+.cdk-overlay-container{
+    z-index: 1200 !important}
+
+    .mat-calendar-table-header tr:last-child{
+    display: none;
+}
+
+.mat-calendar-table{
+    background-color: white;
 }

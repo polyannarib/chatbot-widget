@@ -780,139 +780,431 @@
 
 <!-- MODAL STATUS REPORT EDIT -->
 <mz-modal #srEdit id="srEdit" [fixedFooter]="true" [fullscreen]="false" [options]="modalOptions">
-  <mz-modal-header>
-    <h5 class="center-align">Teste</h5>
-  </mz-modal-header>
   <mz-modal-content>
-    <div class="row">
-      <div class="col l8 m8 s8 mt-10">
-        
-        <!--TABELA STATUS REPORT-->
-        <div class="mat-app-background basic-container">
-          <table mat-table #table [dataSource]="dataSource"  class="mat-elevation-z8" id="srTable">
-            <!-- Nota Column -->
-            <ng-container matColumnDef="nota">
-              <th mat-header-cell *matHeaderCellDef> Nota </th>
-              <td mat-cell *matCellDef="let element;let index = index" id="nota-td">
-                <editable (update)="updateField(index, 'nota')">
-                  <ng-template viewMode>
-                    {{element.nota}}
-                  </ng-template>
-                  <ng-template editMode>
-                      <input matInput [formControl]="getControl(index, 'nota')">
-                  </ng-template>
-                </editable> 
-              </td>
-              <mat-divider [vertical]="true"></mat-divider>
-            </ng-container>
-          
-            <!-- DATA INÍCIO -->
-            <ng-container matColumnDef="dtInicio">
-              <th mat-header-cell *matHeaderCellDef> Data Início </th>
-              <td mat-cell *matCellDef="let element;let index = index" id="dtInicio-td">
-                  <editable (update)="updateField(index, 'dtInicio')">
-                  <ng-template viewMode>
-                    {{element.dtInicio}}
-                  </ng-template>
-                  <ng-template editMode>
-                    <input  [formControl]="getControl(index, 'dtInicio')" focusable editableOnEnter type="date">
-                  </ng-template>
-                </editable> 
-              </td>
-            </ng-container>
-          
-            <!-- DATA PRAZO -->
-            <ng-container matColumnDef="dtPrazo">
-              <th mat-header-cell *matHeaderCellDef> Data Prazo </th>
-              <td mat-cell *matCellDef="let element;let index = index" id="dtPrazo-td">
-                  <editable (update)="updateField(index, 'dtPrazo')">
-                  <ng-template viewMode>
-                    {{element.dtPrazo}}
-                  </ng-template>
-                  <ng-template editMode>
-                    <input  [formControl]="getControl(index, 'dtPrazo')" focusable editableOnEnter type="date">
-                  </ng-template>
-                </editable> 
-              </td>
-            </ng-container>
-          
-            <!-- DATA FIM -->
-            <ng-container matColumnDef="dtFim">
-              <th mat-header-cell *matHeaderCellDef> Data Fim </th>
-              <td mat-cell *matCellDef="let element;let index = index" id="dtFim-td">
-                  <editable (update)="updateField(index, 'dtFim')">
-                  <ng-template viewMode>
-                    {{element.dtFim}}
-                  </ng-template>
-                  <ng-template editMode>
-                    <input  [formControl]="getControl(index, 'dtFim')" focusable editableOnEnter type="date">
-                  </ng-template>
-                </editable> 
-              </td>
-            </ng-container>
-          
-            <!-- OBS -->
-            <ng-container matColumnDef="obs">
-              <th mat-header-cell *matHeaderCellDef> Observação </th>
-              <td mat-cell *matCellDef="let element;let index = index" id="obs-td">
-                  <editable (update)="updateField(index, 'obs')">
-                  <ng-template viewMode>
-                    {{element.obs}}
-                  </ng-template>
-                  <ng-template editMode>
-                    <input  [formControl]="getControl(index, 'obs')" focusable editableOnEnter>
-                  </ng-template>
-                </editable> 
-              </td>
-            </ng-container>
-          
-            <!-- STATUS -->
-            <ng-container matColumnDef="status">
-              <th mat-header-cell *matHeaderCellDef> Status </th>
-              <td mat-cell *matCellDef="let element;let index = index" id="status-td">
-                  <editable (update)="updateField(index, 'status')">
-                  <ng-template viewMode>
-                    {{element.status}}
-                  </ng-template>
-                  <ng-template editMode>
-                    <input  [formControl]="getControl(index, 'status')" focusable editableOnEnter>
-                  </ng-template>
-                </editable> 
-              </td>
-            </ng-container>
-          
-            <!-- CONCLUSAO -->
-            <ng-container matColumnDef="concluida">
-              <th mat-header-cell *matHeaderCellDef >     </th>
-              <td (change)="updateCheckField(index)" mat-cell *matCellDef="let element;let index = index"
-              id="concluida-td">
-                <input #concluida [formControl]="getControl(index, 'concluida')" focusable type="checkbox" [checked]="checkConclusao(index)" id="concluida" />
-              </td>
-            </ng-container>
-          
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-        </div>
-        <!-------FIM TABELA STATUS REPORT -------->
 
-      </div>
-    </div>
-    <div class="row">
-      <mz-collapsible [mode]="'accordion'" [popout]="false">
-        <ng-container *ngFor="let activity of dailyActivity.activities">
-          <mz-collapsible-item [active]="false">
-            <mz-collapsible-item-header class="col l12 m12 s12">
-            </mz-collapsible-item-header>
-            <mz-collapsible-item-body>
-              <div class="row">
+    <mat-tab-group>
+      <mat-tab label="Ponto de Situação">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col l8 m8 s8 mt-10">
+              
+              <!--TABELA STATUS REPORT-->
+              <div class="mat-app-background basic-container">
+                <table mat-table #table [dataSource]="dataSource"  class="mat-elevation-z8" id="srTable">
+                  <!-- NOTA -->
+                  <ng-container matColumnDef="nota">
+                    <th mat-header-cell *matHeaderCellDef> Nota </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="nota-td">
+                      <editable (update)="updateField(index, 'nota')">
+                        <ng-template viewMode>
+                          {{element.nota}}
+                        </ng-template>
+                        <ng-template editMode>
+                            <input matInput [formControl]="getControl(index, 'nota')">
+                        </ng-template>
+                      </editable> 
+                    </td>
+                    <mat-divider [vertical]="true"></mat-divider>
+                  </ng-container>
+                
+                  <!-- DATA INÍCIO -->
+                  <ng-container matColumnDef="dtInicio">
+                    <th mat-header-cell *matHeaderCellDef> Data Início </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="dtInicio-td">
+                        <editable (update)="updateField(index, 'dtInicio')">
+                        <ng-template viewMode>
+                          {{element.dtInicio}}
+                        </ng-template>
+                        <ng-template editMode>
+                          <input matInput [matDatepicker]="picker" [formControl]="getControl(index, 'dtInicio')" editableOnEnter/>
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </ng-template>
+                      </editable> 
+                    </td>
+                  </ng-container>
+                
+                  <!-- DATA PRAZO -->
+                  <ng-container matColumnDef="dtPrazo">
+                    <th mat-header-cell *matHeaderCellDef> Data Prazo </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="dtPrazo-td">
+                        <editable (update)="updateField(index, 'dtPrazo')">
+                        <ng-template viewMode>
+                          {{element.dtPrazo}}
+                        </ng-template>
+                        <ng-template editMode>
+                          <input  [formControl]="getControl(index, 'dtPrazo')" focusable editableOnEnter type="date">
+                        </ng-template>
+                      </editable> 
+                    </td>
+                  </ng-container>
+                
+                  <!-- DATA FIM -->
+                  <ng-container matColumnDef="dtFim">
+                    <th mat-header-cell *matHeaderCellDef> Data Fim </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="dtFim-td">
+                        <editable (update)="updateField(index, 'dtFim')">
+                        <ng-template viewMode>
+                          {{element.dtFim}}
+                        </ng-template>
+                        <ng-template editMode>
+                          <input  [formControl]="getControl(index, 'dtFim')" focusable editableOnEnter type="date">
+                        </ng-template>
+                      </editable> 
+                    </td>
+                  </ng-container>
+                
+                  <!-- OBS -->
+                  <ng-container matColumnDef="obs">
+                    <th mat-header-cell *matHeaderCellDef> Observação </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="obs-td">
+                        <editable (update)="updateField(index, 'obs')">
+                        <ng-template viewMode>
+                          {{element.obs}}
+                        </ng-template>
+                        <ng-template editMode>
+                          <input  [formControl]="getControl(index, 'obs')" focusable editableOnEnter>
+                        </ng-template>
+                      </editable> 
+                    </td>
+                  </ng-container>
+                
+                  <!-- STATUS -->
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="status-td">
+                      <i class="material-icons" style="
+                        font-size: 25px;
+                        color: #24b724;
+                        font-weight: 600;" *ngIf="getStatus(index)==1">check</i>
+                      <i class="material-icons" style="
+                        font-size: 25px;
+                        color: yellow;
+                        font-weight: 600;" *ngIf="getStatus(index)==2">check</i>
+                      <i class="material-icons" style="
+                        font-size: 112px;
+                        color: #24b724;
+                        margin-top: -100px;" *ngIf="getStatus(index)==3">.</i>
+                      <i class="material-icons" style="
+                        font-size: 112px;
+                        color: yellow;
+                        margin-top: -100px;" *ngIf="getStatus(index)==4">.</i> 
+                      <i class="material-icons" style="
+                        font-size: 112px;
+                        color: red;
+                        margin-top: -100px;" *ngIf="getStatus(index)==5">.</i>                               
+                    </td>
+                  </ng-container>
+                
+                  <!-- CONCLUSAO -->
+                  <ng-container matColumnDef="concluida">
+                    <th mat-header-cell *matHeaderCellDef >    </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="concluida-td" 
+                      style="padding-left: 6px;padding-right: 6px;">
+                      <mat-checkbox focusable class="concluida-checkbox" [checked]="checkConclusao(index)"
+                        (click)="updateCheckField(index)">
+                      </mat-checkbox>
+                      <input #concluida [formControl]="getControl(index, 'concluida')" id="concluida" 
+                        style="display: none;"/>
+                    </td>
+                  </ng-container>
+                
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
 
+                <!--ADD ROW BUTTON-->
+                <button mat-icon-button color="primary" color="black" (click)="addRow()" style="margin-left: 95%"
+                  ><i class="material-icons" style="font-size: 19px;">add</i></button>
               </div>
-            </mz-collapsible-item-body>
-          </mz-collapsible-item>
-        </ng-container>
-      </mz-collapsible>
-    </div>
+              <!-------FIM TABELA STATUS REPORT -------->
+      
+            </div>
+          </div>
+      </mat-tab>
+      <mat-tab label="Principais Riscos / Problemas">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col l8 m8 s8 mt-10">
+              
+              <!--TABELA STATUS REPORT-->
+              <div class="mat-app-background basic-container">
+                <table mat-table #table [dataSource]="dataSource"  class="mat-elevation-z8" id="srTable">
+                  <!-- NOTA -->
+                  <ng-container matColumnDef="nota">
+                    <th mat-header-cell *matHeaderCellDef> Nota </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="nota-td">
+                      <editable (update)="updateField(index, 'nota')">
+                        <ng-template viewMode>
+                          {{element.nota}}
+                        </ng-template>
+                        <ng-template editMode>
+                            <input matInput [formControl]="getControl(index, 'nota')">
+                        </ng-template>
+                      </editable> 
+                    </td>
+                    <mat-divider [vertical]="true"></mat-divider>
+                  </ng-container>
+                
+                  <!-- DATA INÍCIO -->
+                  <ng-container matColumnDef="dtInicio">
+                    <th mat-header-cell *matHeaderCellDef> Data Início </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="dtInicio-td">
+                        <editable (update)="updateField(index, 'dtInicio')">
+                        <ng-template viewMode>
+                          {{element.dtInicio}}
+                        </ng-template>
+                        <ng-template editMode>
+                          <input matInput [matDatepicker]="picker" [formControl]="getControl(index, 'dtInicio')" editableOnEnter/>
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </ng-template>
+                      </editable> 
+                    </td>
+                  </ng-container>
+                
+                  <!-- DATA PRAZO -->
+                  <ng-container matColumnDef="dtPrazo">
+                    <th mat-header-cell *matHeaderCellDef> Data Prazo </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="dtPrazo-td">
+                        <editable (update)="updateField(index, 'dtPrazo')">
+                        <ng-template viewMode>
+                          {{element.dtPrazo}}
+                        </ng-template>
+                        <ng-template editMode>
+                          <input  [formControl]="getControl(index, 'dtPrazo')" focusable editableOnEnter type="date">
+                        </ng-template>
+                      </editable> 
+                    </td>
+                  </ng-container>
+                
+                  <!-- DATA FIM -->
+                  <ng-container matColumnDef="dtFim">
+                    <th mat-header-cell *matHeaderCellDef> Data Fim </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="dtFim-td">
+                        <editable (update)="updateField(index, 'dtFim')">
+                        <ng-template viewMode>
+                          {{element.dtFim}}
+                        </ng-template>
+                        <ng-template editMode>
+                          <input  [formControl]="getControl(index, 'dtFim')" focusable editableOnEnter type="date">
+                        </ng-template>
+                      </editable> 
+                    </td>
+                  </ng-container>
+                
+                  <!-- OBS -->
+                  <ng-container matColumnDef="obs">
+                    <th mat-header-cell *matHeaderCellDef> Observação </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="obs-td">
+                        <editable (update)="updateField(index, 'obs')">
+                        <ng-template viewMode>
+                          {{element.obs}}
+                        </ng-template>
+                        <ng-template editMode>
+                          <input  [formControl]="getControl(index, 'obs')" focusable editableOnEnter>
+                        </ng-template>
+                      </editable> 
+                    </td>
+                  </ng-container>
+                
+                  <!-- STATUS -->
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="status-td">
+                      <i class="material-icons" style="
+                        font-size: 25px;
+                        color: #24b724;
+                        font-weight: 600;" *ngIf="getStatus(index)==1">check</i>
+                      <i class="material-icons" style="
+                        font-size: 25px;
+                        color: yellow;
+                        font-weight: 600;" *ngIf="getStatus(index)==2">check</i>
+                      <i class="material-icons" style="
+                        font-size: 112px;
+                        color: #24b724;
+                        margin-top: -100px;" *ngIf="getStatus(index)==3">.</i>
+                      <i class="material-icons" style="
+                        font-size: 112px;
+                        color: yellow;
+                        margin-top: -100px;" *ngIf="getStatus(index)==4">.</i> 
+                      <i class="material-icons" style="
+                        font-size: 112px;
+                        color: red;
+                        margin-top: -100px;" *ngIf="getStatus(index)==5">.</i>                               
+                    </td>
+                  </ng-container>
+                
+                  <!-- CONCLUSAO -->
+                  <ng-container matColumnDef="concluida">
+                    <th mat-header-cell *matHeaderCellDef >    </th>
+                    <td mat-cell *matCellDef="let element;let index = index" id="concluida-td" 
+                      style="padding-left: 6px;padding-right: 6px;">
+                      <mat-checkbox focusable class="concluida-checkbox" [checked]="checkConclusao(index)"
+                        (click)="updateCheckField(index)">
+                      </mat-checkbox>
+                      <input #concluida [formControl]="getControl(index, 'concluida')" id="concluida" 
+                        style="display: none;"/>
+                    </td>
+                  </ng-container>
+                
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <!--ADD ROW BUTTON-->
+                <button mat-icon-button color="primary" color="black" (click)="addRow()" style="margin-left: 95%"
+                  ><i class="material-icons" style="font-size: 19px;">add</i></button>
+              </div>
+              <!-------FIM TABELA STATUS REPORT -------->
+      
+            </div>
+          </div>
+      </mat-tab>
+      <mat-tab label="Ações Pendentes">
+          <br>
+          <br>
+          <div class="row">
+              <div class="col l8 m8 s8 mt-10">
+                
+                <!--TABELA STATUS REPORT-->
+                <div class="mat-app-background basic-container">
+                  <table mat-table #table [dataSource]="dataSource"  class="mat-elevation-z8" id="srTable">
+                    <!-- NOTA -->
+                    <ng-container matColumnDef="nota">
+                      <th mat-header-cell *matHeaderCellDef> Nota </th>
+                      <td mat-cell *matCellDef="let element;let index = index" id="nota-td">
+                        <editable (update)="updateField(index, 'nota')">
+                          <ng-template viewMode>
+                            {{element.nota}}
+                          </ng-template>
+                          <ng-template editMode>
+                              <input matInput [formControl]="getControl(index, 'nota')">
+                          </ng-template>
+                        </editable> 
+                      </td>
+                      <mat-divider [vertical]="true"></mat-divider>
+                    </ng-container>
+                  
+                    <!-- DATA INÍCIO -->
+                    <ng-container matColumnDef="dtInicio">
+                      <th mat-header-cell *matHeaderCellDef> Data Início </th>
+                      <td mat-cell *matCellDef="let element;let index = index" id="dtInicio-td">
+                          <editable (update)="updateField(index, 'dtInicio')">
+                          <ng-template viewMode>
+                            {{element.dtInicio}}
+                          </ng-template>
+                          <ng-template editMode>
+                            <input matInput [matDatepicker]="picker" [formControl]="getControl(index, 'dtInicio')" editableOnEnter/>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </ng-template>
+                        </editable> 
+                      </td>
+                    </ng-container>
+                  
+                    <!-- DATA PRAZO -->
+                    <ng-container matColumnDef="dtPrazo">
+                      <th mat-header-cell *matHeaderCellDef> Data Prazo </th>
+                      <td mat-cell *matCellDef="let element;let index = index" id="dtPrazo-td">
+                          <editable (update)="updateField(index, 'dtPrazo')">
+                          <ng-template viewMode>
+                            {{element.dtPrazo}}
+                          </ng-template>
+                          <ng-template editMode>
+                            <input  [formControl]="getControl(index, 'dtPrazo')" focusable editableOnEnter type="date">
+                          </ng-template>
+                        </editable> 
+                      </td>
+                    </ng-container>
+                  
+                    <!-- DATA FIM -->
+                    <ng-container matColumnDef="dtFim">
+                      <th mat-header-cell *matHeaderCellDef> Data Fim </th>
+                      <td mat-cell *matCellDef="let element;let index = index" id="dtFim-td">
+                          <editable (update)="updateField(index, 'dtFim')">
+                          <ng-template viewMode>
+                            {{element.dtFim}}
+                          </ng-template>
+                          <ng-template editMode>
+                            <input  [formControl]="getControl(index, 'dtFim')" focusable editableOnEnter type="date">
+                          </ng-template>
+                        </editable> 
+                      </td>
+                    </ng-container>
+                  
+                    <!-- OBS -->
+                    <ng-container matColumnDef="obs">
+                      <th mat-header-cell *matHeaderCellDef> Observação </th>
+                      <td mat-cell *matCellDef="let element;let index = index" id="obs-td">
+                          <editable (update)="updateField(index, 'obs')">
+                          <ng-template viewMode>
+                            {{element.obs}}
+                          </ng-template>
+                          <ng-template editMode>
+                            <input  [formControl]="getControl(index, 'obs')" focusable editableOnEnter>
+                          </ng-template>
+                        </editable> 
+                      </td>
+                    </ng-container>
+                  
+                    <!-- STATUS -->
+                    <ng-container matColumnDef="status">
+                      <th mat-header-cell *matHeaderCellDef> Status </th>
+                      <td mat-cell *matCellDef="let element;let index = index" id="status-td">
+                        <i class="material-icons" style="
+                          font-size: 25px;
+                          color: #24b724;
+                          font-weight: 600;" *ngIf="getStatus(index)==1">check</i>
+                        <i class="material-icons" style="
+                          font-size: 25px;
+                          color: yellow;
+                          font-weight: 600;" *ngIf="getStatus(index)==2">check</i>
+                        <i class="material-icons" style="
+                          font-size: 112px;
+                          color: #24b724;
+                          margin-top: -100px;" *ngIf="getStatus(index)==3">.</i>
+                        <i class="material-icons" style="
+                          font-size: 112px;
+                          color: yellow;
+                          margin-top: -100px;" *ngIf="getStatus(index)==4">.</i> 
+                        <i class="material-icons" style="
+                          font-size: 112px;
+                          color: red;
+                          margin-top: -100px;" *ngIf="getStatus(index)==5">.</i>                               
+                      </td>
+                    </ng-container>
+                  
+                    <!-- CONCLUSAO -->
+                    <ng-container matColumnDef="concluida">
+                      <th mat-header-cell *matHeaderCellDef >    </th>
+                      <td mat-cell *matCellDef="let element;let index = index" id="concluida-td" 
+                        style="padding-left: 6px;padding-right: 6px;">
+                        <mat-checkbox focusable class="concluida-checkbox" [checked]="checkConclusao(index)"
+                          (click)="updateCheckField(index)">
+                        </mat-checkbox>
+                        <input #concluida [formControl]="getControl(index, 'concluida')" id="concluida" 
+                          style="display: none;"/>
+                      </td>
+                    </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+  
+                  <!--ADD ROW BUTTON-->
+                  <button mat-icon-button color="primary" color="black" (click)="addRow()" style="margin-left: 95%"
+                    ><i class="material-icons" style="font-size: 19px;">add</i></button>
+                </div>
+                <!-------FIM TABELA STATUS REPORT -------->
+        
+              </div>
+            </div>
+      </mat-tab>
+    </mat-tab-group>
+
   </mz-modal-content>
   <mz-modal-footer>
   </mz-modal-footer>
