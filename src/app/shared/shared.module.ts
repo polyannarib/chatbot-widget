@@ -24,7 +24,6 @@ import { ButtonSuspendComponent } from './components/buttons/button-suspend/butt
 import { ButtonDesignateComponent } from './components/buttons/button-designate/button-designate.component';
 import { ButtonReplanComponent } from './components/buttons/button-replan/button-replan.component';
 
-
 // NgxMaterial components importados
 import { MzToastModule } from 'ngx-materialize';
 import { MzCollapsibleModule } from 'ngx-materialize';
