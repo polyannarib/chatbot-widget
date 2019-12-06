@@ -1,0 +1,37 @@
+<mz-modal #srEdit [fixedFooter]="true" [fullscreen]="true" [options]="modalOptions">
+  <mz-modal-header>
+    <h5 class="center-align">Teste</h5>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="divider"></div>
+    <div class="row">
+      <div class="col l12 m12 s12 mt-10">
+
+      </div>
+    </div>
+    <div class="divider mt-10"></div>
+    <div class="row mt-10">
+      <div class="col l2 m2 s2">
+    
+      </div>
+
+    </div>
+    <div class="row">
+      <mz-collapsible [mode]="'accordion'" [popout]="false">
+        <ng-container *ngFor="let activity of dailyActivity.activities">
+          <mz-collapsible-item [active]="false">
+            <mz-collapsible-item-header class="col l12 m12 s12">
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body>
+              <div class="row">
+
+              </div>
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        </ng-container>
+      </mz-collapsible>
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+  </mz-modal-footer>
+</mz-modal>

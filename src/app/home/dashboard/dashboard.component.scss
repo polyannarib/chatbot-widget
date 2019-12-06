@@ -101,7 +101,7 @@ th, td {
 .name3{
     background-color: #CDCDCD;
     border: none;
-    min-width: 185px;
+    min-width: 170px;
     text-align: left;
 }
 .extremidades{
@@ -398,4 +398,112 @@ canvas {
 
 .border-delayed {
     border: solid 2px red;
+}
+.padding-all-zero{
+    padding: 0;
+}
+
+.modal{
+    width: 75% !important;
+    height: 70% !important;
+    top: 18% !important;
+}
+
+
+
+//TABELA STATUS REPORT
+#nota-td{
+    width: 28%;
+}
+#dtInicio-td{
+    width: 15%;
+}
+#dtPrazo-td{
+    width: 15%;
+}
+#dtFim-td{
+    width: 15%;
+}
+#obs-td{
+    width: 15%;
+}
+#status-td{
+    width: 9%;
+}
+#concluida-td{
+    width: 3%;
+}
+
+
+.mat-cell, .mat-footer-cell{
+    font-size: 12px;
+}
+
+.mat-form-field-infix{
+    width: inherit !important;
+}
+
+//EDIT VIEW
+#srTable input{
+    font-size: 12px;
+    margin: 0 0 4px 0;
+    text-align: center;
+    width: 90%;
+}
+
+#srTable #nota-td input{
+    text-align: left;
+}
+
+#srTable th.mat-header-cell {
+    text-align: center;
+    color: black;
+    font-weight: 400;
+}
+
+#srTable td{
+    text-align: center;
+    color: rgb(51, 51, 51);
+}
+
+#srTable #nota-td{
+    text-align: left;
+}
+
+#srTable tr.mat-header-row{
+    height: 38px;
+    background: #d3d5da;
+}
+
+#srTable tr.mat-footer-row, #srTable tr.mat-row{
+    height: 36px;
+}
+
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell{
+    border-right: 1px solid #cfd1d5;
+}
+
+#srTable td.mat-cell:first-of-type, #srTable td.mat-footer-cell:first-of-type, #srTable th.mat-header-cell:first-of-type{
+    padding-left: 12px;
+}
+
+
+#srTable.mat-elevation-z8{
+    box-shadow: 0 0 4px 1px rgba(0,0,0,0.1);
+}
+
+.cdk-overlay-container{
+    z-index: 1200 !important}
+
+    .mat-calendar-table-header tr:last-child{
+    display: none;
+}
+
+.mat-calendar-table{
+    background-color: white;
+}
+
+
+.filter-status-report{
+    float: right;
 }

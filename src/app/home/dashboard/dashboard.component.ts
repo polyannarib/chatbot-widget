@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Type, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, Type, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ProjectService } from 'src/app/home/shared/services/project.service';
 import { PlayerService } from 'src/app/home/shared/services/player.service';
 import { TaskService } from 'src/app/home/shared/services/task.service';
@@ -17,14 +17,33 @@ import { ModalSuccessComponent } from '../modal/success/modal-success.component'
 import { ChartType, ChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
 
+import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
+
+import {CoreService} from './services/core.service';
+import {MatTableDataSource} from '@angular/material';
+import { PeriodicElement } from './models/periodic';
+
+import { BehaviorSubject } from 'rxjs'
+import { NoteService } from '../shared/services/note.service';
+
+
+
 declare var jQuery: any;
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
+  //STATUSREPORT
+  displayedColumns: string[] = ['nota', 'dtInicio','dtPrazo', 'dtFim', 'obs', 'status', 'concluida'];
+  dataSource = this.core.list$;
+  newDatasource = this.core.list;
+  controls: FormArray;
+  //
+
 
   @ViewChild( 'success' )
   successModal: any;
@@ -71,6 +90,31 @@ export class DashboardComponent implements OnInit {
   page: number = 1;
   pageSize: number = 6;
   countChart: number = 0;
+  statusReportFilter: any;
+  projectId: any;
+
+  keyword = 'name';
+  data = [{
+    'id':1,
+    'name':"Concluido dentro do prazo"
+  }, 
+  {
+    'id':2,
+    'name':"Concluido com anexo"
+  }, 
+  {
+    'id':3,
+    'name':"Em andamento - dentro do prazo"
+  }, 
+  {
+    'id':4,
+    'name':"Em andamento - probabilidade de desvio"
+  }, 
+  {
+    'id':5,
+    'name':"Em andamento - atrasado"
+  }
+]
 
   public modalOptions: Materialize.ModalOptions = {
     dismissible: true,
@@ -100,16 +144,37 @@ export class DashboardComponent implements OnInit {
   }
 
   constructor(
+    private core: CoreService,
     private projectService: ProjectService,
     private playerService: PlayerService,
     private taskService: TaskService,
     private datePipe: DatePipe,
     private loadingService: LoadingService,
     private modalService: MzModalService,
-    private chartService: ChartService ) {
+    private chartService: ChartService ,
+    private noteService: NoteService) {
   }
 
   ngOnInit() {
+
+    //STATUSREPORT
+   
+    var toGroups = this.core.list$.value.map(entity => {
+      return new FormGroup({
+        nota: new FormControl(entity.nota, Validators.required), 
+        dtInicio: new FormControl(entity.dtInicio, Validators.required),
+        dtPrazo: new FormControl(entity.dtPrazo, Validators.required),
+        dtFim: new FormControl(entity.dtFim, Validators.required),
+        obs: new FormControl(entity.obs, Validators.required),
+        status: new FormControl(entity.status, Validators.required),
+        concluida: new FormControl(entity.concluida, Validators.required)
+      },{updateOn: "blur"});
+    });
+    this.refreshTable();
+    //
+
+    this.controls = new FormArray(toGroups);
+    
     let self = this;
     this.loadingService.showPreloader();
     this.loadCalendar();
@@ -247,7 +312,28 @@ export class DashboardComponent implements OnInit {
   openModalStatusReport(modal: MzModalComponent, id: Number) {
     let self = this;
     this.projectModal = true;
+    this.projectId = id;
+    console.log(id);
+    console.log("teste");
     modal.openModal();
+    this.core.list = [];
+    this.core.list2 = [];
+    this.noteService.findNotes({"page":1,"pageSize":50,"projectId":id }).subscribe((resp) =>
+    {
+      resp.object.list.forEach(element => {
+        
+          this.core.list.push(
+              {noteId: element.noteId, nota: element.noteDescription, dtInicio: new Date(element.noteDate).toLocaleDateString(), dtPrazo: new Date(element.noteDate).toLocaleDateString(), dtFim: '', obs: element.observation, status: element.status.id, concluida: 'false'},  
+          )
+          this.core.list2.push(
+            {noteId: element.noteId, nota: element.noteDescription, dtInicio: new Date(element.noteDate).toLocaleDateString(), dtPrazo: new Date(element.noteDate).toLocaleDateString(), dtFim: '', obs: element.observation, status: element.status.id, concluida: 'false'},  
+        )
+        
+      });
+      this.refreshTable(); 
+    });
+
+   
   }
 
   openModalPlayer(modal: MzModalComponent, id: Number, day: any, month: any, year: any) {
@@ -424,6 +510,7 @@ export class DashboardComponent implements OnInit {
   }
 
   confirmDesignTaskResource() {
+
     this.taskService.assignTask(this.editingTask, this.editingPlayer).subscribe(
       (response) => {
         this.dailyActivity.playersRatedFiltered = null;
@@ -583,7 +670,163 @@ export class DashboardComponent implements OnInit {
       window.open("http://192.168.0.216:9300/bi/?pathRef=.public_folders%2FGamifica%25C3%25A7%25C3%25A3o%2FStatus%2BReport", "_blank");
   }
 
-  findCharts() {
+  openModalSatusReport(modal: MzModalComponent) {
+    let self = this;
+    this.loadingService.showPreloader();
+    this.projectModal = false;
+    
+    Promise.all([
+      new Promise(function (resolve, reject) {
+        var teste = '1';
+      })
+    ]).then(() => {
+      modal.openModal();
+      self.loadingService.hidePreloader();
+    })
+  }
+
+  public loadScript(url: string) {
+    const body = <HTMLDivElement> document.body;
+    const script = document.createElement('script');
+    script.innerHTML = '';
+    script.src = url;
+    script.async = true;
+    script.type = 'module';
+    body.appendChild(script);
+  }
+
+  updateField(index, field) {
+    const control = this.getControl(index, field);
+    if (control.valid) {
+      let value = control.value.toLocaleDateString();
+      console.log(value);
+      this.core.update(index,field,value);
+    }
+   }
+
+  checkConclusao(index){
+    const control = this.getControl(index, 'concluida');
+    if(control.value == 'false'){
+      return false
+    }
+    else
+      return true
+  }
+
+  updateCheckField(index) {
+    var field = 'concluida'
+    const control = this.getControl(index, field);
+    if (control.valid) {
+      if(control.value != 'false'){
+        this.core.update(index, field, 'false');
+        this.core.update(index, 'dtFim', '');
+        this.refreshTable();
+      }
+      else{
+        var date = new Date().toLocaleDateString();
+        this.core.update(index, field, date);
+        this.core.update(index, 'dtFim', date);
+        this.refreshTable();
+      }
+    }
+   }
+
+  getControl(index, fieldName) {
+    const a  = this.controls.at(index).get(fieldName) as FormControl;
+    return this.controls.at(index).get(fieldName) as FormControl;
+  }
+
+  addRow() {
+    var newRow = {noteId: undefined, nota: 'Adicionar nota', dtInicio: new Date('09-11-2019').toLocaleDateString(), dtPrazo: new Date('09-11-2019').toLocaleDateString(), dtFim: '', obs: 'Observação', status: 3, concluida: 'false'};
+    this.core.list.push(newRow);
+    this.core.list2.push(newRow);
+
+    this.refreshTable()
+  }
+
+  changeReport(){
+    console.log(this.statusReportFilter);
+
+
+
+  }
+
+
+  refreshTable(){
+    var newlist$: BehaviorSubject<PeriodicElement[]> = new BehaviorSubject(this.core.list);
+    this.core.list$ = newlist$;
+    this.dataSource = this.core.list$;
+    
+    var toGroups = this.core.list$.value.map(entity => {
+      return new FormGroup({
+        nota: new FormControl(entity.nota, Validators.required), 
+        dtInicio: new FormControl(entity.dtInicio, Validators.required),
+        dtPrazo: new FormControl(entity.dtPrazo, Validators.required),
+        dtFim: new FormControl(entity.dtFim, Validators.required),
+        obs: new FormControl(entity.obs, Validators.required),
+        status: new FormControl(entity.status, Validators.required),
+        concluida: new FormControl(entity.concluida, Validators.required)
+      },{updateOn: "blur"});
+    });
+
+    this.controls = new FormArray(toGroups);
+  }
+
+  getStatus(index){
+    const control = this.getControl(index, 'status');
+    return control.value;
+  }
+  selectEvent(item) {
+    this.core.refreshListFilter(item.id);
+    this.refreshTable();
+    // do something with selected item
+  }
+
+  onChangeSearch(val: string) {
+    console.log(val);
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+  
+  onFocused(e){
+    console.log(e);
+    this.core.refreshListFilter(null);
+    this.refreshTable();
+    // do something when input is focused
+  }
+
+
+  saveNotes(){
+    let lista = [];
+    this.core.list2.forEach((element)=>{
+      lista.push(
+        { 
+          'noteId': element.noteId,
+          'noteDescription':element.nota,
+          'noteDate':new Date().getTime(),
+          'status':{
+            'id':element.status
+          },
+          'type':{
+            'id':1
+          },
+          'project':{ 
+            'id':this.projectId
+          },
+          'noteNum':1,          
+          'observation':element.obs
+        }
+
+      );
+      this.noteService.saveNotes(lista).subscribe((res) => {
+        console.log(res);
+      });
+
+    })
+
+
+  }
+findCharts() {
     this.loadingService.showPreloader();
     let params = {
       "page": this.page,
@@ -665,3 +908,14 @@ export class DashboardComponent implements OnInit {
   public pieChartColors = [{"backgroundColor": [],"hoverBackgroundColor":[],"borderWidth":2}];
 
 }
+
+/* export interface Element {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
+const ELEMENT_DATA: Element[] = [
+  {nota: 'teste', dtInicio: new Date('09-11-2015').toLocaleDateString(), dtPrazo: new Date('09-11-2025').toLocaleDateString(), dtFim: '', obs: 'obs', status: 2, concluida: 'false'}
+]; */
