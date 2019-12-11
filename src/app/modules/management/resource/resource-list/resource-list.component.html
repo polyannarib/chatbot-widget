@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col m6 s12">
       <div class="input-field">
-        <input autocomplete="off" (input)="onSearchChangeResource($event.target.value)" matInput id="find" matInput type="text" class="validate" value="">
+        <input autocomplete="off" (keyup)="onSearchChangeResource($event.target.value)" matInput id="find" matInput type="text" class="validate" value="">
         <label for="find">{{ 'RESOURCES' | translate }}</label>
       </div>
     </div>

@@ -64,6 +64,7 @@ export class ResourceListComponent implements OnInit {
   }
 
   onSearchChangeResource(searchValue: string): void {
+    const PlayersFilters = this.players;
     this.players = this.players.filter(
       (curr) => {
         return curr.name.toUpperCase().includes(searchValue.toUpperCase());

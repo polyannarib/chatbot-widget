@@ -18,6 +18,7 @@ export class ProjectsListComponent implements OnInit {
   loaderDays: boolean = false;
   startDate: any;
   endDate: any;
+  project: any;
 
   constructor(
     private projectService: ProjectService,
@@ -91,6 +92,17 @@ export class ProjectsListComponent implements OnInit {
       this.findProjects();
       this.loaderDays = false;
     }
+  }
+
+  onSearchChangeProject(searchValue: string): void {
+    const project = this.projectsList;
+    searchValue = searchValue.toLocaleLowerCase();
+    return project.filter((project) => project.name.toLocaleLowerCase().indexOf(searchValue) !== -1);
+    // this.project = this.project.filter(
+    //   (curr) => {
+    //     return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+    //   }
+    // )
   }
 
 }
