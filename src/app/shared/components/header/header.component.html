@@ -1,0 +1,22 @@
+<header class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+            <a class="brand-logo center">COCKPIT WORKPLAYER</a>
+            <ul class="left hide-on-med-and-down">
+                <li><a routerLink="/management/dashboard"><i class="material-icons">insert_chart</i></a></li>
+                <li><a><i class="material-icons">note_add</i></a></li>
+                <li><a><i class="material-icons">person_add</i></a></li>
+                <li><a><i class='material-icons'>bookmarks</i></a></li>
+                <li><a><i class="material-icons">date_range</i></a></li>
+                <li><a routerLink="/admin"><i class="material-icons">settings_applications</i></a></li>
+            </ul>
+            <ul class="right hide-on-med-and-down">
+                <li><a class="dropdown-trigger" href="" data-target="dropdown1"><i class="material-icons">perm_identity</i></a></li>
+                <ul id="dropdown1" class="dropdown-content">
+                    <li><a href="#!">Player</a></li>
+                    <li><a (click)="logout()"><i class="material-icons">exit_to_app</i>Logout</a></li>
+                </ul>
+            </ul>
+        </div>
+    </nav>
+</header>

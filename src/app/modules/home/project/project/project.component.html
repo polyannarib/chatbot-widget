@@ -1,0 +1,33 @@
+<div class="filter">
+  <input type="text" placeholder="Filtrar">
+</div>
+
+<div class="list">
+  <div class="projectHeader">
+    <p>ID</p>
+    <p>{{'NAME' | translate}}</p>
+    <p>{{'DESCRIPTION' | translate}}</p>
+  </div>
+  <div class="project" *ngFor="let project of projects" (click)="select(project)" 
+    [ngClass]="{'selected': selected == project}">
+    <p>{{project.id}}</p>
+    <p>{{project.name}}</p>
+    <p>{{project.description}}</p>
+  </div>
+</div>
+
+<!-- TODO: verificar o perfil do usuário -->
+<div>
+  <button (click)="projectModal = true">{{'ADD' | translate}}</button>
+  <button [disabled]="!selected" (click)="edit()">{{'EDIT' | translate}}</button>
+  <button [disabled]="!selected" (click)="delete()">{{'DELETE' | translate}}</button>
+</div>
+<button [disabled]="!selected" (click)="select(selected)">{{'INSPECT' | translate}}</button>
+
+<div class="modalBg" *ngIf="projectModal" (click)="projectModal = false">
+  <div class="projectModal" (click)="$event.stopPropagation()" [formGroup]="project">
+    <input type="text" placeholder="{{'NAME' | translate}}" formControlName="name">
+    <input type="text" placeholder="{{'DESCRIPTION' | translate}}" formControlName="description">
+    <button (click)="submit()">Submit</button>
+  </div>
+</div>

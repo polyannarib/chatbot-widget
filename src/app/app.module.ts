@@ -13,8 +13,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import pt from '@angular/common/locales/pt';
-import { NoteService } from './home/shared/services/note.service';
-import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 registerLocaleData(pt, 'pt');
 
@@ -25,17 +23,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-<<<<<<< HEAD
-    AppComponent,
-    LoginComponent,
-    LoadingServiceComponent,
-    ModalErrorComponent,
-  ],
-  entryComponents: [
-    ModalErrorComponent
-=======
     AppComponent
->>>>>>> architecture
   ],
   imports: [
     BrowserModule,
@@ -51,25 +39,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [
-<<<<<<< HEAD
-    AuthService,
-    AuthGuardService,
-    ProjectService,
-    LoadingService,
-    NoteService,
-=======
->>>>>>> architecture
     DatePipe,
     { provide: LOCALE_ID, useValue: 'pt' }
   ],
-<<<<<<< HEAD
-  bootstrap: [AppComponent],
-
-
-=======
   bootstrap: [
     AppComponent
   ]
->>>>>>> architecture
 })
 export class AppModule { }

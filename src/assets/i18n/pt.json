@@ -65,12 +65,6 @@
     "FINISHED": "Concluída",
     "HANGING": "Suspendida",
     "DELAYED": "Atrasada",
-<<<<<<< HEAD
-    "WAITING": "Aguardando Execução",
-    "ERRORTITLE": "Problemas!",
-    "ERRORMESSAGE": "Registro não criado ou atualizado, favor verificar novamente os dados"
-=======
     "UPDATE": "Atualizar",
     "WAITING": "Aguardando Execução"
->>>>>>> architecture
 }
