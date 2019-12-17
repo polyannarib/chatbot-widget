@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col s12 m6">
       <div class="input-field">
-        <input autocomplete="off" id="findProject" (keyup)="onSearchChangeProject($event.target.value)" matInput type="search" name="search" class="validate" value="">
+        <input autocomplete="off" id="findProject" (keyup)="onSearchChangeProject($event.target.value)" matInput id="findProject" type="text" class="validate" value="">
         <label for="findProject">Buscar projetos</label>
         <!-- <i class="fa fa-filter"></i> -->
       </div>
@@ -20,52 +20,55 @@
 
   <app-loading [loader]="loaderDays && !daysOfWeek10"></app-loading>
   
-  <table class="responsive-table" *ngIf="!loaderDays && daysOfWeek10">
-    <thead>
-      <tr>
-        <th class="projectCode">{{ 'CODE' | translate }}</th>
-        <th>{{ 'PROJECTNAME' | translate }}</th>
-        <th *ngFor="let day of daysOfWeek10">{{ day | date:'E' }}</th>
-        <th class="hour">{{ 'HOURS' | translate }}</th>
-        <th>{{ 'DATE' | translate }}</th>
-        <th>{{ 'EXP' | translate }}</th>
-        <th>{{ 'EFF' | translate }}</th>
-        <th>{{ 'STATUSREPORT' | translate }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let project of projectsList">
-        <tr class="card">
-          <td class="projectCode"><b>{{ project.code }}</b></td>
-          <td>{{ project.name }}</td>
-          <ng-container *ngFor="let activity of project.tasks">
-            <td class="days">
-              <button class="btnDayCalendar hoverable" [ngStyle]="{'background-color': activity.style}" [disabled]="!activity.validDay" (click)="modalProjectDetails(project.id, activity)"><span [ngClass]="{'animated infinite fadeIn': !activity.allocated}">{{ activity.day }}</span></button>
-            </td>
-          </ng-container>
-          <td class="fontMin"><b>Real:</b> {{ project.actualEffort }} <br><b>Prev:</b> {{ project.predictEffort }}</td>
-          <td class="fontMin">{{ project.actualConclusion}} <br> {{ project.predictConclusion }}</td>
-          <td>
-            <i class="material-icons" [ngStyle]="{ 'color': project.expectedStyle }">fiber_manual_record</i>
-          </td>
-          <td>
-            <i class="material-icons" [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i>
-          </td>
-          <td>
-            <button (click)="openReport()" class="transparent-button">
-              <i class="material-icons">send</i>
-            </button>
-          </td>
-        </tr>
+  <div class="tableOverflow">
+    <table class="responsive-table" *ngIf="!loaderDays && daysOfWeek10">
+      <thead>
         <tr>
-          <td class="playerCompleted">{{ project.completed }}%</td>
-          <td>
-            <div class="progress hoverable">
-              <div class="determinate" [ngStyle]="{'width': project.completed+'%'}"></div>
-            </div>
-          </td>
+          <th class="projectCode">{{ 'CODE' | translate }}</th>
+          <th>{{ 'PROJECTNAME' | translate }}</th>
+          <th *ngFor="let day of daysOfWeek10">{{ day | date:'E' }}</th>
+          <th class="hour">{{ 'HOURS' | translate }}</th>
+          <th>{{ 'DATE' | translate }}</th>
+          <th>{{ 'EXP' | translate }}</th>
+          <th>{{ 'EFF' | translate }}</th>
+          <th>{{ 'STATUSREPORT' | translate }}</th>
         </tr>
-      </ng-container>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let project of projectsList">
+          <tr class="card">
+            <td class="projectCode"><b>{{ project.code }}</b></td>
+            <td>{{ project.name }}</td>
+            <ng-container *ngFor="let activity of project.tasks">
+              <td class="days">
+                <button class="btnDayCalendar hoverable" [ngStyle]="{'background-color': activity.style}" [disabled]="!activity.validDay" (click)="modalProjectDetails(project.id, activity)"><span [ngClass]="{'animated infinite fadeIn': !activity.allocated}">{{ activity.day }}</span></button>
+              </td>
+            </ng-container>
+            <td class="fontMin"><b>Real:</b> {{ project.actualEffort }} <br><b>Prev:</b> {{ project.predictEffort }}</td>
+            <td class="fontMin">{{ project.actualConclusion}} <br> {{ project.predictConclusion }}</td>
+            <td>
+              <i class="material-icons" [ngStyle]="{ 'color': project.expectedStyle }">fiber_manual_record</i>
+            </td>
+            <td>
+              <i class="material-icons" [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i>
+            </td>
+            <td>
+              <button (click)="openReport()" class="transparent-button">
+                <i class="material-icons">send</i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="playerCompleted">{{ project.completed }}%</td>
+            <td>
+              <div class="progress hoverable">
+                <div class="determinate" [ngStyle]="{'width': project.completed+'%'}"></div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  
 </div>

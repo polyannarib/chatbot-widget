@@ -4,7 +4,7 @@
 
   <div *ngIf="!loader">
     <div class="col m4 offset-m2 s12">
-      <app-count *ngIf="!loaderPlayerRated && !playerRate">Esse projeto está sem task no momento!</app-count>
+      <app-count *ngIf="!loaderPlayerRated && !playerRate">Sem recursos no momento</app-count>
       <div *ngIf="playerRated && !loaderPlayerRated">
         <div class="input-field">
           <input matInput (input)="onSearchChange($event.target.value)" id="example-radio-group-label" value="" class="validate">
@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="col s12 m4">
-      <app-count *ngIf="!loaderPlayerRated && !playerRatedFiltered">Esse projeto está sem task no momento!</app-count>
+      <app-count *ngIf="!loaderPlayerRated && !playerRatedFiltered">Sem recursos no momento</app-count>
       <div *ngIf="playerRatedFiltered && !loaderPlayerRated">
         <div class="input-field">
           <input matInput (input)="onSearchChange($event.target.value)" id="example-radio-group-label" value="" class="validate">

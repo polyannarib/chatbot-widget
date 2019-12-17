@@ -308,26 +308,26 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  designate(taskId) {
-    if (!this.isDesigning) {
-      this.isDesigning = true;
+  // designate(taskId) {
+  //   if (!this.isDesigning) {
+  //     this.isDesigning = true;
 
-      this.loadingService.showPreloader();
+  //     this.loadingService.showPreloader();
 
-      this.playerService.findDesignatePlayers(taskId).subscribe(
-        (response) => {
-          const obj = response.object;
-          this.dailyActivity.playersRatedFiltered = obj.rated;
-          this.dailyActivity.playersAvailableFiltered = obj.available;
-          this.dailyActivity.playersRated = obj.rated;
-          this.dailyActivity.playersAvailable = obj.available;
-          this.loadingService.hidePreloader();
-        }
-      )
-    } else {
-      this.isDesigning = false;
-    }
-  }
+  //     this.playerService.findDesignatePlayers(taskId).subscribe(
+  //       (response) => {
+  //         const obj = response.object;
+  //         this.dailyActivity.playersRatedFiltered = obj.rated;
+  //         this.dailyActivity.playersAvailableFiltered = obj.available;
+  //         this.dailyActivity.playersRated = obj.rated;
+  //         this.dailyActivity.playersAvailable = obj.available;
+  //         this.loadingService.hidePreloader();
+  //       }
+  //     )
+  //   } else {
+  //     this.isDesigning = false;
+  //   }
+  // }
 
   relocateTaskResource(
     modal: MzModalComponent, event: MatDatepickerInputEvent<Date>,

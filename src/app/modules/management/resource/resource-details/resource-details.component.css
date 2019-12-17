@@ -1,20 +1,14 @@
-/* mat-dialog-content {
-    max-height: 65vh;
-}
-mat-dialog-content .title {
+.dateProgress .title {
     font-weight: bold;
+}
+.dateActivity {
     font-size: 15px;
+    padding: 0px;
 }
-mat-dialog-actions {
-    padding: 24px 0px;
-}
-mat-dialog-content .activityDay {
-    border: 1px solid #eee;
-    text-align: center;
-    line-height: 35px;
+.dateProgress .dateActivity .activityDay {
     background-color: #ff9d8c;
     color: white;
     border-radius: 10px;
-    padding: 5px 35px;
+    padding: 3px 25px;
     font-size: 22px;
-} */
+}

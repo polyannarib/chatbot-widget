@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +7,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  loader: boolean = false;
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  loaderResource(estado) {
+    if(estado) {
+      this.loader = true;
+    }
+    this.loader = false;
+  }
+  loaderProject(estado) {
+    if(estado) {
+      this.loader = true;
+    }
+    this.loader = false;
+  }
+  loaderGraph(estado) {
+    if(estado) {
+      this.loader = true;
+    }
+    this.loader = false;
   }
 
 }

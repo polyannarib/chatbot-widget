@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PlayerService } from 'src/app/core/services/player.service';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-players-find',
@@ -9,6 +10,8 @@ import { PlayerService } from 'src/app/core/services/player.service';
 export class PlayersFindComponent implements OnInit {
 
   @Input() taskId: number;
+  @Input() dataInicial: any;
+  @Input() dataFim: any;
 
   loader: boolean = false;
   playerRated: any;
@@ -19,23 +22,20 @@ export class PlayersFindComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.findDesignatePlayers(this.taskId);
+    this.findDesignatePlayers(this.taskId, this.dataInicial, this.dataFim);
   }
 
-  findDesignatePlayers(taskId) {
-    // this.open = true;
+  findDesignatePlayers(taskId, dataInicial, dataFim) {
     this.loader = true;
-    this.playerService.findDesignatePlayers(taskId).subscribe(
+    this.playerService.findDesignatePlayers(taskId, format(dataInicial, 'dd-MM-yyyy'), format(dataFim, 'dd-MM-yyyy')).subscribe(
       (response) => {
-        console.log('------ response findDesignatePlayers ------');
         console.log(response);
-        this.playerRated = response.object.rated;
-        this.playerAllocated = response.object.allocated;
+        console.log(response.object);
+        // this.playerRated = response.object.rated;
+        // this.playerAllocated = response.object.allocated;
         this.loader = false;
       }, (err) => {
         this.loader = false;
-        console.log('------ err ------');
-        console.log(err);
       }
     )
   }

@@ -28,12 +28,10 @@ export class ResourceDetailsComponent implements OnInit {
     this.loader = true;
     this.taskService.findTasks(this.data.playerId, format(this.data.activityDate, 'dd-MM-yyyy')).subscribe(
       (response) => {
+        this.playerActivity = response.object.player;
         this.loader = false;
-        this.playerActivity = response.object;
       }, (err) => {
         this.loader = false;
-        console.log('------- err findTask -------');
-        console.log(err);
       }
     );
   }

@@ -11,6 +11,8 @@ import { ResourceDetailsComponent } from '../resource-details/resource-details.c
 })
 export class ResourceListComponent implements OnInit {
 
+  @Output() loaderResource = new EventEmitter();
+
   players: any;
   daysOfWeek13: any;
   filteredPlayers: any;
@@ -21,15 +23,15 @@ export class ResourceListComponent implements OnInit {
   loader: boolean = false;
   loaderDays: boolean = false;
 
-  startDate: any;
-  endDate: any;
+  startDate = new Date(Date.now());
+  endDate = addDays(new Date(Date.now()), 12);
 
   constructor(
     private playerService: PlayerService,
     public dialog: MatDialog
   ) {
-    this.startDate = new Date(Date.now());
-    this.endDate = addDays(new Date(Date.now()), 12);
+    // this.startDate = new Date(Date.now());
+    // this.endDate = addDays(new Date(Date.now()), 12);
   }
 
   ngOnInit() {
@@ -46,6 +48,7 @@ export class ResourceListComponent implements OnInit {
 
   findPlayers() {
     this.loader = true;
+    this.loaderResource.emit(true);
     let params = {
       "startDate": format(this.startDate, 'dd-MM-yyyy'),
       "page": 1,
@@ -54,22 +57,18 @@ export class ResourceListComponent implements OnInit {
     this.playerService.findPlayers(params).subscribe(
       (response) => {
         this.loader = false;
+        this.loaderResource.emit(false);
         this.players = response.object.list;
       }, (err) => {
         this.loader = false;
-        console.log('------- err -------');
-        console.log(err);
+        this.loaderResource.emit(false);
       }
     );
   }
 
   onSearchChangeResource(searchValue: string): void {
-    const PlayersFilters = this.players;
-    this.players = this.players.filter(
-      (curr) => {
-        return curr.name.toUpperCase().includes(searchValue.toUpperCase());
-      }
-    )
+    let PlayersFilters = this.players;
+    PlayersFilters = this.players.filter((curr) => { return curr.name.toUpperCase().includes(searchValue.toUpperCase()) })
   }
 
   modalResourceDetails(playerId, activity) {

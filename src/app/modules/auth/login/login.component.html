@@ -1,4 +1,4 @@
-<section class="loginBackground">
+<section>
   <div class="center">
     <img src="../../../../assets/images/WorkPlayer.png">
     <div class="card">
@@ -7,11 +7,11 @@
 
       <form [formGroup]="form" (ngSubmit)="onLogin()" *ngIf="!loader">
         <div class="input-field">
-          <input id="usuario" type="text" class="validate" formControlName="email" required>
+          <input matInput id="usuario" type="text" class="validate" formControlName="email" required>
           <label for="usuario">Usuário</label>
         </div>
         <div class="input-field">
-          <input id="senha" type="password" class="validate" formControlName="password" required>
+          <input matInput id="senha" type="password" class="validate" formControlName="password" required>
           <label for="senha">Senha</label>
         </div>
         <button [disabled]="form.invalid" type="submit" class="waves-effect waves-light btn center">Entrar</button>

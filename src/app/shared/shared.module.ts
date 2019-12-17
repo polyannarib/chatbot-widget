@@ -23,10 +23,12 @@ import { ButtonRemoveComponent } from './components/buttons/button-remove/button
 import { ButtonSuspendComponent } from './components/buttons/button-suspend/button-suspend.component';
 import { ButtonDesignateComponent } from './components/buttons/button-designate/button-designate.component';
 import { ButtonReplanComponent } from './components/buttons/button-replan/button-replan.component';
+import { ChartjsComponent } from './components/chartjs/chartjs.component';
 
 // NgxMaterial components importados
 import { MzToastModule } from 'ngx-materialize';
 import { MzCollapsibleModule } from 'ngx-materialize';
+import { SlickModule } from 'ngx-slick';
 
 // Material Angular components importados
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -36,6 +38,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
+import { SucessComponent } from './components/modal/sucess/sucess.component';
+import { ErrorComponent } from './components/modal/error/error.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -53,7 +59,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     TranslateModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTableModule,
+    SlickModule.forRoot(),
+    RouterModule
   ],
   declarations: [
     FilterListPipe,
@@ -70,6 +79,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     ButtonSuspendComponent,
     ButtonDesignateComponent,
     ButtonReplanComponent,
+    ChartjsComponent,
+    SucessComponent,
+    ErrorComponent
   ],
   exports: [
     FilterListPipe,
@@ -90,11 +102,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatRadioModule,
     MatDatepickerModule,
     MatFormFieldModule,
+    MatTableModule,
     ButtonFinalizeComponent,
     ButtonRemoveComponent,
     ButtonSuspendComponent,
     ButtonDesignateComponent,
     ButtonReplanComponent,
+    ChartjsComponent,
+    SlickModule
   ],
   entryComponents: [
     FinalizeComponent,

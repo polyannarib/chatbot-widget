@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { CoreModule } from 'src/app/core/core.module';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -10,7 +11,8 @@ import { ManagementComponent } from './management.component';
 import { ResourceListComponent } from './resource/resource-list/resource-list.component';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { FormsModule } from '@angular/forms';
+import { GraphComponent } from './graph/graph.component';
+
 
 // Components modal
 import { ResourceDetailsComponent } from './resource/resource-details/resource-details.component';
@@ -31,7 +33,8 @@ import { PlayersFindComponent } from './players/players-find/players-find.compon
     ProjectsListComponent,
     ProjectDetailsComponent,
     ResourceDetailsComponent,
-    PlayersFindComponent
+    PlayersFindComponent,
+    GraphComponent
   ],
   entryComponents: [
     ProjectDetailsComponent,

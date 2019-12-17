@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { format, eachDayOfInterval, addDays, subDays } from 'date-fns';
 import { ProjectService } from 'src/app/core/services/project.service';
 import { Project } from 'src/app/shared/models/project';
@@ -11,6 +11,8 @@ import { ProjectDetailsComponent } from '../project-details/project-details.comp
   styleUrls: ['./projects-list.component.css']
 })
 export class ProjectsListComponent implements OnInit {
+
+  @Output() loaderProject = new EventEmitter();
 
   daysOfWeek10: any;
   projectsList: any;
@@ -47,6 +49,7 @@ export class ProjectsListComponent implements OnInit {
 
   findProjects() {
     this.loader = true;
+    this.loaderProject.emit(true);
     let params = {
       "startDate": format(this.startDate, 'dd-MM-yyyy'),
       "endDate": format(this.endDate, 'dd-MM-yyyy'),
@@ -56,11 +59,11 @@ export class ProjectsListComponent implements OnInit {
     this.projectService.listProjects(params).subscribe(
       (response) => {
         this.loader = false;
+        this.loaderProject.emit(false);
         this.projectsList = response.object.list;
       }, (err) => {
         this.loader = false;
-        console.log('----- deu erro -----');
-        console.log(err);
+        this.loaderProject.emit(false);
       }
     );
   }

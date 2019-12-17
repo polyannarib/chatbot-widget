@@ -1,6 +1,9 @@
 table{
     font-size: 12px;
 }
+table tr {
+    border-bottom: none;
+}
 table thead tr th {
     height: 38px;
     text-align: center;
@@ -29,4 +32,12 @@ td, th {
 }
 ul {
     display: inline-flex;
+}
+
+.tableOverflow {
+    height: calc(90vh - 148px);
+    overflow-y: auto;
+}
+.tableOverflow::-webkit-scrollbar { 
+    display: none; 
 }

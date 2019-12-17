@@ -48,14 +48,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.authService.setToken(response.object.token);
             return;
           }
-          this.toastService.show(response.object.message, 4000, 'toastrDanger');
+          // this.toastService.show(response.object.message, 4000, 'toastrDanger');
         }, (err) => {
           this.loader = false;
-          this.toastService.show('Por favor, digite os campos corretamente', 4000, 'toastrDanger');
+          // this.toastService.show('Por favor, digite os campos corretamente', 4000, 'toastrDanger');
       })
     } else {
       this.loader = false;
-      this.toastService.show('Favor preencher todos campos!', 4000, 'toastrDanger');
+      // this.toastService.show('Favor preencher todos campos!', 4000, 'toastrDanger');
     }
   }
 
