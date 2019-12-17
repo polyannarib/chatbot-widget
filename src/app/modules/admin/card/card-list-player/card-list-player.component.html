@@ -1,0 +1,48 @@
+
+<div id="modal">
+  <div class="modal-header">Cartas</div>
+  <div class="modal-body">
+    
+    <app-loading [loader]="loader"></app-loading>
+    <div class="row" *ngIf="!loader">
+
+        <div class="ng-autocomplete">
+          <ng-autocomplete #auto
+            [data]="cards"
+            name="cardPlayerSelect"
+            [(ngModel)]="cardPlayerSelect"
+            [initialValue]=""
+            [searchKeyword]="'cardName'"
+            [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate">                                 
+          </ng-autocomplete>
+          
+          <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.cardName"></a>
+          </ng-template>
+          
+          <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="'Carta não encontrada'"></div>
+          </ng-template>
+        </div>
+
+        <div class="center-align mt-30">
+          <button class="waves-effect waves-light btn" (click)="selectEvent()">Adicionar</button>
+        </div>
+
+      <!-- </div> -->
+      <div class="row mt-30">
+        <div class="chip" *ngFor="let cardsPlayer of cardsPlayers">
+          {{ cardsPlayer.cardName }}
+          <i class="close material-icons">close</i>
+        </div>
+      </div>
+      
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn waves-effect waves-light" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
+    <button class="btn waves-effect waves-light right" [mat-dialog-close]="true">{{ 'UPDATE' | translate }}</button>
+  </div>
+</div>

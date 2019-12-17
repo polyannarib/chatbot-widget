@@ -1,0 +1,41 @@
+<div class="header">
+    <div class="menu">
+        <!-- <li><a href="#!"><i class="material-icons" id="dehaze">dehaze</i></a></li> -->
+        <a routerLink="/home/dashboard" (click)="currentPage = 'COCKPIT'"><i class="material-icons">insert_chart</i></a>
+        <a><i class="material-icons">note_add</i></a>
+        <a><i class="material-icons">person_add</i></a>
+        <a><i class='material-icons'>bookmarks</i></a>
+        <a><i class="material-icons">date_range</i></a>
+        <a routerLink="/home/admin" (click)="currentPage = 'ADMIN'"><i class="material-icons">settings_applications</i></a>
+    </div>
+    <!-- <ul class="card login col s4 m4 l3">
+        <div><span>{{getUserInfo()}}</span></div>
+    </ul>
+    <ul class="date col s4 m4 l4">
+        <p>{{getDate()}}</p>
+    </ul> -->
+    <p>{{ currentPage }} WORKPLAYER</p>
+    <div class="end">
+        <!-- <img [src]="logoUrl"> -->
+        <i class="material-icons" (click)="profile = !profile">perm_identity</i>
+    </div>    
+</div>
+
+<div class="profile" *ngIf="profile">
+    <ul>
+        <li>{{ user.displayName }}</li>
+        <li (click)="logout()"><i class="material-icons">exit_to_app</i>Logout</li> 
+    </ul>
+</div>
+
+<<<<<<< HEAD:src/app/home/home/home.component.html
+<!-- <div class="content"> -->
+=======
+<div class="content">
+>>>>>>> architecture:src/app/modules/home/home.component.html
+    <router-outlet></router-outlet>
+<!-- </div> -->
+
+<div class="footer">
+    
+</div>

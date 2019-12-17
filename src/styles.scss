@@ -2,91 +2,103 @@
 @import './theme.scss';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-body{
-    overflow: auto;
+
+body {
     background-color: #EBEBEB;
 }
 
-.modalBg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: #0000001A;
+/* Codigo de padronização dos botões de dias do Dashboard */
+.btnDayCalendar {
+    display: inline-block;
+    color: #000000;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 33px;
+    height: 33px;
+    line-height: 33px;
+    padding: 0;
+    border-radius: 0%;
+    -webkit-transition: .3s;
+    transition: .3s;
+    cursor: pointer;
+    vertical-align: middle;
+    box-shadow: none;
+    border: none;
+}
+
+
+/* Codigos para padronizar o modal */
+#modal .modal-header {
+    font-size: 1.64rem;
+    text-align: center;
+    padding-bottom: 10px;
+}
+#modal .modal-body {
+    border-top: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    padding: 15px 0px;
+}
+#modal .modal-footer {
+    padding-top: 20px;
+}
+
+
+/* Codigo para padronização do collapse */
+.collapsible-body {
+    display: none;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    padding: 15px;
+}
+mz-collapsible-item-header {
+    width: 100%;
+}
+.collapsible-header {
+    display: -webkit-box;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1.5;
+    padding: 10px 0px !important;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
 }
-
-.mt-10 {
-    margin-top: 10px
+mz-collapsible-item-body {
+    padding: 10px;
+    margin: 0px;
+    font-size: 11px;
 }
-
-.mt-15 {
-    margin-top: 15px
-}
-
-.mt-30 {
-    margin-top: 30px
-}
-
-.ml-1 {
-    margin-left: 0.5px;
-}
-
-.ml-5 {
-    margin-left: 5px;
-}
-
-.ml-10 {
-    margin-left: 10px !important
-}
-
-.ml-15 {
-    margin-left: 15px
-}
-
-.ml-20 {
-    margin-left: 20px !important
-}
-
-.ml-23 {
-    margin-left: 23px;
-}
-
-.ml-25 {
-    margin-left: 25px
-}
-
-.ml-m-25 {
-    margin-left: -25px
-}
-
-.ml-m-15 {
-    margin-left: -15px;
-}
-
-.ml-m-12 {
-    margin-left: -12px;
-}
-
-.front {
-    z-index: 2000;
-}
-
-td.full-day {
-    background:rgba(255, 0, 0, 0.5)!important;
+mz-collapsible-item-body span {
+    display: block;
     font-weight: bold;
-    border-radius: 100%;
 }
-
-.unallocated {
-    background: rgba(0, 128, 0, 0.7);
+mz-collapsible-item-body {
+    padding: 0px !important;
+}
+mz-collapsible-item-body ul {
+    display: flex;
+    justify-content: space-between;
+}
+.containerButtons button {
+    margin: 15px 5px 0px 5px;
+}
+.headerTextCollapse {
+    margin-bottom: 0px;
     font-weight: bold;
-    border-radius: 100%;
+}
+.no-padding {
+    margin: 0px;
 }
 
-.modal-text {
-    font-size: 15px;
-}
+// .modalBg {
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     height: 100vh;
+//     width: 100vw;
+//     background-color: #0000001A;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+// }

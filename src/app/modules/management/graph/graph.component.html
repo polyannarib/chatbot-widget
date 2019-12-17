@@ -1,0 +1,88 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div *ngIf="charts && !loader">
+  <div class="sliderGraph tableOverflow">
+    <div *ngFor="let chartItem of charts">
+      <app-chartjs
+        type="pie"
+        [labels]="chartItem.labels"
+        [backgroundColor]="chartItem.backgroundColor"
+        [data]="chartItem.data"
+        width="150" 
+        height="150">
+      </app-chartjs>
+      <div class="boxText">
+        <ng-container *ngFor="let color of chartItem.backgroundColor let i = index">
+          <p class="textDash"><i class="material-icons" [ngStyle]="{ 'color': color }">fiber_manual_record</i> - {{ chartItem.labels[i] }}</p >
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="swiper-container" *ngIf="charts && !loader">
+  <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let chartItem of charts">
+        <app-chartjs
+          type="pie"
+          [labels]="chartItem.labels"
+          [backgroundColor]="chartItem.backgroundColor"
+          [data]="chartItem.data"
+          width="250" 
+          height="250">
+        </app-chartjs>
+      </div>
+  </div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</div> -->
+
+<!-- <div class="row mt-30">
+  <div class="col s1 m1 l1">
+    <button *ngIf="page > 1" (click)="chartToLeft()" class="transparent-button">
+      <i class="material-icons">arrow_back</i>
+    </button>
+  </div>
+  <div class="col s10 m10 l10">
+    <div style="text-align: center">
+      <button (click)="refreshChart()" class="transparent-button">
+        <i class="material-icons">refresh</i>
+      </button>
+    </div>
+  </div>
+  <div class="col s1 m1 l1">
+    <button *ngIf="(page*pageSize) < countChart" (click)="chartToRight()" class="transparent-button">
+      <i class="material-icons">arrow_forward</i>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12 m12 l12">
+    <ng-container *ngFor="let chart of chartModel">
+      <div class="col s2 m2 l2">
+        <canvas baseChart
+          width="50" height="50"
+          [data]="chart.pieChartData"
+          [labels]="chart.pieChartLabels"
+          [chartType]="pieChartType"
+          [options]="chart.pieChartOptions"
+          [plugins]="pieChartPlugins"
+          [colors]="chart.pieChartColors"
+          [legend]="false">
+        </canvas>
+      </div>
+    </ng-container>       
+  </div>
+</div>
+<div class="row">
+<div class="col s12 m12 l12">
+  <div class="col s2 m2 l2" *ngFor="let chart of chartModel">
+    <ng-container *ngFor="let color of chart.pieChartColors[0].backgroundColor let i = index">
+      <p><i class="material-icons"
+        [ngStyle]="{ 'color': color }">fiber_manual_record</i>
+          - {{ chart.pieChartLabels[i] }}</p>
+    </ng-container>
+  </div>
+</div>
+</div> -->

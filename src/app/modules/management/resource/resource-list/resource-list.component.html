@@ -1,0 +1,54 @@
+<app-loading [loader]="loader"></app-loading>
+<div *ngIf="players && !loader">
+  
+  <div class="row">
+    <div class="col m6 s12">
+      <div class="input-field">
+        <input autocomplete="off" (keyup)="onSearchChangeResource($event.target.value)" matInput id="findResource" type="text" class="validate" value="">
+        <label for="findResource">{{ 'RESOURCES' | translate }}</label>
+      </div>
+    </div>
+    <div class="col m6 s12">
+      <ul>
+        <li><a (click)="changeDays('prev')" class="btn-floating waves-effect waves-light red"><i class="material-icons">chevron_left</i></a></li>
+        <li><a (click)="changeDays('next')" class="btn-floating waves-effect waves-light red"><i class="material-icons">chevron_right</i></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <app-loading [loader]="loaderDays"></app-loading>
+
+  <div class="tableOverflow">
+    <table class="responsive-table" *ngIf="!loaderDays">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="days">Player</th>
+          <th *ngFor="let day of daysOfWeek13">{{ day | date:'E' }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let player of players">
+          <tr class="card">
+            <td class="spacename"><i class="material-icons tiny">person</i></td>
+            <td class="left-align"><b>{{ player.name }}</b></td>
+            <ng-container *ngFor="let activity of player.tasks">
+              <td class="days">
+                <button [ngStyle]="{'background-color': activity.style}" [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}" class="btnDayCalendar hoverable" [disabled]="!activity.validDay" (click)="modalResourceDetails(player.id, activity)">{{ activity.day }}</button>
+              </td>
+            </ng-container>
+          </tr>
+          <tr>
+            <td class="playerAllocated">{{ player.allocated }}%</td>
+            <td>
+              <div class="progress hoverable">
+                <div class="determinate" [ngStyle]="{'width': player.allocated+'%'}"></div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  
+</div>
