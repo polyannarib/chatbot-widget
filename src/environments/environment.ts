@@ -3,12 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-<<<<<<< HEAD
    back_end_url: 'http://192.168.1.229:8989/workplayer-portal/services',
   //back_end_url: 'http://localhost:8080/workplayer-portal/services',
-=======
-  back_end_url: 'http://localhost:8080/workplayer-portal/services',
->>>>>>> architecture
   production: false
 };
 
