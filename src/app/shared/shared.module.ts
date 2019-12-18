@@ -61,7 +61,6 @@ import { RouterModule } from '@angular/router';
     MatDatepickerModule,
     MatFormFieldModule,
     MatTableModule,
-    SlickModule.forRoot(),
     RouterModule
   ],
   declarations: [
@@ -108,8 +107,7 @@ import { RouterModule } from '@angular/router';
     ButtonSuspendComponent,
     ButtonDesignateComponent,
     ButtonReplanComponent,
-    ChartjsComponent,
-    SlickModule
+    ChartjsComponent
   ],
   entryComponents: [
     FinalizeComponent,
