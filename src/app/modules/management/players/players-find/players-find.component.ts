@@ -19,8 +19,12 @@ export class PlayersFindComponent implements OnInit {
   loader: boolean = false;
 
   playerRated: any;
-  playerAllocated: any;
+  playerRatedFilter: any;
+
   playerAvailable: any;
+  playerAvailableFilter: any;
+
+  playerAllocated: any;
   playerSelect: any;
 
   constructor(
@@ -67,5 +71,19 @@ export class PlayersFindComponent implements OnInit {
       }
     )
   }
+
+  onSearchChange(searchValue: string): void {
+    this.playerRatedFilter = this.playerRated.filter(
+      (curr) => {
+        return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+      }
+    )
+    this.playerAvailableFilter = this.playerAvailable.filter(
+      (curr) => {
+        return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+      }
+    )
+  }
+
 
 }
