@@ -4,7 +4,10 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/models/user';
 
-import { MzToastService } from 'ngx-materialize';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
+import { MatBottomSheet } from '@angular/material';
+import { CompanySelectComponent } from '../company-select/company-select.component';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +29,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private toastService: MzToastService
+    private _snackBar: MatSnackBar,
+    private _bottomSheet: MatBottomSheet
   ) { }
 
   ngAfterViewInit() {
@@ -43,19 +47,32 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.form.value.password = btoa(this.form.value.password);
       this.authService.login(this.form.value).subscribe(
         (response) => {
-          // this.loader = false;
-          if(response.status === 0) {
+          if (response.status == 0) {
             this.authService.setToken(response.object.token);
             return;
+          } if (response.status == 1) {
+            this.loader = false;
+            this._snackBar.openFromComponent(NotifyComponent, 
+              { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
+            return;
+          } if (response.status == 2) {
+            this.loader = false;
+            this._bottomSheet.open(CompanySelectComponent, 
+              { data: {
+                form: this.form.value,
+                companys: response.object
+              }});
+            return;
           }
-          // this.toastService.show(response.object.message, 4000, 'toastrDanger');
         }, (err) => {
           this.loader = false;
-          // this.toastService.show('Por favor, digite os campos corretamente', 4000, 'toastrDanger');
+          this._snackBar.openFromComponent(NotifyComponent, 
+            { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
       })
     } else {
       this.loader = false;
-      // this.toastService.show('Favor preencher todos campos!', 4000, 'toastrDanger');
+      this._snackBar.openFromComponent(NotifyComponent, 
+        { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
     }
   }
 

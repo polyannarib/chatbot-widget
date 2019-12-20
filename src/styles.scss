@@ -91,6 +91,25 @@ mz-collapsible-item-body ul {
     margin: 0px;
 }
 
+
+
+
+// codigo para o toastr/notify
+.mat-snack-bar-container {
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    margin: 24px;
+    max-width: 33vw;
+    min-width: 344px;
+    padding: 0px;
+    min-height: 48px;
+    transform-origin: center;
+}
+.cdk-overlay-dark-backdrop {
+    background: rgba(0,0,0,0.87);
+}
+
 // .modalBg {
 //     position: fixed;
 //     top: 0;
