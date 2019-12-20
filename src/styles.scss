@@ -38,6 +38,8 @@ body {
     border-top: 1px solid #ebebeb;
     border-bottom: 1px solid #ebebeb;
     padding: 15px 0px;
+    max-height: 60vh;
+    overflow-y: auto;
 }
 #modal .modal-footer {
     padding-top: 20px;
@@ -92,8 +94,6 @@ mz-collapsible-item-body ul {
 }
 
 
-
-
 // codigo para o toastr/notify
 .mat-snack-bar-container {
     border-radius: 4px;
@@ -109,7 +109,6 @@ mz-collapsible-item-body ul {
 .cdk-overlay-dark-backdrop {
     background: rgba(0,0,0,0.87);
 }
-
 // .modalBg {
 //     position: fixed;
 //     top: 0;

@@ -62,7 +62,7 @@
                 <app-button-suspend [activityId]="activity.id"></app-button-suspend>
                 <app-button-designate (isDesign)="reciverDesignate($event)"></app-button-designate>
               </div>
-              <app-players-find [taskId]="activity.id" *ngIf="designate"></app-players-find>
+              <app-players-find [taskId]="activity.id" [dataInicial]="activity.expectedAt" [dataFim]="activity.previewedAt" *ngIf="designate"></app-players-find>
             </mz-collapsible-item-body>
           </mz-collapsible-item>
         </ng-container>
