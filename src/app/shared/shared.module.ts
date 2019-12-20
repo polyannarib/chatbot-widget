@@ -65,12 +65,9 @@ import { MatListModule } from '@angular/material/list';
     MatDatepickerModule,
     MatFormFieldModule,
     MatTableModule,
-<<<<<<< HEAD
-=======
     MatSnackBarModule,
     MatBottomSheetModule,
     MatListModule,
->>>>>>> architecture
     RouterModule
   ],
   declarations: [
@@ -132,6 +129,7 @@ import { MatListModule } from '@angular/material/list';
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+      duration: 3000,
       horizontalPosition: 'center',
       verticalPosition: 'top'
     }}
