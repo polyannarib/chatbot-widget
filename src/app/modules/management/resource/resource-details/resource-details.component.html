@@ -42,12 +42,13 @@
                 <div class="col m6 s12 left-align">{{ tasks.name }}</div>
                 <div class="col m2 s12 left-align">{{ tasks.previewedAt | date:'dd/MM/yyyy' }}}</div>
                 <div class="col m1 s12 left-align">{{ tasks.dailyEffort }}h</div>
-                <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}" [ngClass]="{  'building': activity.status == 'BUILDING', 
-                  'warning': activity.status == 'EXECUTION', 
-                  'ok': activity.status == 'FINISHED', 
-                  'hanging': activity.status == 'HANGING',
-                  'delayed': activity.status == 'DELAYED',
-                  'waiting' : activity.status == 'WAITING' }">fiber_manual_record</i></div>
+                <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}" 
+                  [ngStyle]="{ 'color': activity.status == 'BUILDING' ? 'gray' : '#000',
+                               'color': activity.status == 'EXECUTION' ? '#FFD700' : '#000',
+                               'color': activity.status == 'FINISHED' ? 'rgb(21,255,0)' : '#000',
+                               'color': activity.status == 'HANGING' ? '#85C1E9' : '#000',
+                               'color': activity.status == 'DELAYED' ? 'rgb(255, 0, 0)' : '#000',
+                               'color': activity.status == 'WAITING' ? '#ae6634' : '#000' }">fiber_manual_record</i></div>
               </div>
             </mz-collapsible-item-header>
             <mz-collapsible-item-body>
