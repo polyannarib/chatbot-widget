@@ -56,7 +56,7 @@
                 <li><span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration }}h</li>
                 <li><span>{{ 'EFFORT' | translate }} </span> {{ activity.effort }}h</li>
               </ul>
-              <div class="containerButtons center-align">
+              <div *ngIf="activity.status != 'FINISHED'" class="containerButtons center-align">
                 <app-button-finalize [activityId]="activity.id"></app-button-finalize>
                 <app-button-remove [activityId]="activity.id"></app-button-remove>
                 <app-button-suspend [activityId]="activity.id"></app-button-suspend>
