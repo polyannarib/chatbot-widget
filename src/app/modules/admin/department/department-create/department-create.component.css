@@ -1,0 +1,58 @@
+form input,
+form select,
+form textarea {
+    border: 2px solid #6589a4;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 15px;
+    opacity: 0.9;
+    font-weight: bold;
+    background: linear-gradient(to right bottom, #1e6689, #1d5f80, #1b5877, #1a516e, #184a65, #17465f, #15425a, #143e54, #143b51, #13394d, #13364a, #123447);
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    padding: 0px 15px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;  
+    display: block;
+}
+form input:focus,
+form input:active,
+form input:hover,
+form select:focus,
+form select:active,
+form select:hover,
+form textarea:focus,
+form textarea:active,
+form textarea:hover {
+    background: #6589a4;
+    border: 2px solid #6589a4 !important;
+    border-radius: 10px;
+    transform: scale(1.01);
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4);
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4) !important; 
+}
+.btn-send {
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px 25px;
+    background-color: #6589a4;
+    color: #fff;
+    border: none;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+}
+.btn-send:focus, .btn-send:active, .btn-send:hover {
+    transform: scale(1.01);
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4);
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.4);
+}
+.form-select {
+    /* margin-top: 15px; */
+    position: relative;
+    margin-top: 1rem;
+    padding-bottom: 5px;
+}

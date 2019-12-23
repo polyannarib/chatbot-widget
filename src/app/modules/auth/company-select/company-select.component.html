@@ -1,0 +1,13 @@
+<mat-nav-list>
+
+  <h4 class="title">Selecione a empresa</h4>
+
+  <app-loading [loader]="loader"></app-loading>
+
+  <div *ngIf="!loader">
+    <a mat-list-item (click)="onLogin(company.companyCode)" *ngFor="let company of data.companys">
+      <span mat-line>{{ company.name }}</span>
+    </a>
+  </div>
+
+</mat-nav-list>

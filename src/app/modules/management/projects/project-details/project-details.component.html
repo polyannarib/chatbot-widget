@@ -1,0 +1,77 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div id="modal" *ngIf="projectTasks != null && !loader">
+  <div class="modal-header">{{ projectTasks?.name }}</div>
+  <div class="modal-body">
+
+    <div class="row dateProgress">
+      <div class="col s12 m4 dateActivity center-align">  
+        <div class="title">{{ data.projectDate | date:'EEEE' }}</div>
+        <span class="activityDay">{{ data.projectDate | date:'dd/MM/yyyy'}}</span>
+      </div>
+      <div class="col s12 m8">
+        <div class="title">{{ 'PROGRESS' | translate }}</div>
+        <div class="progress hoverable">
+          <div class="determinate" [ngStyle]="{'width': projectDate?.progress+'%'}"></div>
+        </div>
+      </div>
+    </div>
+
+    <app-count *ngIf="projectTasks?.tasks == null">Esse projeto está sem task no momento!</app-count>
+
+    <section *ngIf="projectTasks?.tasks != null">
+
+      <div class="row headerTextCollapse hide-on-small-only text-header">
+        <div class="col s12 m6"><span>{{ 'PROJECT' | translate }}</span></div>
+        <div class="col s12 m2"><span>{{ 'ACTIVITY' | translate }}</span></div>
+        <div class="col s12 m2"><span>{{ 'DUEDATE' | translate }}</span></div>
+        <div class="col s12 m1"><span>{{ 'EFFORT' | translate }}</span></div>
+      </div>
+      <mz-collapsible [mode]="'accordion'" [popout]="false">
+        <ng-container *ngFor="let activity of projectTasks.tasks">
+          <mz-collapsible-item [active]="false">
+            <mz-collapsible-item-header>
+              <div class="row no-padding">
+                <div class="col m6 s12 left-align">{{ activity.name }}</div>
+                <div class="col m2 s12 left-align">{{ activity.player != null ? activity.player.name : '' }}</div>
+                <div class="col m2 s12 left-align">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</div>
+                <div class="col m1 s12 left-align">{{ activity.dailyEffort }}h</div>
+                <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}" 
+                    [ngStyle]="{'color': activity.status == 'BUILDING' ? 'gray' : '#000',
+                                'color': activity.status == 'EXECUTION' ? '#FFD700' : '#000',
+                                'color': activity.status == 'FINISHED' ? 'rgb(21,255,0)' : '#000',
+                                'color': activity.status == 'HANGING' ? '#85C1E9' : '#000',
+                                'color': activity.status == 'DELAYED' ? 'rgb(255, 0, 0)' : '#000',
+                                'color': activity.status == 'WAITING' ? '#ae6634' : '#000' }">fiber_manual_record</i></div>
+              </div>
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body>
+              <ul>
+                <li><span>{{ 'PROJECT' | translate}}</span> {{ activity.project.name }}</li>
+                <li><span>{{ 'CARD' | translate }}</span> {{ activity.card.skillName }} - {{ activity.card.cardName }}</li>
+                <li><span>{{ 'PREVIEWSTARTDATE' | translate}}</span> {{ activity.expectedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
+                <li><span>{{ 'PREVIEWENDDATE' | translate}}</span> {{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
+                <li><span>{{ 'STARTDATE' | translate}}</span> {{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
+                <li><span>{{ 'ENDDATE' | translate}}</span> {{ activity.finalizedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
+                <li><span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration }}h</li>
+                <li><span>{{ 'EFFORT' | translate }} </span> {{ activity.effort }}h</li>
+              </ul>
+              <div *ngIf="activity.status != 'FINISHED'" class="containerButtons center-align">
+                <app-button-finalize [activityId]="activity.id"></app-button-finalize>
+                <app-button-remove [activityId]="activity.id"></app-button-remove>
+                <app-button-suspend [activityId]="activity.id"></app-button-suspend>
+                <app-button-designate (isDesign)="reciverDesignate($event)"></app-button-designate>
+              </div>
+              <app-players-find [taskId]="activity.id" [dataInicial]="activity.expectedAt" [dataFim]="activity.previewedAt" *ngIf="designate"></app-players-find>
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        </ng-container>
+      </mz-collapsible>
+      
+    </section>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn waves-effect waves-light" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
+  </div>
+</div>
