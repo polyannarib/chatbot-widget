@@ -7,6 +7,7 @@ import { AuthGuard } from './guards/auth-guard';
 import { ProjectService } from './services/project.service';
 import { LoadingService } from './services/loading.service';
 import { TaskService } from './services/task.service';
+import { NoteService } from './services/note.service';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -26,6 +27,7 @@ import { ErrorInterceptor } from './interceptors/error-interceptor';
     ProjectService,
     LoadingService, 
     TaskService,
+    NoteService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpInverceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ]

@@ -1,0 +1,97 @@
+<!-- <app-loading [loader]="loader"></app-loading> -->
+
+<div id="modal" *ngIf="typeNotes || statusNotes">
+  <!-- <div class="modal-header">Edit Report</div> -->
+  <div class="modal-body">
+
+    <div class="row">
+      <form [formGroup]="formFind" (ngSubmit)="findNotes()">
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Selecione o tipo</mat-label>
+            <mat-select formControlName="typeId">
+              <mat-option *ngFor="let type of typeNotes" [value]="type.id">
+                {{ type.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Selecione o Status</mat-label>
+            <mat-select formControlName="statusId">
+              <mat-option *ngFor="let status of statusNotes" [value]="status.id">
+                {{ status.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <button type="submit" class="btn waves-effect waves-light right">Buscar</button>
+        </div>
+      </form>
+    </div>
+
+    <app-loading [loader]="loaderNotes"></app-loading>
+    <div *ngIf="!loaderNotes">
+
+      <app-count *ngIf="messageNotes && !notes">Esse projeto não tem nota cadastrada no momento!</app-count>
+
+      <!-- <table *ngIf="dataSource" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+          <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+          <td mat-cell *matCellDef="let element;let index = index"> 
+            <editable (update)="updateField(index, column)">
+              <ng-template viewMode>
+                {{ element[column] }}
+              </ng-template>
+              <ng-template editMode>
+                <input matInput [formControl]="getControl(index, column)">
+              </ng-template>
+            </editable> 
+          </td>
+        </ng-container>        
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+      </table> -->
+
+      <table *ngIf="notes">
+        <thead>
+          <tr>
+            <!-- <th>{{ 'NOTENUM' | translate }}</th> -->
+            <th>{{ 'NOTEDESCRIPTION' | translate }}</th>
+            <th>{{ 'OBSERVATION' | translate }}</th>
+            <th>{{ 'NOTEDATE' | translate }}</th>
+            <th *ngIf="this.formFind.value.noteType != SITUATION">{{ 'NOTESTARTDATE' | translate }}</th>
+            <th *ngIf="this.formFind.value.noteType != SITUATION">{{ 'NOTEENDDATE' | translate }}</th>
+            <th *ngIf="this.formFind.value.noteType != SITUATION">{{ 'CRITICALLYLEVEL' | translate }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let note of notes">
+            <tr>
+              <!-- <td>{{ note.noteNum }}</td> -->
+              <td>{{ note.noteDescription }}</td>
+              <td>{{ note.observation }}</td>
+              <td>{{ note.noteDate | date:'dd/MM/yyyy' }}</td>
+              <td *ngIf="this.formFind.value.noteType != SITUATION">{{ note.noteStartDate | date:'dd/MM/yyyy' }}</td>
+              <td *ngIf="this.formFind.value.noteType != SITUATION">{{ note.noteEndDate | date:'dd/MM/yyyy' }}</td>
+              <td *ngIf="this.formFind.value.noteType != SITUATION">
+                <!-- [ngClass]="'color': activity.status == '1' ? 'green', 'color': activity.status == '2' ? 'yellow', 'color': activity.status == '3' ? 'red'" -->
+                <i class="material-icons">fiber_manual_record</i>
+              </td>
+              <td><button (click)="modalEditNotesReport(note)" mat-icon-button><i class="material-icons">edit</i></button></td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn waves-effect waves-light" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
+    <button  *ngIf="formFind.valid" (click)="modalCreateNotesReport()" class="btn waves-effect waves-light right">{{ 'ADDNOTES' | translate }}</button>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div id="modal" *ngIf="!loader">
+  <!-- <div class="modal-header">Edit Report</div> -->
+  <form [formGroup]="form" (ngSubmit)="saveNotes()">
+    <div class="modal-body">
+
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="{{ 'NOTEDESCRIPTION' | translate }}" type="text" formControlName="noteDescription"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="{{ 'OBSERVATION' | translate }}" type="text" formControlName="observation"></textarea>
+      </mat-form-field>
+    
+      <mat-form-field class="example-full-width">
+        <input matInput [matDatepicker]="picker1" formControlName="noteDate" placeholder="{{ 'NOTEDATE' | translate }}">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    
+      <mat-form-field class="example-full-width">
+        <input matInput [matDatepicker]="picker3" formControlName="noteEndDate" placeholder="{{ 'NOTEENDDATE' | translate }}">
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="{{ 'NOTENUM' | translate }}" formControlName="noteNum">
+      </mat-form-field>
+      
+      <mat-form-field class="example-full-width">
+        <mat-label>{{ 'CRITICALLYLEVEL' | translate }}</mat-label>
+        <mat-select formControlName="criticallyLevel">
+          <mat-option [value]="1"> Verde </mat-option>
+          <mat-option [value]="2"> Amarelo </mat-option>
+          <mat-option [value]="3"> Vermelho </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+    </div>
+    <div class="modal-footer">
+      <button class="btn waves-effect waves-light" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
+      <button type="submit" class="btn waves-effect waves-light right">{{ 'UPDATE' | translate }}</button>
+    </div>
+  </form>
+</div>

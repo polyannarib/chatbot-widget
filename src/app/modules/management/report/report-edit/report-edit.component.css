@@ -1,0 +1,23 @@
+/* table tr.mat-header-row, 
+table tr.mat-row {
+    height: auto;
+    padding: 10px;
+    margin: 10px;
+} */
+input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 0;
+    border-radius: 0;
+    /* outline: none; */
+    height: 3rem;
+    width: 100%;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    box-sizing: content-box;
+    -webkit-transition: border .3s, -webkit-box-shadow .3s;
+    -webkit-transition: box-shadow .3s, border .3s;
+    transition: box-shadow .3s, border .3s;
+}

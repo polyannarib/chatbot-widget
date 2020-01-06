@@ -34,7 +34,7 @@
             <td class="left-align"><b>{{ player.name }}</b></td>
             <ng-container *ngFor="let activity of player.tasks">
               <td class="days">
-                <button [ngStyle]="{'background-color': activity.style}" [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}" class="btnDayCalendar hoverable" [disabled]="!activity.validDay" (click)="modalResourceDetails(player.id, activity)">{{ activity.day }}</button>
+                <button [ngStyle]="{'background-color': activity.style}" [ngClass]="{hoverable: activity.validDay}" [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}" class="btnDayCalendar" [disabled]="!activity.validDay" (click)="modalResourceDetails(player.id, activity)">{{ activity.day }}</button>
               </td>
             </ng-container>
           </tr>

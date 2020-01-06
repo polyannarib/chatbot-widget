@@ -24,6 +24,7 @@ export class AuthService {
   
   logout(): void {
     localStorage.removeItem('acessToken');
+    window.location.reload();
   }
 
   getUser() {

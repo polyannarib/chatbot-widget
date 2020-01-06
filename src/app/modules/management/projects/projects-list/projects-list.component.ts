@@ -4,6 +4,7 @@ import { ProjectService } from 'src/app/core/services/project.service';
 import { Project } from 'src/app/shared/models/project';
 import { MatDialog } from '@angular/material';
 import { ProjectDetailsComponent } from '../project-details/project-details.component';
+import { ReportEditComponent } from '../../report/report-edit/report-edit.component';
 
 @Component({
   selector: 'app-projects-list',
@@ -36,15 +37,10 @@ export class ProjectsListComponent implements OnInit {
   }
 
   daysOfWeek(start, end) {
-
-    console.log('start'+ start);
-    console.log('end'+ end);
-
     this.daysOfWeek10 = eachDayOfInterval({
       start: start,
       end: end
     })
-    console.log(this.daysOfWeek10);
   }
 
   findProjects() {
@@ -75,6 +71,16 @@ export class ProjectsListComponent implements OnInit {
       projectDate: new Date(activity.year, activity.month, activity.day)
     }
     const dialogRef = this.dialog.open(ProjectDetailsComponent, {
+      width: '90vw',
+      data: dataSend
+    });
+  }
+
+  openReport(projectId) {
+    const dataSend = {
+      projectId: projectId
+    }
+    const dialogRef = this.dialog.open(ReportEditComponent, {
       width: '90vw',
       data: dataSend
     });

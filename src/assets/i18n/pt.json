@@ -66,5 +66,14 @@
     "HANGING": "Suspendida",
     "DELAYED": "Atrasada",
     "UPDATE": "Atualizar",
-    "WAITING": "Aguardando Execução"
+    "WAITING": "Aguardando Execução",
+    "ADDREPORT": "Adicionar",
+    "NOTENUM": "N°",
+    "NOTEDESCRIPTION": "Descrição",
+    "OBSERVATION": "Observação",
+    "NOTEDATE": "Prazo",
+    "NOTESTARTDATE": "Data Inicio",
+    "NOTEENDDATE": "Data Final",
+    "CRITICALLYLEVEL": "Status",
+    "ADDNOTES": "Adicionar nota"
 }

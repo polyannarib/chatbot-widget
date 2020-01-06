@@ -7,26 +7,49 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  loader: boolean = false;
+  loader: boolean = false
+  loaderDash: any = {
+    resource: true,
+    project: true,
+    graph: true
+  }
 
   constructor() { }
 
   ngOnInit() { }
 
   loaderResource(estado) {
-    if(estado) {
-      this.loader = true;
-    }
-    this.loader = false;
+    // console.log('entrou dentro do loaderResource'+ estado);
+    // if(estado == true) {
+    //   this.loaderResourceStatus = true;
+    // }
+    // this.loaderResourceStatus = false;
+    this.loaderDash.resource = estado
+    this.loaderPage();
   }
+
   loaderProject(estado) {
-    if(estado) {
-      this.loader = true;
-    }
-    this.loader = false;
+    // console.log('entrou dentro do loaderProject'+ estado);
+    // if(estado == true) {
+    //   this.loaderProjectStatus = true;
+    // }
+    // this.loaderProjectStatus = false;
+    this.loaderDash.project = estado
+    this.loaderPage();
   }
+
   loaderGraph(estado) {
-    if(estado) {
+    // console.log('entrou dentro do loaderGraph'+ estado);
+    // if(estado == true) {
+    //   this.loaderGraphStatus = true;
+    // }
+    // this.loaderGraphStatus = false;
+    this.loaderDash.graph = estado
+    this.loaderPage();
+  }
+
+  loaderPage() {
+    if(this.loaderDash.resource == true || this.loaderDash.project == true || this.loaderDash.graph == true) {
       this.loader = true;
     }
     this.loader = false;
