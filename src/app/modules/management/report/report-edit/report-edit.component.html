@@ -81,7 +81,7 @@
                 <!-- [ngClass]="'color': activity.status == '1' ? 'green', 'color': activity.status == '2' ? 'yellow', 'color': activity.status == '3' ? 'red'" -->
                 <i class="material-icons">fiber_manual_record</i>
               </td>
-              <td><button (click)="modalEditNotesReport(note)" mat-icon-button><i class="material-icons">edit</i></button></td>
+              <td class="action"><button matTooltip="Editar" (click)="modalEditNotesReport(note)" mat-mini-fab color="warn"><i class="material-icons">edit</i></button></td>
             </tr>
           </ng-container>
         </tbody>
