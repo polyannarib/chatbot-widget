@@ -1,7 +1,11 @@
 <app-loading [loader]="loader"></app-loading>
 
 <div id="modal" *ngIf="projectTasks != null && !loader">
-  <div class="modal-header">{{ projectTasks?.name }}</div>
+  <div class="modal-header">{{ projectTasks?.name }}
+    <button type="button" class="close btn" [mat-dialog-close]="true">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
   <div class="modal-body">
 
     <div class="row dateProgress">
@@ -71,7 +75,6 @@
     </section>
 
   </div>
-  <div class="modal-footer">
-    <button class="btn waves-effect waves-light" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
-  </div>
+<!--   <div class="modal-footer">
+  </div> -->
 </div>

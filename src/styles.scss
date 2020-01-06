@@ -44,6 +44,35 @@ body {
     border-top: 1px solid #ebebeb;
     padding-top: 20px;
 }
+#modal .close {
+    transition: all 0.05s ease;
+    background: #ff644a;
+    color: white;
+    box-shadow: none;
+    font-size: 31px;
+    border-radius: 2100%;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    padding-bottom: 2px;
+    position: absolute;
+    right: -38px;
+    top: -38px;
+}
+
+#modal .close:hover {
+    transition: all 0.05s ease;
+    transform: scale(1.1);
+    background: #ff4524;
+}
+
+#modal {
+    position: relative;
+}
+
+.mat-dialog-container {
+    overflow: visible !important;
+}
 
 
 /* Codigo para padronização do collapse */
