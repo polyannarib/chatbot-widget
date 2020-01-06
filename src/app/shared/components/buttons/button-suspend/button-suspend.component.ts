@@ -28,9 +28,9 @@ export class ButtonSuspendComponent implements OnInit {
       width: '500px',
       data: dataSend
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('result ------- finalize component --------');
-      console.log(result);
+    dialogRef.afterClosed().subscribe((result) => {
+      // console.log('result ------- finalize component --------');
+      // console.log(result);
     });
   }
 

@@ -57,9 +57,7 @@ export class ReportEditComponent implements OnInit {
         if(response.status == 0) {
           this.typeNotes = response.object;
         }
-        console.log('deu ruim');
       }, (err) => {
-        console.log('deu ruim');
     })
   }
 
@@ -69,9 +67,7 @@ export class ReportEditComponent implements OnInit {
         if(response.status == 0) {
           this.statusNotes = response.object;
         }
-        console.log('deu ruim getStatus');
       }, (err) => {
-        console.log('deu ruim getStatus');
     })
   }
 

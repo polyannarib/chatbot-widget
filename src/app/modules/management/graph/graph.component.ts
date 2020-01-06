@@ -64,9 +64,7 @@ export class GraphComponent implements OnInit, AfterViewInit {
         }
         this.loader = false;
         this.loaderGraph.emit(false);
-        console.log('erro charts');
       }, (err) => {
-        console.log('erro charts');
         this.loader = false;
         this.loaderGraph.emit(false);
       }

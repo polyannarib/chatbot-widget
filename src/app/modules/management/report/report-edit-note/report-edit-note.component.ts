@@ -76,8 +76,6 @@ export class ReportEditNoteComponent implements OnInit {
       var noteSave = new Array(this.form.value);
       this.noteService.saveNotes(noteSave).subscribe(
         (response) => {
-          console.log('----- noteService.saveNotes SUCCESS -----');
-          console.log(response);
         }, (err) => {
           this._snackBar.openFromComponent(NotifyComponent, 
             { data: { type: 'error', message: 'Problemas ao preencher o formulário, contate o administrador!' }});

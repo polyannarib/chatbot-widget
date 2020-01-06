@@ -29,8 +29,8 @@ export class ButtonFinalizeComponent implements OnInit {
       data: dataSend
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('result ------- finalize component --------');
-      console.log(result);
+      // console.log('result ------- finalize component --------');
+      // console.log(result);
     });
   }
 
