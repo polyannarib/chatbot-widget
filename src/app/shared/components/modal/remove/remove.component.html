@@ -1,0 +1,17 @@
+<div id="modal">
+  <div class="modal-header">
+    {{ 'CONFIRMACTION' | translate }}
+    <button type="button" class="close btn" [mat-dialog-close]="true"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <p *ngIf="statusErr != 0">{{ errMessage | translate }}</p>
+    <p *ngIf="statusErr === 0 || !statusErr">{{ 'MESSAGECONFIRMREMOVEPLAYER' | translate }}</p>
+    <div class="input-field">
+      <input id="reason" type="text" class="validate" [(ngModel)]="reason">
+      <label for="reason">{{ 'REASON' | translate }}</label>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn waves-effect waves-light right" (click)="confirmRemove()">{{ 'CONFIRM' | translate }}</button>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div class="row">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="col s12 m4 offset-m4">
+
+      <div class="input-field">
+        <input type="text" placeholder="Nome" formControlName="name">                
+      </div>
+      <div class="input-field right-align">
+        <button type="submit" class="btn-send">Salvar</button>       
+      </div>
+
+    </div>
+
+  </form>
+</div>

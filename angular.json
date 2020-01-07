@@ -23,13 +23,17 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/materialize-css/dist/css/materialize.css",
+              "./node_modules/materialize-css/dist/css/materialize.min.css",
+              "./node_modules/slick-carousel/slick/slick.css",
+              "./node_modules/slick-carousel/slick/slick-theme.css",
+              "./node_modules/swiper/css/swiper.min.css",
               "src/styles.scss"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.js",
-              "./node_modules/hammerjs/hammer.js",
-              "./node_modules/materialize-css/dist/js/materialize.js"
+              "./node_modules/slick-carousel/slick/slick.min.js",
+              "./node_modules/swiper/js/swiper.min.js",
+              "./node_modules/materialize-css/dist/js/materialize.min.js"
             ],
             "es5BrowserSupport": true
           },
