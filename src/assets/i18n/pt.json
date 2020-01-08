@@ -75,5 +75,10 @@
     "NOTESTARTDATE": "Data Inicio",
     "NOTEENDDATE": "Data Final",
     "CRITICALLYLEVEL": "Status",
-    "ADDNOTES": "Adicionar nota"
+    "ADDNOTES": "Adicionar nota",
+    "FINISHDESIGNATE": "Designar",
+    "PROJECTMANAGER": "GP Kyros",
+    "CUSTOMEROWNERPROJECT": "GP Cliente",
+    "OBSERVATIONPROJECT": "Observação do projeto",
+    "IDENTIFYPROJECT": "Alteração de escopo"
 }

@@ -78,9 +78,9 @@ export class ProjectsListComponent implements OnInit {
     });
   }
 
-  openReport(projectId) {
+  openReport(project) {
     const dataSend = {
-      projectId: projectId
+      project: project
     }
     const dialogRef = this.dialog.open(ReportEditComponent, {
       width: '90vw',

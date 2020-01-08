@@ -1,11 +1,8 @@
 <!-- <app-loading [loader]="loader"></app-loading> -->
 
 <div id="modal" *ngIf="typeNotes || statusNotes">
-  <div class="modal-header">Edit Report
-    <button type="button" class="close btn" [mat-dialog-close]="true">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+  <button type="button" class="close btn" [mat-dialog-close]="true"> <span aria-hidden="true">&times;</span> </button>
+  <!-- <div class="modal-header"> Edit Report </div> -->
   <div class="modal-body">
 
     <div class="row">
@@ -90,11 +87,11 @@
           </ng-container>
         </tbody>
       </table>
-
     </div>
-
+    
   </div>
-  <div class="modal-footer">
-    <button  *ngIf="formFind.valid" (click)="modalCreateNotesReport()" class="btn waves-effect waves-light right">{{ 'ADDNOTES' | translate }}</button>
+  <div class="modal-footer" *ngIf="formFind.valid">
+    <button (click)="modalEditProject()" class="btn waves-effect waves-light">{{ 'EDITPROJECT' | translate }}</button>
+    <button (click)="modalCreateNotesReport()" class="btn waves-effect waves-light right">{{ 'ADDNOTES' | translate }}</button>
   </div>
 </div>
