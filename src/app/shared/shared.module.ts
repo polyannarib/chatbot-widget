@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { CoreModule } from '../core/core.module';
+import { RouterModule } from '@angular/router';
 
 // Pipes do projeto
 import { FilterListPipe } from './pipe/filter.pipe';
@@ -24,11 +25,20 @@ import { ButtonSuspendComponent } from './components/buttons/button-suspend/butt
 import { ButtonDesignateComponent } from './components/buttons/button-designate/button-designate.component';
 import { ButtonReplanComponent } from './components/buttons/button-replan/button-replan.component';
 import { ChartjsComponent } from './components/chartjs/chartjs.component';
+import { SucessComponent } from './components/modal/sucess/sucess.component';
+import { ErrorComponent } from './components/modal/error/error.component';
+import { NotifyComponent } from './components/notify/notify.component';
+import { EditableComponent } from './components/editable/editable.component';
+
+// Diretivas
+import { EditModeDirective } from './directives/edit-mode.directive';
+import { ViewModeDirective } from './directives/view-mode.directive';
+import { EditableOnEnterDirective } from './directives/edit-on-enter.directive';
+import { FocusableDirective } from './directives/focusable.directive';
 
 // NgxMaterial components importados
 import { MzToastModule } from 'ngx-materialize';
 import { MzCollapsibleModule } from 'ngx-materialize';
-import { SlickModule } from 'ngx-slick';
 
 // Material Angular components importados
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -39,9 +49,17 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
-import { SucessComponent } from './components/modal/sucess/sucess.component';
-import { ErrorComponent } from './components/modal/error/error.component';
-import { RouterModule } from '@angular/router';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material';
+
 
 @NgModule({
   imports: [
@@ -52,16 +70,25 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     MzToastModule,
     MzCollapsibleModule,
+    TranslateModule,
     MatPaginatorModule,
     MatDialogModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
-    TranslateModule,
     MatRadioModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatTableModule,
-    SlickModule.forRoot(),
+    MatSnackBarModule,
+    MatBottomSheetModule,
+    MatListModule,
+    MatTabsModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatInputModule,
+    MatNativeDateModule, 
     RouterModule
   ],
   declarations: [
@@ -81,7 +108,13 @@ import { RouterModule } from '@angular/router';
     ButtonReplanComponent,
     ChartjsComponent,
     SucessComponent,
-    ErrorComponent
+    ErrorComponent,
+    NotifyComponent,
+    EditableComponent,
+    EditModeDirective,
+    ViewModeDirective,
+    EditableOnEnterDirective,
+    FocusableDirective
   ],
   exports: [
     FilterListPipe,
@@ -103,18 +136,44 @@ import { RouterModule } from '@angular/router';
     MatDatepickerModule,
     MatFormFieldModule,
     MatTableModule,
+    MatSnackBarModule,
+    MatBottomSheetModule,
+    MatListModule,
+    MatTabsModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatInputModule,
+    MatNativeDateModule,
     ButtonFinalizeComponent,
     ButtonRemoveComponent,
     ButtonSuspendComponent,
     ButtonDesignateComponent,
     ButtonReplanComponent,
     ChartjsComponent,
-    SlickModule
+    EditableComponent,
+    NotifyComponent,
+    EditModeDirective,
+    ViewModeDirective,
+    EditableOnEnterDirective,
+    FocusableDirective
   ],
   entryComponents: [
     FinalizeComponent,
     RemoveComponent,
-    SuspendComponent
+    SuspendComponent,
+    NotifyComponent,
+    SucessComponent,
+    ErrorComponent
+  ],
+  providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top'
+    }},
+    MatDatepickerModule
   ]
 })
 export class SharedModule { }

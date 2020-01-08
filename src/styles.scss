@@ -33,14 +33,45 @@ body {
     font-size: 1.64rem;
     text-align: center;
     padding-bottom: 10px;
+    border-bottom: 1px solid #ebebeb;
 }
 #modal .modal-body {
-    border-top: 1px solid #ebebeb;
-    border-bottom: 1px solid #ebebeb;
     padding: 15px 0px;
+    max-height: 60vh;
+    overflow-y: auto;
 }
 #modal .modal-footer {
+    border-top: 1px solid #ebebeb;
     padding-top: 20px;
+}
+#modal .close {
+    transition: all 0.05s ease;
+    background: #ff644a;
+    color: white;
+    box-shadow: none;
+    font-size: 31px;
+    border-radius: 2100%;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    padding-bottom: 2px;
+    position: absolute;
+    right: -38px;
+    top: -38px;
+}
+
+#modal .close:hover {
+    transition: all 0.05s ease;
+    transform: scale(1.1);
+    background: #ff4524;
+}
+
+#modal {
+    position: relative;
+}
+
+.mat-dialog-container {
+    overflow: visible !important;
 }
 
 
@@ -91,6 +122,22 @@ mz-collapsible-item-body ul {
     margin: 0px;
 }
 
+
+// codigo para o toastr/notify
+.mat-snack-bar-container {
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    margin: 24px;
+    max-width: 33vw;
+    min-width: 344px;
+    padding: 0px !important;
+    min-height: 48px;
+    transform-origin: center;
+}
+.cdk-overlay-dark-backdrop {
+    background: rgba(0,0,0,0.87);
+}
 // .modalBg {
 //     position: fixed;
 //     top: 0;

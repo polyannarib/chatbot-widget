@@ -1,8 +1,4 @@
-@font-face {
-    font-family: Intro;
-    src: url("../../../../assets/Intro.otf");
-  }
-
+@font-face { font-family: Intro; src: url("../../../../assets/Intro.otf"); }
 
 header nav {
     background-color: #cc092f;
@@ -15,4 +11,22 @@ header nav .brand-logo {
     text-align: center;
     font-size: 25px;
     color: #ffffff;
+}
+.dropdown-content {
+    width: 200px !important;
+    min-width: 100px;
+    top: 64px !important;
+}
+.dropdown-content li>a>i {
+    height: inherit;
+    line-height: inherit;
+    float: left;
+    margin: 0px 10px 0 0 !important;
+    width: 24px;
+}
+@media (max-width: 604px) 
+{
+    header nav .brand-logo {
+        font-size: 15px;
+    }
 }

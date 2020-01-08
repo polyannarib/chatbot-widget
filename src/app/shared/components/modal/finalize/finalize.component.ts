@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { TaskService } from 'src/app/core/services/task.service';
 import { MzToastService } from 'ngx-materialize';
+import { NotifyComponent } from '../../notify/notify.component';
 
 @Component({
   selector: 'app-finalize',
@@ -18,7 +19,7 @@ export class FinalizeComponent implements OnInit {
     public dialogRef: MatDialogRef<FinalizeComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private taskService: TaskService,
-    private toastService: MzToastService
+    private _snackBar: MatSnackBar,
   ) { }
 
   @Input() service: string;
@@ -31,14 +32,19 @@ export class FinalizeComponent implements OnInit {
     this.taskService.finalize(this.data.activityId).subscribe(
       (response) => {
         if(response.status === 0) {
-          this.toastService.show('Tarefa finalizada com sucesso!', 4000, 'toastrSucess');
+          this._snackBar.openFromComponent(NotifyComponent, 
+            { data: { type: 'success', message: 'Tarefa finalizada com sucesso!' }});
           this.dialogRef.close(response);
           return;
         }
         this.statusErr = response.status;
         this.errMessage = response.message;
+        this._snackBar.openFromComponent(NotifyComponent, 
+          { data: { type: 'error', message: 'Essa tarefa não pode ser finalizada!' }});
         this.loader = false;
       }, (err) => {
+        this._snackBar.openFromComponent(NotifyComponent, 
+          { data: { type: 'error', message: 'Essa tarefa não pode ser finalizada!' }});
         this.statusErr = err.status;
         this.errMessage = err.message;
         this.loader = false;

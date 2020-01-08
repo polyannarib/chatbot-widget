@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class TaskService {
 
   private url: string = environment.back_end_url;
+  private prefixService: string = 'task';
   
   constructor(private http: HttpClient) { }
 

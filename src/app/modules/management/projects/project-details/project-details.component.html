@@ -1,7 +1,11 @@
 <app-loading [loader]="loader"></app-loading>
 
 <div id="modal" *ngIf="projectTasks != null && !loader">
-  <div class="modal-header">{{ projectTasks?.name }}</div>
+  <div class="modal-header">{{ projectTasks?.name }}
+    <button type="button" class="close btn" [mat-dialog-close]="true">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
   <div class="modal-body">
 
     <div class="row dateProgress">
@@ -36,13 +40,13 @@
                 <div class="col m2 s12 left-align">{{ activity.player != null ? activity.player.name : '' }}</div>
                 <div class="col m2 s12 left-align">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</div>
                 <div class="col m1 s12 left-align">{{ activity.dailyEffort }}h</div>
-                <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}" [ngClass]="{  
-                                'building': activity.status == 'BUILDING', 
-                                'warning': activity.status == 'EXECUTION', 
-                                'ok': activity.status == 'FINISHED', 
-                                'hanging': activity.status == 'HANGING',
-                                'delayed': activity.status == 'DELAYED',
-                                'waiting': activity.status == 'WAITING' }">fiber_manual_record</i></div>
+                <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}" 
+                    [ngStyle]="{'color': activity.status == 'BUILDING' ? 'gray' : '#000',
+                                'color': activity.status == 'EXECUTION' ? '#FFD700' : '#000',
+                                'color': activity.status == 'FINISHED' ? 'rgb(21,255,0)' : '#000',
+                                'color': activity.status == 'HANGING' ? '#85C1E9' : '#000',
+                                'color': activity.status == 'DELAYED' ? 'rgb(255, 0, 0)' : '#000',
+                                'color': activity.status == 'WAITING' ? '#ae6634' : '#000' }">fiber_manual_record</i></div>
               </div>
             </mz-collapsible-item-header>
             <mz-collapsible-item-body>
@@ -56,13 +60,13 @@
                 <li><span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration }}h</li>
                 <li><span>{{ 'EFFORT' | translate }} </span> {{ activity.effort }}h</li>
               </ul>
-              <div class="containerButtons center-align">
+              <div *ngIf="activity.status != 'FINISHED'" class="containerButtons center-align">
                 <app-button-finalize [activityId]="activity.id"></app-button-finalize>
                 <app-button-remove [activityId]="activity.id"></app-button-remove>
                 <app-button-suspend [activityId]="activity.id"></app-button-suspend>
                 <app-button-designate (isDesign)="reciverDesignate($event)"></app-button-designate>
               </div>
-              <app-players-find [taskId]="activity.id" *ngIf="designate"></app-players-find>
+              <app-players-find [taskId]="activity.id" [dataInicial]="activity.expectedAt" [dataFim]="activity.previewedAt" *ngIf="designate"></app-players-find>
             </mz-collapsible-item-body>
           </mz-collapsible-item>
         </ng-container>
@@ -71,7 +75,6 @@
     </section>
 
   </div>
-  <div class="modal-footer">
-    <button class="btn waves-effect waves-light" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
-  </div>
+<!--   <div class="modal-footer">
+  </div> -->
 </div>

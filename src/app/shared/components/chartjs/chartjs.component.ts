@@ -30,7 +30,6 @@ export class ChartjsComponent implements OnInit {
 
   ngOnInit() {
     this.id = 'myChart' + new Date().getTime();
-    console.log(this.id);
   }
 
   ngAfterViewInit() {

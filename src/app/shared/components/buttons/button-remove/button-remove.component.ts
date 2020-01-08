@@ -29,8 +29,8 @@ export class ButtonRemoveComponent implements OnInit {
       data: dataSend
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('result ------- remove component --------');
-      console.log(result);
+      // console.log('result ------- remove component --------');
+      // console.log(result);
     });
   }
 

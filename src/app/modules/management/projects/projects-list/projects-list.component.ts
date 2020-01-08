@@ -4,6 +4,7 @@ import { ProjectService } from 'src/app/core/services/project.service';
 import { Project } from 'src/app/shared/models/project';
 import { MatDialog } from '@angular/material';
 import { ProjectDetailsComponent } from '../project-details/project-details.component';
+import { ReportEditComponent } from '../../report/report-edit/report-edit.component';
 
 @Component({
   selector: 'app-projects-list',
@@ -16,6 +17,7 @@ export class ProjectsListComponent implements OnInit {
 
   daysOfWeek10: any;
   projectsList: any;
+  filteredProjectsList: any;
   loader: boolean = false;
   loaderDays: boolean = false;
   startDate: any;
@@ -36,15 +38,10 @@ export class ProjectsListComponent implements OnInit {
   }
 
   daysOfWeek(start, end) {
-
-    console.log('start'+ start);
-    console.log('end'+ end);
-
     this.daysOfWeek10 = eachDayOfInterval({
       start: start,
       end: end
     })
-    console.log(this.daysOfWeek10);
   }
 
   findProjects() {
@@ -61,6 +58,7 @@ export class ProjectsListComponent implements OnInit {
         this.loader = false;
         this.loaderProject.emit(false);
         this.projectsList = response.object.list;
+        this.filteredProjectsList = this.projectsList;
       }, (err) => {
         this.loader = false;
         this.loaderProject.emit(false);
@@ -75,6 +73,16 @@ export class ProjectsListComponent implements OnInit {
       projectDate: new Date(activity.year, activity.month, activity.day)
     }
     const dialogRef = this.dialog.open(ProjectDetailsComponent, {
+      width: '90vw',
+      data: dataSend
+    });
+  }
+
+  openReport(project) {
+    const dataSend = {
+      project: project
+    }
+    const dialogRef = this.dialog.open(ReportEditComponent, {
       width: '90vw',
       data: dataSend
     });
@@ -100,7 +108,8 @@ export class ProjectsListComponent implements OnInit {
   onSearchChangeProject(searchValue: string): void {
     const project = this.projectsList;
     searchValue = searchValue.toLocaleLowerCase();
-    return project.filter((project) => project.name.toLocaleLowerCase().indexOf(searchValue) !== -1);
+    this.filteredProjectsList = project.filter((project) => project.name.toLocaleLowerCase().indexOf(searchValue) !== -1);
+
     // this.project = this.project.filter(
     //   (curr) => {
     //     return curr.name.toUpperCase().includes(searchValue.toUpperCase());

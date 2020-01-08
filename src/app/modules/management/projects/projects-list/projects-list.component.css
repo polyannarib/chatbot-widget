@@ -47,3 +47,12 @@ ul {
 .tableOverflow::-webkit-scrollbar { 
     display: none; 
 }
+.mat-icon-button {
+    padding: 0;
+    min-width: 0;
+    width: 30px !important;
+    height: 30px !important;
+    flex-shrink: 0;
+    line-height: 30px !important;
+    border-radius: 50%;
+}

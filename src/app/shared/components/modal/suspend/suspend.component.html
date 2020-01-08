@@ -1,5 +1,22 @@
 <app-loading [loader]="loader"></app-loading>
-<div *ngIf="!loader">
+
+<div id="modal" *ngIf="!loader">
+  <div class="modal-header">{{ 'CONFIRMACTION' | translate }}
+    <button type="button" class="close btn" [mat-dialog-close]="true"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="statusErr != 0">{{ errMessage | translate }}</div>
+    <div *ngIf="statusErr === 0 || !statusErr">{{ 'MESSAGECONFIRMSUSPEND' | translate }}</div>
+    <mat-form-field class="example-full-width">
+      <textarea matInput placeholder="{{ 'REASON' | translate }}" [(ngModel)]="reason"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="modal-footer">
+    <button class="btn waves-effect waves-light" (click)="confirmFinalize()">{{ 'CONFIRM' | translate }}</button>
+  </div>
+</div>
+
+<!-- <div *ngIf="!loader">
   <h2 mat-dialog-title class="center-align">{{ 'CONFIRMACTION' | translate }}</h2>
   <mat-dialog-content class="mat-typography">
     <div class="row">
@@ -7,7 +24,7 @@
       <div *ngIf="statusErr === 0 || !statusErr">{{ 'MESSAGECONFIRMSUSPEND' | translate }}</div>
     </div>
     <div class="row">
-      <!-- <input matInput placeholder="{{ 'REASON' | translate }}" value="" [(ngModel)]="reason"> -->
+      <input matInput placeholder="{{ 'REASON' | translate }}" value="" [(ngModel)]="reason">
       <div class="input-field">
         <input id="reason" type="text" class="validate" [(ngModel)]="reason">
         <label for="reason">{{ 'REASON' | translate }}</label>
@@ -18,4 +35,4 @@
     <button class="btn waves-effect waves-light" mat-dialog-close>{{ 'CLOSE' | translate }}</button>
     <button class="btn waves-effect waves-light" (click)="confirmFinalize()">{{ 'CONFIRM' | translate }}</button>
   </mat-dialog-actions>
-</div>
+</div> -->
