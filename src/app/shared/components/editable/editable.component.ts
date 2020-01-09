@@ -1,9 +1,9 @@
 import { Component, OnInit, ContentChild, Output, EventEmitter, ElementRef } from '@angular/core';
-import { ViewModeDirective } from '../../directives/view-mode.directive';
-import { EditModeDirective } from '../../directives/edit-mode.directive';
 import { Subject, fromEvent } from 'rxjs';
 import { switchMapTo, filter, take } from 'rxjs/operators';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { ViewModeDirective } from '../../directives/view-mode.directive';
+import { EditModeDirective } from '../../directives/edit-mode.directive';
 
 @Component({
   selector: 'editable',
@@ -12,54 +12,54 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 })
 export class EditableComponent {
 
-  @ContentChild(ViewModeDirective) viewModeTpl: ViewModeDirective;
-  @ContentChild(EditModeDirective) editModeTpl: EditModeDirective;
-  @Output() update = new EventEmitter();
+  // @ContentChild(ViewModeDirective) viewModeTpl: ViewModeDirective;
+  // @ContentChild(EditModeDirective) editModeTpl: EditModeDirective;
+  // @Output() update = new EventEmitter();
 
-  editMode = new Subject();
-  editMode$ = this.editMode.asObservable();
+  // editMode = new Subject();
+  // editMode$ = this.editMode.asObservable();
 
-  mode: 'view' | 'edit' = 'view';
+  // mode: 'view' | 'edit' = 'view';
 
   constructor(
-    private host: ElementRef
+    // private host: ElementRef
   ) { }
 
-  ngOnInit() {
-    this.viewModeHandler();
-    this.editModeHandler();
-  }
+  // ngOnInit() {
+  //   this.viewModeHandler();
+  //   this.editModeHandler();
+  // }
 
-  toViewMode() {
-    this.update.next();
-    this.mode = 'view';
-  }
+  // toViewMode() {
+  //   this.update.next();
+  //   this.mode = 'view';
+  // }
 
-  private get element() {
-    return this.host.nativeElement;
-  }
+  // private get element() {
+  //   return this.host.nativeElement;
+  // }
 
-  private viewModeHandler() {
-    fromEvent(this.element, 'dblclick').pipe(
-      untilDestroyed(this)
-    ).subscribe(() => { 
-      this.mode = 'edit';
-      this.editMode.next(true);
-    });
-  }
+  // private viewModeHandler() {
+  //   fromEvent(this.element, 'dblclick').pipe(
+  //     untilDestroyed(this)
+  //   ).subscribe(() => { 
+  //     this.mode = 'edit';
+  //     this.editMode.next(true);
+  //   });
+  // }
 
-  private editModeHandler() {
-    const clickOutside$ = fromEvent(document, 'click').pipe(
-      filter(({ target }) => this.element.contains(target) === false),
-      take(1)
-    )
-    this.editMode$.pipe(switchMapTo(clickOutside$), untilDestroyed(this)).subscribe(event => this.toViewMode());
-  }
+  // private editModeHandler() {
+  //   const clickOutside$ = fromEvent(document, 'click').pipe(
+  //     filter(({ target }) => this.element.contains(target) === false),
+  //     take(1)
+  //   )
+  //   this.editMode$.pipe(switchMapTo(clickOutside$), untilDestroyed(this)).subscribe(event => this.toViewMode());
+  // }
 
-  get currentView() {
-    return this.mode === 'view' ? this.viewModeTpl.tpl : this.editModeTpl.tpl;
-  }
+  // get currentView() {
+  //   return this.mode === 'view' ? this.viewModeTpl.tpl : this.editModeTpl.tpl;
+  // }
 
-  ngOnDestroy() { }
+  // ngOnDestroy() { }
 
 }
