@@ -37,7 +37,6 @@ import { EditableOnEnterDirective } from './directives/edit-on-enter.directive';
 import { FocusableDirective } from './directives/focusable.directive';
 
 // NgxMaterial components importados
-import { MzToastModule } from 'ngx-materialize';
 import { MzCollapsibleModule } from 'ngx-materialize';
 
 // Material Angular components importados
@@ -60,7 +59,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -68,7 +66,6 @@ import { MatNativeDateModule } from '@angular/material';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    MzToastModule,
     MzCollapsibleModule,
     TranslateModule,
     MatPaginatorModule,
