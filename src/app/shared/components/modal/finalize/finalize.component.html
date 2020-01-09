@@ -1,11 +1,13 @@
 <div id="modal">
-  <div class="modal-header">{{ 'MESSAGECONFIRMFINALIZE' | translate }}</div>
+  <div class="modal-header">
+    {{ 'MESSAGECONFIRMFINALIZE' | translate }}
+    <button type="button" class="close btn" [mat-dialog-close]="true"><span aria-hidden="true">&times;</span></button>
+  </div>
   <div class="modal-body">
     <p *ngIf="statusErr != 0">{{ errMessage | translate }}</p>
     <p *ngIf="statusErr === 0 || !statusErr">{{ 'MESSAGECONFIRMFINALIZE' | translate }}</p>
   </div>
   <div class="modal-footer">
-    <button class="btn waves-effect waves-light" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
     <button class="btn waves-effect waves-light right" (click)="confirmFinalize()">{{ 'CONFIRM' | translate }}</button>
   </div>
 </div>

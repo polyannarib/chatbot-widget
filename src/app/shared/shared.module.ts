@@ -163,7 +163,9 @@ import { MatNativeDateModule } from '@angular/material';
     FinalizeComponent,
     RemoveComponent,
     SuspendComponent,
-    NotifyComponent
+    NotifyComponent,
+    SucessComponent,
+    ErrorComponent
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {

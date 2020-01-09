@@ -1,7 +1,8 @@
 <!-- <app-loading [loader]="loader"></app-loading> -->
 
 <div id="modal" *ngIf="typeNotes || statusNotes">
-  <!-- <div class="modal-header">Edit Report</div> -->
+  <button type="button" class="close btn" [mat-dialog-close]="true"> <span aria-hidden="true">&times;</span> </button>
+  <!-- <div class="modal-header"> Edit Report </div> -->
   <div class="modal-body">
 
     <div class="row">
@@ -81,17 +82,16 @@
                 <!-- [ngClass]="'color': activity.status == '1' ? 'green', 'color': activity.status == '2' ? 'yellow', 'color': activity.status == '3' ? 'red'" -->
                 <i class="material-icons">fiber_manual_record</i>
               </td>
-              <td><button (click)="modalEditNotesReport(note)" mat-icon-button><i class="material-icons">edit</i></button></td>
+              <td class="action"><button matTooltip="Editar" (click)="modalEditNotesReport(note)" mat-mini-fab color="warn"><i class="material-icons">edit</i></button></td>
             </tr>
           </ng-container>
         </tbody>
       </table>
-
     </div>
-
+    
   </div>
-  <div class="modal-footer">
-    <button class="btn waves-effect waves-light" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
-    <button  *ngIf="formFind.valid" (click)="modalCreateNotesReport()" class="btn waves-effect waves-light right">{{ 'ADDNOTES' | translate }}</button>
+  <div class="modal-footer" *ngIf="formFind.valid">
+    <button (click)="modalEditProject()" class="btn waves-effect waves-light">{{ 'EDITPROJECT' | translate }}</button>
+    <button (click)="modalCreateNotesReport()" class="btn waves-effect waves-light right">{{ 'ADDNOTES' | translate }}</button>
   </div>
 </div>

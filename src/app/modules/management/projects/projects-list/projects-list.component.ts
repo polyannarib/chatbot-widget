@@ -17,6 +17,7 @@ export class ProjectsListComponent implements OnInit {
 
   daysOfWeek10: any;
   projectsList: any;
+  filteredProjectsList: any;
   loader: boolean = false;
   loaderDays: boolean = false;
   startDate: any;
@@ -57,6 +58,7 @@ export class ProjectsListComponent implements OnInit {
         this.loader = false;
         this.loaderProject.emit(false);
         this.projectsList = response.object.list;
+        this.filteredProjectsList = this.projectsList;
       }, (err) => {
         this.loader = false;
         this.loaderProject.emit(false);
@@ -76,9 +78,9 @@ export class ProjectsListComponent implements OnInit {
     });
   }
 
-  openReport(projectId) {
+  openReport(project) {
     const dataSend = {
-      projectId: projectId
+      project: project
     }
     const dialogRef = this.dialog.open(ReportEditComponent, {
       width: '90vw',
@@ -106,7 +108,8 @@ export class ProjectsListComponent implements OnInit {
   onSearchChangeProject(searchValue: string): void {
     const project = this.projectsList;
     searchValue = searchValue.toLocaleLowerCase();
-    return project.filter((project) => project.name.toLocaleLowerCase().indexOf(searchValue) !== -1);
+    this.filteredProjectsList = project.filter((project) => project.name.toLocaleLowerCase().indexOf(searchValue) !== -1);
+
     // this.project = this.project.filter(
     //   (curr) => {
     //     return curr.name.toUpperCase().includes(searchValue.toUpperCase());

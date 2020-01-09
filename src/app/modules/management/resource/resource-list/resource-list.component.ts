@@ -59,6 +59,7 @@ export class ResourceListComponent implements OnInit {
         this.loader = false;
         this.loaderResource.emit(false);
         this.players = response.object.list;
+        this.filteredPlayers = this.players;
       }, (err) => {
         this.loader = false;
         this.loaderResource.emit(false);
@@ -69,6 +70,7 @@ export class ResourceListComponent implements OnInit {
   onSearchChangeResource(searchValue: string): void {
     let PlayersFilters = this.players;
     PlayersFilters = this.players.filter((curr) => { return curr.name.toUpperCase().includes(searchValue.toUpperCase()) })
+    this.filteredPlayers = PlayersFilters;
   }
 
   modalResourceDetails(playerId, activity) {
