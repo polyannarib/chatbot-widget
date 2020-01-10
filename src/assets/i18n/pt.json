@@ -80,5 +80,6 @@
     "PROJECTMANAGER": "GP Kyros",
     "CUSTOMEROWNERPROJECT": "GP Cliente",
     "OBSERVATIONPROJECT": "Observação do projeto",
-    "IDENTIFYPROJECT": "Alteração de escopo"
+    "IDENTIFYPROJECT": "Alteração de escopo",
+    "EDITPROJECT": "Editar projeto"
 }

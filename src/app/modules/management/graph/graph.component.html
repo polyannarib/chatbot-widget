@@ -1,24 +1,26 @@
 <app-loading [loader]="loader"></app-loading>
 
 <div *ngIf="charts && !loader">
-  <div class="sliderGraph tableOverflow">
-    <div *ngFor="let chartItem of charts">
-      <app-chartjs
-        type="pie"
-        [labels]="chartItem.labels"
-        [backgroundColor]="chartItem.backgroundColor"
-        [data]="chartItem.data"
-        [label]="chartItem.label"
-        width="150" 
-        height="150">
-      </app-chartjs>
-      <div class="boxText">
-        <ng-container *ngFor="let color of chartItem.backgroundColor let i = index">
-          <p class="textDash"><i class="material-icons" [ngStyle]="{ 'color': color }">fiber_manual_record</i> - {{ chartItem.labels[i] }}</p >
-        </ng-container>
-      </div>
-    </div>
-  </div>
+  <!-- <div class="sliderGraph tableOverflow"> -->
+    <app-slick [data]="charts" [options]="configSlick">
+      <!-- <div *ngFor="let chartItem of charts"> -->
+        <!-- <app-chartjs
+          type="pie"
+          [labels]="chartItem.labels"
+          [backgroundColor]="chartItem.backgroundColor"
+          [data]="chartItem.data"
+          [label]="chartItem.label"
+          width="150" 
+          height="150">
+        </app-chartjs>
+        <div class="boxText">
+          <ng-container *ngFor="let color of chartItem.backgroundColor let i = index">
+            <p class="textDash"><i class="material-icons" [ngStyle]="{ 'color': color }">fiber_manual_record</i> - {{ chartItem.labels[i] }}</p >
+          </ng-container>
+        </div> -->
+      <!-- </div> -->
+    </app-slick>
+  <!-- </div> -->
 </div>
 
 <!-- <div class="swiper-container" *ngIf="charts && !loader">

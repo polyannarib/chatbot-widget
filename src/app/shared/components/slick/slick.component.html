@@ -1,0 +1,15 @@
+<div class="slider" [attr.class]="class">
+    <!-- <div>
+      <img width="100%" src="http://placehold.it/350x300?text=1">
+    </div>
+    <div>
+      <img width="100%" src="http://placehold.it/350x300?text=2">
+    </div>
+    <div>
+      <img width="100%" src="http://placehold.it/350x300?text=3">
+    </div> -->
+    <div *ngFor="let item of data">
+        <img width="100%" src="http://placehold.it/350x300?text=3">
+        <!-- <ng-content></ng-content> -->
+    </div>
+</div>

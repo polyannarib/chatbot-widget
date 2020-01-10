@@ -29,6 +29,7 @@ import { SucessComponent } from './components/modal/sucess/sucess.component';
 import { ErrorComponent } from './components/modal/error/error.component';
 import { NotifyComponent } from './components/notify/notify.component';
 import { EditableComponent } from './components/editable/editable.component';
+import { SlickComponent } from './components/slick/slick.component';
 
 // Diretivas
 import { EditModeDirective } from './directives/edit-mode.directive';
@@ -59,6 +60,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material';
+import { RectangleDirective } from './directives/rectangle.directive';
 
 
 @NgModule({
@@ -114,7 +116,9 @@ import { MatNativeDateModule } from '@angular/material';
     EditModeDirective,
     ViewModeDirective,
     EditableOnEnterDirective,
-    FocusableDirective
+    FocusableDirective,
+    SlickComponent,
+    RectangleDirective
   ],
   exports: [
     FilterListPipe,
@@ -153,6 +157,7 @@ import { MatNativeDateModule } from '@angular/material';
     ButtonReplanComponent,
     ChartjsComponent,
     EditableComponent,
+    SlickComponent,
     NotifyComponent,
     EditModeDirective,
     ViewModeDirective,
