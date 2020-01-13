@@ -12,7 +12,7 @@ import { FilterListPipe } from './pipe/filter.pipe';
 
 // Componentes criados no projeto
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component'
+import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CountComponent } from './components/count/count.component';
 import { FinalizeComponent } from './components/modal/finalize/finalize.component';
@@ -173,11 +173,13 @@ import { RectangleDirective } from './directives/rectangle.directive';
     ErrorComponent
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
-      duration: 3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top'
-    }},
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top'
+      }
+    },
     MatDatepickerModule
   ]
 })
