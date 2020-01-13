@@ -3,7 +3,7 @@
 <div id="modal" *ngIf="projectTasks != null && !loader">
   <div class="modal-header">{{ projectTasks?.name }}
     <button type="button" class="close btn" [mat-dialog-close]="true">
-      <span aria-hidden="true">&times;</span>
+      <i class="material-icons">close</i>
     </button>
   </div>
   <div class="modal-body">
@@ -15,12 +15,12 @@
       </div>
       <div class="col s12 m8">
         <div class="title">{{ 'PROGRESS' | translate }}</div>
-        <div class="progress hoverable">
-          <div class="determinate" [ngStyle]="{'width': projectDate?.progress+'%'}"></div>
+        <div class="progress">
+          <div class="determinate" [ngStyle]="{'width': projectTasks?.progress+'%'}"></div>
         </div>
       </div>
     </div>
-
+    
     <app-count *ngIf="projectTasks?.tasks == null">Esse projeto está sem task no momento!</app-count>
 
     <section *ngIf="projectTasks?.tasks != null">

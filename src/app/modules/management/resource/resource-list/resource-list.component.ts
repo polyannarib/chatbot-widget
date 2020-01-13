@@ -74,10 +74,10 @@ export class ResourceListComponent implements OnInit {
   }
 
   modalResourceDetails(playerId, activity) {
-    activity.month = activity.month-1;
+    // activity.month = activity.month-1;
     const dataSend = {
       playerId: playerId,
-      activityDate: new Date(activity.year, activity.month, activity.day)
+      activityDate: new Date(activity.referenceDate)
     }
     const dialogRef = this.dialog.open(ResourceDetailsComponent, {
       width: '90vw',
