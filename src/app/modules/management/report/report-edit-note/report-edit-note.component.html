@@ -1,7 +1,7 @@
 <app-loading [loader]="loader"></app-loading>
 
 <div id="modal" *ngIf="!loader">
-  <button type="button" class="close btn" [mat-dialog-close]="true"><span aria-hidden="true">&times;</span></button>
+  <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
   <!-- <div class="modal-header"></div> -->
   <form [formGroup]="form" (ngSubmit)="saveNotes()">
     <div class="modal-body">

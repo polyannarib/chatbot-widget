@@ -17,15 +17,14 @@ export class GraphComponent implements OnInit, AfterViewInit {
 
   chartsList: any;
   loader: boolean = false;
-  arrows: boolean = false;
+  arrows: boolean = true;
   page
   pageSize
   countChart
   slick = {
     dots: false,
-    infinite: false,
-    speed: 300,
-    slidesToShow: 6,
+    infinite: true,
+    slidesToShow: 5,
     slidesToScroll: 1,
     responsive: [
       {
@@ -34,7 +33,6 @@ export class GraphComponent implements OnInit, AfterViewInit {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true
         }
       },
       {

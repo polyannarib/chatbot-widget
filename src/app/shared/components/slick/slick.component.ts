@@ -26,8 +26,6 @@ export class SlickComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     this.initArrows();
-    console.log('this.options');
-    console.log(this.options);
     this.initSlick();
   }
 
@@ -37,7 +35,7 @@ export class SlickComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.slickClass.unslick();
+    this.slickClass.slick('unslick');
   }
 
   initArrows() {

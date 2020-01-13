@@ -1,7 +1,7 @@
 <app-loading [loader]="loader"></app-loading>
 
 <div *ngIf="charts && !loader">
-  <app-slick [options]="slick">
+  <app-slick [options]="slick" arrows="true">
     <div *ngFor="let chartItem of charts">
       <app-chartjs
         type="pie"
