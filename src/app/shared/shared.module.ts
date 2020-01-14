@@ -12,6 +12,8 @@ import { FilterListPipe } from './pipe/filter.pipe';
 
 // Componentes criados no projeto
 import { HeaderComponent } from './components/header/header.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CountComponent } from './components/count/count.component';
@@ -62,6 +64,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material';
 import { RectangleDirective } from './directives/rectangle.directive';
 
+//Serviços
+import {MenuService} from './services/menu.service';
+import {MenuItems} from './components/menu/menu.json'
 
 @NgModule({
   imports: [
@@ -94,6 +99,8 @@ import { RectangleDirective } from './directives/rectangle.directive';
     RouterModule
   ],
   declarations: [
+    SidebarComponent,
+    MenuComponent,
     FilterListPipe,
     HeaderComponent,
     FooterComponent,
@@ -121,6 +128,8 @@ import { RectangleDirective } from './directives/rectangle.directive';
     RectangleDirective
   ],
   exports: [
+    SidebarComponent,
+    MenuComponent,
     FilterListPipe,
     HeaderComponent,
     FooterComponent,
@@ -173,6 +182,7 @@ import { RectangleDirective } from './directives/rectangle.directive';
     ErrorComponent
   ],
   providers: [
+<<<<<<< HEAD
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
         duration: 3000,
@@ -181,6 +191,16 @@ import { RectangleDirective } from './directives/rectangle.directive';
       }
     },
     MatDatepickerModule
+=======
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top'
+    }},
+    MatDatepickerModule,
+    MenuService,
+    MenuItems
+>>>>>>> sidebar
   ]
 })
 export class SharedModule { }
