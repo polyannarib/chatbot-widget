@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ManagementComponent } from '../management.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { ResourceFindComponent } from '../resource/resource-find/resource-find.component';
 
 const APP_ROUTES: Routes = [
   {
     path: '', component: ManagementComponent, children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, data: { scopes: ['ROLE_INVESTOR'] } },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'resource/find', component: ResourceFindComponent },
       // { path: 'user', component: AdminUserComponent, data: { scopes: ['ROLE_INVESTOR'] }, children: [
       //   { path: '', redirectTo: 'perfil', pathMatch: 'full' },
       //   { path: 'perfil', component: AdminUserComponent, data: { scopes: ['ROLE_INVESTOR'] } }

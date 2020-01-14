@@ -43,7 +43,13 @@ export class PlayersFindComponent implements OnInit {
     this.playerService.findDesignatePlayers(taskId).subscribe(
       (response) => {
         this.playerRated = response.object.rated;
+        this.playerRatedFilter = this.playerRated;
+
         this.playerAvailable = response.object.available;
+        this.playerAvailableFilter = this.playerAvailable;
+
+        this.onSearchChange('');
+
         this.loader = false;
       }, (err) => {
         this.loader = false;
@@ -73,16 +79,23 @@ export class PlayersFindComponent implements OnInit {
   }
 
   onSearchChange(searchValue: string): void {
-    this.playerRatedFilter = this.playerRated.filter(
-      (curr) => {
-        return curr.name.toUpperCase().includes(searchValue.toUpperCase());
-      }
-    )
-    this.playerAvailableFilter = this.playerAvailable.filter(
-      (curr) => {
-        return curr.name.toUpperCase().includes(searchValue.toUpperCase());
-      }
-    )
+    if(this.playerRated != null){
+      this.playerRatedFilter = this.playerRated.filter(
+        (curr) => {
+          return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+        }
+      )
+      this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
+    }
+    if(this.playerAvailable != null){
+      this.playerAvailableFilter = this.playerAvailable.filter(
+        (curr) => {
+          return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+        }
+      )
+      this.playerAvailableFilter.splice(5,this.playerAvailableFilter.length);
+    }
+
   }
 
 

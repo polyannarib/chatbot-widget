@@ -10,7 +10,7 @@
             <label for="findPlayerRated">{{ 'SEARCHMORE' | translate }}</label>
           </div>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="playerSelect">
-            <mat-radio-button class="example-radio-button" *ngFor="let player of playerRated" [value]="player.id">
+            <mat-radio-button class="example-radio-button" *ngFor="let player of playerRatedFilter" [value]="player.id">
               <span class="radio-text valign-wrapper">{{ player.name }}
                 <i class="material-icons tiny green-text ml-5">event_available</i>
               </span>
@@ -22,11 +22,11 @@
         <app-count *ngIf="!playerAvailable">Sem recursos no momento</app-count>
         <div *ngIf="playerAvailable">
           <div class="input-field">
-            <input matInput (input)="onSearchChange($event.target.value)" id="find" class="validate">
-            <label for="find">{{ 'SEARCHMORE' | translate }}</label>
+            <input matInput (input)="onSearchChange($event.target.value)" id="find" class="validate"
+              placeholder="{{ 'SEARCHMORE' | translate }}">
           </div>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="playerSelect">
-            <mat-radio-button class="example-radio-button" *ngFor="let player of playerAvailable" [value]="player.id">
+            <mat-radio-button class="example-radio-button" *ngFor="let player of playerAvailableFilter" [value]="player.id">
               <span class="radio-text valign-wrapper">{{ player.name }}
                 <i class="material-icons tiny green-text ml-5">event_available</i>
               </span>
@@ -37,7 +37,7 @@
     </div>
     <div class="row">
       <div class="col-xs-12">
-        <button (click)="onSubmit()" class="btn waves-effect waves-light right">{{ 'FINISH' | translate }}</button>
+        <button (click)="onSubmit()" class="btn waves-effect waves-light right">{{ 'FINISHDESIGNATE' | translate }}</button>
       </div>
     </div>
   </div>

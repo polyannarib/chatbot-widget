@@ -21,18 +21,15 @@ export class CompanySelectComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.form)
   }
 
   onLogin(companyCode: number): void {
 
-    console.log(this.data);
     
     this.loader = true;
     this.form = this.data.form;
     this.form.companyCode = companyCode;
 
-    console.log(this.form);
 
     this.authService.login(this.form).subscribe(
       (response) => {

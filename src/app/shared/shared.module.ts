@@ -12,7 +12,7 @@ import { FilterListPipe } from './pipe/filter.pipe';
 
 // Componentes criados no projeto
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component'
+import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CountComponent } from './components/count/count.component';
 import { FinalizeComponent } from './components/modal/finalize/finalize.component';
@@ -28,6 +28,14 @@ import { ChartjsComponent } from './components/chartjs/chartjs.component';
 import { SucessComponent } from './components/modal/sucess/sucess.component';
 import { ErrorComponent } from './components/modal/error/error.component';
 import { NotifyComponent } from './components/notify/notify.component';
+import { EditableComponent } from './components/editable/editable.component';
+import { SlickComponent } from './components/slick/slick.component';
+
+// Diretivas
+import { EditModeDirective } from './directives/edit-mode.directive';
+import { ViewModeDirective } from './directives/view-mode.directive';
+import { EditableOnEnterDirective } from './directives/edit-on-enter.directive';
+import { FocusableDirective } from './directives/focusable.directive';
 
 // NgxMaterial components importados
 import { MzToastModule } from 'ngx-materialize';
@@ -45,6 +53,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material';
+import { RectangleDirective } from './directives/rectangle.directive';
 
 
 @NgModule({
@@ -56,11 +72,11 @@ import { MatListModule } from '@angular/material/list';
     HttpClientModule,
     MzToastModule,
     MzCollapsibleModule,
+    TranslateModule,
     MatPaginatorModule,
     MatDialogModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
-    TranslateModule,
     MatRadioModule,
     MatDatepickerModule,
     MatFormFieldModule,
@@ -68,6 +84,13 @@ import { MatListModule } from '@angular/material/list';
     MatSnackBarModule,
     MatBottomSheetModule,
     MatListModule,
+    MatTabsModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatInputModule,
+    MatNativeDateModule, 
     RouterModule
   ],
   declarations: [
@@ -88,7 +111,14 @@ import { MatListModule } from '@angular/material/list';
     ChartjsComponent,
     SucessComponent,
     ErrorComponent,
-    NotifyComponent
+    NotifyComponent,
+    EditableComponent,
+    EditModeDirective,
+    ViewModeDirective,
+    EditableOnEnterDirective,
+    FocusableDirective,
+    SlickComponent,
+    RectangleDirective
   ],
   exports: [
     FilterListPipe,
@@ -113,26 +143,44 @@ import { MatListModule } from '@angular/material/list';
     MatSnackBarModule,
     MatBottomSheetModule,
     MatListModule,
+    MatTabsModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatInputModule,
+    MatNativeDateModule,
     ButtonFinalizeComponent,
     ButtonRemoveComponent,
     ButtonSuspendComponent,
     ButtonDesignateComponent,
     ButtonReplanComponent,
     ChartjsComponent,
-    NotifyComponent
+    EditableComponent,
+    SlickComponent,
+    NotifyComponent,
+    EditModeDirective,
+    ViewModeDirective,
+    EditableOnEnterDirective,
+    FocusableDirective
   ],
   entryComponents: [
     FinalizeComponent,
     RemoveComponent,
     SuspendComponent,
-    NotifyComponent
+    NotifyComponent,
+    SucessComponent,
+    ErrorComponent
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
-      duration: 3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top'
-    }}
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top'
+      }
+    },
+    MatDatepickerModule
   ]
 })
 export class SharedModule { }

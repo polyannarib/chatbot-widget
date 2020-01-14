@@ -41,3 +41,10 @@ ul {
 .tableOverflow::-webkit-scrollbar { 
     display: none; 
 }
+.border-ok {
+    border: solid 2px green;
+}
+
+.border-delayed {
+    border: solid 2px red;
+}
