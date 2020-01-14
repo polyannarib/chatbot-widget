@@ -4,7 +4,7 @@
 
 export const environment = {
   // back_end_url: 'https://www.kyros.com.br/workplayer-portal/services',
-  back_end_url: 'http://localhost:8080/workplayer-portal/services',
+  back_end_url: 'http://192.168.1.235:8989/workplayer-portal/services',
   production: false
 };
 

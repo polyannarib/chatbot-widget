@@ -4,7 +4,8 @@
 
 
 body {
-    background-color: #EBEBEB;
+    /* background-color: #EBEBEB; */
+    background-color: #e4eded;
 }
 
 /* Codigo de padronização dos botões de dias do Dashboard */
@@ -15,7 +16,7 @@ body {
     overflow: hidden;
     z-index: 1;
     width: 33px;
-    height: 33px;
+    height: 100%;
     line-height: 33px;
     padding: 0;
     border-radius: 0%;

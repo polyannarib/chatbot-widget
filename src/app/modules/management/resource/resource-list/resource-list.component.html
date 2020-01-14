@@ -28,12 +28,12 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let player of filteredPlayers">
+        <ng-container *ngFor="let player of filteredPlayers;">
           <tr class="card">
             <td class="spacename"><i class="material-icons tiny">person</i></td>
             <td class="left-align"><b>{{ player.name }}</b></td>
-            <ng-container *ngFor="let activity of player.tasks">
-              <td class="days">
+            <ng-container *ngFor="let activity of player.tasks; let i=index">
+              <td class="days" *ngIf="i < numberOfDays">
                 <button [ngStyle]="{'background-color': activity.style}" [ngClass]="{hoverable: activity.validDay}" [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}" class="btnDayCalendar" [disabled]="!activity.validDay" (click)="modalResourceDetails(player.id, activity)">{{ activity.day }}</button>
               </td>
             </ng-container>

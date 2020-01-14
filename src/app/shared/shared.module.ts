@@ -29,6 +29,8 @@ import { SucessComponent } from './components/modal/sucess/sucess.component';
 import { ErrorComponent } from './components/modal/error/error.component';
 import { NotifyComponent } from './components/notify/notify.component';
 import { EditableComponent } from './components/editable/editable.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 // Diretivas
 import { EditModeDirective } from './directives/edit-mode.directive';
@@ -60,6 +62,9 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material';
 
+//Serviços
+import {MenuService} from './services/menu.service';
+import {MenuItems} from './components/menu/menu.json'
 
 @NgModule({
   imports: [
@@ -92,6 +97,8 @@ import { MatNativeDateModule } from '@angular/material';
     RouterModule
   ],
   declarations: [
+    SidebarComponent,
+    MenuComponent,
     FilterListPipe,
     HeaderComponent,
     FooterComponent,
@@ -117,6 +124,8 @@ import { MatNativeDateModule } from '@angular/material';
     FocusableDirective
   ],
   exports: [
+    SidebarComponent,
+    MenuComponent,
     FilterListPipe,
     HeaderComponent,
     FooterComponent,
@@ -173,7 +182,9 @@ import { MatNativeDateModule } from '@angular/material';
       horizontalPosition: 'center',
       verticalPosition: 'top'
     }},
-    MatDatepickerModule
+    MatDatepickerModule,
+    MenuService,
+    MenuItems
   ]
 })
 export class SharedModule { }
