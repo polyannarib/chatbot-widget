@@ -60,10 +60,10 @@
                 <li><span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration }}h</li>
                 <li><span>{{ 'EFFORT' | translate }} </span> {{ activity.effort }}h</li>
               </ul>
-              <div *ngIf="activity.status != 'FINISHED'" class="containerButtons center-align">
-                <app-button-finalize [activityId]="activity.id"></app-button-finalize>
+              <div class="containerButtons center-align">
+                <app-button-finalize *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-finalize>
                 <app-button-remove [activityId]="activity.id"></app-button-remove>
-                <app-button-suspend [activityId]="activity.id"></app-button-suspend>
+                <app-button-suspend *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-suspend>
                 <app-button-designate (isDesign)="reciverDesignate($event)"></app-button-designate>
               </div>
               <app-players-find [taskId]="activity.id" [dataInicial]="activity.expectedAt" [dataFim]="activity.previewedAt" *ngIf="designate"></app-players-find>
