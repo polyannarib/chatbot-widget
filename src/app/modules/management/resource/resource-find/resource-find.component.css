@@ -1,0 +1,19 @@
+.perfil {
+    width: 60px;
+}
+.perfil img {
+    width: 100%;
+    border-radius: 50%;
+    border: 3px solid #fff;
+}
+
+tbody tr {
+    border: none;
+}
+td, th {
+    padding: 0px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: none;
+}

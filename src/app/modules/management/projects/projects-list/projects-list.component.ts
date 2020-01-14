@@ -67,10 +67,10 @@ export class ProjectsListComponent implements OnInit {
   }
 
   modalProjectDetails(projectId, activity) {
-    activity.month = activity.month-1;
+    // activity.month = activity.month-1;
     const dataSend = {
       projectId: projectId,
-      projectDate: new Date(activity.year, activity.month, activity.day)
+      projectDate: new Date(activity.referenceDate)
     }
     const dialogRef = this.dialog.open(ProjectDetailsComponent, {
       width: '90vw',

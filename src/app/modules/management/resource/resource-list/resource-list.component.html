@@ -32,16 +32,17 @@
           <tr class="card">
             <td class="spacename"><i class="material-icons tiny">person</i></td>
             <td class="left-align"><b>{{ player.name }}</b></td>
+
             <ng-container *ngFor="let activity of player.tasks; let i=index">
               <td class="days" *ngIf="i < numberOfDays">
-                <button [ngStyle]="{'background-color': activity.style}" [ngClass]="{hoverable: activity.validDay}" [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}" class="btnDayCalendar" [disabled]="!activity.validDay" (click)="modalResourceDetails(player.id, activity)">{{ activity.day }}</button>
+                <button [ngStyle]="{'background-color': activity.style}" [ngClass]="{hoverable: activity.validDay}" [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}" class="btnDayCalendar" [disabled]="!activity.validDay" (click)="modalResourceDetails(player.id, activity)">{{ activity.referenceDate | date:'dd' }}</button>
               </td>
             </ng-container>
           </tr>
           <tr>
             <td class="playerAllocated">{{ player.allocated }}%</td>
             <td>
-              <div class="progress hoverable">
+              <div class="progress">
                 <div class="determinate" [ngStyle]="{'width': player.allocated+'%'}"></div>
               </div>
             </td>
