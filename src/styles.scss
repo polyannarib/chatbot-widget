@@ -93,7 +93,7 @@ body {
     color: white;
     box-shadow: none;
     font-size: 31px;
-    border-radius: 2100%;
+    border-radius: 100%;
     width: 42px;
     height: 42px;
     padding: 0;
@@ -113,8 +113,8 @@ body {
 .mat-dialog-container {
     overflow: visible !important;
     border-top: #650199 8px solid;
+    border-radius: 0px !important;
 }
-
 
 
 
@@ -167,6 +167,12 @@ mz-collapsible-item-body ul {
 }
 
 
+
+
+
+
+
+
 // codigo para o toastr/notify
 .mat-snack-bar-container {
     border-radius: 4px;
@@ -182,17 +188,6 @@ mz-collapsible-item-body ul {
 .cdk-overlay-dark-backdrop {
     background: rgba(0,0,0,0.87);
 }
-// .modalBg {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     height: 100vh;
-//     width: 100vw;
-//     background-color: #0000001A;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-// }
 
 
 
