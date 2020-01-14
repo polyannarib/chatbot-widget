@@ -40,7 +40,7 @@
             <td>{{ project.name }}</td>
             <ng-container *ngFor="let activity of project.tasks">
               <td class="days">
-                <button class="btnDayCalendar" [ngClass]="{hoverable: activity.validDay}" [ngStyle]="{'background-color': activity.style}" [disabled]="!activity.validDay" (click)="modalProjectDetails(project.id, activity)"><span [ngClass]="{'animated infinite fadeIn': !activity.allocated}">{{ activity.day }}</span></button>
+                <button class="btnDayCalendar" [ngClass]="{hoverable: activity.validDay}" [ngStyle]="{'background-color': activity.style}" [disabled]="!activity.validDay" (click)="modalProjectDetails(project.id, activity)"><span [ngClass]="{'animated infinite fadeIn': !activity.allocated}">{{ activity.referenceDate | date:'dd' }}</span></button>
               </td>
             </ng-container>
             <td class="fontMin"><b>Real:</b> {{ project.actualEffort }} <br><b>Prev:</b> {{ project.predictEffort }}</td>
@@ -52,13 +52,13 @@
               <i class="material-icons" [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i>
             </td>
             <td>
-              <button mat-icon-button (click)="openReport(project.id)"><i class="material-icons">send</i></button>
+              <button mat-icon-button (click)="openReport(project)"><i class="material-icons">send</i></button>
             </td>
           </tr>
           <tr>
             <td class="playerCompleted">{{ project.completed }}%</td>
             <td>
-              <div class="progress hoverable">
+              <div class="progress">
                 <div class="determinate" [ngStyle]="{'width': project.completed+'%'}"></div>
               </div>
             </td>
