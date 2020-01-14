@@ -1,0 +1,55 @@
+.ct-slick-prev,
+.ct-slick-next {
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    background-color: #fff;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: xx-large !important;
+    color: crimson !important;
+    border-radius: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    opacity: 1;
+}
+.ct-slick-prev {
+    left: -24px;
+    z-index: 9;
+    padding: 0px;
+    opacity: 0.8;
+}
+.ct-slick-next {
+    right: -24px;
+    z-index: 9;
+    padding: 0px;
+    opacity: 0.8;
+}
+.ct-slick-prev::after {
+    border: 12px solid transparent;
+    border-right-color: #fff;
+    content: "";
+    left: -24px;
+    position: absolute;
+}
+.ct-slick-next:before {
+    border: 12px solid transparent;
+    border-left-color: #fff;
+    content: "";
+    right: -24px;
+    position: absolute;
+}
+.ct-slick-prev i {
+    position: relative;
+    left: -14px;
+    z-index: 5;
+}
+.ct-slick-next i {
+    position: relative;
+    right: -14px;
+    z-index: 5;
+}

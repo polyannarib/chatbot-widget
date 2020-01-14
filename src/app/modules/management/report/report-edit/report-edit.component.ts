@@ -5,6 +5,7 @@ import { NotifyComponent } from 'src/app/shared/components/notify/notify.compone
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
 import { empty, BehaviorSubject } from 'rxjs';
 import { ReportEditNoteComponent } from '../report-edit-note/report-edit-note.component';
+import { ProjectEditComponent } from '../../projects/project-edit/project-edit.component';
 
 declare var $: any;
 
@@ -31,7 +32,7 @@ export class ReportEditComponent implements OnInit {
   formFind: FormGroup = this.formBuilder.group({
     typeId: [null, [Validators.required]],
     statusId: [null, [Validators.required]],
-    projectId: [this.data.projectId],
+    projectId: [this.data.project.id],
     page: [1],
     pageSize: [50]
   });
@@ -125,6 +126,16 @@ export class ReportEditComponent implements OnInit {
       this._snackBar.openFromComponent(NotifyComponent, 
         { data: { type: 'error', message: 'Favor selecionar acima o tipo e o status da nota' }});
     }
+  }
+
+  modalEditProject(project) {
+    const dataSend = {
+      project: this.data.project
+    }
+    const dialogRef = this.dialog.open(ProjectEditComponent, {
+      width: '50vw',
+      data: dataSend
+    });
   }
 
   // refreshTable(notas) {
