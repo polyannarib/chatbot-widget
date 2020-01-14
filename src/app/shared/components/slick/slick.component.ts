@@ -19,13 +19,11 @@ export class SlickComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('this.options');
-    console.log(this.options);
     this.class = 'slick' + new Date().getTime();
+    this.initArrows();
   }
 
   ngAfterViewInit() {
-    this.initArrows();
     this.initSlick();
   }
 
