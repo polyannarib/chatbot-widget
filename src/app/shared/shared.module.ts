@@ -129,10 +129,8 @@ import { MenuItems } from './components/menu/menu.json';
     ProgressComponent
   ],
   exports: [
-    SidebarComponent,
     MenuComponent,
     FilterListPipe,
-    HeaderComponent,
     FooterComponent,
     TranslateModule,
     MatPaginatorModule,
@@ -169,6 +167,8 @@ import { MenuItems } from './components/menu/menu.json';
     EditableComponent,
     SlickComponent,
     ProgressComponent,
+    SidebarComponent,
+    HeaderComponent,
     NotifyComponent,
     EditModeDirective,
     ViewModeDirective,
