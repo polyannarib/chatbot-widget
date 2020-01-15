@@ -13,9 +13,10 @@
       </div>
       <div class="col s12 m8">
         <div class="title">{{ 'PROGRESS' | translate }}</div>
-        <div class="progress">
+        <app-progress [width]="progress"></app-progress>
+        <!-- <div class="progress">
           <div class="determinate" [ngStyle]="{'width': projectDate?.progress+'%'}"></div>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -78,6 +79,6 @@
     </section>
   </div>
 <!--   <div class="modal-footer">
-    <button class="btn waves-effect waves-light" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
+    <button class="button button-primary" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
   </div> -->
 </div>
