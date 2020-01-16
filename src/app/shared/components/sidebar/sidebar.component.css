@@ -92,6 +92,10 @@ body.rtl::-webkit-scrollbar-track, div::-webkit-scrollbar-track, ul::-webkit-scr
 }
 
 @media (max-width: 992px) {
+    div.content{
+        width: 100% !important;
+        margin-left: 0px;
+    }
     button.toggled+#black-filter {
         background-color: rgba(0, 0, 0, 0.87);
         width: 100%;
