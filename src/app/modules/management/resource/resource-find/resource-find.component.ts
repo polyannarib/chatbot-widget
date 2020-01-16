@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { SelectAutocompleteComponent } from 'mat-select-autocomplete';
 
 @Component({
   selector: 'app-resource-find',
@@ -7,54 +11,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResourceFindComponent implements OnInit {
 
-  arrows: boolean = true;
-  slick = {
-    dots: false,
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  }
-  displayedColumns: string[] = ['name', 'weight', 'symbol', 'position'];
-  columnsToDisplay: string[] = this.displayedColumns.slice();
-  data = [
-    { img: 'https://asdasdasdasd', resource: 'Bruna', department: 'TI', team: 'Anderson', project: 'workplayer'},
-    { img: 'https://asdasdasdasd', resource: 'Bruna', department: 'TI', team: 'Anderson', project: 'workplayer'},
-    { img: 'https://asdasdasdasd', resource: 'Bruna', department: 'TI', team: 'Anderson', project: 'workplayer'},
-    { img: 'https://asdasdasdasd', resource: 'Bruna', department: 'TI', team: 'Anderson', project: 'workplayer'},
-    { img: 'https://asdasdasdasd', resource: 'Bruna', department: 'TI', team: 'Anderson', project: 'workplayer'},
-    { img: 'https://asdasdasdasd', resource: 'Bruna', department: 'TI', team: 'Anderson', project: 'workplayer'},
-    { img: 'https://asdasdasdasd', resource: 'Bruna', department: 'TI', team: 'Anderson', project: 'workplayer'},
-    { img: 'https://asdasdasdasd', resource: 'Bruna', department: 'TI', team: 'Anderson', project: 'workplayer'},
-    { img: 'https://asdasdasdasd', resource: 'Bruna', department: 'TI', team: 'Anderson', project: 'workplayer'},
+  @ViewChild(SelectAutocompleteComponent) multiSelect: SelectAutocompleteComponent;
+
+  options = [
+    {
+      display: 'One',
+      value: '1'
+    }, {
+      display: 'Two',
+      value: '2'
+    }, {
+      display: 'Three',
+      value: '3'
+    }, {
+      display: 'Four',
+      value: '4'
+    }, {
+      display: 'Five',
+      value: '5'
+    }, {
+      display: 'Six',
+      value: '6'
+    }
   ];
+  profileForm = new FormGroup({
+    selected: new FormControl(['1', '2', '3'])
+  });
 
   constructor() { }
 
   ngOnInit() {
+    
+  }
+
+  onToggleDropdown() {
+    this.multiSelect.toggleDropdown();
+  }
+
+  onSubmit() {
+    console.log(this.profileForm.value);
   }
 
 }
