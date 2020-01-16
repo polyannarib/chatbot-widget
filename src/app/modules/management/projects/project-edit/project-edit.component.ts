@@ -40,12 +40,12 @@ export class ProjectEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('data')
+    console.log(this.form.value)
   }
 
   editProject() {
     this.loader = true;
-    console.log('------- this.form -------');
-    console.log(this.form);
     if (this.form.valid) {
       this.projectService.updateProject(this.form.value).subscribe(
         (response) => {

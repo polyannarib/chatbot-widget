@@ -15,9 +15,10 @@
       </div>
       <div class="col s12 m8">
         <div class="title">{{ 'PROGRESS' | translate }}</div>
-        <div class="progress">
+        <app-progress [width]="projectTasks?.progress"></app-progress>
+        <!-- <div class="progress">
           <div class="determinate" [ngStyle]="{'width': projectTasks?.progress+'%'}"></div>
-        </div>
+        </div> -->
       </div>
     </div>
     

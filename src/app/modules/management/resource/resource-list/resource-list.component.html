@@ -10,8 +10,8 @@
     </div>
     <div class="col m6 s12">
       <ul>
-        <li><a (click)="changeDays('prev')" class="btn-floating waves-effect waves-light red"><i class="material-icons">chevron_left</i></a></li>
-        <li><a (click)="changeDays('next')" class="btn-floating waves-effect waves-light red"><i class="material-icons">chevron_right</i></a></li>
+        <li><a (click)="changeDays('prev')" class="button button-primary button-floating"><i class="material-icons">chevron_left</i></a></li>
+        <li><a (click)="changeDays('next')" class="button button-primary button-floating"><i class="material-icons">chevron_right</i></a></li>
       </ul>
     </div>
   </div>
@@ -28,7 +28,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let player of filteredPlayers">
+        <ng-container *ngFor="let player of filteredPlayers;">
           <tr class="card">
             <td class="spacename"><i class="material-icons tiny">person</i></td>
             <td class="left-align"><b>{{ player.name }}</b></td>

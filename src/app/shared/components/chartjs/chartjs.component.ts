@@ -38,6 +38,7 @@ export class ChartjsComponent implements OnInit {
 
   ngOnDestroy() {
     this.myChart.destroy();
+    this.options
   }
 
   dashboard() {
@@ -77,7 +78,8 @@ export class ChartjsComponent implements OnInit {
       },
       title: {
         display: true,
-        position: 'top'
+        position: 'top',
+        text: $this.label
       },
       spanGaps: false,
       maintainAspectRatio: true,

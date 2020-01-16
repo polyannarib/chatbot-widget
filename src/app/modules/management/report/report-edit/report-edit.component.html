@@ -28,7 +28,7 @@
           </mat-form-field>
         </div>
         <div class="col">
-          <button type="submit" class="btn waves-effect waves-light right">Buscar</button>
+          <button type="submit" class="button button-primary">Buscar</button>
         </div>
       </form>
     </div>
@@ -91,7 +91,7 @@
     
   </div>
   <div class="modal-footer" *ngIf="formFind.valid">
-    <button (click)="modalEditProject()" class="btn waves-effect waves-light">{{ 'EDITPROJECT' | translate }}</button>
-    <button (click)="modalCreateNotesReport()" class="btn waves-effect waves-light right">{{ 'ADDNOTES' | translate }}</button>
+    <button (click)="modalEditProject()" class="button button-primary">{{ 'EDITPROJECT' | translate }}</button>
+    <button (click)="modalCreateNotesReport()" class="button button-primary right">{{ 'ADDNOTES' | translate }}</button>
   </div>
 </div>

@@ -4,10 +4,55 @@
 
 
 body {
-    background-color: #EBEBEB;
+    background-image: url('/assets/images/fundo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 
+.button {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: none;
+    padding: 10px 25px;
+    font-size: 1rem;
+    // line-height: 1.5;
+    border-radius: 3px;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.button:hover, .button:active, .button:focus {
+    opacity: 0.75;
+    color: #fff;
+}
+.button-primary {
+    background-color: #650199 !important;
+    color: #fff;
+}
+.button-danger {
+    background-color: #ff644a !important;
+    color: #fff;
+}
+.button-floating {
+    position: relative;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    line-height: 53px;
+    padding: 0;
+    border-radius: 50%;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+    cursor: pointer;
+    vertical-align: middle;
+}
 
 
 /* Codigo de padronização dos botões de dias do Dashboard */
@@ -18,7 +63,7 @@ body {
     overflow: hidden;
     z-index: 1;
     width: 33px;
-    height: 33px;
+    height: 100%;
     line-height: 33px;
     padding: 0;
     border-radius: 0%;
