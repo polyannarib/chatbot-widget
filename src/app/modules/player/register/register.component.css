@@ -34,7 +34,9 @@
     padding-left: 2px;
     background-clip: content-box;
     z-index: 15;
-.card{
+}
+
+.card {
     background: #ffffff61;
     color: #404040;
 }
@@ -54,7 +56,9 @@
     padding-right: 2px;
     background-clip: content-box;
     z-index: 15;
-.card-content.header{
+}
+
+.card-content.header {
     background: linear-gradient(180deg, #ffffffc4, #ffffff94);
     height: 60px;
     padding: 14px 20px;
@@ -67,21 +71,23 @@
     width: 70%;
     height: 70%;
     position: relative;
-.card-content{
+}
+
+.card-content {
     background: #ffffff61;
     padding: 12px 18px;
 }
 
-.card-content.header span{
+.card-content.header span {
     font-weight: 600
 }
 
-span.topic{
+span.topic {
     display: block;
     margin-bottom: 9px;
 }
 
-span.topic:before{
+span.topic:before {
     content: '+';
     color: #650199;
     font-size: 22px;
@@ -89,24 +95,28 @@ span.topic:before{
     margin-right: 6px;
 }
 
-
 /*Card SCROLLBAR*/
+
 ::-webkit-scrollbar {
     width: 6px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #4c0075; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #410064; 
-  }
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #4c0075;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #410064;
+}
+
 /*--------------*/
