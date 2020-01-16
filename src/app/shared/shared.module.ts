@@ -12,6 +12,8 @@ import { FilterListPipe } from './pipe/filter.pipe';
 
 // Componentes criados no projeto
 import { HeaderComponent } from './components/header/header.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CountComponent } from './components/count/count.component';
@@ -30,12 +32,14 @@ import { ErrorComponent } from './components/modal/error/error.component';
 import { NotifyComponent } from './components/notify/notify.component';
 import { EditableComponent } from './components/editable/editable.component';
 import { SlickComponent } from './components/slick/slick.component';
+import { ProgressComponent } from './components/progress/progress.component';
 
 // Diretivas
 import { EditModeDirective } from './directives/edit-mode.directive';
 import { ViewModeDirective } from './directives/view-mode.directive';
 import { EditableOnEnterDirective } from './directives/edit-on-enter.directive';
 import { FocusableDirective } from './directives/focusable.directive';
+import { RectangleDirective } from './directives/rectangle.directive';
 
 // NgxMaterial components importados
 import { MzToastModule } from 'ngx-materialize';
@@ -60,8 +64,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material';
-import { RectangleDirective } from './directives/rectangle.directive';
 
+//Serviços
+import { MenuItems } from './components/menu/menu.json';
 
 @NgModule({
   imports: [
@@ -90,10 +95,12 @@ import { RectangleDirective } from './directives/rectangle.directive';
     MatButtonModule,
     MatChipsModule,
     MatInputModule,
-    MatNativeDateModule, 
+    MatNativeDateModule,
     RouterModule
   ],
   declarations: [
+    SidebarComponent,
+    MenuComponent,
     FilterListPipe,
     HeaderComponent,
     FooterComponent,
@@ -118,11 +125,12 @@ import { RectangleDirective } from './directives/rectangle.directive';
     EditableOnEnterDirective,
     FocusableDirective,
     SlickComponent,
-    RectangleDirective
+    RectangleDirective,
+    ProgressComponent
   ],
   exports: [
+    MenuComponent,
     FilterListPipe,
-    HeaderComponent,
     FooterComponent,
     TranslateModule,
     MatPaginatorModule,
@@ -158,6 +166,9 @@ import { RectangleDirective } from './directives/rectangle.directive';
     ChartjsComponent,
     EditableComponent,
     SlickComponent,
+    ProgressComponent,
+    SidebarComponent,
+    HeaderComponent,
     NotifyComponent,
     EditModeDirective,
     ViewModeDirective,
@@ -180,7 +191,7 @@ import { RectangleDirective } from './directives/rectangle.directive';
         verticalPosition: 'top'
       }
     },
-    MatDatepickerModule
+    MenuItems
   ]
 })
 export class SharedModule { }

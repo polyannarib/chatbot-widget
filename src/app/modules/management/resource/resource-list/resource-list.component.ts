@@ -23,8 +23,9 @@ export class ResourceListComponent implements OnInit {
   loader: boolean = false;
   loaderDays: boolean = false;
 
+  numberOfDays = 9;
   startDate = new Date(Date.now());
-  endDate = addDays(new Date(Date.now()), 12);
+  endDate = addDays(new Date(Date.now()), this.numberOfDays-1);
 
   constructor(
     private playerService: PlayerService,
@@ -89,13 +90,13 @@ export class ResourceListComponent implements OnInit {
     this.loaderDays = true;
     if (date == 'prev') {
       this.endDate = this.startDate;
-      this.startDate = subDays(this.startDate, 12);
+      this.startDate = subDays(this.startDate, this.numberOfDays-1);
       this.daysOfWeek(this.startDate, this.endDate);
       this.findPlayers();
       this.loaderDays = false;
     } if (date == 'next') {
       this.startDate = this.endDate;
-      this.endDate = addDays(this.startDate, 12);
+      this.endDate = addDays(this.startDate, this.numberOfDays-1);
       this.daysOfWeek(this.startDate, this.endDate);
       this.findPlayers();
       this.loaderDays = false;
