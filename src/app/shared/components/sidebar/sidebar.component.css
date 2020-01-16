@@ -93,7 +93,7 @@ body.rtl::-webkit-scrollbar-track, div::-webkit-scrollbar-track, ul::-webkit-scr
 
 @media (max-width: 992px) {
     button.toggled+#black-filter {
-        background-color: #000000b8;
+        background-color: rgba(0, 0, 0, 0.87);
         width: 100%;
         height: 100%;
         position: fixed;
@@ -8998,7 +8998,7 @@ body.rtl::-webkit-scrollbar-track, div::-webkit-scrollbar-track, ul::-webkit-scr
 
 @media (min-width: 992px) {
     .sidebar:hover+#black-filter {
-        background-color: #806464b8;
+        background-color: rgba(0, 0, 0, 0.87);
         width: 100%;
         height: 100%;
         position: fixed;
