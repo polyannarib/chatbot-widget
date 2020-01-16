@@ -5,8 +5,8 @@
 }
 
 .card-content:nth-child(2){
-    max-height: 190px;
-    min-height: 72px;
+    max-height: 150px;
+    min-height: 150px;
     overflow: auto;
     overflow-x: hidden;
 }
