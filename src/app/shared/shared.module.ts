@@ -30,6 +30,7 @@ import { ErrorComponent } from './components/modal/error/error.component';
 import { NotifyComponent } from './components/notify/notify.component';
 import { EditableComponent } from './components/editable/editable.component';
 import { SlickComponent } from './components/slick/slick.component';
+import { BoxPropertyComponent } from './components/box-property/box-property.component';
 
 // Diretivas
 import { EditModeDirective } from './directives/edit-mode.directive';
@@ -94,6 +95,7 @@ import { RectangleDirective } from './directives/rectangle.directive';
     RouterModule
   ],
   declarations: [
+    BoxPropertyComponent,
     FilterListPipe,
     HeaderComponent,
     FooterComponent,
@@ -121,6 +123,7 @@ import { RectangleDirective } from './directives/rectangle.directive';
     RectangleDirective
   ],
   exports: [
+    BoxPropertyComponent,
     FilterListPipe,
     HeaderComponent,
     FooterComponent,
