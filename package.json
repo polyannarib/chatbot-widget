@@ -33,6 +33,7 @@
     "hammerjs": "^2.0.8",
     "httpclient": "^0.1.0",
     "jquery": "^2.2.4",
+    "mat-select-autocomplete": "^1.3.0",
     "materialize-css": "^1.0.0",
     "ngx-materialize": "^6.1.3",
     "ngx-take-until-destroy": "^5.4.0",

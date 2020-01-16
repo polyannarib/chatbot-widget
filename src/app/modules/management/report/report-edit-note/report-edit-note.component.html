@@ -15,15 +15,15 @@
       </mat-form-field>
     
       <mat-form-field class="example-full-width">
-        <input matInput [matDatepicker]="picker1" formControlName="noteDate" placeholder="{{ 'NOTEDATE' | translate }}">
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
+        <input matInput [matDatepicker]="noteDate" formControlName="noteDate" placeholder="{{ 'NOTEDATE' | translate }}">
+        <mat-datepicker-toggle matSuffix [for]="noteDate"></mat-datepicker-toggle>
+        <mat-datepicker #noteDate></mat-datepicker>
       </mat-form-field>
     
       <mat-form-field class="example-full-width">
-        <input matInput [matDatepicker]="picker3" formControlName="noteEndDate" placeholder="{{ 'NOTEENDDATE' | translate }}">
-        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-        <mat-datepicker #picker3></mat-datepicker>
+        <input matInput [matDatepicker]="noteEndDate" formControlName="noteEndDate" placeholder="{{ 'NOTEENDDATE' | translate }}">
+        <mat-datepicker-toggle matSuffix [for]="noteEndDate"></mat-datepicker-toggle>
+        <mat-datepicker #noteEndDate></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">

@@ -28,13 +28,14 @@ export class ReportEditNoteComponent implements OnInit {
 
   getType() {
     if(this.data.type == 'edit') {
+      console.log('caindo dentro do editar');
       this.form = this.formBuilder.group({
         noteNum: [this.data.note.noteNum, [Validators.required]],
         noteDescription: [this.data.note.noteDescription, [Validators.required]],
         observation: [this.data.note.observation],
-        noteDate: [this.data.note.noteDate],
+        noteDate: [new Date(this.data.note.noteDate)],
         noteStartDate: [this.data.note.noteStartDate],
-        noteEndDate: [this.data.note.noteEndDate],
+        noteEndDate: [new Date(this.data.note.noteEndDate)],
         criticallyLevel: [this.data.note.criticallyLevel],
         status: this.formBuilder.group({
           id: [this.data.statusId]
@@ -76,6 +77,14 @@ export class ReportEditNoteComponent implements OnInit {
       var noteSave = new Array(this.form.value);
       this.noteService.saveNotes(noteSave).subscribe(
         (response) => {
+          if(response.status == 0) {
+            this._snackBar.openFromComponent(NotifyComponent, 
+              { data: { type: 'success', message: 'Nota salva com sucesso!' }});
+            this.dialogRef.close();
+            return;
+          }
+          this._snackBar.openFromComponent(NotifyComponent, 
+            { data: { type: 'error', message: 'Problemas ao salvar a nota' }});
         }, (err) => {
           this._snackBar.openFromComponent(NotifyComponent, 
             { data: { type: 'error', message: 'Problemas ao preencher o formulário, contate o administrador!' }});

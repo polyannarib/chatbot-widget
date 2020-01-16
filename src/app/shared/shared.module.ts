@@ -95,7 +95,7 @@ import { MenuItems } from './components/menu/menu.json';
     MatButtonModule,
     MatChipsModule,
     MatInputModule,
-    MatNativeDateModule, 
+    MatNativeDateModule,
     RouterModule
   ],
   declarations: [
