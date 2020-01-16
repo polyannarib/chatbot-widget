@@ -2,9 +2,12 @@
     width: 60px;
 }
 .perfil img {
-    width: 100%;
+    width: 50px;
     border-radius: 50%;
     border: 3px solid #fff;
+    position: absolute;
+    right: -10px;
+    top: -5px;
 }
 
 tbody tr {
@@ -16,4 +19,46 @@ td, th {
     text-align: center;
     vertical-align: middle;
     border-radius: none;
+}
+
+th {
+    color: #650199;
+}
+
+thead tr {
+    border: 0;
+    height: 34px;
+}
+
+td:nth-child(odd) {
+    background: #ffffff63;
+}
+
+td:nth-child(even) {
+    background: #ffffffb5;
+}
+
+table {
+    border-collapse: separate !important;
+    border-spacing: 0 16px !important;
+    color: #636363 !important;
+}
+
+tbody tr {
+    box-shadow: inset 0 0 0 1px white;
+    position: relative;
+    height: 39px;
+}
+
+td.perfil {
+    position: relative;
+    background: transparent;
+    display: block;
+    width: 0px;
+    height: 100%;
+}
+
+tbody td:nth-child(2), thead th:nth-child(2) {
+    text-align: initial;
+    padding-left: 17px;
 }

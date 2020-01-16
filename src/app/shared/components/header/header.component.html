@@ -1,4 +1,10 @@
 <header class="navbar navbar-fixed navbar-expand navbar-default">
+    <button type="button" class="navbar-toggle btn btn-primary-custom p-2 ml-4" data-toggle="collapse" (click)="toggleMenu()">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <div id="black-filter"></div>
     <nav>
         <div class="nav-wrapper container-fluid">
 <!--             <div class="navbar-minimize">
@@ -38,11 +44,7 @@
                 <li><a routerLink="/admin"><i class="material-icons">settings_applications</i></a></li>
                 <li><a><i class="material-icons">perm_identity</i></a></li>
             </ul> -->
-            <button type="button" class="navbar-toggle btn btn-primary-custom p-2 ml-4" data-toggle="collapse" (click)="toggleMenu()">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+
         </div>
     </nav>
 <!--     <ul class="sidenav" id="mobile-demo">
