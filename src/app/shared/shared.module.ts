@@ -33,6 +33,7 @@ import { NotifyComponent } from './components/notify/notify.component';
 import { EditableComponent } from './components/editable/editable.component';
 import { SlickComponent } from './components/slick/slick.component';
 import { ProgressComponent } from './components/progress/progress.component';
+import { BoxPropertyComponent } from './components/box-property/box-property.component';
 
 // Diretivas
 import { EditModeDirective } from './directives/edit-mode.directive';
@@ -101,6 +102,7 @@ import { MenuItems } from './components/menu/menu.json';
   declarations: [
     SidebarComponent,
     MenuComponent,
+    BoxPropertyComponent,
     FilterListPipe,
     HeaderComponent,
     FooterComponent,
@@ -131,6 +133,7 @@ import { MenuItems } from './components/menu/menu.json';
   exports: [
     SidebarComponent,
     MenuComponent,
+    BoxPropertyComponent,
     FilterListPipe,
     HeaderComponent,
     FooterComponent,

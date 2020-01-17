@@ -7,6 +7,7 @@ const APP_ROUTES: Routes = [
   { path: 'auth', loadChildren: '../modules/auth/auth.module#AuthModule' },
   { path: 'management', loadChildren: '../modules/management/management.module#ManagementModule', canActivate: [AuthGuard] },
   { path: 'admin', loadChildren: '../modules/admin/admin.module#AdminModule', canActivate: [AuthGuard] },
+  { path: 'player', loadChildren: '../modules/player/player.module#PlayerModule', canActivate: [AuthGuard] },
   // {path: 'home', loadChildren: '../modules/home/home.module#HomeModule' },
   // {path: 'home', loadChildren: './home/home.module#HomeModule', canActivate: [AuthGuardService] },
 ];
