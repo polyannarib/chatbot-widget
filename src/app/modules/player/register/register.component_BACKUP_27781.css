@@ -27,14 +27,11 @@
     padding-left: 2px;
     background-clip: content-box;
     z-index: 15;
-<<<<<<< HEAD
 }
 
 .card {
     background: #ffffff61;
     color: #404040;
-=======
->>>>>>> 5d517ea444305af9abad5e9dcc6afc804d148720
 }
 
 .trapezio:before {

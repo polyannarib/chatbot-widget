@@ -7,7 +7,7 @@ const APP_ROUTES: Routes = [
   {
     path: '', component: PlayerComponent, children: [
       { path: '', redirectTo: 'register', pathMatch: 'full' },
-      { path: 'register', component: RegisterComponent, data: { scopes: [''] } },
+      { path: 'register', component: RegisterComponent },
     ]
   }
 ];
