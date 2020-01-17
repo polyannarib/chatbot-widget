@@ -9,11 +9,15 @@ declare var $: any;
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
   btnMenuClass: string;
+  user: any
 
   constructor(
     private authService: AuthService
-  ) { }
+  ) {
+    this.user = this.authService.getUser();
+  }
 
   ngOnInit() {
     $('.dropdown-trigger').dropdown();

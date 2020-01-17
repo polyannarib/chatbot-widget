@@ -66,7 +66,6 @@ export class ResourceListComponent implements OnInit {
         this.loaderResource.emit(false);
       }
     );
-    console.log(this.players);
   }
 
   onSearchChangeResource(searchValue: string): void {

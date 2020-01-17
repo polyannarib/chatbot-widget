@@ -1,32 +1,39 @@
 <ul class="nav">
-  <li id="menu-{{menuitem.title | lowercase}}" routerLinkActive="active" *ngFor="let menuitem of menuList">
-      <!--If is a single link-->
 
-          <a [routerLink]="[menuitem.path]" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link"
-              *ngIf="menuitem.type === 'link'">
-              <span [innerHTML]="menuitem.icontype"></span>
-              <p>{{menuitem.title | translate}}</p>
-          </a>
-          <!--If it have a submenu-->
-          <a id="link-{{menuitem.title | lowercase}}" data-toggle="collapse" href="#{{menuitem.title | lowercase}}"
-              *ngIf="menuitem.type === 'sub'">
-              <span [innerHTML]="menuitem.icontype"></span>
-              <p>{{menuitem.title | translate}}<b class="caret"></b></p>
-          </a>
-          <!--Display the submenu items-->
-          <div id="{{menuitem.title | lowercase}}" class="collapse" *ngIf="menuitem.type === 'sub'">
-              <ul class="nav">
-                  <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
+    <li routerLinkActive="active">
+        <a [routerLink]="['/management/dashboard']" routerLinkActive="router-link-active"  [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link">
+            <span><i class="material-icons">insert_chart</i></span>
+            <p>{{ 'COCKPIT' | translate }}</p>
+        </a>
+    </li>
 
-                          <a [routerLink]="[menuitem.path, childitem.path]">
-                              <span class="sidebar-mini">{{childitem.ab}}</span>
-                              <span class="sidebar-normal">{{childitem.title | translate}}</span>
-                          </a>
+    <!-- <li id="menu-{{menuitem.title | lowercase}}" routerLinkActive="active" *ngFor="let menuitem of menuList"> -->
+            
+        <!--If is a single link-->
+        <!-- <a [routerLink]="[menuitem.path]" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link"
+            *ngIf="menuitem.type === 'link'">
+            <span [innerHTML]="menuitem.icontype"></span>
+            <p>{{menuitem.title | translate}}</p>
+        </a> -->
 
-                  </li>
-              </ul>
-          </div>
+        <!--If it have a submenu-->
+        <!-- <a id="link-{{menuitem.title | lowercase}}" data-toggle="collapse" href="#{{menuitem.title | lowercase}}"
+            *ngIf="menuitem.type === 'sub'">
+            <span [innerHTML]="menuitem.icontype"></span>
+            <p>{{menuitem.title | translate}}<b class="caret"></b></p>
+        </a> -->
 
-  </li>
+        <!--Display the submenu items-->
+        <!-- <div id="{{menuitem.title | lowercase}}" class="collapse" *ngIf="menuitem.type === 'sub'">
+            <ul class="nav">
+                <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
+                    <a [routerLink]="[menuitem.path, childitem.path]">
+                        <span class="sidebar-mini">{{childitem.ab}}</span>
+                        <span class="sidebar-normal">{{childitem.title | translate}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div> -->
 
+    <!-- </li> -->
 </ul>

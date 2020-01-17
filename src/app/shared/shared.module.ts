@@ -32,7 +32,9 @@ import { EditableComponent } from './components/editable/editable.component';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MenuComponent } from './components/menu/menu.component';
+
 import { SlickComponent } from './components/slick/slick.component';
+import { ProgressComponent } from './components/progress/progress.component';
 
 
 // Diretivas
@@ -40,6 +42,7 @@ import { EditModeDirective } from './directives/edit-mode.directive';
 import { ViewModeDirective } from './directives/view-mode.directive';
 import { EditableOnEnterDirective } from './directives/edit-on-enter.directive';
 import { FocusableDirective } from './directives/focusable.directive';
+import { RectangleDirective } from './directives/rectangle.directive';
 
 // NgxMaterial components importados
 import { MzToastModule } from 'ngx-materialize';
@@ -64,11 +67,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material';
-import { RectangleDirective } from './directives/rectangle.directive';
 
 //Serviços
-import {MenuService} from './services/menu.service';
-import {MenuItems} from './components/menu/menu.json'
+import { MenuItems } from './components/menu/menu.json';
 
 @NgModule({
   imports: [
@@ -97,7 +98,7 @@ import {MenuItems} from './components/menu/menu.json'
     MatButtonModule,
     MatChipsModule,
     MatInputModule,
-    MatNativeDateModule, 
+    MatNativeDateModule,
     RouterModule
   ],
   declarations: [
@@ -127,13 +128,12 @@ import {MenuItems} from './components/menu/menu.json'
     EditableOnEnterDirective,
     FocusableDirective,
     SlickComponent,
-    RectangleDirective
+    RectangleDirective,
+    ProgressComponent
   ],
   exports: [
-    SidebarComponent,
     MenuComponent,
     FilterListPipe,
-    HeaderComponent,
     FooterComponent,
     TranslateModule,
     MatPaginatorModule,
@@ -169,6 +169,9 @@ import {MenuItems} from './components/menu/menu.json'
     ChartjsComponent,
     EditableComponent,
     SlickComponent,
+    ProgressComponent,
+    SidebarComponent,
+    HeaderComponent,
     NotifyComponent,
     EditModeDirective,
     ViewModeDirective,
@@ -184,13 +187,13 @@ import {MenuItems} from './components/menu/menu.json'
     ErrorComponent
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
-      duration: 3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top'
-    }},
-    MatDatepickerModule,
-    MenuService,
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top'
+      }
+    },
     MenuItems
   ]
 })
