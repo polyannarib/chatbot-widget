@@ -17,8 +17,6 @@
 /*---------------------------*/
 
 
-
-
 /*----ADAPTAÇÃO DO KOLUMN PARA O WORKPLAYER----*/
 .sidebar{
     z-index: 1000 !important;
@@ -58,7 +56,6 @@ div.content{
 .sidebar .nav li:hover>p{
     color: #7e0098e3 !important
 } */
-
 
 
 /*-------------------------------------------*/

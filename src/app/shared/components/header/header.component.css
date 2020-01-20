@@ -145,7 +145,7 @@ header{
     top: -12px;
     transform: skewX(41deg);
     clip-path: polygon(0 0, 100% 0%, 81% 100%, 0% 100%);
-    border-top: 8px solid #650199;
+    border-top: 3px solid #650199;
     z-index: -1;
 }
 
@@ -163,20 +163,21 @@ header{
     z-index: 1;
 }
 
-.player .playerInfo{
+.player .playerInfo {
     position: absolute;
-    right: 90px;
+    right: 101px;
     top: 18px;
     font-size: 12px;
     font-family: inherit;
     color: #696969e8;
-    line-height: 22px;
+    /* line-height: 22px; */
     text-align: end;
     z-index: 0;
+    padding: 0px 0px 0px 10px;
 }
 
 .player #score{
-    margin-left: 26px;
+    margin-left: 8px;
     font-size: 15px;
     font-weight: 600;
     color: #9600b5;

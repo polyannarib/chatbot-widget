@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PlayerComponent } from './player.component';
-import { RegisterComponent } from './register/register.component';
+import { PlayerComponent } from '../player.component';
+import { RegisterComponent } from '../register/register.component';
+import { CardBindComponent } from '../card/card-bind/card-bind.component';
 
 const APP_ROUTES: Routes = [
   {
     path: '', component: PlayerComponent, children: [
-      { path: '', redirectTo: 'register', pathMatch: 'full' },
-      { path: 'register', component: RegisterComponent },
+      { path: '', redirectTo: 'bind/cards', pathMatch: 'full' },
+      { path: 'bind/cards', component: CardBindComponent },
     ]
   }
 ];
