@@ -24,14 +24,18 @@ import { ReportEditComponent } from './report/report-edit/report-edit.component'
 import { ReportEditNoteComponent } from './report/report-edit-note/report-edit-note.component';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 
-
+//Material
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    ManagementRoutingModule
+    ManagementRoutingModule,
+    MatAutocompleteModule,
+    NgxMatSelectSearchModule
   ],
   declarations: [
     DashboardComponent,

@@ -2,16 +2,19 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { SelectAutocompleteComponent } from 'mat-select-autocomplete';
+
+/* import { SelectAutocompleteComponent } from 'mat-select-autocomplete'; */
 
 @Component({
   selector: 'app-resource-find',
   templateUrl: './resource-find.component.html',
-  styleUrls: ['./resource-find.component.css']
+  styleUrls: ['./resource-find.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ResourceFindComponent implements OnInit {
-
-  @ViewChild(SelectAutocompleteComponent) multiSelect: SelectAutocompleteComponent;
+  toppings = new FormControl();
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+/*   @ViewChild(SelectAutocompleteComponent) multiSelect: SelectAutocompleteComponent;
 
   options = [
     {
@@ -36,7 +39,7 @@ export class ResourceFindComponent implements OnInit {
   ];
   profileForm = new FormGroup({
     selected: new FormControl(['1', '2', '3'])
-  });
+  }); */
 
   constructor() { }
 
@@ -45,11 +48,11 @@ export class ResourceFindComponent implements OnInit {
   }
 
   onToggleDropdown() {
-    this.multiSelect.toggleDropdown();
+    /* this.multiSelect.toggleDropdown(); */
   }
 
   onSubmit() {
-    console.log(this.profileForm.value);
+    /* console.log(this.profileForm.value); */
   }
 
 }
