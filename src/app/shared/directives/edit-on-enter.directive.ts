@@ -5,12 +5,14 @@ import { EditableComponent } from '../components/editable/editable.component';
   selector: '[editableOnEnter]'
 })
 export class EditableOnEnterDirective {
-  constructor(private editable: EditableComponent) {
-  }
+
+  constructor(
+    private editable: EditableComponent
+  ) { }
 
   @HostListener('keyup.enter')
   onEnter() {
-    this.editable.toViewMode();
+    // this.editable.toViewMode();
   }
 
 }

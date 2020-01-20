@@ -30,7 +30,7 @@
         <div class="col s12 m2"><span>{{ 'DUEDATE' | translate }}</span></div>
         <div class="col s12 m1"><span>{{ 'EFFORT' | translate }}</span></div>
       </div>
-      <mz-collapsible [mode]="'accordion'" [popout]="false">
+      <!-- <mz-collapsible [mode]="'accordion'" [popout]="false">
         <ng-container *ngFor="let activity of playerActivity.tasks">
           <mz-collapsible-item [active]="false">
             <mz-collapsible-item-header>
@@ -70,11 +70,10 @@
                 <app-button-remove [activityId]="activity.id"></app-button-remove>
                 <app-button-suspend [activityId]="activity.id"></app-button-suspend>
               </div>
-              <!-- <app-players-find [taskId]="activity.id" *ngIf="designate"></app-players-find> -->
             </mz-collapsible-item-body>
           </mz-collapsible-item>
         </ng-container>
-      </mz-collapsible>
+      </mz-collapsible> -->
       
     </section>
   </div>

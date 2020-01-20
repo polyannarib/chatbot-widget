@@ -1,9 +1,4 @@
-import { Component, Inject, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
-
-import { MenuItems } from './menu.json';
-import { addAllToArray } from '@angular/core/src/render3/util';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-menu',

@@ -29,10 +29,8 @@ import { SucessComponent } from './components/modal/sucess/sucess.component';
 import { ErrorComponent } from './components/modal/error/error.component';
 import { NotifyComponent } from './components/notify/notify.component';
 import { EditableComponent } from './components/editable/editable.component';
-
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MenuComponent } from './components/menu/menu.component';
-
 import { SlickComponent } from './components/slick/slick.component';
 import { ProgressComponent } from './components/progress/progress.component';
 import { BoxPropertyComponent } from './components/box-property/box-property.component';
@@ -46,8 +44,9 @@ import { FocusableDirective } from './directives/focusable.directive';
 import { RectangleDirective } from './directives/rectangle.directive';
 
 // NgxMaterial components importados
-import { MzToastModule } from 'ngx-materialize';
 import { MzCollapsibleModule } from 'ngx-materialize';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 // Material Angular components importados
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -79,7 +78,6 @@ import { MenuItems } from './components/menu/menu.json';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    MzToastModule,
     MzCollapsibleModule,
     TranslateModule,
     MatPaginatorModule,
@@ -100,7 +98,8 @@ import { MenuItems } from './components/menu/menu.json';
     MatChipsModule,
     MatInputModule,
     MatNativeDateModule,
-    RouterModule
+    RouterModule,
+    NgxMatSelectSearchModule
   ],
   declarations: [
     SidebarComponent,
@@ -179,7 +178,8 @@ import { MenuItems } from './components/menu/menu.json';
     EditModeDirective,
     ViewModeDirective,
     EditableOnEnterDirective,
-    FocusableDirective
+    FocusableDirective,
+    NgxMatSelectSearchModule
   ],
   entryComponents: [
     FinalizeComponent,

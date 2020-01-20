@@ -8,9 +8,11 @@ import * as $ from 'jquery';
   encapsulation: ViewEncapsulation.Native
 })
 export class BoxPropertyComponent implements OnInit {
-  @ViewChild('title') titleElem: ElementRef;
-  @ViewChild('content') contentElem: ElementRef;
-  @ViewChild('card') cardElem: ElementRef;
+
+  @ViewChild('title', {static: false}) titleElem: ElementRef;
+  @ViewChild('content', {static: false}) contentElem: ElementRef;
+  @ViewChild('card', {static: false}) cardElem: ElementRef;
+  
   @Input() type: string;
   @Input() title: string;
 

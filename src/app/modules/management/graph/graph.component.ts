@@ -1,8 +1,6 @@
 import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
 
-// import Swiper from 'swiper';
-// import { ChartModel } from 'src/app/shared/models/chart';
 
 declare var $: any;
 
@@ -62,18 +60,6 @@ export class GraphComponent implements OnInit, AfterViewInit {
     this.charts();
   }
 
-  // ngOnDestroy() {
-  //   this.mySwiper.destroy();
-  // }
-
-  // initSlider() {
-  //   var swiper = new Swiper('.swiper-container', {
-  //     slidesPerView: 6,
-  //     spaceBetween: 30,
-  //     freeMode: true
-  //   });
-  // }
-
   charts() {
     const $this = this;
     this.loader = true; 
@@ -131,7 +117,6 @@ export class GraphComponent implements OnInit, AfterViewInit {
   //       }
   //     ]
   //   });
-    
   // }
 
 }

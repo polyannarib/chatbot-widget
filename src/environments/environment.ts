@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  // back_end_url: 'http://192.168.1.235:8989/workplayer-portal/services',
-  back_end_url: 'http://localhost:8080/workplayer-portal/services',
+  back_end_url: 'http://192.168.1.235:8989/workplayer-portal/services',
+  // back_end_url: 'http://localhost:8080/workplayer-portal/services',
   production: false
 };
 
@@ -17,4 +17,5 @@ export var company:string = 'bradesco';
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// import 'zone.js/dist/zone-error';  
+// Included with Angular CLI.
