@@ -48,6 +48,8 @@ import { RectangleDirective } from './directives/rectangle.directive';
 // NgxMaterial components importados
 import { MzToastModule } from 'ngx-materialize';
 import { MzCollapsibleModule } from 'ngx-materialize';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 // Material Angular components importados
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -100,7 +102,8 @@ import { MenuItems } from './components/menu/menu.json';
     MatChipsModule,
     MatInputModule,
     MatNativeDateModule,
-    RouterModule
+    RouterModule,
+    NgxMatSelectSearchModule
   ],
   declarations: [
     SidebarComponent,
@@ -179,7 +182,8 @@ import { MenuItems } from './components/menu/menu.json';
     EditModeDirective,
     ViewModeDirective,
     EditableOnEnterDirective,
-    FocusableDirective
+    FocusableDirective,
+    NgxMatSelectSearchModule
   ],
   entryComponents: [
     FinalizeComponent,
