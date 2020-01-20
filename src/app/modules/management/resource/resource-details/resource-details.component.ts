@@ -13,6 +13,7 @@ export class ResourceDetailsComponent implements OnInit {
   playerActivity: any;
   findTask: any;
   loader: boolean = false;
+  progress: any
 
   constructor(
     public dialogRef: MatDialogRef<ResourceDetailsComponent>,
@@ -29,6 +30,7 @@ export class ResourceDetailsComponent implements OnInit {
     this.taskService.findTasks(this.data.playerId, format(this.data.activityDate, 'dd-MM-yyyy')).subscribe(
       (response) => {
         this.playerActivity = response.object.player;
+        this.progress = response.object.progress
         this.loader = false;
       }, (err) => {
         this.loader = false;

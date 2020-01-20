@@ -8,6 +8,7 @@ p {
     padding: 15px 25px;
     margin: 0px;
     color: #ffffff;
+    text-align: center;
 }
 .mat-snack-bar-container {
     border-radius: 4px;

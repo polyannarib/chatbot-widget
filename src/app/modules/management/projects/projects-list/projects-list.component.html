@@ -11,8 +11,8 @@
     </div>
     <div class="col m6 s12">
       <ul>
-        <li><a (click)="changeDays('prev')" class="btn-floating waves-effect waves-light red"><i class="material-icons">chevron_left</i></a></li>
-        <li><a (click)="changeDays('next')" class="btn-floating waves-effect waves-light red"><i class="material-icons">chevron_right</i></a></li>
+        <li><a (click)="changeDays('prev')" class="button button-primary button-floating"><i class="material-icons">chevron_left</i></a></li>
+        <li><a (click)="changeDays('next')" class="button button-primary button-floating"><i class="material-icons">chevron_right</i></a></li>
       </ul>
     </div>
   </div>
@@ -40,7 +40,7 @@
             <td>{{ project.name }}</td>
             <ng-container *ngFor="let activity of project.tasks">
               <td class="days">
-                <button class="btnDayCalendar" [ngClass]="{hoverable: activity.validDay}" [ngStyle]="{'background-color': activity.style}" [disabled]="!activity.validDay" (click)="modalProjectDetails(project.id, activity)"><span [ngClass]="{'animated infinite fadeIn': !activity.allocated}">{{ activity.day }}</span></button>
+                <button class="btnDayCalendar" [ngClass]="{hoverable: activity.validDay}" [ngStyle]="{'background-color': activity.style}" [disabled]="!activity.validDay" (click)="modalProjectDetails(project.id, activity)"><span [ngClass]="{'animated infinite fadeIn': !activity.allocated}">{{ activity.referenceDate | date:'dd' }}</span></button>
               </td>
             </ng-container>
             <td class="fontMin"><b>Real:</b> {{ project.actualEffort }} <br><b>Prev:</b> {{ project.predictEffort }}</td>
@@ -58,7 +58,7 @@
           <tr>
             <td class="playerCompleted">{{ project.completed }}%</td>
             <td>
-              <div class="progress hoverable">
+              <div class="progress">
                 <div class="determinate" [ngStyle]="{'width': project.completed+'%'}"></div>
               </div>
             </td>

@@ -12,7 +12,7 @@ import { FilterListPipe } from './pipe/filter.pipe';
 
 // Componentes criados no projeto
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component'
+import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CountComponent } from './components/count/count.component';
 import { FinalizeComponent } from './components/modal/finalize/finalize.component';
@@ -29,15 +29,24 @@ import { SucessComponent } from './components/modal/sucess/sucess.component';
 import { ErrorComponent } from './components/modal/error/error.component';
 import { NotifyComponent } from './components/notify/notify.component';
 import { EditableComponent } from './components/editable/editable.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { SlickComponent } from './components/slick/slick.component';
+import { ProgressComponent } from './components/progress/progress.component';
+import { BoxPropertyComponent } from './components/box-property/box-property.component';
+
 
 // Diretivas
 import { EditModeDirective } from './directives/edit-mode.directive';
 import { ViewModeDirective } from './directives/view-mode.directive';
 import { EditableOnEnterDirective } from './directives/edit-on-enter.directive';
 import { FocusableDirective } from './directives/focusable.directive';
+import { RectangleDirective } from './directives/rectangle.directive';
 
 // NgxMaterial components importados
 import { MzCollapsibleModule } from 'ngx-materialize';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 // Material Angular components importados
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -58,6 +67,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material';
+
+//Serviços
+import { MenuItems } from './components/menu/menu.json';
 
 @NgModule({
   imports: [
@@ -85,10 +97,14 @@ import { MatNativeDateModule } from '@angular/material';
     MatButtonModule,
     MatChipsModule,
     MatInputModule,
-    MatNativeDateModule, 
-    RouterModule
+    MatNativeDateModule,
+    RouterModule,
+    NgxMatSelectSearchModule
   ],
   declarations: [
+    SidebarComponent,
+    MenuComponent,
+    BoxPropertyComponent,
     FilterListPipe,
     HeaderComponent,
     FooterComponent,
@@ -111,11 +127,15 @@ import { MatNativeDateModule } from '@angular/material';
     EditModeDirective,
     ViewModeDirective,
     EditableOnEnterDirective,
-    FocusableDirective
+    FocusableDirective,
+    SlickComponent,
+    RectangleDirective,
+    ProgressComponent
   ],
   exports: [
+    MenuComponent,
+    BoxPropertyComponent,
     FilterListPipe,
-    HeaderComponent,
     FooterComponent,
     TranslateModule,
     MatPaginatorModule,
@@ -150,11 +170,16 @@ import { MatNativeDateModule } from '@angular/material';
     ButtonReplanComponent,
     ChartjsComponent,
     EditableComponent,
+    SlickComponent,
+    ProgressComponent,
+    SidebarComponent,
+    HeaderComponent,
     NotifyComponent,
     EditModeDirective,
     ViewModeDirective,
     EditableOnEnterDirective,
-    FocusableDirective
+    FocusableDirective,
+    NgxMatSelectSearchModule
   ],
   entryComponents: [
     FinalizeComponent,
@@ -165,12 +190,14 @@ import { MatNativeDateModule } from '@angular/material';
     ErrorComponent
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
-      duration: 3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top'
-    }},
-    MatDatepickerModule
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top'
+      }
+    },
+    MenuItems
   ]
 })
 export class SharedModule { }

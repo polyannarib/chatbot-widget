@@ -28,8 +28,10 @@ export class AuthService {
   }
 
   getUser() {
+    var token;
     if(localStorage.getItem('acessToken') && this.isAuthenticated()) {
-      return this.jwtHelper.decodeToken(localStorage.getItem('acessToken'));
+      token = this.jwtHelper.decodeToken(localStorage.getItem('acessToken'))
+      return token.displayName;
     }
   }
 

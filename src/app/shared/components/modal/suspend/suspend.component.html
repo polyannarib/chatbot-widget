@@ -2,7 +2,7 @@
 
 <div id="modal" *ngIf="!loader">
   <div class="modal-header">{{ 'CONFIRMACTION' | translate }}
-    <button type="button" class="close btn" [mat-dialog-close]="true"><span aria-hidden="true">&times;</span></button>
+    <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
   </div>
   <div class="modal-body">
     <div *ngIf="statusErr != 0">{{ errMessage | translate }}</div>
@@ -12,7 +12,7 @@
     </mat-form-field>
   </div>
   <div class="modal-footer">
-    <button class="btn waves-effect waves-light" (click)="confirmFinalize()">{{ 'CONFIRM' | translate }}</button>
+    <button class="button button-primary" (click)="confirmFinalize()">{{ 'CONFIRM' | translate }}</button>
   </div>
 </div>
 
@@ -32,7 +32,7 @@
     </div>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button class="btn waves-effect waves-light" mat-dialog-close>{{ 'CLOSE' | translate }}</button>
-    <button class="btn waves-effect waves-light" (click)="confirmFinalize()">{{ 'CONFIRM' | translate }}</button>
+    <button class="button button-primary" mat-dialog-close>{{ 'CLOSE' | translate }}</button>
+    <button class="button button-primary" (click)="confirmFinalize()">{{ 'CONFIRM' | translate }}</button>
   </mat-dialog-actions>
 </div> -->

@@ -3,7 +3,7 @@
 <div id="modal" *ngIf="projectTasks != null && !loader">
   <div class="modal-header">{{ projectTasks?.name }}
     <button type="button" class="close btn" [mat-dialog-close]="true">
-      <span aria-hidden="true">&times;</span>
+      <i class="material-icons">close</i>
     </button>
   </div>
   <div class="modal-body">
@@ -15,12 +15,13 @@
       </div>
       <div class="col s12 m8">
         <div class="title">{{ 'PROGRESS' | translate }}</div>
-        <div class="progress hoverable">
-          <div class="determinate" [ngStyle]="{'width': projectDate?.progress+'%'}"></div>
-        </div>
+        <app-progress [width]="projectTasks?.progress"></app-progress>
+        <!-- <div class="progress">
+          <div class="determinate" [ngStyle]="{'width': projectTasks?.progress+'%'}"></div>
+        </div> -->
       </div>
     </div>
-
+    
     <app-count *ngIf="projectTasks?.tasks == null">Esse projeto está sem task no momento!</app-count>
 
     <section *ngIf="projectTasks?.tasks != null">
@@ -60,10 +61,10 @@
                 <li><span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration }}h</li>
                 <li><span>{{ 'EFFORT' | translate }} </span> {{ activity.effort }}h</li>
               </ul>
-              <div *ngIf="activity.status != 'FINISHED'" class="containerButtons center-align">
-                <app-button-finalize [activityId]="activity.id"></app-button-finalize>
+              <div class="containerButtons center-align">
+                <app-button-finalize *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-finalize>
                 <app-button-remove [activityId]="activity.id"></app-button-remove>
-                <app-button-suspend [activityId]="activity.id"></app-button-suspend>
+                <app-button-suspend *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-suspend>
                 <app-button-designate (isDesign)="reciverDesignate($event)"></app-button-designate>
               </div>
               <app-players-find [taskId]="activity.id" [dataInicial]="activity.expectedAt" [dataFim]="activity.previewedAt" *ngIf="designate"></app-players-find>

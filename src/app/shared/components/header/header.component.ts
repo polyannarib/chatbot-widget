@@ -10,16 +10,40 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
 
+  btnMenuClass: string;
+  user: any
+
   constructor(
     private authService: AuthService
-  ) { }
+  ) {
+    this.user = this.authService.getUser();
+  }
 
   ngOnInit() {
     $('.dropdown-trigger').dropdown();
+    this.btnMenuClass = 'hamRotate';
+    this.toggleMenu('left');
   }
 
   logout() {
     this.authService.logout();
+  }
+
+  toggleMenu(position) {
+    if (position === 'left') {
+      document.body.classList.toggle('sidebar-mini');
+      if (this.btnMenuClass === 'hamRotate') {
+        this.btnMenuClass = 'hamRotateInvert';
+      } else {
+        this.btnMenuClass = 'hamRotate';
+      }
+    } else {
+      // document.querySelector('.row-offcanvas-right').classList.toggle('active');
+      document.querySelector('body').classList.toggle('nav-open');
+      setTimeout(() => {
+        document.querySelector('.navbar-toggle').classList.toggle('toggled');
+      }, 300);
+    }
   }
 
 }

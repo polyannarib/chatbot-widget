@@ -25,7 +25,7 @@ export class ProjectService {
   }
 
   updateProject(params: any): Observable<any> {
-    return this.http.post(`${environment.back_end_url}/project`, {params: params});
+    return this.http.post(`${environment.back_end_url}/project`, params);
   }
   
 }

@@ -76,27 +76,39 @@ export class ReportEditComponent implements OnInit {
     this.messageNotes = false;
     this.loaderNotes = true;
     if (this.formFind.valid) {
-      this.noteService.findNotes(this.formFind.value).subscribe(
-        (response) => {
-          if (response.object.list.length > 0) {
-            this.notes = response.object.list;
-            this.loaderNotes = false;
-            return;
-            // this.refreshTable(response.object.list);
-          } else {
-            this.notes = null;
-            this.loaderNotes = false;
-            this.messageNotes = true;
-          }
-        }, (err) => {
-          this.loaderNotes = false;
-      })
+      this.notesLoader();
     } else {
       this.loaderNotes = false;
+      this._snackBar.openFromComponent(NotifyComponent, 
+        { data: { type: 'error', message: 'Ops, os campos de tipo e status devem estar selecionados' }});
     }
   }
 
+  notesLoader() {
+    this.loaderNotes = true;
+    this.noteService.findNotes(this.formFind.value).subscribe(
+      (response) => {
+        if (response.object.list.length > 0) {
+          this.notes = response.object.list;
+          this.loaderNotes = false;
+          return;
+        } else {
+          this._snackBar.openFromComponent(NotifyComponent, 
+            { data: { type: 'error', message: 'Não foi encontrado nenhuma tarefa' }});
+          this.notes = null;
+          this.loaderNotes = false;
+          this.messageNotes = true;
+        }
+      }, (err) => {
+        this.loaderNotes = false;
+        this._snackBar.openFromComponent(NotifyComponent, 
+          { data: { type: 'error', message: 'Problemas para procurar as tarefas' }});
+    })
+  }
+
   modalEditNotesReport(note) {
+    console.log('note');
+    console.log(note);
     const dataSend = {
       type: 'edit',
       note: note,
@@ -107,6 +119,9 @@ export class ReportEditComponent implements OnInit {
     const dialogRef = this.dialog.open(ReportEditNoteComponent, {
       width: '40vw',
       data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.notesLoader();
     });
   }
   
@@ -121,6 +136,9 @@ export class ReportEditComponent implements OnInit {
       const dialogRef = this.dialog.open(ReportEditNoteComponent, {
         width: '40vw',
         data: dataSend
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.notesLoader();
       });
     } else {
       this._snackBar.openFromComponent(NotifyComponent, 
@@ -137,124 +155,5 @@ export class ReportEditComponent implements OnInit {
       data: dataSend
     });
   }
-
-  // refreshTable(notas) {
-  //   var newlist$: BehaviorSubject<any[]> = new BehaviorSubject(notas);
-  //   this.listNotes = newlist$;
-  //   this.dataSource = this.listNotes;
-  //   var toGroups = this.listNotes.value.map(entity => {
-  //     return new FormGroup({
-  //       noteDescription: new FormControl(entity.noteDescription), 
-  //       noteNum: new FormControl(entity.noteNum, Validators.required),
-  //       noteDate: new FormControl(entity.noteDate),
-  //       observation: new FormControl(entity.observation),
-  //       noteStartDate: new FormControl(entity.noteStartDate),
-  //       noteEndDate: new FormControl(entity.noteEndDate),
-  //       criticallyLevel: new FormControl(entity.criticallyLevel)
-  //     },{ updateOn: "blur" });
-  //   });
-  //   this.controls = new FormArray(toGroups);
-  // }
-
-  // updateField(index, field) {
-  //   const control = this.getControl(index, field);
-  //   if (control.valid) {
-  //     console.log('entrou dentro do IF control.valid')
-  //     let value = control.value;
-  //     this.update(index, field, value);
-  //   } else {
-  //     console.log('entrou dentro do ELSE control.valid');
-  //     return;
-  //   }
-  // }
-
-  // getControl(index, fieldName) {
-  //   const a = this.controls.at(index).get(fieldName) as FormControl;
-  //   return this.controls.at(index).get(fieldName) as FormControl;
-  // }
-
-  // update(index, field, value) {
-  //   this.notes = this.notes.map((e, i) => {
-  //     if (index === i) {
-  //       return {
-  //         ...e,
-  //         [field]: value
-  //       }
-  //     }
-  //     return e;
-  //   });
-  //   this.listNotes.next(this.notes);
-  // }
-
-  // saveNotes() {
-  //   let lista = [];
-  //   this.notes.forEach((element) => {
-  //     if(element.noteId) {
-  //       lista.push(
-  //         { 
-  //           'noteId': element.noteId,
-  //           'noteDescription': element.noteDescription,
-  //           'noteNum': element.noteNum,
-  //           'noteDate': element.noteDate,
-  //           'observation': element.observation,
-  //           'noteStartDate': element.noteStartDate,
-  //           'noteEndDate': element.noteEndDate,
-  //           'criticallyLevel': element.criticallyLevel,
-  //           'status': {
-  //             'id': this.formFind.value.statusId
-  //           },
-  //           'type': {
-  //             'id': this.formFind.value.typeId
-  //           },
-  //           'project': {
-  //             'id': this.data.projectId
-  //           }
-  //         }
-  //       );  
-  //     } else {
-  //       lista.push(
-  //         { 
-  //           'noteDescription': element.noteDescription,
-  //           'noteNum': element.noteNum,
-  //           'noteDate': element.noteDate,
-  //           'observation': element.observation,
-  //           'noteStartDate': element.noteStartDate,
-  //           'noteEndDate': element.noteEndDate,
-  //           'criticallyLevel': element.criticallyLevel,
-  //           'status': {
-  //             'id': this.formFind.value.statusId
-  //           },
-  //           'type': {
-  //             'id': this.formFind.value.typeId
-  //           },
-  //           'project': {
-  //             'id': this.data.projectId
-  //           }
-  //         }
-  //       );
-  //     }
-  //   })
-  //   this.noteService.saveNotes(lista).subscribe(
-  //     (response) => {
-  //       console.log('----- noteService.saveNotes SUCCESS -----');
-  //       console.log(response);
-  //     }, (err) => {
-  //       console.log('----- noteService.saveNotes ERROR -----');
-  //       console.log(err);
-  //   });
-  // }
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   console.log(changes)
-  //   console.log('----- entrou dentro do ngOnChanges');
-  // }
-
-  // noteDescription: "Adicionar nota"
-  // noteNum: 1
-  // noteDate: 1576520861000
-  // observation: "Observação"
-  // noteStartDate: null
-  // noteEndDate: null
-  // criticallyLevel: null
 
 }

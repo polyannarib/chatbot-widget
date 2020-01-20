@@ -15,6 +15,7 @@ import { ProjectsListComponent } from './projects/projects-list/projects-list.co
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GraphComponent } from './graph/graph.component';
 import { PlayersFindComponent } from './players/players-find/players-find.component';
+import { ResourceFindComponent } from './resource/resource-find/resource-find.component';
 
 // Components modal
 import { ResourceDetailsComponent } from './resource/resource-details/resource-details.component';
@@ -42,7 +43,8 @@ import { ProjectEditComponent } from './projects/project-edit/project-edit.compo
     GraphComponent,
     ReportEditComponent,
     ReportEditNoteComponent,
-    ProjectEditComponent
+    ProjectEditComponent,
+    ResourceFindComponent
   ],
   entryComponents: [
     ProjectDetailsComponent,

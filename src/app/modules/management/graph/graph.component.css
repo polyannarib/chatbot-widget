@@ -19,3 +19,6 @@
 .tableOverflow::-webkit-scrollbar { 
     display: none; 
 }
+.graph {
+    width: 80%;
+}

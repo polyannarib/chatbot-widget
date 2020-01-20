@@ -1,0 +1,115 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">      <mat-form-field id="tipoComp">
+        <mat-label>Tipo de Competência</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col"><mat-form-field id="categoria">
+        <mat-label>Categoria</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col"><mat-form-field id="cla">
+        <mat-label>Clã</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col">      
+      <mat-form-field id="competencia">
+        <mat-label>Competência</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field id="nivel">
+          <mat-label>Nível</mat-label>
+          <mat-select [formControl]="toppings" multiple>
+            <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field id="departamento">
+        <mat-label>Departamento</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col">      
+      <mat-form-field id="equipe">
+        <mat-label>Equipe</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col s12" id="tabela-col">
+
+      <table id="tabela">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Recursos</th>
+            <th>Departamento</th>
+            <th>Equipe</th>
+            <th>Projetos entregues</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="perfil"><img src="https://image.freepik.com/vetores-gratis/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg"></td>
+            <td>Gustavo Menezes de Abreu</td>
+            <td width="18%">Ti</td>
+            <td width="26%">Anderson Martins</td>
+            <td width="22%">150 horas</td>
+          </tr>
+          <tr>
+            <td class="perfil"><img src="https://image.freepik.com/vetores-gratis/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg"></td>
+            <td>Gustavo Menezes de Abreu</td>
+            <td width="18%">Ti</td>
+            <td width="26%">Anderson Martins</td>
+            <td width="22%">150 horas</td>
+          </tr>
+          <tr>
+            <td class="perfil"><img src="https://image.freepik.com/vetores-gratis/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg"></td>
+            <td>Gustavo Menezes de Abreu</td>
+            <td width="18%">Ti</td>
+            <td width="26%">Anderson Martins</td>
+            <td width="22%">150 horas</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- <table mat-table [dataSource]="data" class="mat-elevation-z8">
+        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+          <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+          <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+      </table> -->
+
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@
 
 <div id="modal" *ngIf="playerActivity != null && !loader">
   <div class="modal-header">{{ playerActivity.name }}
-    <button type="button" class="close btn" [mat-dialog-close]="true"><span aria-hidden="true">&times;</span></button>
+    <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
   </div>
   <div class="modal-body">
 
@@ -13,13 +13,14 @@
       </div>
       <div class="col s12 m8">
         <div class="title">{{ 'PROGRESS' | translate }}</div>
-        <div class="progress">
+        <app-progress [width]="progress"></app-progress>
+        <!-- <div class="progress">
           <div class="determinate" [ngStyle]="{'width': projectDate?.progress+'%'}"></div>
-        </div>
+        </div> -->
       </div>
     </div>
 
-    <app-count *ngIf="playerActivity?.tasks == null">Esse jogador não possui tarefas</app-count>
+    <app-count *ngIf="playerActivity.tasks == null || playerActivity.tasks == [] || !playerActivity.tasks">Esse jogador não possui tarefas</app-count>
 
     <section *ngIf="playerActivity?.tasks != null">
 
@@ -35,15 +36,15 @@
             <mz-collapsible-item-header>
               <div class="row no-padding">
 
-                  <span class="activity-text">{{ tasks.project.code }}</span>
-                  <span class="activity-text">{{ tasks.name }}</span>
-                  <span class="activity-text">{{ tasks.previewedAt | date:'dd/MM/yyyy' }}</span>
-                  <span class="activity-text">{{ tasks.dailyEffort }}h</span>
+                  <span class="activity-text">{{ activity.project.code }}</span>
+                  <span class="activity-text">{{ activity.name }}</span>
+                  <span class="activity-text">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</span>
+                  <span class="activity-text">{{ activity.dailyEffort }}h</span>
 
-                <div class="col m2 s12 left-align">{{ tasks.project.code }}</div>
-                <div class="col m6 s12 left-align">{{ tasks.name }}</div>
-                <div class="col m2 s12 left-align">{{ tasks.previewedAt | date:'dd/MM/yyyy' }}}</div>
-                <div class="col m1 s12 left-align">{{ tasks.dailyEffort }}h</div>
+                <div class="col m2 s12 left-align">{{ activity.project.code }}</div>
+                <div class="col m6 s12 left-align">{{ activity.name }}</div>
+                <div class="col m2 s12 left-align">{{ activity.previewedAt | date:'dd/MM/yyyy' }}}</div>
+                <div class="col m1 s12 left-align">{{ activity.dailyEffort }}h</div>
                 <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}" 
                   [ngStyle]="{ 'color': activity.status == 'BUILDING' ? 'gray' : '#000',
                                'color': activity.status == 'EXECUTION' ? '#FFD700' : '#000',
@@ -77,6 +78,6 @@
     </section>
   </div>
 <!--   <div class="modal-footer">
-    <button class="btn waves-effect waves-light" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
+    <button class="button button-primary" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
   </div> -->
 </div>

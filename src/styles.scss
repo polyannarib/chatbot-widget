@@ -4,8 +4,56 @@
 
 
 body {
-    background-color: #EBEBEB;
+    background-image: url('/assets/images/fundo.png');
+    background-size: auto;
+    background-repeat: no-repeat;
 }
+
+
+.button {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: none;
+    padding: 10px 25px;
+    font-size: 1rem;
+    // line-height: 1.5;
+    border-radius: 3px;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.button:hover, .button:active, .button:focus {
+    opacity: 0.75;
+    color: #fff;
+}
+.button-primary {
+    background-color: #650199 !important;
+    color: #fff;
+}
+.button-danger {
+    background-color: #ff644a !important;
+    color: #fff;
+}
+.button-floating {
+    position: relative;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    line-height: 53px;
+    padding: 0;
+    border-radius: 50%;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
 
 /* Codigo de padronização dos botões de dias do Dashboard */
 .btnDayCalendar {
@@ -15,7 +63,7 @@ body {
     overflow: hidden;
     z-index: 1;
     width: 33px;
-    height: 33px;
+    height: 100%;
     line-height: 33px;
     padding: 0;
     border-radius: 0%;
@@ -26,6 +74,46 @@ body {
     box-shadow: none;
     border: none;
 }
+
+
+
+
+// CODIGO PARA ADICIONAR O TRAPEZIO NA LATERAL DA DIV
+.trapezio:after {
+    content: "";
+    /* box-shadow: inset -0.5px 0 0px 3px white; */
+    display: inline-block;
+    width: 15px;
+    height: 88px;
+    background: rgba(255,255,255,0.4);
+    transform: perspective(2px) rotateY(1deg);
+    position: absolute;
+    top: 39%;
+    right: -17px;
+    border-left: #660080 5px solid;
+    padding-left: 2px;
+    background-clip: content-box;
+    z-index: 15;
+  }
+  .trapezio:before {
+    content: "";
+    /* box-shadow: inset -0.5px 0 0px 3px white; */
+    display: inline-block;
+    width: 15px;
+    height: 88px;
+    background: rgba(255,255,255,0.4);
+    transform: perspective(2px) rotateY(-1deg);
+    position: absolute;
+    top: 39%;
+    left: -17px;
+    border-right: #660080 5px solid;
+    padding-right: 2px;
+    background-clip: content-box;
+    z-index: 15;
+  }
+
+
+
 
 
 /* Codigos para padronizar o modal */
@@ -50,7 +138,7 @@ body {
     color: white;
     box-shadow: none;
     font-size: 31px;
-    border-radius: 2100%;
+    border-radius: 100%;
     width: 42px;
     height: 42px;
     padding: 0;
@@ -59,20 +147,21 @@ body {
     right: -38px;
     top: -38px;
 }
-
 #modal .close:hover {
     transition: all 0.05s ease;
-    transform: scale(1.1);
+    // transform: scale(1.1);
     background: #ff4524;
 }
-
 #modal {
     position: relative;
 }
-
 .mat-dialog-container {
     overflow: visible !important;
+    border-top: #650199 3px solid;
+    border-radius: 3px !important;
 }
+
+
 
 
 /* Codigo para padronização do collapse */
@@ -123,6 +212,12 @@ mz-collapsible-item-body ul {
 }
 
 
+
+
+
+
+
+
 // codigo para o toastr/notify
 .mat-snack-bar-container {
     border-radius: 4px;
@@ -138,14 +233,70 @@ mz-collapsible-item-body ul {
 .cdk-overlay-dark-backdrop {
     background: rgba(0,0,0,0.87);
 }
-// .modalBg {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     height: 100vh;
-//     width: 100vw;
-//     background-color: #0000001A;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-// }
+
+
+
+
+
+
+
+
+
+
+
+
+.ct-slick-prev,
+.ct-slick-next {
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    background-color: #fff;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: xx-large !important;
+    color: crimson !important;
+    border-radius: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    opacity: 1;
+}
+.ct-slick-prev {
+    left: -24px;
+    z-index: 9;
+    padding: 0px;
+    opacity: 0.8;
+}
+.ct-slick-next {
+    right: -24px;
+    z-index: 9;
+    padding: 0px;
+    opacity: 0.8;
+}
+.ct-slick-prev::after {
+    border: 12px solid transparent;
+    border-right-color: #fff;
+    content: "";
+    left: -24px;
+    position: absolute;
+}
+.ct-slick-next:before {
+    border: 12px solid transparent;
+    border-left-color: #fff;
+    content: "";
+    right: -24px;
+    position: absolute;
+}
+.ct-slick-prev i {
+    position: relative;
+    left: -14px;
+    z-index: 5;
+}
+.ct-slick-next i {
+    position: relative;
+    right: -14px;
+    z-index: 5;
+}
