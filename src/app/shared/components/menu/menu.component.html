@@ -2,19 +2,38 @@
 
     <li routerLinkActive="active">
         <a [routerLink]="['/management/dashboard']">
-            <span><i class="material-icons">dashboard</i></span>
+            <span><i class="material-icons-outlined">dashboard</i></span>
             <p>{{ 'COCKPIT' | translate }}</p>
         </a>
     </li>
+    <li routerLinkActive="active">
+        <a [routerLink]="['/management/resource/find']">
+            <span><i class="material-icons-outlined">people_alt</i></span>
+            <p>Recursos</p>
+        </a>
+    </li>
+    <li routerLinkActive="active">
+        <a [routerLink]="['/player/bind/cards']">
+            <span><i class="material-icons-outlined">build</i></span>
+            <p>Competências Técnicas</p>
+        </a>
+    </li>
+    <li routerLinkActive="active" id="logout">
+        <a [routerLink]="['/login/auth']" (click)="logout()">
+            <span><i class="material-icons-outlined">exit_to_app</i></span>
+            <p>Sair</p>
+        </a>
+    </li>
+
     <!-- <li routerLinkActive="active">
         <a [routerLink]="['/bind/cards']">
-            <span><i class="material-icons">insert_chart</i></span>
+            <span><i class="material-icons-outlined">insert_chart</i></span>
             <p>Selecionar cartas</p>
         </a>
     </li>
     <li routerLinkActive="active">
         <a [routerLink]="['/management/resource/list']">
-            <span><i class="material-icons">insert_chart</i></span>
+            <span><i class="material-icons-outlined">insert_chart</i></span>
             <p>Pesquisar recursos</p>
         </a>
     </li> -->

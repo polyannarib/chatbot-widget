@@ -4,6 +4,7 @@ import { DOCUMENT } from '@angular/common';
 
 import { MenuItems } from './menu.json';
 import { addAllToArray } from '@angular/core/src/render3/util';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -11,17 +12,26 @@ import { addAllToArray } from '@angular/core/src/render3/util';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
-
+  
+  user: any
   clearSearch: any;
   menus: any;
   datas: any[] = [];
   menuList: any[];
   quantity = 4;
 
-  constructor( ) { }
+  constructor(
+    private authService: AuthService
+  ) {
+    this.user = this.authService.getUser();
+  }
 
   ngOnInit() {
     // this.menuList = this.menuItems.getAll().items;
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   // ngAfterViewInit() {

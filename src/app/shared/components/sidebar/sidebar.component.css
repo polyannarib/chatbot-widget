@@ -1,3 +1,7 @@
+/* @import "~@angular/material/prebuilt-themes/pink-bluegrey.css"; */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons++Icons+Sharp');
+Round|Material
 /*-------APAGAR DEPOIS-------*/
 .sidebar .title-img img{
     top: 10px !important;
@@ -161,6 +165,12 @@ body.rtl::-webkit-scrollbar-track, div::-webkit-scrollbar-track, ul::-webkit-scr
         animation: .5s forwards bottombar-x
     }
 }
+
+#logout{
+    position: absolute;
+    width: 100%;
+    bottom: 14px;
+}
 /*---------------------------------------------*/
 
 
@@ -171,8 +181,7 @@ body.rtl::-webkit-scrollbar-track, div::-webkit-scrollbar-track, ul::-webkit-scr
 
 
 
-/* @import "~@angular/material/prebuilt-themes/pink-bluegrey.css"; */
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700&display=swap');
+
 
 @-moz-keyframes flash {
     0% {
