@@ -18,14 +18,29 @@
 
 
 /*----ADAPTAÇÃO DO KOLUMN PARA O WORKPLAYER----*/
-.sidebar{
-    z-index: 1000 !important;
+button.navbar-toggle {
+    float: left !important;
+    margin: 0px 14px !important;
+    background: #650199 !important;
 }
 
-div.content{
+.sidebar{
+    z-index: 1002 !important;
+    /* overflow: visible; */
+}
+
+.navbar-toggle{
+    z-index: 1002;
+}
+
+.player{
+    z-index: -1;
+}
+
+div.content {
     width: calc(100% - 80px) !important;
     margin-left: 80px;
-    margin-top: 60px;
+    margin-top: 68px;
 }
 
 .navbar.fixed {
@@ -74,25 +89,38 @@ body.rtl::-webkit-scrollbar-track, div::-webkit-scrollbar-track, ul::-webkit-scr
 }
 
 @media (max-width: 992px) {
-    .nav-open .navbar-fixed>nav>div {
-        -webkit-transform: translate3d(-260px, 0, 0);
-        transform: translate3d(-260px, 0, 0)
+    div.content{
+        width: 100% !important;
+        margin-left: 0px;
+    }
+    button.toggled+#black-filter {
+        background-color: rgba(0, 0, 0, 0.87);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        transition: all ease 0.1s;
+        top: 0;
+        z-index: 1001;
+    }
+    .nav-open .navbar-fixed .navbar-toggle {
+        -webkit-transform: translate3d(260px, 0, 0);
+        transform: translate3d(260px, 0, 0)
     }
     .nav-open .main-panel, .nav-open .navbar .container, .nav-open .wrapper-full-page {
         left: 0;
-        -webkit-transform: translate3d(-260px, 0, 0);
-        transform: translate3d(-260px, 0, 0)
+        -webkit-transform: translate3d(260px, 0, 0);
+        transform: translate3d(260px, 0, 0)
     }
-    .nav-open .navbar-fixed>div {
-        -webkit-transform: translate3d(-260px, 0, 0);
-        transform: translate3d(-260px, 0, 0)
+    .nav-open .navbar-fixed .navbar-toggle {
+        -webkit-transform: translate3d(260px, 0, 0);
+        transform: translate3d(260px, 0, 0)
     }
     .nav-open .bootstrap-navbar, .nav-open .sidebar {
         -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0)
     }
     .nav-open .navbar-default .navbar-toggle .icon-bar {
-        background-color: #222
+        background-color: white
     }
     .navbar-toggle .icon-bar {
         display: block;
@@ -103,6 +131,20 @@ body.rtl::-webkit-scrollbar-track, div::-webkit-scrollbar-track, ul::-webkit-scr
         border-radius: 1px;
         margin: 0 auto;
         outline: transparent solid 1px
+    }
+
+    .navbar-toggle .icon-bar:nth-child(1) {
+        top: 0;
+        -webkit-animation: .5s linear forwards topbar-back;
+        animation: .5s forwards topbar-back
+    }
+    .navbar-toggle .icon-bar:nth-child(2) {
+        opacity: 1
+    }
+    .navbar-toggle .icon-bar:nth-child(3) {
+        bottom: 0;
+        -webkit-animation: .5s linear forwards bottombar-back;
+        animation: .5s forwards bottombar-back
     }
 
     .toggled .icon-bar:nth-child(1) {
@@ -8956,6 +8998,15 @@ body.rtl::-webkit-scrollbar-track, div::-webkit-scrollbar-track, ul::-webkit-scr
 }
 
 @media (min-width: 992px) {
+    .sidebar:hover+#black-filter {
+        background-color: rgba(0, 0, 0, 0.87);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        transition: all ease 0.1s;
+        top: 0;
+        z-index: 1001;
+    }
     .navbar-expand-lg {
         flex-direction: row;
         flex-wrap: nowrap;
@@ -11064,7 +11115,7 @@ legend {
 }
 
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: #616161
+  background-color: white
 }
 
 .navbar-inverse .navbar-toggle {
@@ -11493,7 +11544,6 @@ legend {
         left: 0;
         width: 100%;
         transition: .33s cubic-bezier(.685, .0473, .346, 1);
-        position: relative
     }
     .navbar-nav>li {
         float: none;
@@ -11509,16 +11559,17 @@ legend {
         top: 0;
         height: auto;
         width: 260px;
-        right: 0;
-        left: auto;
+        left: 0;
+        right: auto;
         z-index: 1032;
         visibility: visible;
         overflow-y: visible;
         padding: 0;
         background-color: #888;
-        -webkit-transform: translate3d(260px, 0, 0);
-        transform: translate3d(260px, 0, 0);
-        transition: .33s cubic-bezier(.685, .0473, .346, 1)
+        -webkit-transform: translate3d(-260px, 0, 0);
+        transform: translate3d(-260px, 0, 0);
+        -webkit-transition: .33s cubic-bezier(.685, .0473, .346, 1);
+        transition: .33s cubic-bezier(.685, .0473, .346, 1);
     }
     .off-canvas-sidebar .navbar-collapse .nav i, .sidebar .nav i {
         font-size: 22px
@@ -11646,19 +11697,19 @@ legend {
     }
     .nav-open .main-panel, .nav-open .navbar .container, .nav-open .wrapper-full-page {
         left: 0;
-        -webkit-transform: translate3d(-260px, 0, 0);
-        transform: translate3d(-260px, 0, 0)
+        -webkit-transform: translate3d(260px, 0, 0);
+        transform: translate3d(260px, 0, 0)
     }
-    .nav-open .navbar-fixed>div {
-        -webkit-transform: translate3d(-260px, 0, 0);
-        transform: translate3d(-260px, 0, 0)
+    .nav-open .navbar-fixed .navbar-toggle {
+        -webkit-transform: translate3d(260px, 0, 0);
+        transform: translate3d(260px, 0, 0)
     }
     .nav-open .bootstrap-navbar, .nav-open .sidebar {
         -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0)
     }
     .nav-open .navbar-default .navbar-toggle .icon-bar {
-        background-color: #222
+        background-color: white
     }
     .navbar-toggle .icon-bar {
         display: block;
@@ -11880,7 +11931,7 @@ legend {
         float: none!important
     }
     .navbar-toggle:focus, .navbar-toggle:hover {
-        background-color: transparent!important
+        background-color: #7700b5 !important
     }
     /* .btn.dropdown-toggle {
         margin-bottom: 0

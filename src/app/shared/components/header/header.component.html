@@ -1,4 +1,10 @@
 <header class="navbar navbar-fixed navbar-expand navbar-default">
+    <button type="button" class="navbar-toggle btn btn-primary-custom p-2 ml-4" (click)="toggleMenu()">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <div id="black-filter"></div>
     <nav>
         <div class="nav-wrapper container-fluid">
             <ul class="right hide-on-med-and-down">
@@ -7,11 +13,6 @@
                     <li><a (click)="logout()"><i class="material-icons">exit_to_app</i>Logout</a></li>
                 </ul>
             </ul>
-            <button type="button" class="navbar-toggle btn btn-primary-custom p-2 ml-4" data-toggle="collapse" (click)="toggleMenu('left')">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
         </div>
     </nav>
     <div class="player">
