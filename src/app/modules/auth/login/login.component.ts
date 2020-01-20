@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     if(this.authService.isAuthenticated()) {
-      this.router.navigate(['/management/dashboard']);
+      this.router.navigate(['/management']);
     }
   }
 
@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         (response) => {
           if (response.status == 0) {
             this.authService.setToken(response.object.token);
+            this.router.navigate(['/management']);
             return;
           } if (response.status == 1) {
             this.loader = false;

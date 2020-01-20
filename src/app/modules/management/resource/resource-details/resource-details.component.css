@@ -8,7 +8,7 @@
 .dateProgress .dateActivity .activityDay {
     background-color: #ff9d8c;
     color: white;
-    border-radius: 0;
+    border-radius: 3px;
     padding: 3px 25px;
     font-size: 22px;
 }

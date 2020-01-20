@@ -12,8 +12,6 @@ import { FilterListPipe } from './pipe/filter.pipe';
 
 // Componentes criados no projeto
 import { HeaderComponent } from './components/header/header.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CountComponent } from './components/count/count.component';
@@ -31,8 +29,14 @@ import { SucessComponent } from './components/modal/sucess/sucess.component';
 import { ErrorComponent } from './components/modal/error/error.component';
 import { NotifyComponent } from './components/notify/notify.component';
 import { EditableComponent } from './components/editable/editable.component';
+
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MenuComponent } from './components/menu/menu.component';
+
 import { SlickComponent } from './components/slick/slick.component';
 import { ProgressComponent } from './components/progress/progress.component';
+import { BoxPropertyComponent } from './components/box-property/box-property.component';
+
 
 // Diretivas
 import { EditModeDirective } from './directives/edit-mode.directive';
@@ -101,6 +105,7 @@ import { MenuItems } from './components/menu/menu.json';
   declarations: [
     SidebarComponent,
     MenuComponent,
+    BoxPropertyComponent,
     FilterListPipe,
     HeaderComponent,
     FooterComponent,
@@ -130,6 +135,7 @@ import { MenuItems } from './components/menu/menu.json';
   ],
   exports: [
     MenuComponent,
+    BoxPropertyComponent,
     FilterListPipe,
     FooterComponent,
     TranslateModule,

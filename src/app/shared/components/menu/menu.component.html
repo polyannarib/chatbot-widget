@@ -1,11 +1,23 @@
 <ul class="nav">
 
     <li routerLinkActive="active">
-        <a [routerLink]="['/management/dashboard']" routerLinkActive="router-link-active"  [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link">
-            <span><i class="material-icons">insert_chart</i></span>
+        <a [routerLink]="['/management/dashboard']">
+            <span><i class="material-icons">dashboard</i></span>
             <p>{{ 'COCKPIT' | translate }}</p>
         </a>
     </li>
+    <!-- <li routerLinkActive="active">
+        <a [routerLink]="['/bind/cards']">
+            <span><i class="material-icons">insert_chart</i></span>
+            <p>Selecionar cartas</p>
+        </a>
+    </li>
+    <li routerLinkActive="active">
+        <a [routerLink]="['/management/resource/list']">
+            <span><i class="material-icons">insert_chart</i></span>
+            <p>Pesquisar recursos</p>
+        </a>
+    </li> -->
 
     <!-- <li id="menu-{{menuitem.title | lowercase}}" routerLinkActive="active" *ngFor="let menuitem of menuList"> -->
             
