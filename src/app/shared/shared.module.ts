@@ -35,6 +35,7 @@ import { MenuComponent } from './components/menu/menu.component';
 
 import { SlickComponent } from './components/slick/slick.component';
 import { ProgressComponent } from './components/progress/progress.component';
+import { BoxPropertyComponent } from './components/box-property/box-property.component';
 
 
 // Diretivas
@@ -104,6 +105,7 @@ import { MenuItems } from './components/menu/menu.json';
   declarations: [
     SidebarComponent,
     MenuComponent,
+    BoxPropertyComponent,
     FilterListPipe,
     HeaderComponent,
     FooterComponent,
@@ -133,6 +135,7 @@ import { MenuItems } from './components/menu/menu.json';
   ],
   exports: [
     MenuComponent,
+    BoxPropertyComponent,
     FilterListPipe,
     FooterComponent,
     TranslateModule,
