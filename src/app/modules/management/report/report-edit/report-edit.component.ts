@@ -107,8 +107,6 @@ export class ReportEditComponent implements OnInit {
   }
 
   modalEditNotesReport(note) {
-    console.log('note');
-    console.log(note);
     const dataSend = {
       type: 'edit',
       note: note,
