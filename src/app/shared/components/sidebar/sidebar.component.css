@@ -172,7 +172,7 @@ body.rtl::-webkit-scrollbar-track, div::-webkit-scrollbar-track, ul::-webkit-scr
 
 
 /* @import "~@angular/material/prebuilt-themes/pink-bluegrey.css"; */
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700&display=swap'); */
 
 @-moz-keyframes flash {
     0% {
@@ -8715,7 +8715,7 @@ body.rtl::-webkit-scrollbar-track, div::-webkit-scrollbar-track, ul::-webkit-scr
     }
     #print p {
         font-size: 1.7rem;
-        font-family: 'source-sans-pro-semibold', sans-serif;
+        /* font-family: 'source-sans-pro-semibold', sans-serif; */
     }
 }
 
@@ -9236,7 +9236,7 @@ a.text-dark:focus, a.text-dark:hover {
     visibility: hidden !important;
 }
 
-@font-face {
+/* @font-face {
     font-family: 'roboto-light';
     src: url("/assets/fonts/Roboto/Roboto-Light.ttf") format("truetype");
 }
@@ -9294,7 +9294,7 @@ a.text-dark:focus, a.text-dark:hover {
 @font-face {
     font-family: 'open-sans-bold';
     src: url("/assets/fonts/Open_Sans/OpenSans-Bold.ttf") format("truetype");
-}
+} */
 
 .navbar .navbar-menu-wrapper .navbar-dropdown.mail-notification .dropdown-item .sender .Sende-name, .navbar .navbar-menu-wrapper .navbar-dropdown.mail-notification .dropdown-item .sender .Sender-message, .navbar .navbar-menu-wrapper .navbar-dropdown.notification-drop-down .dropdown-item .notification-text, .horizontal-menu .sidebar .nav .nav-item .mega-menu .list-group .nav-item .nav-link, .attachments-sections ul li .details p.file-name, .profile-list-item a .user .u-name, .profile-list-item a .user .u-designation, .new-accounts ul.chats li.chat-persons a div.user p.u-name, .new-accounts ul.chats li.chat-persons a div.user p.u-designation, .portfolio-grid-2 .portfolio-tile .tile-details .project-name, .tickets-tab ul li .details .t-content .sender-content p.subject, .tickets-tab ul li .details .t-content .message p {
     text-overflow: ellipsis;
@@ -9656,7 +9656,7 @@ a.text-dark:focus, a.text-dark:hover {
     font-size: 14px;
     color: #017438;
     margin-bottom: 0;
-    font-family: 'source-sans-pro-semibold', sans-serif;
+    /* font-family: 'source-sans-pro-semibold', sans-serif; */
 }
 
 .email-wrapper .mail-sidebar .menu-bar .online-status .status {
@@ -10102,7 +10102,7 @@ Copyright (c) 2015 Daniel Eden
 .navbar, a, body, p {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+    /* font-family: Roboto, "Helvetica Neue", Arial, sans-serif; */
     font-weight: 400
 }
 
@@ -10335,7 +10335,7 @@ h1 .subtitle {
     margin: 10px;
     color: #fff;
     line-height: 20px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+    /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif */
 }
 
 .sidebar .logo .logo-text {

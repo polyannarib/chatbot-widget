@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PlayerComponent } from '../player.component';
-import { RegisterComponent } from '../register/register.component';
 import { CardBindComponent } from '../card/card-bind/card-bind.component';
 
 const APP_ROUTES: Routes = [

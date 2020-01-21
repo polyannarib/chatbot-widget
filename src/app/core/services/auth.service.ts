@@ -41,11 +41,14 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    if(!this.jwtHelper.isTokenExpired(localStorage.getItem('acessToken'))) {
-      return true;
-    } else {
-      return false;
+    if(localStorage.getItem('acessToken')) {
+      if(!this.jwtHelper.isTokenExpired(localStorage.getItem('acessToken'))) {
+        return true;
+      } else {
+        return false;
+      }
     }
+    return false;
   }
 
 }
