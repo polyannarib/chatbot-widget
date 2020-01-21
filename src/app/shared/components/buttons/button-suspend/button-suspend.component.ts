@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TaskService } from 'src/app/core/services/task.service';
 import { MatDialog } from '@angular/material';
 import { SuspendComponent } from '../../modal/suspend/suspend.component';
@@ -11,6 +11,7 @@ import { SuspendComponent } from '../../modal/suspend/suspend.component';
 export class ButtonSuspendComponent implements OnInit {
 
   @Input() activityId: number;
+  @Output() update: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private taskService: TaskService,
@@ -29,6 +30,7 @@ export class ButtonSuspendComponent implements OnInit {
       data: dataSend
     });
     dialogRef.afterClosed().subscribe((result) => {
+      this.update.emit(true);
       // console.log('result ------- finalize component --------');
       // console.log(result);
     });

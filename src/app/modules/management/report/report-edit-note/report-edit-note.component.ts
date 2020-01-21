@@ -29,6 +29,7 @@ export class ReportEditNoteComponent implements OnInit {
   getType() {
     if(this.data.type == 'edit') {
       this.form = this.formBuilder.group({
+        noteId: [this.data.note.noteId, [Validators.required]],
         noteNum: [this.data.note.noteNum, [Validators.required]],
         noteDescription: [this.data.note.noteDescription, [Validators.required]],
         observation: [this.data.note.observation],
