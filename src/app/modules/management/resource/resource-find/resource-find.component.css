@@ -3,6 +3,10 @@
     margin: auto;
 }
 
+.row .col{
+    padding: 0 4px;
+}
+
 /*-----TABLE-----*/
     .perfil {
         width: 60px;

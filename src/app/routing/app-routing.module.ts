@@ -4,7 +4,7 @@ import { AuthGuard } from '../core/guards/auth-guard';
 
 const APP_ROUTES: Routes = [
   // { path: '', redirectTo: '', pathMatch: 'full' },
-  { path: '', loadChildren: '../modules/player/player.module#PlayerModule', canActivate: [AuthGuard] },
+  { path: 'player', loadChildren: '../modules/player/player.module#PlayerModule', canActivate: [AuthGuard] },
   { path: 'management', loadChildren: '../modules/management/management.module#ManagementModule', canActivate: [AuthGuard] },
   { path: 'admin', loadChildren: '../modules/admin/admin.module#AdminModule', canActivate: [AuthGuard] },
   { path: 'auth', loadChildren: '../modules/auth/auth.module#AuthModule' },
