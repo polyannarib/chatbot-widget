@@ -24,7 +24,7 @@ export class ResourceListComponent implements OnInit {
   loaderDays: boolean = false;
 
   numberOfDays = 12;
-  startDate = subDays(new Date(Date.now()), 1);
+  startDate = new Date(Date.now());
   endDate = addDays(new Date(Date.now()), this.numberOfDays - 1);
 
   constructor(
@@ -42,8 +42,8 @@ export class ResourceListComponent implements OnInit {
 
   daysOfWeek(start, end) {
     this.daysOfWeek13 = eachDayOfInterval({
-      start: start,
-      end: end
+      start: subDays(start, 1),
+      end: subDays(end, 1)
     })
   }
 
