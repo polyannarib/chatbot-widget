@@ -28,7 +28,7 @@ export class ProjectsListComponent implements OnInit {
     private projectService: ProjectService,
     public dialog: MatDialog
   ) {
-    this.startDate = new Date(Date.now());
+    this.startDate = subDays(new Date(Date.now()), 1);
     this.endDate = addDays(this.startDate, 8);
   }
 
@@ -75,6 +75,9 @@ export class ProjectsListComponent implements OnInit {
     const dialogRef = this.dialog.open(ProjectDetailsComponent, {
       width: '90vw',
       data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.findProjects();
     });
   }
 

@@ -1,7 +1,6 @@
 /* @import "~@angular/material/prebuilt-themes/pink-bluegrey.css"; */
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons++Icons+Sharp');
-Round|Material
+
 /*-------APAGAR DEPOIS-------*/
 .sidebar .title-img img{
     top: 10px !important;
@@ -57,7 +56,6 @@ div.content {
     background: #650199 !important;
     opacity: 1 !important;
 }
-
 
 /* .sidebar .nav li>a {
     color: #6f237fe0 !important
@@ -181,12 +179,9 @@ body.rtl::-webkit-scrollbar-track, div::-webkit-scrollbar-track, ul::-webkit-scr
 
 
 
-<<<<<<< HEAD
 /* @import "~@angular/material/prebuilt-themes/pink-bluegrey.css"; */
 /* @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700&display=swap'); */
-=======
 
->>>>>>> sidebar
 
 @-moz-keyframes flash {
     0% {

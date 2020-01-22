@@ -40,8 +40,8 @@ export class ProjectEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('data')
-    console.log(this.form.value)
+    // console.log('data')
+    // console.log(this.form.value)
   }
 
   editProject() {
