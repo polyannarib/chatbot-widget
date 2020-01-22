@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TaskService } from 'src/app/core/services/task.service';
 import { MatDialog } from '@angular/material';
 import { FinalizeComponent } from '../../modal/finalize/finalize.component';
@@ -11,6 +11,8 @@ import { FinalizeComponent } from '../../modal/finalize/finalize.component';
 export class ButtonFinalizeComponent implements OnInit {
 
   @Input() activityId: number;
+  @Output() update: EventEmitter<any> = new EventEmitter();
+  // @Output() update = new EventEmitter();
 
   constructor(
     private taskService: TaskService,
@@ -28,7 +30,8 @@ export class ButtonFinalizeComponent implements OnInit {
       width: '500px',
       data: dataSend
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
+      this.update.emit(true);
       // console.log('result ------- finalize component --------');
       // console.log(result);
     });

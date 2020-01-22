@@ -23,9 +23,9 @@ export class ResourceListComponent implements OnInit {
   loader: boolean = false;
   loaderDays: boolean = false;
 
-  numberOfDays = 9;
-  startDate = new Date(Date.now());
-  endDate = addDays(new Date(Date.now()), this.numberOfDays-1);
+  numberOfDays = 12;
+  startDate = subDays(new Date(Date.now()), 1);
+  endDate = addDays(new Date(Date.now()), this.numberOfDays - 1);
 
   constructor(
     private playerService: PlayerService,
@@ -75,7 +75,6 @@ export class ResourceListComponent implements OnInit {
   }
 
   modalResourceDetails(playerId, activity) {
-    // activity.month = activity.month-1;
     const dataSend = {
       playerId: playerId,
       activityDate: new Date(activity.referenceDate)
@@ -84,19 +83,22 @@ export class ResourceListComponent implements OnInit {
       width: '90vw',
       data: dataSend
     });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.findPlayers();
+    });
   }
 
   changeDays(date) {
     this.loaderDays = true;
     if (date == 'prev') {
       this.endDate = this.startDate;
-      this.startDate = subDays(this.startDate, this.numberOfDays-1);
+      this.startDate = subDays(this.startDate, this.numberOfDays);
       this.daysOfWeek(this.startDate, this.endDate);
       this.findPlayers();
       this.loaderDays = false;
     } if (date == 'next') {
       this.startDate = this.endDate;
-      this.endDate = addDays(this.startDate, this.numberOfDays-1);
+      this.endDate = addDays(this.startDate, this.numberOfDays);
       this.daysOfWeek(this.startDate, this.endDate);
       this.findPlayers();
       this.loaderDays = false;
