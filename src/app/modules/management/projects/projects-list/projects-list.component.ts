@@ -28,7 +28,7 @@ export class ProjectsListComponent implements OnInit {
     private projectService: ProjectService,
     public dialog: MatDialog
   ) {
-    this.startDate = subDays(new Date(Date.now()), 1);
+    this.startDate = new Date(Date.now());
     this.endDate = addDays(this.startDate, 8);
   }
 
@@ -39,8 +39,8 @@ export class ProjectsListComponent implements OnInit {
 
   daysOfWeek(start, end) {
     this.daysOfWeek10 = eachDayOfInterval({
-      start: start,
-      end: end
+      start: subDays(start, 1),
+      end: subDays(end, 1)
     })
   }
 
