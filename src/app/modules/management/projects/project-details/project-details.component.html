@@ -25,7 +25,6 @@
     <app-count *ngIf="projectTasks?.tasks == null">Esse projeto está sem task no momento!</app-count>
 
     <section *ngIf="projectTasks?.tasks != null">
-
       <div class="row headerTextCollapse hide-on-small-only text-header">
         <div class="col s12 m6"><span>{{ 'PROJECT' | translate }}</span></div>
         <div class="col s12 m2"><span>{{ 'ACTIVITY' | translate }}</span></div>
@@ -42,12 +41,11 @@
                 <div class="col m2 s12 left-align">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</div>
                 <div class="col m1 s12 left-align">{{ activity.dailyEffort }}h</div>
                 <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}" 
-                    [ngStyle]="{'color': activity.status == 'BUILDING' ? 'gray' : '#000',
-                                'color': activity.status == 'EXECUTION' ? '#FFD700' : '#000',
-                                'color': activity.status == 'FINISHED' ? 'rgb(21,255,0)' : '#000',
-                                'color': activity.status == 'HANGING' ? '#85C1E9' : '#000',
-                                'color': activity.status == 'DELAYED' ? 'rgb(255, 0, 0)' : '#000',
-                                'color': activity.status == 'WAITING' ? '#ae6634' : '#000' }">fiber_manual_record</i></div>
+                    [ngStyle]="{'color': activity.status == 'BUILDING' ? '#111316' : '#000',
+                                'color': activity.status == 'WAITING' ? '#FFC53E' : '#000',
+                                'color': activity.status == 'EXECUTION' ? '#0085B2' : '#000',
+                                'color': activity.status == 'FINISHED' ? '#00D69D' : '#000',
+                                'color': activity.status == 'HANGING' ? '#C9133E' : '#000'}">fiber_manual_record</i></div>
               </div>
             </mz-collapsible-item-header>
             <mz-collapsible-item-body>
@@ -72,7 +70,6 @@
           </mz-collapsible-item>
         </ng-container>
       </mz-collapsible>
-      
     </section>
 
   </div>

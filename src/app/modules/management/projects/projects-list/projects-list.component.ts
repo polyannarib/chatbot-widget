@@ -39,8 +39,8 @@ export class ProjectsListComponent implements OnInit {
 
   daysOfWeek(start, end) {
     this.daysOfWeek10 = eachDayOfInterval({
-      start: start,
-      end: end
+      start: subDays(start, 1),
+      end: subDays(end, 1)
     })
   }
 
@@ -75,6 +75,9 @@ export class ProjectsListComponent implements OnInit {
     const dialogRef = this.dialog.open(ProjectDetailsComponent, {
       width: '90vw',
       data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.findProjects();
     });
   }
 

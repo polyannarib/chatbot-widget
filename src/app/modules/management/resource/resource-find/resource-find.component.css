@@ -176,15 +176,12 @@
             width: 100%;
             position: relative;
         }
-
         .mat-form-field-wrapper, .mat-form-field{
             position: unset !important;
         }
-
         .mat-form-field{
             margin-bottom: 10px;
         }
-
         #tipoComp .mat-form-field-infix, #categoria .mat-form-field-infix, #cla .mat-form-field-infix,
         #competencia .mat-form-field-infix, #nivel .mat-form-field-infix, #departamento .mat-form-field-infix,
         #equipe .mat-form-field-infix {

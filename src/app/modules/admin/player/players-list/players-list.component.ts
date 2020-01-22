@@ -6,7 +6,6 @@ import { MzModalComponent } from 'ngx-materialize';
 import { MatDialog } from '@angular/material';
 import { SucessComponent } from 'src/app/shared/components/modal/sucess/sucess.component';
 import { ErrorComponent } from 'src/app/shared/components/modal/error/error.component';
-import { CardListPlayerComponent } from '../../card/card-list-player/card-list-player.component';
 
 @Component({
   selector: 'app-players-list',
@@ -110,17 +109,6 @@ export class PlayersListComponent implements OnInit {
   //     }
   //   )
   // }
-
-  openCards(id: Number) {
-    // this.listCardsByPlayer(id);
-    const dataSend = {
-      playerId: id
-    }
-    const dialogRef = this.dialog.open(CardListPlayerComponent, {
-      width: '50vw',
-      data: dataSend
-    });
-  }
 
   // confirmFinalize() {
   //   this.loaderConfirm = true;

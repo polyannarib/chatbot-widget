@@ -44,8 +44,9 @@ export class CardBindComponent implements OnInit {
         }
       }
     ]
-  }
+  };
   deck = {
+    lazyLoad: 'ondemand',
     centerMode: true,
     centerPadding: '70px',
     dots: false,
