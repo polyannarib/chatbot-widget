@@ -2,11 +2,13 @@
 .card {
     background: #ffffff61;
     color: #404040;
+    margin-bottom: 8px;
+    z-index: 1001;
 }
 
 .card-content:nth-child(2){
     max-height: 150px;
-    min-height: 150px;
+    min-height: 95px;
     overflow: auto;
     overflow-x: hidden;
 }
@@ -83,7 +85,7 @@
 
 .card.numeric span{
     display: inline-block;
-    width: 192px;
+    width: 179px;
     vertical-align: middle;
 }
 

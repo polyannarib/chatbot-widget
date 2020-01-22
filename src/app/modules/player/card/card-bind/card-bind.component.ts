@@ -1,12 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewEncapsulation, ElementRef } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+var $: any;
 @Component({
   selector: 'app-card-bind',
   templateUrl: './card-bind.component.html',
-  styleUrls: ['./card-bind.component.css']
+  styleUrls: ['./card-bind.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CardBindComponent implements OnInit {
+  title = 'tooltip';
+  status : boolean = false;
+  helpMessage: any = "Clique aqui para ver dicas sobre a tela";
 
+  
   arrows: boolean = true;
   slick = {
     lazyLoad: 'ondemand',
@@ -75,6 +81,16 @@ export class CardBindComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onShowTips(){
+    this.status = !this.status;
+    if(this.status == true){
+      this.helpMessage = "Clique para sair do modo Dicas"
+    }
+    if(this.status == false){
+      this.helpMessage = "Clique aqui para ver dicas sobre a tela";
+    }
   }
 
 }
