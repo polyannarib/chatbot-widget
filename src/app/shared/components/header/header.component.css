@@ -152,7 +152,8 @@ header{
 .player .image {
     content: '';
     display: inline-block;
-    background: #420050;
+    background-image: url('../../../../assets/images/perfil.jpg');
+    background-size: cover;
     width: 64px;
     height: 64px;
     border-radius: 100%;
