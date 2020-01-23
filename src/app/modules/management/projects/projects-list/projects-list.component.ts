@@ -20,17 +20,16 @@ export class ProjectsListComponent implements OnInit {
   filteredProjectsList: any;
   loader: boolean = false;
   loaderDays: boolean = false;
-  startDate: any;
-  endDate: any;
   project: any;
+
+  numberOfDays: number = 8
+  startDate: any = new Date(Date.now());
+  endDate: any = addDays(this.startDate, this.numberOfDays);
 
   constructor(
     private projectService: ProjectService,
     public dialog: MatDialog
-  ) {
-    this.startDate = new Date(Date.now());
-    this.endDate = addDays(this.startDate, 8);
-  }
+  ) { }
 
   ngOnInit() {
     this.daysOfWeek(this.startDate, this.endDate);
@@ -39,8 +38,8 @@ export class ProjectsListComponent implements OnInit {
 
   daysOfWeek(start, end) {
     this.daysOfWeek10 = eachDayOfInterval({
-      start: subDays(start, 1),
-      end: subDays(end, 1)
+      start: start,
+      end: end
     })
   }
 
@@ -56,18 +55,17 @@ export class ProjectsListComponent implements OnInit {
     this.projectService.listProjects(params).subscribe(
       (response) => {
         this.loader = false;
-        this.loaderProject.emit(false);
+        // this.loaderProject.emit(false);
         this.projectsList = response.object.list;
         this.filteredProjectsList = this.projectsList;
       }, (err) => {
         this.loader = false;
-        this.loaderProject.emit(false);
+        // this.loaderProject.emit(false);
       }
     );
   }
 
   modalProjectDetails(projectId, activity) {
-    // activity.month = activity.month-1;
     const dataSend = {
       projectId: projectId,
       projectDate: new Date(activity.referenceDate)
@@ -89,6 +87,9 @@ export class ProjectsListComponent implements OnInit {
       width: '90vw',
       data: dataSend
     });
+    dialogRef.afterClosed().subscribe(result => {
+      this.findProjects();
+    });
   }
 
   changeDays(date) {
@@ -107,6 +108,7 @@ export class ProjectsListComponent implements OnInit {
       this.loaderDays = false;
     }
   }
+
 
   onSearchChangeProject(searchValue: string): void {
     const project = this.projectsList;

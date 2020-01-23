@@ -2,9 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { TaskService } from 'src/app/core/services/task.service';
 import { format } from 'date-fns';
-import { FinalizeComponent } from '../../../../shared/components/modal/finalize/finalize.component';
-import { RemoveComponent } from '../../../../shared/components/modal/remove/remove.component';
-import { PlayerService } from '../../../../core/services/player.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -26,6 +23,7 @@ export class ProjectDetailsComponent implements OnInit {
   designate: boolean = false;
   taskHeader = ['PROJECT', 'ACTIVITY', 'DUEDATE', 'EFFORT'];
   taskList: any;
+  updateDesignate: boolean
 
   constructor(
     public dialogRef: MatDialogRef<ProjectDetailsComponent>,
@@ -52,69 +50,31 @@ export class ProjectDetailsComponent implements OnInit {
     )
   }
 
+  updateDesignated(value) {
+    if(value === true) {
+      this.findProjectTasks();
+    }
+  }
+
   reciverDesignate(value) {
     this.designate = value;
   }
- 
-  // finalize(activityId) {
-  //   const dataSend = {
-  //     activityId: activityId
-  //   }
-  //   const dialogRef = this.dialog.open(FinalizeComponent, {
-  //     width: '500px',
-  //     data: dataSend
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('result ------- finalize component --------');
-  //     console.log(result);
-  //   });
-  // }
 
-  // remove(activityId): void {
-  //   const dataSend = {
-  //     activityId: activityId
-  //   }
-  //   const dialogRef = this.dialog.open(RemoveComponent, {
-  //     width: '500px',
-  //     data: dataSend
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('result ------- remove component --------');
-  //     console.log(result);
-  //   });
-  // }
-  
-  // suspend(activityId): void {
-  //   const dataSend = {
-  //     activityId: activityId
-  //   }
-  //   const dialogRef = this.dialog.open(ProjectDetailsComponent, {
-  //     width: '90vw',
-  //     data: dataSend
-  //   });
-  // }
-
-  // findDesignatePlayers(taskId) {
-  //   if (!this.openPlayerRated) {
-  //     this.openPlayerRated = true;
-  //     this.loaderPlayerRated = true;
-  //     this.playerService.findDesignatePlayers(taskId).subscribe(
-  //       (response) => {
-  //         console.log('-------- playerService -------');
-  //         console.log(response);
-  //         this.playerRate = response.object.rated;
-  //         this.playerAllocated = response.object.allocated;
-  //         this.loaderPlayerRated = false;
-  //         // this.openPlayerRated = false;
-  //       }, (err) => {
-  //         this.loaderPlayerRated = false;
-  //         console.log('------ err ------');
-  //         console.log(err);
-  //       }
-  //     )
-  //   } else { 
-  //     this.openPlayerRated = false;
-  //   }
-  // }
+  getColor(color) {
+    switch (color) {
+      case 'BUILDING':
+        return '#111316';
+      case 'WAITING':
+        return '#FFC53E';
+      case 'EXECUTION':
+        return '#0085B2';
+      case 'FINISHED':
+        return '#00D69D';
+      case 'HANGING':
+        return '#C9133E';
+      default:
+        return '#000';
+    }
+  }
 
 }
