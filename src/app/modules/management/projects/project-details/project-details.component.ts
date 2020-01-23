@@ -63,7 +63,7 @@ export class ProjectDetailsComponent implements OnInit {
   getColor(color) {
     switch (color) {
       case 'BUILDING':
-        return '#111316';
+        return '#494947';
       case 'WAITING':
         return '#FFC53E';
       case 'EXECUTION':
@@ -72,6 +72,8 @@ export class ProjectDetailsComponent implements OnInit {
         return '#00D69D';
       case 'HANGING':
         return '#C9133E';
+      case 'WAITING EXECUTION':
+        return '#949396';
       default:
         return '#000';
     }
