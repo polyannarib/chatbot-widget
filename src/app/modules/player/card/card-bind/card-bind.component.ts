@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { PlayerService } from 'src/app/core/services/player.service';
+
 var $: any;
 @Component({
   selector: 'app-card-bind',
@@ -11,6 +13,7 @@ export class CardBindComponent implements OnInit {
   title = 'tooltip';
   status : boolean = false;
   helpMessage: any = "Clique aqui para ver dicas sobre a tela";
+  playerDeck: any;
 
   
   arrows: boolean = true;
@@ -79,9 +82,12 @@ export class CardBindComponent implements OnInit {
     ]
   }
 
-  constructor() { }
+  constructor(
+    private playerService: PlayerService
+  ) { }
 
   ngOnInit() {
+    this.updatePlayerDeck();
   }
 
   onShowTips(){
@@ -92,6 +98,20 @@ export class CardBindComponent implements OnInit {
     if(this.status == false){
       this.helpMessage = "Clique aqui para ver dicas sobre a tela";
     }
+  }
+
+  updatePlayerDeck() {
+    this.playerService.findPlayerDeck().subscribe(
+      (response) => {
+        if (response.status == 0) {
+          this.playerDeck = response.object;
+          console.log(this.playerDeck);
+        }
+        console.log('Deu Ruim');
+      }, (err) => {
+        console.log(err);
+      }
+    )
   }
 
 }

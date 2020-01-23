@@ -21,8 +21,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     $('.dropdown-trigger').dropdown();
-    this.btnMenuClass = 'hamRotate';
-    this.toggleMenu('left');
   }
 
   logout() {

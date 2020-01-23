@@ -85,7 +85,7 @@
 
 .card.numeric span{
     display: inline-block;
-    width: 179px;
+    width: calc(65% - 8px);
     vertical-align: middle;
 }
 
