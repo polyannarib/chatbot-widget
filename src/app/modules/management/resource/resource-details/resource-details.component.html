@@ -32,7 +32,6 @@
           <mz-collapsible-item [active]="false">
             <mz-collapsible-item-header>
               <div class="row no-padding">
-
                 <span class="activity-text">{{ activity.project.code }}</span>
                 <span class="activity-text">{{ activity.name }}</span>
                 <span class="activity-text">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</span>
@@ -43,11 +42,7 @@
                 <div class="col m2 s12 left-align">{{ activity.previewedAt | date:'dd/MM/yyyy' }}}</div>
                 <div class="col m1 s12 left-align">{{ activity.dailyEffort }}h</div>
                 <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}" 
-                  [ngStyle]="{'color': activity.status == 'BUILDING' ? '#111316' : '#000',
-                              'color': activity.status == 'WAITING' ? '#FFC53E' : '#000',
-                              'color': activity.status == 'EXECUTION' ? '#0085B2' : '#000',
-                              'color': activity.status == 'FINISHED' ? '#00D69D' : '#000',
-                              'color': activity.status == 'HANGING' ? '#C9133E' : '#000'}">fiber_manual_record</i></div>
+                  [ngStyle]="{'color': getColor(activity.status)}">fiber_manual_record</i></div>
               </div>
             </mz-collapsible-item-header>
             <mz-collapsible-item-body>

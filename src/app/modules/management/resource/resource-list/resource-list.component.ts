@@ -42,8 +42,8 @@ export class ResourceListComponent implements OnInit {
 
   daysOfWeek(start, end) {
     this.daysOfWeek13 = eachDayOfInterval({
-      start: subDays(start, 1),
-      end: subDays(end, 1)
+      start: start,
+      end: end
     })
   }
 
