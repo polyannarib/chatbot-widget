@@ -40,7 +40,7 @@
             <td>{{ project.name }}</td>
             <ng-container *ngFor="let activity of project.tasks">
               <td class="days">
-                <button class="btnDayCalendar" [ngClass]="{hoverable: activity.validDay === true}" [ngStyle]="{'background-color': activity.style}" [disabled]="activity.validDay === false" (click)="modalProjectDetails(project.id, activity)"><span [ngClass]="{'animated infinite fadeIn': !activity.allocated}">{{ activity.referenceDate | date:'dd' }}</span></button>
+                <button class="btnDayCalendar" [ngClass]="{hoverable: activity.validDay}" [ngStyle]="{'background-color': activity.style}" [disabled]="!activity.validDay" (click)="modalProjectDetails(project.id, activity)"><span [ngClass]="{'animated infinite fadeIn': !activity.allocated}">{{ activity.referenceDate | date:'dd' }}</span></button>
               </td>
             </ng-container>
             <td class="fontMin"><b>Real:</b> {{ project.actualEffort }} <br><b>Prev:</b> {{ project.predictEffort }}</td>
@@ -67,5 +67,4 @@
       </tbody>
     </table>
   </div>
-  
 </div>

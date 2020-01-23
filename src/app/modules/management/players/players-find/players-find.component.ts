@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PlayerService } from 'src/app/core/services/player.service';
 import { format } from 'date-fns';
 import { TaskService } from 'src/app/core/services/task.service';
@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class PlayersFindComponent implements OnInit {
 
+  @Output() taskDesignatedSucess = new EventEmitter();
   @Input() taskId: number;
   @Input() dataInicial: any;
   @Input() dataFim: any;
@@ -62,6 +63,7 @@ export class PlayersFindComponent implements OnInit {
     this.taskService.assignTask(this.taskId, this.playerSelect).subscribe(
       (response) => {
         if(response.status == 0) {
+          this.taskDesignatedSucess.emit(true);
           this._snackBar.openFromComponent(NotifyComponent, 
             { data: { type: 'success', message: 'Tarefa designada com sucesso!' }});
           this.loader = false;

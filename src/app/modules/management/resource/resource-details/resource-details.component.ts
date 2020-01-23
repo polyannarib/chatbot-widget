@@ -38,4 +38,21 @@ export class ResourceDetailsComponent implements OnInit {
     );
   }
 
+  getColor(color) {
+    switch (color) {
+      case 'BUILDING':
+        return '#111316';
+      case 'WAITING':
+        return '#FFC53E';
+      case 'EXECUTION':
+        return '#0085B2';
+      case 'FINISHED':
+        return '#00D69D';
+      case 'HANGING':
+        return '#C9133E';
+      default:
+        return '#000';
+    }
+  }
+
 }

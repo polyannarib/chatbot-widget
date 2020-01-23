@@ -21,8 +21,10 @@ export class ProjectsListComponent implements OnInit {
   loader: boolean = false;
   loaderDays: boolean = false;
   project: any;
-  startDate: any = subDays(new Date(Date.now()), 1);
-  endDate: any = addDays(this.startDate, 8);
+
+  numberOfDays: number = 8
+  startDate: any = new Date(Date.now());
+  endDate: any = addDays(this.startDate, this.numberOfDays);
 
   constructor(
     private projectService: ProjectService,
@@ -50,16 +52,15 @@ export class ProjectsListComponent implements OnInit {
       "page": 1,
       "pageSize": 10
     };
-
     this.projectService.listProjects(params).subscribe(
       (response) => {
         this.loader = false;
-        this.loaderProject.emit(false);
+        // this.loaderProject.emit(false);
         this.projectsList = response.object.list;
         this.filteredProjectsList = this.projectsList;
       }, (err) => {
         this.loader = false;
-        this.loaderProject.emit(false);
+        // this.loaderProject.emit(false);
       }
     );
   }
@@ -85,6 +86,9 @@ export class ProjectsListComponent implements OnInit {
     const dialogRef = this.dialog.open(ReportEditComponent, {
       width: '90vw',
       data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.findProjects();
     });
   }
 
