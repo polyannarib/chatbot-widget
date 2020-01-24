@@ -1,0 +1,73 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div id="modal" *ngIf="playerActivity != null && !loader">
+  <div class="modal-header">{{ playerActivity.name }}
+    <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+  </div>
+  <div class="modal-body">
+
+    <div class="row dateProgress">
+      <div class="col s12 m4 dateActivity center-align">  
+        <div class="title">{{ data.activityDate | date:'EEEE' }}</div>
+        <span class="activityDay">{{ data.activityDate | date:'dd/MM/yyyy'}}</span>
+      </div>
+      <div class="col s12 m8">
+        <div class="title">{{ 'PROGRESS' | translate }}</div>
+        <app-progress [width]="progress"></app-progress>
+        <!-- <div class="progress">
+          <div class="determinate" [ngStyle]="{'width': projectDate?.progress+'%'}"></div>
+        </div> -->
+      </div>
+    </div>
+    <app-count *ngIf="playerActivity.tasks == null || playerActivity.tasks == [] || !playerActivity.tasks">Esse jogador não possui tarefas</app-count>
+    <section *ngIf="playerActivity?.tasks != null">
+      <div class="row headerTextCollapse hide-on-small-only text-header">
+        <div class="col s12 m2"><span>{{ 'PROJECT' | translate }}</span></div>
+        <div class="col s12 m6"><span>{{ 'ACTIVITY' | translate }}</span></div>
+        <div class="col s12 m2"><span>{{ 'DUEDATE' | translate }}</span></div>
+        <div class="col s12 m1"><span>{{ 'EFFORT' | translate }}</span></div>
+      </div>
+      <mz-collapsible [mode]="'accordion'" [popout]="false">
+        <ng-container *ngFor="let activity of playerActivity.tasks">
+          <mz-collapsible-item [active]="false">
+            <mz-collapsible-item-header>
+              <div class="row no-padding">
+                <span class="activity-text">{{ activity.project.code }}</span>
+                <span class="activity-text">{{ activity.name }}</span>
+                <span class="activity-text">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</span>
+                <span class="activity-text">{{ activity.dailyEffort }}h</span>
+
+                <div class="col m2 s12 left-align">{{ activity.project.code }}</div>
+                <div class="col m6 s12 left-align">{{ activity.name }}</div>
+                <div class="col m2 s12 left-align">{{ activity.previewedAt | date:'dd/MM/yyyy' }}}</div>
+                <div class="col m1 s12 left-align">{{ activity.dailyEffort }}h</div>
+                <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}" 
+                  [ngStyle]="{'color': getColor(activity.status)}">fiber_manual_record</i></div>
+              </div>
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body>
+              <ul>
+                <li><span>{{ 'PROJECT' | translate}}</span> {{ activity.project.name }} </li>
+                <li><span>{{ 'CARD' | translate }}</span> {{ activity.card.skillName }} - {{ activity.card.cardName }} </li>
+                <li><span>{{ 'PREVIEWSTARTDATE' | translate}}</span> {{ activity.expectedAt | date:'dd/MM/yyyy HH:mm:ss' }} </li>
+                <li><span>{{ 'PREVIEWENDDATE' | translate}}</span> {{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }} </li>
+                <li><span>{{ 'STARTDATE' | translate}}</span> {{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss' }} </li>
+                <li><span>{{ 'ENDDATE' | translate}}</span> {{ activity.finalizedAt | date:'dd/MM/yyyy HH:mm:ss' }} </li>
+                <li><span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration }}h </li>
+                <li><span>{{ 'EFFORT' | translate }} </span> {{ activity.effort }}h </li>
+              </ul>
+              <div *ngIf="activity.status != 'FINISHED'" class="containerButtons center-align">
+                <app-button-finalize [activityId]="activity.id"></app-button-finalize>
+                <app-button-remove [activityId]="activity.id"></app-button-remove>
+                <app-button-suspend [activityId]="activity.id"></app-button-suspend>
+              </div>
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        </ng-container>
+      </mz-collapsible>      
+    </section>
+  </div>
+<!--   <div class="modal-footer">
+    <button class="button button-primary" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
+  </div> -->
+</div>

@@ -1,0 +1,13 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div class="row" *ngIf="!loader">
+  <div class="col s12 m8 offset-m2">
+    <ul class="collection with-header">
+      <li class="collection-item" *ngFor="let player of players">
+        <div> 
+          {{ player.name }}
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

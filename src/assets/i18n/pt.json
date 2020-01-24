@@ -57,6 +57,7 @@
     "MESSAGECONFIRMSUSPEND": "Deseja realmente suspender a atividade?",
     "SUCCESSTITLE": "Sucesso!",
     "SUCCESSMESSAGE": "Registro atualizado com sucesso!",
+    "ERRORTITLE": "Problemas",
     "REASON": "Motivo",
     "EXPEFFORT": "Esforço Esperado",
     "BUILDING": "Em construção",
@@ -64,6 +65,21 @@
     "FINISHED": "Concluída",
     "HANGING": "Suspendida",
     "DELAYED": "Atrasada",
-    "WAITING": "Aguardando Execução"
-
+    "UPDATE": "Atualizar",
+    "WAITING": "Aguardando Execução",
+    "ADDREPORT": "Adicionar",
+    "NOTENUM": "N°",
+    "NOTEDESCRIPTION": "Descrição",
+    "OBSERVATION": "Observação",
+    "NOTEDATE": "Prazo",
+    "NOTESTARTDATE": "Data Inicio",
+    "NOTEENDDATE": "Data Final",
+    "CRITICALLYLEVEL": "Status",
+    "ADDNOTES": "Adicionar nota",
+    "FINISHDESIGNATE": "Designar",
+    "PROJECTMANAGER": "GP Kyros",
+    "CUSTOMEROWNERPROJECT": "GP Cliente",
+    "OBSERVATIONPROJECT": "Objetivo do projeto",
+    "IDENTIFYPROJECT": "Alteração de escopo",
+    "EDITPROJECT": "Editar projeto"
 }

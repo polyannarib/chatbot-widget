@@ -1,92 +1,301 @@
 /* You can add global styles to this file, and also import other style files */
 @import './theme.scss';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons++Icons+Sharp');
 
-body{
-    overflow: auto;
-    background-color: #EBEBEB;
+body {
+    background-image: url('./assets/images/fundo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.button {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: none;
+    padding: 10px 25px;
+    font-size: 1rem;
+    // line-height: 1.5;
+    border-radius: 3px;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.button:hover, .button:active, .button:focus {
+    opacity: 0.75;
+    color: #fff;
+}
+.button-primary {
+    background-color: #650199 !important;
+    color: #fff;
+}
+.button-danger {
+    background-color: #ff644a !important;
+    color: #fff;
+}
+.button-floating {
+    position: relative;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    line-height: 53px;
+    padding: 0;
+    border-radius: 50%;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+    cursor: pointer;
+    vertical-align: middle;
 }
 
-.modalBg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: #0000001A;
+
+/* Codigo de padronização dos botões de dias do Dashboard */
+.btnDayCalendar {
+    display: inline-block;
+    color: #000000;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 33px;
+    height: 100%;
+    line-height: 33px;
+    padding: 0;
+    border-radius: 0%;
+    -webkit-transition: .3s;
+    transition: .3s;
+    cursor: pointer;
+    vertical-align: middle;
+    box-shadow: none;
+    border: none;
+}
+
+
+
+
+// CODIGO PARA ADICIONAR O TRAPEZIO NA LATERAL DA DIV
+.trapezio:after {
+    content: "";
+    /* box-shadow: inset -0.5px 0 0px 3px white; */
+    display: inline-block;
+    width: 15px;
+    height: 88px;
+    background: rgba(255,255,255,0.4);
+    transform: perspective(2px) rotateY(1deg);
+    position: absolute;
+    top: 39%;
+    right: -17px;
+    border-left: #660080 5px solid;
+    padding-left: 2px;
+    background-clip: content-box;
+    z-index: 15;
+  }
+  .trapezio:before {
+    content: "";
+    /* box-shadow: inset -0.5px 0 0px 3px white; */
+    display: inline-block;
+    width: 15px;
+    height: 88px;
+    background: rgba(255,255,255,0.4);
+    transform: perspective(2px) rotateY(-1deg);
+    position: absolute;
+    top: 39%;
+    left: -17px;
+    border-right: #660080 5px solid;
+    padding-right: 2px;
+    background-clip: content-box;
+    z-index: 15;
+  }
+
+
+
+
+
+/* Codigos para padronizar o modal */
+#modal .modal-header {
+    font-size: 1.64rem;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ebebeb;
+}
+#modal .modal-body {
+    padding: 15px 0px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+#modal .modal-footer {
+    border-top: 1px solid #ebebeb;
+    padding-top: 20px;
+}
+#modal .close {
+    transition: all 0.05s ease;
+    background: #ff644a;
+    color: white;
+    box-shadow: none;
+    font-size: 31px;
+    border-radius: 100%;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    padding-bottom: 2px;
+    position: absolute;
+    right: -38px;
+    top: -38px;
+}
+#modal .close:hover {
+    transition: all 0.05s ease;
+    // transform: scale(1.1);
+    background: #ff4524;
+}
+#modal {
+    position: relative;
+}
+.mat-dialog-container {
+    overflow: visible !important;
+    border-top: #650199 3px solid;
+    border-radius: 3px !important;
+}
+
+
+
+
+/* Codigo para padronização do collapse */
+.collapsible-body {
+    display: none;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    padding: 15px;
+}
+.collapsible-header {
+    display: -webkit-box;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1.5;
+    padding: 10px 0px !important;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
 }
-
-.mt-10 {
-    margin-top: 10px
+mz-collapsible-item-header {
+    width: 100%;
+    font-size: 14px;
 }
-
-.mt-15 {
-    margin-top: 15px
+mz-collapsible-item-body {
+    padding: 10px;
+    margin: 0px;
+    font-size: 11px;
 }
-
-.mt-30 {
-    margin-top: 30px
-}
-
-.ml-1 {
-    margin-left: 0.5px;
-}
-
-.ml-5 {
-    margin-left: 5px;
-}
-
-.ml-10 {
-    margin-left: 10px !important
-}
-
-.ml-15 {
-    margin-left: 15px
-}
-
-.ml-20 {
-    margin-left: 20px !important
-}
-
-.ml-23 {
-    margin-left: 23px;
-}
-
-.ml-25 {
-    margin-left: 25px
-}
-
-.ml-m-25 {
-    margin-left: -25px
-}
-
-.ml-m-15 {
-    margin-left: -15px;
-}
-
-.ml-m-12 {
-    margin-left: -12px;
-}
-
-.front {
-    z-index: 2000;
-}
-
-td.full-day {
-    background:rgba(255, 0, 0, 0.5)!important;
+mz-collapsible-item-body span {
+    display: block;
     font-weight: bold;
-    border-radius: 100%;
 }
-
-.unallocated {
-    background: rgba(0, 128, 0, 0.7);
+mz-collapsible-item-body {
+    padding: 0px !important;
+}
+mz-collapsible-item-body ul {
+    display: flex;
+    justify-content: space-between;
+}
+.containerButtons button {
+    margin: 15px 5px 0px 5px;
+}
+.headerTextCollapse {
+    margin-bottom: 0px;
     font-weight: bold;
-    border-radius: 100%;
+}
+.no-padding {
+    margin: 0px;
 }
 
-.modal-text {
-    font-size: 15px;
+
+
+
+
+
+
+
+// codigo para o toastr/notify
+.mat-snack-bar-container {
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    margin: 24px;
+    max-width: 33vw;
+    min-width: 344px;
+    padding: 0px !important;
+    min-height: 48px;
+    transform-origin: center;
+}
+.cdk-overlay-dark-backdrop {
+    background: rgba(0,0,0,0.87);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.ct-slick-prev,
+.ct-slick-next {
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    background-color: #fff;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: xx-large !important;
+    color: crimson !important;
+    border-radius: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    opacity: 1;
+}
+.ct-slick-prev {
+    left: -24px;
+    z-index: 9;
+    padding: 0px;
+    opacity: 0.8;
+}
+.ct-slick-next {
+    right: -24px;
+    z-index: 9;
+    padding: 0px;
+    opacity: 0.8;
+}
+.ct-slick-prev::after {
+    border: 12px solid transparent;
+    border-right-color: #fff;
+    content: "";
+    left: -24px;
+    position: absolute;
+}
+.ct-slick-next:before {
+    border: 12px solid transparent;
+    border-left-color: #fff;
+    content: "";
+    right: -24px;
+    position: absolute;
+}
+.ct-slick-prev i {
+    position: relative;
+    left: -14px;
+    z-index: 5;
+}
+.ct-slick-next i {
+    position: relative;
+    right: -14px;
+    z-index: 5;
 }

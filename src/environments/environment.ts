@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  back_end_url: 'http://192.168.1.229:8989/workplayer-portal/services',
+  back_end_url: 'http://192.168.1.235:8989/workplayer-portal/services',
+  // back_end_url: 'http://localhost:8080/workplayer-portal/services',
   URL_SSO: 'http://192.168.1.235/kyros-sso',
   URL_SSO_SERVICES: 'http://192.168.1.229:8593/kyros-sso',
   SYSTEM_NAME: 'WORKPLAYER',
@@ -11,7 +12,7 @@ export const environment = {
   production: false
 };
 
-export var company: string = 'bradesco';
+export var company:string = 'bradesco';
 
 /*
  * For easier debugging in development mode, you can import the following file
@@ -20,4 +21,5 @@ export var company: string = 'bradesco';
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// import 'zone.js/dist/zone-error';  
+// Included with Angular CLI.

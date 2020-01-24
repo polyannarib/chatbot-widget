@@ -1,0 +1,14 @@
+.dateProgress .title {
+    font-weight: bold;
+}
+.dateActivity {
+    font-size: 15px;
+    padding: 0px;
+}
+.dateProgress .dateActivity .activityDay {
+    background-color: #ff9d8c;
+    color: white;
+    border-radius: 3px;
+    padding: 3px 25px;
+    font-size: 22px;
+}

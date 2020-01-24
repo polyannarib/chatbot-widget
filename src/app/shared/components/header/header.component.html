@@ -1,0 +1,27 @@
+<header class="navbar navbar-fixed navbar-expand navbar-default">
+    <button type="button" class="navbar-toggle btn btn-primary-custom p-2 ml-4" (click)="toggleMenu('left')">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <div id="black-filter"></div>
+    <nav>
+        <div class="nav-wrapper container-fluid">
+            <ul class="right hide-on-med-and-down">
+                <li><a class="dropdown-trigger" href="" data-target="dropdown1"><i class="material-icons">perm_identity</i></a></li>
+                <ul id="dropdown1" class="dropdown-content">
+                    <li><a (click)="logout()"><i class="material-icons">exit_to_app</i>Logout</a></li>
+                </ul>
+            </ul>
+        </div>
+    </nav>
+    <div class="player">
+        <div class="playerInfo">
+            <span>{{ user }}</span>
+            <br>
+            <span id="scoreSpan">Score:</span>
+            <span id="score">2420</span>
+        </div>
+        <div class="image"></div>
+    </div>
+</header>
