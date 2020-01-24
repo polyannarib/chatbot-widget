@@ -1,4 +1,5 @@
 import { AuthGuardService } from './guards/auth-guard';
+import { AuthenticatedGuard } from './guards/authenticated.guard';
 import { AuthService } from './home/shared/services/auth.service';
 import { LoginComponent } from './login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -68,6 +69,7 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     AuthService,
     AuthGuardService,
+    AuthenticatedGuard,
     ProjectService,
     LoadingService,
     DatePipe,
