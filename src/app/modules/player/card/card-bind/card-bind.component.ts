@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { PlayerService } from 'src/app/core/services/player.service';
+import { CardService } from 'src/app/core/services/card.service';
 
 var $: any;
 @Component({
@@ -14,6 +15,8 @@ export class CardBindComponent implements OnInit {
   status : boolean = false;
   helpMessage: any = "Clique aqui para ver dicas sobre a tela";
   playerDeck: any;
+  filteredCard: any;
+  characters: any;
 
   
   arrows: boolean = true;
@@ -83,11 +86,13 @@ export class CardBindComponent implements OnInit {
   }
 
   constructor(
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private cardService: CardService
   ) { }
 
   ngOnInit() {
     this.updatePlayerDeck();
+    this.searchCards();
   }
 
   onShowTips(){
@@ -105,9 +110,24 @@ export class CardBindComponent implements OnInit {
       (response) => {
         if (response.status == 0) {
           this.playerDeck = response.object;
-          console.log(this.playerDeck);
         }
-        console.log('Deu Ruim');
+      }, (err) => {
+        console.log(err);
+      }
+    )
+  }
+
+  searchCards(){
+    this.cardService.findCardById(23).subscribe(
+      (response) => {
+        if (response.status == 0) {
+          this.filteredCard = response.object;
+          this.characters = this.filteredCard.attributes;
+          if(this.filteredCard.cardName.indexOf("#") != -1){
+            this.filteredCard.cardName = this.filteredCard.cardName.replace("#", "sharp");
+            console.log(this.filteredCard);
+          }
+        }
       }, (err) => {
         console.log(err);
       }

@@ -1,5 +1,5 @@
 .style-custom {
-    width: 83%;
+    width: 78%;
     position: relative;
     margin: 0 auto;
     margin-bottom: 15px;
@@ -94,4 +94,44 @@
         margin-left: calc(50% - 27px);
         margin-bottom: 4px;
     }
+}
+
+.characters .slick-slide{
+    position: relative;
+    margin-top: 2%;
+    padding: 4px;
+}
+
+.slick-slide img{
+    background-color: #ffffff69;
+    background-repeat: no-repeat;
+    background-position-y: 96%;
+    background-position-x: 208%;
+    background-size: 80%;
+    border: solid 2px white;
+}
+
+.deck .slick-slide img{
+    background-color: #ffffff69;
+    background-repeat: no-repeat;
+    background-position-y: 100%;
+    background-position-x: 57%;
+    background-size: 80%;
+    border: solid 2px white;
+}
+
+#attributes-div{
+    margin-top: 4%;
+}
+
+.card-star{
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: 28%;
+    top: -8%;
+    z-index: 20;
+    display: inline-block;
+    background-position-x: center;
 }

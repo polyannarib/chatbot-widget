@@ -86,7 +86,7 @@ body {
     background: rgba(255,255,255,0.4);
     transform: perspective(2px) rotateY(1deg);
     position: absolute;
-    top: 39%;
+    top: calc(50% - 43px);
     right: -17px;
     border-left: #650199 5px solid;
     padding-left: 2px;
@@ -102,7 +102,7 @@ body {
     background: rgba(255,255,255,0.4);
     transform: perspective(2px) rotateY(-1deg);
     position: absolute;
-    top: 39%;
+    top: calc(50% - 43px);
     left: -17px;
     border-right: #660080 5px solid;
     padding-right: 2px;

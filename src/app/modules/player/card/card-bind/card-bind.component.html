@@ -32,27 +32,26 @@
   </div>
 </div>
 
-<div class="row" [ngClass]="{'help' : status}">
-
-  <div class="col s12 m6">
-    <div class="style-custom">
+<div *ngIf="characters" class="row" [ngClass]="{'help' : status}">
+  <div class="col s12 m4 offset-m1">
+    <div class="style-custom characters">
       <app-slick [options]="slick" [arrows]="arrows" class="trapezio" #tp3="matTooltip" 
         matTooltip="Use as setas para escolher os personagens que melhor representam você" 
         matTooltipDisabled="{{ !status }}" matTooltipPosition="below">
-        <div>
-          <img width="100%" src="http://placehold.it/350x300?text=1">
-        </div>
-        <div>
-          <img width="100%" src="http://placehold.it/350x300?text=2">
-        </div>
-        <div>
-          <img width="100%" src="http://placehold.it/350x300?text=3">
+        <div *ngFor="let character of characters; index as i;">
+          <div class="card-star" [ngStyle]="{ 'background-image': 'url(' + 'https://www.kyros.com.br/portal-webplayer-images/Estrelas/' 
+            + 'estrela' + character.attribute.name[0].toUpperCase() + 
+            character.attribute.name.slice(1).toLowerCase() + '.png' + ')' }"></div>
+          <img class="card-img" width="100%" src="{{ filteredCard.url + 'persona' + 
+            character.attribute.name[0].toUpperCase() + character.attribute.name.slice(1).toLowerCase() 
+            + '.png' }}" [ngStyle]="{ 'background-image': 'url(' + filteredCard.url + filteredCard.cardName.toLowerCase()
+            + '.png' + ')' }">
         </div>
       </app-slick>
     </div>
   </div>
 
-  <div class="col s12 m6">
+  <div class="col s12 m6" id="attributes-div">
     
     <div class="col s6 card-col" #tp4="matTooltip" 
     matTooltip="Estes são os atributos da carta" matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
@@ -89,7 +88,9 @@
       matTooltip="Essas são as suas cartas" matTooltipDisabled="{{ !status }}" 
       matTooltipPosition="above">
         <div *ngFor="let card of playerDeck; index as i;">
-          <img class="deck-img" width="100%" src="{{ card.url + 'personaOuro' + '.png' }}">
+          <img class="deck-img" width="100%" src="{{ card.url + 'personaOuro' + '.png' }}"
+            [ngStyle]="{ 'background-image': 'url(' + card.url + card.cardName.toLowerCase()
+            + '.png' + ')' }">
         </div>
     </app-slick>
   </div>
