@@ -169,9 +169,6 @@ body {
     box-sizing: border-box;
     padding: 15px;
 }
-mz-collapsible-item-header {
-    width: 100%;
-}
 .collapsible-header {
     display: -webkit-box;
     display: flex;
@@ -181,6 +178,10 @@ mz-collapsible-item-header {
     padding: 10px 0px !important;
     background-color: #fff;
     border-bottom: 1px solid #ddd;
+}
+mz-collapsible-item-header {
+    width: 100%;
+    font-size: 14px;
 }
 mz-collapsible-item-body {
     padding: 10px;

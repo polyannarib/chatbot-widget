@@ -109,12 +109,10 @@ export class ProjectsListComponent implements OnInit {
     }
   }
 
-
   onSearchChangeProject(searchValue: string): void {
     const project = this.projectsList;
     searchValue = searchValue.toLocaleLowerCase();
     this.filteredProjectsList = project.filter((project) => project.name.toLocaleLowerCase().indexOf(searchValue) !== -1);
-
     // this.project = this.project.filter(
     //   (curr) => {
     //     return curr.name.toUpperCase().includes(searchValue.toUpperCase());
