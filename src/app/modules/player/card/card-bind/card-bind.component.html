@@ -42,7 +42,7 @@
           <div class="card-star" [ngStyle]="{ 'background-image': 'url(' + 'https://www.kyros.com.br/portal-webplayer-images/Estrelas/' 
             + 'estrela' + character.attribute.name[0].toUpperCase() + 
             character.attribute.name.slice(1).toLowerCase() + '.png' + ')' }"></div>
-          <img class="card-img" width="100%" src="{{ filteredCard.url + 'persona' + 
+          <img class="card-img" id="{{i}}" width="100%" src="{{ filteredCard.url + 'persona' + 
             character.attribute.name[0].toUpperCase() + character.attribute.name.slice(1).toLowerCase() 
             + '.png' }}" [ngStyle]="{ 'background-image': 'url(' + filteredCard.url + filteredCard.cardName.toLowerCase()
             + '.png' + ')' }">
@@ -53,10 +53,9 @@
 
   <div class="col s12 m6" id="attributes-div">
     
-    <div class="col s6 card-col" #tp4="matTooltip" 
+    <div class="col s6 card-col" #tp4="matTooltip" *ngIf="cardDescription"
     matTooltip="Estes são os atributos da carta" matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
-      <app-box-property type="numeric" title="Experiência" number="30"
-        description="Maior que dois anos e seis meses exemplo exemplo exemplo exemplo">
+      <app-box-property type="topics" title="Descrição" topics="{'topics': [{{cardDescription}}]">
       </app-box-property>
     </div>
   

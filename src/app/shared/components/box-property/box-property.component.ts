@@ -38,6 +38,7 @@ export class BoxPropertyComponent implements OnInit {
       this.topics.topics.forEach(function(object){
         that.contentElem.nativeElement.innerHTML += '<span>'+ object +'</span>';
       });
+      console.log(this.topics);
 
     }
   }

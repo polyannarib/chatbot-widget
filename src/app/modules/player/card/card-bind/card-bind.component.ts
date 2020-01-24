@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ElementRef, DoCheck } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { PlayerService } from 'src/app/core/services/player.service';
 import { CardService } from 'src/app/core/services/card.service';
@@ -10,13 +10,14 @@ var $: any;
   styleUrls: ['./card-bind.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class CardBindComponent implements OnInit {
+export class CardBindComponent implements OnInit, DoCheck {
   title = 'tooltip';
   status : boolean = false;
   helpMessage: any = "Clique aqui para ver dicas sobre a tela";
   playerDeck: any;
   filteredCard: any;
   characters: any;
+  cardDescription: string;
 
   
   arrows: boolean = true;
@@ -93,6 +94,11 @@ export class CardBindComponent implements OnInit {
   ngOnInit() {
     this.updatePlayerDeck();
     this.searchCards();
+    this.updateVisibleCard();
+  }
+
+  ngDoCheck(){
+    
   }
 
   onShowTips(){
@@ -125,13 +131,19 @@ export class CardBindComponent implements OnInit {
           this.characters = this.filteredCard.attributes;
           if(this.filteredCard.cardName.indexOf("#") != -1){
             this.filteredCard.cardName = this.filteredCard.cardName.replace("#", "sharp");
-            console.log(this.filteredCard);
           }
         }
       }, (err) => {
         console.log(err);
       }
     )
+  }
+
+  updateVisibleCard(){
+    if(this.characters && document.querySelector('.slick-current img')){
+      this.cardDescription = this.characters[document.querySelector('.slick-current img').id]
+      .attribute.classification.classificationDescription;
+    }
   }
 
 }
