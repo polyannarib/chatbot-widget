@@ -62,6 +62,7 @@
     "EXPEFFORT": "Esforço Esperado",
     "BUILDING": "Em construção",
     "EXECUTION": "Executando",
+    "WAITING EXECUTION": "Esperando execução",
     "FINISHED": "Concluída",
     "HANGING": "Suspendida",
     "DELAYED": "Atrasada",

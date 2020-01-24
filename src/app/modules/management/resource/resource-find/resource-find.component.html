@@ -1,67 +1,14 @@
 
 <div class="container-fluid">
   <div class="row">
-
-    <div class="col">
-      <mat-form-field id="tipoComp">
-        <mat-label>Tipo de Competência</mat-label>
-        <mat-select [formControl]="toppings" multiple>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
     
-    <div class="col">
-      <mat-form-field id="categoria">
-        <mat-label>Categoria</mat-label>
-        <mat-select [formControl]="toppings" multiple>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+    <mat-form-field *ngFor="let count of aux">
+      <mat-label>Categoria</mat-label>
+      <mat-select [formControl]="toppings" multiple>
+        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <div class="col"><mat-form-field id="cla">
-        <mat-label>Clã</mat-label>
-        <mat-select [formControl]="toppings" multiple>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col">      
-      <mat-form-field id="competencia">
-        <mat-label>Competência</mat-label>
-        <mat-select [formControl]="toppings" multiple>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col">
-      <mat-form-field id="nivel">
-          <mat-label>Nível</mat-label>
-          <mat-select [formControl]="toppings" multiple>
-            <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-    </div>
-
-    <div class="col">
-      <mat-form-field id="departamento">
-        <mat-label>Departamento</mat-label>
-        <mat-select [formControl]="toppings" multiple>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col">      
-      <mat-form-field id="equipe">
-        <mat-label>Equipe</mat-label>
-        <mat-select [formControl]="toppings" multiple>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{ topping }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
   </div>
 
   <div class="row">
