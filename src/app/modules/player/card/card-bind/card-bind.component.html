@@ -34,10 +34,10 @@
 
 <div *ngIf="characters" class="row" [ngClass]="{'help' : status}">
   <div class="col s12 m4 offset-m1">
-    <div class="style-custom characters">
+    <div class="style-custom characters" (change)="addCarouselListener()">
       <app-slick [options]="slick" [arrows]="arrows" class="trapezio" #tp3="matTooltip" 
         matTooltip="Use as setas para escolher os personagens que melhor representam você" 
-        matTooltipDisabled="{{ !status }}" matTooltipPosition="below">
+        matTooltipDisabled="{{ !status }}" matTooltipPosition="below" (updateAttributesEvent)="updateVisibleCard($event)">
         <div *ngFor="let character of characters; index as i;">
           <div class="card-star" [ngStyle]="{ 'background-image': 'url(' + 'https://www.kyros.com.br/portal-webplayer-images/Estrelas/' 
             + 'estrela' + character.attribute.name[0].toUpperCase() + 
@@ -55,25 +55,13 @@
     
     <div class="col s6 card-col" #tp4="matTooltip" *ngIf="cardDescription"
     matTooltip="Estes são os atributos da carta" matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
-      <app-box-property type="topics" title="Descrição" topics="{'topics': [{{cardDescription}}]">
-      </app-box-property>
-    </div>
-  
-    <div class="col s6 card-col">
-      <app-box-property type="topics" title="Experiência"
-        topics='{"topics": ["Quase não depende de apoio", "Possui conhecimento diferenciado na tecnologia", "Quase não depende de apoio", "Possui conhecimento diferenciado na tecnologia","Quase não depende de apoio", "Possui conhecimento diferenciado na tecnologia","Quase não depende de apoio", "Possui conhecimento diferenciado na tecnologia"]}'>
+      <app-box-property type="topics" title="Descrição" topics="{{ cardDescription }}">
       </app-box-property>
     </div>
 
-    <div class="col s6 card-col">
-      <app-box-property type="numeric" title="Experiência" number="30"
-        description="Maior que dois anos e seis meses exemplo exemplo exemplo exemplo">
-      </app-box-property>
-    </div>
-
-    <div class="col s6 card-col">
-      <app-box-property type="numeric" title="Experiência" number="30"
-        description="Maior que dois anos e seis meses exemplo exemplo exemplo exemplo">
+    <div class="col s6 card-col" *ngFor="let metric in metricList">
+      <app-box-property type="numeric" title="{{ metric.title }}" number="{{ metric.value }}"
+        description="{{ metric.description }}">
       </app-box-property>
     </div>
 

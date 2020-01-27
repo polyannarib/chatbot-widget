@@ -1,16 +1,15 @@
-import { Component, OnInit, ViewEncapsulation, ElementRef, DoCheck } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ElementRef, DoCheck, AfterViewChecked } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { PlayerService } from 'src/app/core/services/player.service';
 import { CardService } from 'src/app/core/services/card.service';
-
-var $: any;
+import * as $ from 'jquery';
 @Component({
   selector: 'app-card-bind',
   templateUrl: './card-bind.component.html',
   styleUrls: ['./card-bind.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class CardBindComponent implements OnInit, DoCheck {
+export class CardBindComponent implements OnInit, AfterViewChecked {
   title = 'tooltip';
   status : boolean = false;
   helpMessage: any = "Clique aqui para ver dicas sobre a tela";
@@ -18,6 +17,7 @@ export class CardBindComponent implements OnInit, DoCheck {
   filteredCard: any;
   characters: any;
   cardDescription: string;
+  listenerAdded: boolean = false;
 
   
   arrows: boolean = true;
@@ -94,10 +94,9 @@ export class CardBindComponent implements OnInit, DoCheck {
   ngOnInit() {
     this.updatePlayerDeck();
     this.searchCards();
-    this.updateVisibleCard();
   }
 
-  ngDoCheck(){
+  ngAfterViewChecked(){
     
   }
 
@@ -132,6 +131,8 @@ export class CardBindComponent implements OnInit, DoCheck {
           if(this.filteredCard.cardName.indexOf("#") != -1){
             this.filteredCard.cardName = this.filteredCard.cardName.replace("#", "sharp");
           }
+
+          
         }
       }, (err) => {
         console.log(err);
@@ -141,9 +142,19 @@ export class CardBindComponent implements OnInit, DoCheck {
 
   updateVisibleCard(){
     if(this.characters && document.querySelector('.slick-current img')){
-      this.cardDescription = this.characters[document.querySelector('.slick-current img').id]
-      .attribute.classification.classificationDescription;
+      var visibleCard = this.characters[document.querySelector('.slick-current img').id].attribute;
+      var that = this;
+
+      this.cardDescription = '{"topics": ["' + visibleCard.classification.classificationDescription + '"]}';
+      visibleCard.metricList.forEach(function(object){
+        var metricEncapsulation = {};
+        var metric = metricEncapsulation[0];
+        metric.title = this.metric.metricTypedescription;
+        metric.value = this.value;
+        metric.description = "Maior que " + metric.value + " " + this.metric.metricType.metricType;
+      });
     }
   }
+
 
 }

@@ -109,6 +109,8 @@
     background-position-x: 208%;
     background-size: 80%;
     border: solid 2px white;
+    min-width: 50px;
+    min-height: 50px;
 }
 
 .deck .slick-slide img{
