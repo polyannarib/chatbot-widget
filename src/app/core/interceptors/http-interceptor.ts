@@ -1,7 +1,8 @@
 import { Injectable, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
-import { AuthService } from '../services/auth.service';
+import { AuthService, SSOID_NAME } from '../services/auth.service';
+
 
 @Injectable()
 export class HttpInverceptor implements HttpInterceptor {
@@ -22,8 +23,9 @@ export class HttpInverceptor implements HttpInterceptor {
             const newRequest = request.clone({
                 setHeaders: {
                     'Content-Type': (this.contentType != 'application/json' ? 'application/json' :  this.contentType),
-                    // 'Content-Type': 'application/json',
-                    'X-Token': `${localStorage.getItem('acessToken')}`
+                    'X-SSOID': `${localStorage.getItem(SSOID_NAME)}`,
+                    'X-Token': `${localStorage.getItem('acessToken')}`,
+                    'X-Authorization': `Bearer ${localStorage.getItem('tempToken')}`
                 }
             });
             return next.handle(newRequest);

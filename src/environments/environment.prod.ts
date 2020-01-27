@@ -4,7 +4,8 @@ export const environment = {
   URL_SSO_SERVICES: 'http://192.168.1.229:8593/kyros-sso',
   SYSTEM_NAME: 'WORKPLAYER',
   WORKPLAYER_HOME: 'http://localhost:4200/home',
-  production: false
+  COMPANY: '1',
+  production: true
 };
 
 export var company:string = 'bradesco';
