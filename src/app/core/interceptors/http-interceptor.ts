@@ -30,7 +30,14 @@ export class HttpInverceptor implements HttpInterceptor {
             });
             return next.handle(newRequest);
         } else {
-            return next.handle(request);
+            const newRequest = request.clone({
+                setHeaders: {
+                    'Content-Type': (this.contentType != 'application/json' ? 'application/json' :  this.contentType),
+                    'X-SSOID': `${localStorage.getItem(SSOID_NAME)}`,
+                    'X-Authorization': `Bearer ${localStorage.getItem('tempToken')}`
+                }
+            });
+            return next.handle(newRequest);
         }
 
     }
