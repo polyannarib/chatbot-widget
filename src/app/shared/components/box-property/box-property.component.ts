@@ -22,11 +22,13 @@ export class BoxPropertyComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     var that = this;
+    console.log(this.topics)
     setTimeout(function(){that.updateBoxes()}, 5000);
   }
 
   updateBoxes(){
     if(this.topics){
+     
       this.topicsParsed = JSON.parse(this.topics).descriptionTopics;
     } 
 
