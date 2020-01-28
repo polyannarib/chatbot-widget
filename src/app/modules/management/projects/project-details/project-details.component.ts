@@ -74,6 +74,8 @@ export class ProjectDetailsComponent implements OnInit {
         return '#C9133E';
       case 'WAITING EXECUTION':
         return '#949396';
+      case 'DELAYED':
+        return '#A50104';
       default:
         return '#000';
     }
