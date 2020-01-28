@@ -60,6 +60,47 @@ export class CardBindComponent implements OnInit {
     })
 
   }
+
+  onChangeCategory(value) {
+    let aux = this.auxComp.filter((cur) => cur.name == value.value)
+    let a = aux[0].knowledgeId
+    if (a != undefined) {
+      this.service.getCategory(a).subscribe(response => {
+        this.auxCat = response.object
+        this.category = response.object.map(resp => {
+          return resp.name
+        })
+
+      })
+    }
+  }
+
+  onChangeAttribute(value) {
+    let aux = this.auxCat.filter((cur) => cur.name == value.value)
+    let a = aux[0].knowledgeId
+    if (a != undefined) {
+      this.service.getCategory(a).subscribe(response => {
+        this.auxAtt = response.object
+        this.attribute = response.object.map(resp => {
+          return resp.name
+        })
+
+      })
+    }
+  }
+
+  onChangeCompetense(value) {
+    let aux = this.auxAtt.filter((cur) => cur.name == value.value)
+    let a = aux[0].knowledgeId
+    if (a != undefined) {
+      this.service.getCategory(a).subscribe(response => {
+        this.competense = response.object.map(resp => {
+          return resp.name
+        })
+
+      })
+    }
+  }
   
   slick = {
     lazyLoad: 'ondemand',
