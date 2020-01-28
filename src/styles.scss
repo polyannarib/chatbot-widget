@@ -86,7 +86,7 @@ body {
     background: rgba(255,255,255,0.4);
     transform: perspective(2px) rotateY(1deg);
     position: absolute;
-    top: 39%;
+    top: calc(50% - 45px);
     right: -17px;
     border-left: #650199 5px solid;
     padding-left: 2px;
@@ -102,7 +102,7 @@ body {
     background: rgba(255,255,255,0.4);
     transform: perspective(2px) rotateY(-1deg);
     position: absolute;
-    top: 39%;
+    top: calc(50% - 45px);
     left: -17px;
     border-right: #660080 5px solid;
     padding-right: 2px;
@@ -169,9 +169,6 @@ body {
     box-sizing: border-box;
     padding: 15px;
 }
-mz-collapsible-item-header {
-    width: 100%;
-}
 .collapsible-header {
     display: -webkit-box;
     display: flex;
@@ -181,6 +178,10 @@ mz-collapsible-item-header {
     padding: 10px 0px !important;
     background-color: #fff;
     border-bottom: 1px solid #ddd;
+}
+mz-collapsible-item-header {
+    width: 100%;
+    font-size: 14px;
 }
 mz-collapsible-item-body {
     padding: 10px;
@@ -263,13 +264,13 @@ mz-collapsible-item-body ul {
     opacity: 1;
 }
 .ct-slick-prev {
-    left: -24px;
+    left: -25px;
     z-index: 9;
     padding: 0px;
     opacity: 0.8;
 }
 .ct-slick-next {
-    right: -24px;
+    right: -25px;
     z-index: 9;
     padding: 0px;
     opacity: 0.8;

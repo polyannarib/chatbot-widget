@@ -1,5 +1,5 @@
 .style-custom {
-    width: 83%;
+    width: 78%;
     position: relative;
     margin: 0 auto;
     margin-bottom: 15px;
@@ -13,7 +13,7 @@
     float: right;
 }
 
-#help {
+#help{
     background: #8cd7da;
     font-size: 25px;
     border: 5px white solid;
@@ -34,7 +34,7 @@
     z-index: 1000;
 }
 
-#help-div {
+#help-div{
     padding: 0;
     margin: 0;
 }
@@ -46,54 +46,118 @@
     z-index: 1002px;
 }
 
-.cdk-overlay-container {
+.cdk-overlay-container{
     z-index: 1002 !important;
 }
 
-.help .input-field, .help .style-custom {
+
+.help .input-field, .help .style-custom{
     z-index: 1001;
 }
-
-.help .card-col {
+.help .card-col{
     z-index: 1001;
     position: relative;
 }
 
-.deck-img {
+.deck-img{
     background-color: #ffffff5c;
     border: 2px solid white;
     border-top: 14px solid white;
 }
 
-.deck .slick-slide {
+.deck .slick-slide{
     padding: 11px;
     opacity: 0.8;
     transition: all ease 0.2s;
 }
 
-.deck .slick-slide.slick-center {
+.deck .slick-slide.slick-center{
     transform: scale(1.15);
     opacity: 1;
     transition: all ease 0.2s;
 }
 
-@media only screen and (max-width: 1068px) and (min-width: 915px) {
-    .card.numeric .card-content span:nth-child(2) {
+
+@media only screen and (max-width: 1068px) and (min-width: 915px){
+    .card.numeric .card-content span:nth-child(2){
         width: calc(61% - 8px);
     }
 }
 
-@media only screen and (max-width: 915px) {
-    .card.numeric .card-content span:nth-child(2) {
+@media only screen and (max-width: 915px){
+    .card.numeric .card-content span:nth-child(2){
         width: 100%;
         text-align: center;
     }
-    .card.numeric .card-content span:nth-child(1) {
+
+    .card.numeric .card-content span:nth-child(1){
         margin-left: calc(50% - 27px);
         margin-bottom: 4px;
     }
 }
 
-.mat-form-field {
-    display: block !important;
+.characters .slick-slide{
+    position: relative;
+    margin-top: 2%;
+    padding: 4px;
+}
+
+.slick-slide img{
+    background-color: #ffffff69;
+    background-repeat: no-repeat;
+    background-position-y: 96%;
+    background-position-x: 208%;
+    background-size: 80%;
+    border: solid 2px white;
+    min-width: 50px;
+    min-height: 50px;
+}
+
+.deck .slick-slide img{
+    background-color: #ffffff69;
+    background-repeat: no-repeat;
+    background-position-y: 100%;
+    background-position-x: 57%;
+    background-size: 80%;
+    border: solid 2px white;
+}
+
+#attributes-div{
+    margin-top: 4%;
+}
+
+.card-star{
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 28%;
+    background-size: 28%;
+    top: -8%;
+    z-index: 20;
+    display: inline-block;
+    background-position-x: center;
+}
+
+.deckButton {
+    left: calc(50% - 29px);
+    bottom: 29px;
+    font-size: 43px;
+    padding-bottom: 13px !important;
+    line-height: 1;
+    border: white 3px solid !important;
+    background: #65019999;
+    color: #ffffff;
+    z-index: 22;
+}
+
+.deckButton:before{
+    content: '+'
+}
+
+.deckButton.isInDeck {
+    background: #2c2c2c99;
+}
+
+.deckButton.isInDeck:before{
+    content: '-'
 }

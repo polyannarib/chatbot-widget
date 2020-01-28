@@ -34,6 +34,22 @@ export class CardService {
     return this.http.post(`${environment.back_end_url}/${this.prefixService}/giveToPlayer`, data);
   }
 
+  findCardById(id: number): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/byKnowledgeId/${id}`);
+  }
+
+  listCardsByUser(): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/listCardsByUser`);
+  }
+
+  addCard(data): Observable<any> {
+    return this.http.put(`${environment.back_end_url}/${this.prefixService}/active/knowledge/${data.knowledgeId}/attribute/${data.attributeId}`, data);
+  }
+
+  removeCard(data): Observable<any> {
+    return this.http.put(`${environment.back_end_url}/${this.prefixService}/inactive/knowledge/${data.knowledgeId}/attribute/${data.attributeId}`, data);
+  }
+
   searchComboCompetence(): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledge`);
   }
