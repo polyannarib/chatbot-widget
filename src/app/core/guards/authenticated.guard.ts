@@ -19,6 +19,10 @@ export class AuthenticatedGuard implements CanActivate {
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise< boolean > {
         let authenticated = route.queryParams.authenticated;
         return new Promise((resolve, reject) => {
+            if( this.authService.isAuthenticated() ) {
+                resolve(true);
+                return;
+            }
             if( authenticated == 'false' ) {
                 resolve(true);
                 return;
