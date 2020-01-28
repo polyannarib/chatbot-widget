@@ -78,11 +78,16 @@
     </div>
   </div>
 
-  <div class="col s12 m6" id="attributes-div">
+  <div class="col s12 m6" id="attributes-div" *ngIf="visibleCardUpdated">
     
-    <div class="col s6 card-col" #tp4="matTooltip" *ngIf="visibleCardUpdated"
+    <div class="col s6 card-col" #tp4="matTooltip" 
     matTooltip="Estes são os atributos da carta" matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
       <app-box-property type="topics" title="Descrição" topics="{{ cardDescription }}">
+      </app-box-property>
+    </div>
+
+    <div class="col s6 card-col">
+      <app-box-property type="topics" title="Conhecimento" topics="{{ cardKnowledge }}">
       </app-box-property>
     </div>
 
