@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewEncapsulation, ElementRef, DoCheck, AfterViewChecked } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormGroup, FormControl, } from '@angular/forms';
 import { PlayerService } from 'src/app/core/services/player.service';
 import { CardService } from 'src/app/core/services/card.service';
 import * as $ from 'jquery';
 import { stringify } from 'querystring';
+import { Observable } from 'rxjs';
 
 var slick: any;
 @Component({
@@ -12,7 +13,7 @@ var slick: any;
   styleUrls: ['./card-bind.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class CardBindComponent implements OnInit, AfterViewChecked {
+export class CardBindComponent implements OnInit {
   refreshSlick: boolean = false;
   title = 'tooltip';
   status : boolean = false;
@@ -47,7 +48,8 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
   ) { }
 
   ngOnInit() {
-
+    this.searchCards();
+    this.metricList = [];
     this.updatePlayerDeck();
 
     this.service.searchComboCompetence().subscribe(response => {
@@ -59,7 +61,6 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
 
   }
   
-  arrows: boolean = true;
   slick = {
     lazyLoad: 'ondemand',
     dots: false,
@@ -125,20 +126,6 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
     ]
   }
 
-  constructor(
-    private playerService: PlayerService,
-    private cardService: CardService
-  ) { }
-
-  ngOnInit() {
-    this.updatePlayerDeck();
-    this.searchCards();
-    this.metricList = [];
-  }
-
-  ngAfterViewChecked(){
-    
-  }
 
   onShowTips(){
     this.status = !this.status;
@@ -151,7 +138,7 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
   }
 
   updatePlayerDeck() {
-    this.cardService.listCardsByUser().subscribe(
+    this.service.listCardsByUser().subscribe(
       (response) => {
         if (response.status == 0) {
           this.playerDeck = response.object;
@@ -178,7 +165,7 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
   }
 
   searchCards(){
-    this.cardService.findCardById(23).subscribe(
+    this.service.findCardById(23).subscribe(
       (response) => {
         if (response.status == 0) {
           this.filteredCard = response.object;
@@ -242,7 +229,7 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
     }
 
     if(this.isInDeck == false){
-      this.cardService.addCard(data).subscribe(
+      this.service.addCard(data).subscribe(
         (response) => {
           console.log(response);
           this.isInDeck = true;
@@ -254,7 +241,7 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
       )
     }
     else{
-      this.cardService.removeCard(data).subscribe(
+      this.service.removeCard(data).subscribe(
         (response) => {
           console.log(response);
           this.isInDeck = false;
