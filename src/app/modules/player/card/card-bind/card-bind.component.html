@@ -1,4 +1,4 @@
-<div class="row" [ngClass]="{'help' : status}">
+<div class="row" [ngClass]="{'help' : status}" id="input-row">
   <div class="col s2" id="help-div" [ngClass]="{'tips' : status}">
     <!-- <input type="text" #tooltip="matTooltip" matTooltip="Some tip"> -->
     <button #tp1="matTooltip" matTooltip="{{ helpMessage }}" matTooltipPosition="after"id="help" 

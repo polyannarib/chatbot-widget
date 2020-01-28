@@ -181,6 +181,7 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
       });
       this.cardDescription = {descriptionTopics};
       this.cardDescription = JSON.stringify(this.cardDescription);
+      console.log(this.cardDescription);
 
       this.metricList = [];
       visibleCard.metricList.forEach(function(object){
@@ -197,7 +198,8 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
         that.metricList.push(metric);
       });
 
-      this.isInDeck = this.deckIdList.includes(''+this.filteredCard.cardId+visibleCard.id); 
+      if(this.deckIdList != undefined)
+        this.isInDeck = this.deckIdList.includes(''+this.filteredCard.cardId+visibleCard.id); 
 
       this.visibleCardUpdated = true;
     }
