@@ -150,6 +150,26 @@
     z-index: 22;
 }
 
+.deckButton:hover {
+    background-color: #b21dff99;
+    transition: all ease 0.3s;
+}
+
+.deckButton:focus {
+    background-color: #a800ff99;
+    transition: all ease 0.3s;
+}
+
+.deckButton.isInDeck:hover{
+    background-color: #84848499;
+    transition: all ease 0.3s;
+}
+
+.deckButton.isInDeck:focus{
+    background-color: #5e5e5e99;
+    transition: all ease 0.3s;
+}
+
 .deckButton:before{
     content: '+'
 }
@@ -160,4 +180,8 @@
 
 .deckButton.isInDeck:before{
     content: '-'
+}
+
+#input-row, #characters-row{
+    margin-bottom: 0;
 }
