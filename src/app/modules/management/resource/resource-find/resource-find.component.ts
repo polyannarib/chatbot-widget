@@ -1,6 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, OnChanges, DoCheck } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
-import { SelectAutocompleteComponent } from 'mat-select-autocomplete';
+import { Component, OnInit } from '@angular/core';
 import { CardService } from 'src/app/core/services/card.service';
 
 @Component({
@@ -10,101 +8,186 @@ import { CardService } from 'src/app/core/services/card.service';
 })
 export class ResourceFindComponent implements OnInit {
 
-  loaderFind: boolean = false;
-  aux: number = 0;
-  parentIds: number[] = [];
-  results: any = new Object();
-  competencias = [];
-  labels = [];
-  listIds: number[];
-  group: any;
-  form = new Object();
-  orderForm: any;
-  knowledge: any;
-  levelList = [];
-  
+  // competenciasTecnicas = [
+  //   { 'id': 1, 'name': 'Competências Técnicas' },
+  //   { 'id': 2, 'name': 'Competências de Negócio' },
+  //   { 'id': 3, 'name': 'Competências Comportamentais' },
+  // ]
+  // categoria = [
+  //   { 'id': 4, 'name': 'Tecnologia', 'parent': 1 },
+  //   { 'id': 5, 'name': 'Metodologia', 'parent': 1 },
+  //   { 'id': 144, 'name': 'Materiais', 'parent': 1 },
+  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
+  // ]
+  // categoria = [
+  //   { 'id': 4, 'name': 'Tecnologia', 'parent': 1 },
+  //   { 'id': 5, 'name': 'Metodologia', 'parent': 1 },
+  //   { 'id': 144, 'name': 'Materiais', 'parent': 1 },
+  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
+  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
+  //   { 'id': 4, 'name': 'Tecnologia', 'parent': 1 },
+  //   { 'id': 5, 'name': 'Metodologia', 'parent': 1 },
+  //   { 'id': 144, 'name': 'Materiais', 'parent': 1 },
+  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
+  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
+  //   { 'id': 5, 'name': 'Metodologia', 'parent': 1 },
+  //   { 'id': 144, 'name': 'Materiais', 'parent': 1 },
+  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
+  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
+  // ]
+
+  // loaderFind: boolean = false;
+  // aux: number = 0;
+  // results: any = new Object();
+  // competencias = [];
+  // labels = [];
+  // listIds: number[];
+  // group: any;
+  // form = new Object();
+  // orderForm: any;
+  // knowledge: any;
+  // levelList = [];
+  resultado: any;
+
+  parentIdsLevels: number[] = [];
+  parentIdsWorkGroups: number[] = [];
+  idsLevels: any;
+  idsWorkGroups: any;
+
+  level = new Object();
+
+  persons: any;
+  personList: any;
+
+  currentPage : number;
+  size : number;
+  pageLength : number;
+
   constructor(
-    private cardService: CardService,
-    private formBuilder: FormBuilder
+    private _cardService: CardService
   ) { }
 
   ngOnInit() {
-    this.levelList.push({
-      level: 1,
-    });
     this.getKnowledgeIn();
   }
 
+  findPerson() {
+    this._cardService.findPerson(this.parentIdsLevels, this.idsWorkGroups).subscribe(
+      (result) => {
+        if(result['status'] == 0) {
+          this.personList = result['object']['table'];
+          this.size = this.personList.size;
+        }
+      }, (err) => {
+        console.log('deu ruim');
+      })
+  }
+
+  FindParente(event) {
+    if(event.length) {
+      event.forEach((element) => {
+        if(!this.parentIdsLevels.includes(element)) {
+          this.parentIdsLevels.push(element);
+        }
+      });
+      this.idsLevels = this.parentIdsLevels.join();
+    }
+  }
+
+  findWorkgroup(event) {
+    if(event.length > 0) {
+      event.forEach((element) => {
+        if(!this.parentIdsWorkGroups.includes(element)) {
+          this.parentIdsWorkGroups.push(element);
+        }
+      });
+      this.idsWorkGroups = this.parentIdsWorkGroups.join();
+    } else {
+      this.idsWorkGroups = null;
+    }
+  }
+
+  onPaginateChange(event) {
+    this.currentPage = event.pageIndex;
+    this.size = event.pageSize;
+    this.pageLength = event.length;
+  }
+
   getKnowledgeIn(ids?: any) {
-    // console.log(ids);
-    this.cardService.KnowledgeIn(ids).subscribe(
+    this._cardService.KnowledgeIn(ids).subscribe(
       (response) => {
         if(response.status == 0) {
-          // this.levelList = [];
-          
-          // this.levelList.push({
-          //   level: 1,
-          // });
-          
-          if(!ids) {
-            this.results[response.object[0].level] = response.object[0];
-            console.log(this.results);
-            return;
-          }
-          response.object.forEach((element) => {
-            var levelFind = this.levelList.find((elementFind) => {
-              return elementFind.level == element.level;
-            });
-            if(!!!levelFind) {
-              this.levelList.push({
-                level: element.level
-              })
-            }
-            this.results[element.level] = element;
-          });
-          console.log(this.results);
-          
-
-          // this.results = [...response.object];
-          // this.results.push(response.object);
-        } else {
-          return;
+          this.resultado = response.object
         }
-      },(error) => {
-        console.log('entrou dentro do error');
-        console.log(error);
+    }, (err) => {
+      console.log('Deu ruim');
     })
-  }
+  }  
 
-  FindParente(event, level?) {
-    this.parentIds = [];
-    this.levelList.forEach((element, index) => {
-      if(element.level > level) {
-          delete this.results[element.level];
-          this.levelList.splice(index, 1);
-          delete this.form[element.level];
-        }
-      }); 
-    if(level == 1 && this.levelList.length > 1) {
-      this.getKnowledgeIn();
-      return;
-    }
-    event.forEach((element) => {
-      if(!this.parentIds.includes(element)) {
-        this.parentIds.push(element)
-      }
-    });
-    var ids = this.parentIds.join();
-    // debugger;
-    this.getKnowledgeIn(ids);
-  }
+  // getKnowledgeIn(ids?: any) {
+  //   // console.log(ids);
+  //   this.cardService.KnowledgeIn(ids).subscribe(
+  //     (response) => {
+  //       if(response.status == 0) {
+  //         // this.levelList = [];
+          
+  //         // this.levelList.push({
+  //         //   level: 1,
+  //         // });
+          
+  //         if(!ids) {
+  //           this.results[response.object[0].level] = response.object[0];
+  //           console.log(this.results);
+  //           return;
+  //         }
+  //         response.object.forEach((element) => {
+  //           var levelFind = this.levelList.find((elementFind) => {
+  //             return elementFind.level == element.level;
+  //           });
+  //           if(!!!levelFind) {
+  //             this.levelList.push({
+  //               level: element.level
+  //             })
+  //           }
+  //           this.results[element.level] = element;
+  //         });
+  //       } else {
+  //         return;
+  //       }
+  //     },(error) => {
+  //       console.log('entrou dentro do error');
+  //       console.log(error);
+  //   })
+  // }
 
-  setParent(parent) {
+  // FindParente(event, level?) {
+  //   this.parentIds = [];
+  //   this.levelList.forEach((element, index) => {
+  //     if(element.level > level) {
+  //         delete this.results[element.level];
+  //         this.levelList.splice(index, 1);
+  //         delete this.form[element.level];
+  //       }
+  //     }); 
+  //   if(level == 1 && this.levelList.length > 1) {
+  //     this.getKnowledgeIn();
+  //     return;
+  //   }
+  //   event.forEach((element) => {
+  //     if(!this.parentIds.includes(element)) {
+  //       this.parentIds.push(element)
+  //     }
+  //   });
+  //   var ids = this.parentIds.join();
+  //   this.getKnowledgeIn(ids);
+  // }
 
-  }
+  // setParent(parent) {
 
-  get getResults() {
-    return this.results;
-  }
+  // }
+
+  // get getResults() {
+  //   return this.results;
+  // }
 
 }

@@ -2,6 +2,38 @@
     padding: 0 4px;
 } */
 
+
+/* CODIGO FEITO PARA BUSCA */
+.cdk-overlay-pane {
+    left: 115px !important;
+}
+.mat-form-field {
+    /* display: inline-block; */
+    position: relative;
+    text-align: left;
+    padding: 15px;
+    width: 225px;
+    float: left;
+}
+button {
+    margin-top: 15px;
+}
+.mat-paginator {
+    background-color: transparent;
+}
+@media only screen and (max-width: 700px){
+    .mat-form-field {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
 /*-----TABLE-----*/
     .perfil {
         width: 60px;

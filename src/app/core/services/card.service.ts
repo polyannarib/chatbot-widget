@@ -35,11 +35,21 @@ export class CardService {
     return this.http.post(`${environment.back_end_url}/${this.prefixService}/giveToPlayer`, data);
   }
 
+  findPerson(parentIdsLevels: any, idsWorkGroups: any) {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?page=1&pageSize=30&knowledgeIds=${parentIdsLevels}&workgroupIds${idsWorkGroups}`);
+    // if(parentIdsLevels && !idsWorkGroups)
+    //   return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?knowledgeIds=${parentIdsLevels}&page=1&pageSize=30`);
+    // if(!idsWorkGroups && idsWorkGroups)
+    //   return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?workgroupIds${idsWorkGroups}&page=1&pageSize=30`);
+    
+  }
+  
   KnowledgeIn(data?: any): Observable<any> {
     if(!data) {
       return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn`);
     }
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn?knowledgeParentIds=${data}`);
   }
+  
 
 }
