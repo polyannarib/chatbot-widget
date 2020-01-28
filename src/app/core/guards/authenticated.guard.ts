@@ -20,7 +20,7 @@ export class AuthenticatedGuard implements CanActivate {
         let authenticated = route.queryParams.authenticated;
         return new Promise((resolve, reject) => {
             if( this.authService.isAuthenticated() ) {
-                resolve(true);
+                this.router.navigate(['/management/dashboard']);
                 return;
             }
             if( authenticated == 'false' ) {
