@@ -8,26 +8,51 @@
     </button>
     <div id="black-filter"></div>
   </div>
-  <div class="col s8" #tp2="matTooltip" 
-    matTooltip="Use os filtros para buscar cartas específicas" matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
-    <div class="col m4">
-      <div class="input-field col s12">
-        <!-- <i class="material-icons prefix">textsms</i> -->
-        <input type="text" class="autocomplete-input" class="autocomplete">
-        <label for="autocomplete-input">Categoria</label>
-      </div>
+  <div class="col s10" #tp2="matTooltip" matTooltip="Use os filtros para buscar cartas específicas"
+    matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
+
+    <div class="col s3">
+      <mat-form-field>
+        <mat-label>Tipos de Competências</mat-label>
+        <mat-select (selectionChange)="onChangeCategory($event)">
+          <mat-option *ngFor="let object of competenseType" [value]="object">
+            {{object}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div class="col m4">
-      <div class="input-field">
-        <input type="text" class="autocomplete-input" class="autocomplete">
-        <label for="autocomplete-input">Clã</label>
-      </div>
+
+    <div class="col s3">
+      <mat-form-field>
+        <mat-label>Categorias</mat-label>
+        <mat-select (selectionChange)="onChangeAttribute($event)">
+          <mat-option *ngFor="let object of category" [value]="object">
+            {{object}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div class="col m4">
-      <div class="input-field">
-        <input type="text" class="autocomplete-input" class="autocomplete">
-        <label for="autocomplete-input">Competência</label>
-      </div>
+
+    <div class="col s3">
+      <mat-form-field>
+        <mat-label>Atributos</mat-label>
+        <mat-select (selectionChange)="onChangeCompetense($event)">
+          <mat-option *ngFor="let object of attribute" [value]="object">
+            {{object}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col s3">
+      <mat-form-field>
+        <mat-label>Competências</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let object of competense" [value]="object">
+            {{object}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
 </div>

@@ -28,6 +28,36 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
   isInDeck: boolean;
   slickClass: any;
 
+  arrows: boolean = true;
+  myControl = new FormControl();
+  myControl1 = new FormControl();
+  options: string[] = [];
+  auxComp = []
+  auxCat = []
+  auxAtt = []
+  filteredOptions: Observable<string[]>;
+  competense = []
+  competenseType = []
+  category = []
+  attribute = []
+
+  constructor(
+    private playerService: PlayerService,
+    private service: CardService
+  ) { }
+
+  ngOnInit() {
+
+    this.updatePlayerDeck();
+
+    this.service.searchComboCompetence().subscribe(response => {
+      this.auxComp = response.object
+      this.competenseType = response.object.map(res => {
+        return res.name;
+      })
+    })
+
+  }
   
   arrows: boolean = true;
   slick = {
