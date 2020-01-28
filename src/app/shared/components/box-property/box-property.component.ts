@@ -22,6 +22,7 @@ export class BoxPropertyComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     var that = this;
+    console.log(this.topics)
     setTimeout(function(){that.updateBoxes()}, 5000);
   }
 
