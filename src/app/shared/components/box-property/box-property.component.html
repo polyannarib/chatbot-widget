@@ -5,7 +5,7 @@
   <div class="card-content" #content *ngIf="type == 'numeric'">
     <span>{{ number }}</span><span>{{ description}}</span>
   </div>
-  <div class="card-content" #content *ngIf="type == 'topics' && topics">
+  <div class="card-content" #content *ngIf="type == 'topics' && topicsParsed">
     <span *ngFor="let topic of topicsParsed">{{ topic }}</span>
   </div>
 </div>

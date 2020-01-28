@@ -3,6 +3,9 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { PlayerService } from 'src/app/core/services/player.service';
 import { CardService } from 'src/app/core/services/card.service';
 import * as $ from 'jquery';
+import { stringify } from 'querystring';
+
+var slick: any;
 @Component({
   selector: 'app-card-bind',
   templateUrl: './card-bind.component.html',
@@ -10,14 +13,20 @@ import * as $ from 'jquery';
   encapsulation: ViewEncapsulation.None
 })
 export class CardBindComponent implements OnInit, AfterViewChecked {
+  refreshSlick: boolean = false;
   title = 'tooltip';
   status : boolean = false;
   helpMessage: any = "Clique aqui para ver dicas sobre a tela";
   playerDeck: any;
   filteredCard: any;
   characters: any;
-  cardDescription: string;
+  cardDescription: any;
+  metricList: any;
   listenerAdded: boolean = false;
+  visibleCardUpdated: boolean = true;
+  deckIdList: any;
+  isInDeck: boolean;
+  slickClass: any;
 
   
   arrows: boolean = true;
@@ -94,6 +103,7 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.updatePlayerDeck();
     this.searchCards();
+    this.metricList = [];
   }
 
   ngAfterViewChecked(){
@@ -111,10 +121,25 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
   }
 
   updatePlayerDeck() {
-    this.playerService.findPlayerDeck().subscribe(
+    this.cardService.listCardsByUser().subscribe(
       (response) => {
         if (response.status == 0) {
           this.playerDeck = response.object;
+          console.log(this.playerDeck);
+
+          var that = this;
+          this.playerDeck.forEach(function(object){
+            if(object.cardName.indexOf("#") != -1){
+              object.cardName = object.cardName.replace("#", "sharp");
+            }
+          })
+          this.deckIdList = [];
+        
+          this.playerDeck.forEach(function(card){
+            card.attributes.forEach(function(character){
+              that.deckIdList.push(''+card.cardId+character.attribute.id);
+            });
+          });
         }
       }, (err) => {
         console.log(err);
@@ -141,18 +166,72 @@ export class CardBindComponent implements OnInit, AfterViewChecked {
   }
 
   updateVisibleCard(){
+    this.visibleCardUpdated = false;
     if(this.characters && document.querySelector('.slick-current img')){
       var visibleCard = this.characters[document.querySelector('.slick-current img').id].attribute;
       var that = this;
 
-      this.cardDescription = '{"topics": ["' + visibleCard.classification.classificationDescription + '"]}';
-      visibleCard.metricList.forEach(function(object){
-        var metricEncapsulation = {};
-        var metric = metricEncapsulation[0];
-        metric.title = this.metric.metricTypedescription;
-        metric.value = this.value;
-        metric.description = "Maior que " + metric.value + " " + this.metric.metricType.metricType;
+      var description = visibleCard.classification.classificationDescription.split('.');
+      var descriptionTopics = [];
+      descriptionTopics.push(visibleCard.name[0].toUpperCase() + visibleCard.name.slice(1).toLowerCase());
+      description.forEach(function(object){
+        if(object != ''){
+          descriptionTopics.push(object);
+        }
       });
+      this.cardDescription = {descriptionTopics};
+      this.cardDescription = JSON.stringify(this.cardDescription);
+
+      this.metricList = [];
+      visibleCard.metricList.forEach(function(object){
+        var metric = {};
+        /* metric['title'] = object.metric.metricType.description; */
+        metric['title'] = 'Experiência';
+        metric['value'] = object.metric.value;
+
+        var metricType;
+        if(object.metric.metricType.metricType == 'MONTHS'){
+          metricType = 'meses';
+        }
+        metric['description'] = "Maior que " + metric['value'] + " " + metricType;
+        that.metricList.push(metric);
+      });
+
+      this.isInDeck = this.deckIdList.includes(''+this.filteredCard.cardId+visibleCard.id); 
+
+      this.visibleCardUpdated = true;
+    }
+  }
+
+  addOrRemoveCard(){
+    var data = {
+      "knowledgeId": this.filteredCard.knowledge.knowledgeId,
+      "attributeId": this.characters[document.querySelector('.slick-current img').id].attribute.id
+    }
+
+    if(this.isInDeck == false){
+      this.cardService.addCard(data).subscribe(
+        (response) => {
+          console.log(response);
+          this.isInDeck = true;
+          this.updatePlayerDeck();
+          this.refreshSlick = !this.refreshSlick;
+        }, (err) => {
+          console.log(err);
+        }
+      )
+    }
+    else{
+      this.cardService.removeCard(data).subscribe(
+        (response) => {
+          console.log(response);
+          this.isInDeck = false;
+          this.updatePlayerDeck();
+          this.refreshSlick = !this.refreshSlick;
+        }, (err) => {
+          console.log(err);
+        }
+      )
     }
   }
 

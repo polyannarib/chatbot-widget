@@ -54,7 +54,6 @@
 /*-------TOPICS-------*/
 .card.topics span{
     display: block;
-    margin-bottom: 9px;
 }
 
 .card.topics span:before{

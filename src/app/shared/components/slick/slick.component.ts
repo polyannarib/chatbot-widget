@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, OnDestroy, AfterContentInit, AfterViewInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy, AfterContentInit, AfterViewInit, EventEmitter, OnChanges } from '@angular/core';
 
 
 declare var $: any;
@@ -8,7 +8,7 @@ declare var $: any;
   templateUrl: './slick.component.html',
   styleUrls: ['./slick.component.css']
 })
-export class SlickComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SlickComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
 
   @Input() options: any
   @Input() data: any
@@ -16,6 +16,7 @@ export class SlickComponent implements OnInit, OnDestroy, AfterViewInit {
   class: any;
   slickClass: any;
   @Output() updateAttributesEvent = new EventEmitter<string>();
+  @Input() type: any;
   
   constructor() {
   }
@@ -31,6 +32,7 @@ export class SlickComponent implements OnInit, OnDestroy, AfterViewInit {
 
   initSlick() {
     this.slickClass = $(`.${this.class}`);
+    console.log(this.slickClass);
     this.slickClass.slick(this.options);
 
     if($('#slick .card-img').length >= 0){  //Se for o carrossel de cartas
@@ -39,6 +41,7 @@ export class SlickComponent implements OnInit, OnDestroy, AfterViewInit {
         $('#slick').on('afterChange', function(slick, currentSlide){
           that.updateAttributesEvent.emit('updateAttributes');
         });
+        that.updateAttributesEvent.emit('updateAttributes');
       }, 500);
     }
   }
@@ -52,6 +55,21 @@ export class SlickComponent implements OnInit, OnDestroy, AfterViewInit {
       this.options.prevArrow = "<span class='ct-slick-prev'><i class='material-icons'>keyboard_arrow_left</i></span>";
       this.options.nextArrow = "<span class='ct-slick-next'><i class='material-icons'>keyboard_arrow_right</i></span>";
     }
+  }
+
+  ngOnChanges(){
+    if(this.slickClass != undefined){
+      var that = this;
+      $('.deck .slick-slide').remove();
+      setTimeout(function(){
+        that.slickClass.slick('unslick');
+        $('.deck #slick div[class]').remove();
+        that.slickClass.slick(that.options);
+        //$('.deck .slick-slide:not(.slick-active)').remove();
+      }, 1000);
+
+    }
+      
   }
 
 
