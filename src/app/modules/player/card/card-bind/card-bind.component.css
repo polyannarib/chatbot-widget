@@ -13,7 +13,7 @@
     float: right;
 }
 
-#help{
+#help {
     background: #8cd7da;
     font-size: 25px;
     border: 5px white solid;
@@ -34,7 +34,7 @@
     z-index: 1000;
 }
 
-#help-div{
+#help-div {
     padding: 0;
     margin: 0;
 }
@@ -46,52 +46,54 @@
     z-index: 1002px;
 }
 
-.cdk-overlay-container{
+.cdk-overlay-container {
     z-index: 1002 !important;
 }
 
-
-.help .input-field, .help .style-custom{
+.help .input-field, .help .style-custom {
     z-index: 1001;
 }
-.help .card-col{
+
+.help .card-col {
     z-index: 1001;
     position: relative;
 }
 
-.deck-img{
+.deck-img {
     background-color: #ffffff5c;
     border: 2px solid white;
     border-top: 14px solid white;
 }
 
-.deck .slick-slide{
+.deck .slick-slide {
     padding: 11px;
     opacity: 0.8;
     transition: all ease 0.2s;
 }
 
-.deck .slick-slide.slick-center{
+.deck .slick-slide.slick-center {
     transform: scale(1.15);
     opacity: 1;
     transition: all ease 0.2s;
 }
 
-
-@media only screen and (max-width: 1068px) and (min-width: 915px){
-    .card.numeric .card-content span:nth-child(2){
+@media only screen and (max-width: 1068px) and (min-width: 915px) {
+    .card.numeric .card-content span:nth-child(2) {
         width: calc(61% - 8px);
     }
 }
 
-@media only screen and (max-width: 915px){
-    .card.numeric .card-content span:nth-child(2){
+@media only screen and (max-width: 915px) {
+    .card.numeric .card-content span:nth-child(2) {
         width: 100%;
         text-align: center;
     }
-
-    .card.numeric .card-content span:nth-child(1){
+    .card.numeric .card-content span:nth-child(1) {
         margin-left: calc(50% - 27px);
         margin-bottom: 4px;
     }
+}
+
+.mat-form-field {
+    display: block !important;
 }

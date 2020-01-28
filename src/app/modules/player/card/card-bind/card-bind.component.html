@@ -1,33 +1,58 @@
 <div class="row" [ngClass]="{'help' : status}">
   <div class="col s2" id="help-div" [ngClass]="{'tips' : status}">
     <!-- <input type="text" #tooltip="matTooltip" matTooltip="Some tip"> -->
-    <button #tp1="matTooltip" matTooltip="{{ helpMessage }}" matTooltipPosition="after"id="help" 
-      class="btn-floating btn-large waves-effect waves-light" 
+    <button #tp1="matTooltip" matTooltip="{{ helpMessage }}" matTooltipPosition="after" id="help"
+      class="btn-floating btn-large waves-effect waves-light"
       (click)="onShowTips(); tp2.toggle(); tp3.toggle(); tp4.toggle(); tp5.toggle()">
       ?
     </button>
     <div id="black-filter"></div>
   </div>
-  <div class="col s8" #tp2="matTooltip" 
-    matTooltip="Use os filtros para buscar cartas específicas" matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
-    <div class="col m4">
-      <div class="input-field col s12">
-        <!-- <i class="material-icons prefix">textsms</i> -->
-        <input type="text" class="autocomplete-input" class="autocomplete">
-        <label for="autocomplete-input">Categoria</label>
-      </div>
+  <div class="col s10" #tp2="matTooltip" matTooltip="Use os filtros para buscar cartas específicas"
+    matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
+
+    <div class="col s3">
+      <mat-form-field>
+        <mat-label>Tipos de Competências</mat-label>
+        <mat-select (selectionChange)="onChangeCategory($event)">
+          <mat-option *ngFor="let object of competenseType" [value]="object">
+            {{object}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div class="col m4">
-      <div class="input-field">
-        <input type="text" class="autocomplete-input" class="autocomplete">
-        <label for="autocomplete-input">Clã</label>
-      </div>
+
+    <div class="col s3">
+      <mat-form-field>
+        <mat-label>Categorias</mat-label>
+        <mat-select (selectionChange)="onChangeAttribute($event)">
+          <mat-option *ngFor="let object of category" [value]="object">
+            {{object}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div class="col m4">
-      <div class="input-field">
-        <input type="text" class="autocomplete-input" class="autocomplete">
-        <label for="autocomplete-input">Competência</label>
-      </div>
+
+    <div class="col s3">
+      <mat-form-field>
+        <mat-label>Atributos</mat-label>
+        <mat-select (selectionChange)="onChangeCompetense($event)">
+          <mat-option *ngFor="let object of attribute" [value]="object">
+            {{object}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col s3">
+      <mat-form-field>
+        <mat-label>Competências</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let object of competense" [value]="object">
+            {{object}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
 </div>
@@ -36,8 +61,8 @@
 
   <div class="col s12 m6">
     <div class="style-custom">
-      <app-slick [options]="slick" [arrows]="arrows" class="trapezio" #tp3="matTooltip" 
-        matTooltip="Use as setas para escolher os personagens que melhor representam você" 
+      <app-slick [options]="slick" [arrows]="arrows" class="trapezio" #tp3="matTooltip"
+        matTooltip="Use as setas para escolher os personagens que melhor representam você"
         matTooltipDisabled="{{ !status }}" matTooltipPosition="below">
         <div>
           <img width="100%" src="http://placehold.it/350x300?text=1">
@@ -53,14 +78,14 @@
   </div>
 
   <div class="col s12 m6">
-    
-    <div class="col s6 card-col" #tp4="matTooltip" 
-    matTooltip="Estes são os atributos da carta" matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
+
+    <div class="col s6 card-col" #tp4="matTooltip" matTooltip="Estes são os atributos da carta"
+      matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
       <app-box-property type="numeric" title="Experiência" number="30"
         description="Maior que dois anos e seis meses exemplo exemplo exemplo exemplo">
       </app-box-property>
     </div>
-  
+
     <div class="col s6 card-col">
       <app-box-property type="topics" title="Experiência"
         topics='{"topics": ["Quase não depende de apoio", "Possui conhecimento diferenciado na tecnologia", "Quase não depende de apoio", "Possui conhecimento diferenciado na tecnologia","Quase não depende de apoio", "Possui conhecimento diferenciado na tecnologia","Quase não depende de apoio", "Possui conhecimento diferenciado na tecnologia"]}'>
@@ -85,12 +110,11 @@
 
 <div *ngIf="playerDeck" class="row deck" [ngClass]="{'help' : status}">
   <div class="style-custom">
-    <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" 
-      matTooltip="Essas são as suas cartas" matTooltipDisabled="{{ !status }}" 
-      matTooltipPosition="above">
-        <div *ngFor="let card of playerDeck; index as i;">
-          <img class="deck-img" width="100%" src="{{ card.url + 'personaOuro' + '.png' }}">
-        </div>
+    <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" matTooltip="Essas são as suas cartas"
+      matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
+      <div *ngFor="let card of playerDeck; index as i;">
+        <img class="deck-img" width="100%" src="{{ card.url + 'personaOuro' + '.png' }}">
+      </div>
     </app-slick>
   </div>
 </div>
