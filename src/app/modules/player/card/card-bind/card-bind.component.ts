@@ -5,6 +5,8 @@ import { CardService } from 'src/app/core/services/card.service';
 import * as $ from 'jquery';
 import { stringify } from 'querystring';
 import { Observable } from 'rxjs';
+import { MatSnackBar, MatBottomSheet } from '@angular/material';
+import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 
 var slick: any;
 @Component({
@@ -16,7 +18,7 @@ var slick: any;
 export class CardBindComponent implements OnInit {
   refreshSlick: boolean = false;
   title = 'tooltip';
-  status : boolean = false;
+  status: boolean = false;
   helpMessage: any = "Clique aqui para ver dicas sobre a tela";
   playerDeck: any;
   filteredCard: any;
@@ -43,8 +45,8 @@ export class CardBindComponent implements OnInit {
   competenseType = []
   category = []
   attribute = []
-  flagComp:any
-  flagCat:any
+  flagComp: any
+  flagCat: any
   flagAtt = []
 
   showDivAtt = 'display-hide'
@@ -53,11 +55,12 @@ export class CardBindComponent implements OnInit {
 
   constructor(
     private playerService: PlayerService,
-    private service: CardService
+    private service: CardService,
+    private _snackBar: MatSnackBar,
+    private _bottomSheet: MatBottomSheet
   ) { }
 
   ngOnInit() {
-    this.searchCards();
     this.metricList = [];
     this.updatePlayerDeck();
 
@@ -88,23 +91,23 @@ export class CardBindComponent implements OnInit {
   }
 
   onChangeAttribute(value) {
+    this.showDivComp = 'display-hide'
     let aux = this.auxCat.filter((cur) => cur.name == value.value)
     this.flagCat = aux[0]
     let a = aux[0].knowledgeId
     if (a != undefined) {
-      if (this.flagComp.hasChildren === "Y") {
+      if (this.auxCat[0].hasChildren === "Y") {
         this.showDivAtt = 'display-show'
-      } 
-      if (this.flagComp.hasChildren === "N") {
-        this.showDivAtt = 'display-hide'
-      } 
-      this.service.getCategory(a).subscribe(response => {
-        this.auxAtt = response.object
-        this.attribute = response.object.map(resp => {
-          return resp.name
+        this.service.getCategory(a).subscribe(response => {
+          this.auxAtt = response.object
+          this.attribute = response.object.map(resp => {
+            return resp.name
+          })
         })
-
-      })
+      }
+      if (this.auxCat[0].hasChildren === "N") {
+        this.resultInformation(this.id)
+      }
     }
   }
 
@@ -112,19 +115,18 @@ export class CardBindComponent implements OnInit {
     let aux = this.auxAtt.filter((cur) => cur.name == value.value)
     this.id = aux[0].knowledgeId
     if (this.id != undefined) {
-      if (this.flagCat.hasChildren === "Y") {
+      if (this.auxAtt[0].hasChildren === "Y") {
         this.showDivComp = 'display-show'
-      }
-      if (this.flagCat.hasChildren === "N") {
-        this.showDivComp = 'display-hide'
-      } 
-      this.service.getCategory(this.id).subscribe(response => {
-        this.auxCards = response.object
-        this.competense = response.object.map(resp => {
-          return resp.name
+        this.service.getCategory(this.id).subscribe(response => {
+          this.auxCards = response.object
+          this.competense = response.object.map(resp => {
+            return resp.name
+          })
         })
-
-      })
+      }
+      if (this.auxAtt[0].hasChildren === "N") {
+        this.resultInformation(this.id)
+      }
     }
   }
 
@@ -136,8 +138,8 @@ export class CardBindComponent implements OnInit {
     }
   }
 
-  resultInformation(){
-    this.searchCards(this.id)
+  resultInformation(value) {
+    this.searchCards(value)
   }
 
   slick = {
@@ -206,12 +208,12 @@ export class CardBindComponent implements OnInit {
   }
 
 
-  onShowTips(){
+  onShowTips() {
     this.status = !this.status;
-    if(this.status == true){
+    if (this.status == true) {
       this.helpMessage = "Clique para sair do modo Dicas"
     }
-    if(this.status == false){
+    if (this.status == false) {
       this.helpMessage = "Clique aqui para ver dicas sobre a tela";
     }
   }
@@ -224,21 +226,21 @@ export class CardBindComponent implements OnInit {
           console.log(this.playerDeck);
 
           var that = this;
-          this.playerDeck.forEach(function(object){
-            if(object.cardName.indexOf("#") != -1){
+          this.playerDeck.forEach(function (object) {
+            if (object.cardName.indexOf("#") != -1) {
               object.cardName = object.cardName.replace("#", "sharp");
             }
             object.cardName.replace(' ', '');
           })
           this.deckIdList = [];
           console.log(this.playerDeck);
-        
-          this.playerDeck.forEach(function(card, index){
-            if(card.attributes.length == 0){
+
+          this.playerDeck.forEach(function (card, index) {
+            if (card.attributes.length == 0) {
               that.playerDeck.splice(index, 1);
             }
-            card.attributes.forEach(function(character){
-              that.deckIdList.push(''+card.cardId+character.id);
+            card.attributes.forEach(function (character) {
+              that.deckIdList.push('' + card.cardId + character.id);
             });
           });
         }
@@ -248,85 +250,87 @@ export class CardBindComponent implements OnInit {
     )
   }
 
-  searchCards(id) {
+  searchCards(id: any) {
     this.service.findCardById(id).subscribe(
       (response) => {
         if (response.status == 0) {
           this.filteredCard = response.object;
           this.characters = this.filteredCard.attributes;
-          if(this.filteredCard.cardName.indexOf("#") != -1){
+          if (this.filteredCard.cardName.indexOf("#") != -1) {
             this.filteredCard.cardName = this.filteredCard.cardName.replace("#", "sharp");
           }
-
-
+        }
+        else {
+          this._snackBar.openFromComponent(NotifyComponent,
+            { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' } });
+          return;
         }
       }, (err) => {
-        console.log(err);
       }
     )
   }
 
-  updateVisibleCard(){
+  updateVisibleCard() {
     this.visibleCardUpdated = false;
-    if(this.characters && document.querySelector('.slick-current img')){
+    if (this.characters && document.querySelector('.slick-current img')) {
       var visibleCard = this.characters[document.querySelector('.slick-current img').id];
       var that = this;
 
       var knowledge = visibleCard.attribute.classification.classificationDescription.split('.');
       var knowledgeTopics = [];
       knowledgeTopics.push(visibleCard.attribute.name[0].toUpperCase() + visibleCard.attribute.name.slice(1).toLowerCase());
-      knowledge.forEach(function(object){
-        if(object != ''){
+      knowledge.forEach(function (object) {
+        if (object != '') {
           knowledgeTopics.push(object);
         }
       });
       var topics = knowledgeTopics;
-      this.cardKnowledge = {topics};
+      this.cardKnowledge = { topics };
       this.cardKnowledge = JSON.stringify(this.cardKnowledge);
 
       var description = this.filteredCard.cardDescription.split('.');
       var descriptionTopics = [];
       descriptionTopics.push(visibleCard.name[0].toUpperCase() + visibleCard.name.slice(1).toLowerCase());
-      description.forEach(function(object){
-        if(object != ''){
+      description.forEach(function (object) {
+        if (object != '') {
           descriptionTopics.push(object);
         }
       });
 
       topics = descriptionTopics;
-      this.cardDescription = {topics};
+      this.cardDescription = { topics };
       this.cardDescription = JSON.stringify(this.cardDescription);
-      
+
 
       this.metricList = [];
-      visibleCard.attribute.metricList.forEach(function(object){
+      visibleCard.attribute.metricList.forEach(function (object) {
         var metric = {};
         /* metric['title'] = object.metric.metricType.description; */
         metric['title'] = 'Experiência';
         metric['value'] = object.metric.value;
 
         var metricType;
-        if(object.metric.metricType.metricType == 'MONTHS'){
+        if (object.metric.metricType.metricType == 'MONTHS') {
           metricType = 'meses';
         }
         metric['description'] = "Maior que " + metric['value'] + " " + metricType;
         that.metricList.push(metric);
       });
 
-      if(this.deckIdList != undefined)
-        this.isInDeck = this.deckIdList.includes(''+this.filteredCard.cardId+visibleCard.id); 
+      if (this.deckIdList != undefined)
+        this.isInDeck = this.deckIdList.includes('' + this.filteredCard.cardId + visibleCard.id);
 
       this.visibleCardUpdated = true;
     }
   }
 
-  addOrRemoveCard(){
+  addOrRemoveCard() {
     var data = {
       "knowledgeId": this.filteredCard.knowledge.knowledgeId,
       "attributeId": this.characters[document.querySelector('.slick-current img').id].id
     }
 
-    if(this.isInDeck == false){
+    if (this.isInDeck == false) {
       this.service.addCard(data).subscribe(
         (response) => {
           console.log(response);
@@ -338,7 +342,7 @@ export class CardBindComponent implements OnInit {
         }
       )
     }
-    else{
+    else {
       this.service.removeCard(data).subscribe(
         (response) => {
           console.log(response);
