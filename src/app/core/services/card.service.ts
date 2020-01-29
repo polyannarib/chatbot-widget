@@ -36,11 +36,11 @@ export class CardService {
   }
 
   findPerson(parentIdsLevels: any, idsWorkGroups: any) {
-    return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?page=1&pageSize=30&knowledgeIds=${parentIdsLevels}&workgroupIds${idsWorkGroups}`);
-    // if(parentIdsLevels && !idsWorkGroups)
-    //   return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?knowledgeIds=${parentIdsLevels}&page=1&pageSize=30`);
-    // if(!idsWorkGroups && idsWorkGroups)
-    //   return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?workgroupIds${idsWorkGroups}&page=1&pageSize=30`);
+    if(parentIdsLevels && !idsWorkGroups)
+      return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?knowledgeIds=${parentIdsLevels}&page=1&pageSize=30`);
+    if(!idsWorkGroups && idsWorkGroups)
+      return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?workgroupIds${idsWorkGroups}&page=1&pageSize=30`);
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?page=1&pageSize=30&knowledgeIds=${parentIdsLevels}&workgroupIds=${idsWorkGroups}`);
     
   }
   

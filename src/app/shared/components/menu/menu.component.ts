@@ -29,7 +29,6 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
-    debugger;
     let params = {
       "SYSTEM": AppConstants.SYSTEM_NAME
     }

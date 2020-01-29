@@ -96,7 +96,7 @@
 
     <!-- <mat-form-field *ngFor="let levelElement of resultado; let i= index">
       <mat-label>{{ levelElement.knowledgeList[0].name }}</mat-label>
-      <mat-select (ngModelChange)="FindParente($event)" [(ngModel)]="form" multiple>
+      <mat-select (selectionChange)="FindParente($event, levelElement)" multiple>
         <mat-option *ngFor="let knowledge of levelElement.knowledgeList" [value]="knowledge.knowledgeId">{{ knowledge.name }}</mat-option>
       </mat-select>
     </mat-form-field> -->
@@ -140,23 +140,28 @@
   </div>
 
   <div class="row">
-    <div class="col s12" id="tabela-col" *ngIf="personList">
-      <table id="tabela" >
+    <app-count *ngIf="!personList && size == 0">Nenhum recurso foi encontrado!</app-count>
+    <div class="col s12" id="tabela-col" *ngIf="personList && size > 0">
+      <table id="tabela">
         <thead>
           <tr>
             <th></th>
             <th>Recursos</th>
             <th>Departamento</th>
             <th>Equipe</th>
+            <th>Função</th>
             <th>Projetos entregues</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let person of personList">
-            <td class="perfil"><img src="https://image.freepik.com/vetores-gratis/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg"></td>
+            <td class="perfil">
+              <img src="https://image.freepik.com/vetores-gratis/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg">
+            </td>
             <td>{{ person.name }}</td>
-            <td>{{ person.function.description }}</td>
             <td>{{ person.workgroupList.name }}</td>
+            <td>{{ person.function.description }}</td>
+            <td>{{ person.function.description }}</td>
             <td>{{ person.taskFinished }} horas</td>
           </tr>
         </tbody>

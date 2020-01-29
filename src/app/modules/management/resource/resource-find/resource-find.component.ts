@@ -43,7 +43,7 @@ export class ResourceFindComponent implements OnInit {
   // labels = [];
   // listIds: number[];
   // group: any;
-  // form = new Object();
+  form = new Object();
   // orderForm: any;
   // knowledge: any;
   // levelList = [];
@@ -68,7 +68,7 @@ export class ResourceFindComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getKnowledgeIn();
+    // this.getKnowledgeIn();
   }
 
   findPerson() {
@@ -83,15 +83,56 @@ export class ResourceFindComponent implements OnInit {
       })
   }
 
-  FindParente(event) {
+  FindParente(event, resource) {
+    // console.log(' ---- this.form ---- ');
+    // console.log(event);
+    // console.log(resource);
     if(event.length) {
-      event.forEach((element) => {
+      event.value.forEach((element) => {
         if(!this.parentIdsLevels.includes(element)) {
           this.parentIdsLevels.push(element);
         }
       });
-      this.idsLevels = this.parentIdsLevels.join();
+      var idLevels = this.parentIdsLevels.join();
+      this.getKnowledgeIn(idLevels)
     }
+  }
+
+  // FindParente(event, resource) {
+
+  //   console.log(' ---- this.form ---- ');
+  //   console.log(event);
+  //   console.log(resource);
+
+  //   if(event.value.length > 0) {
+  //     event.value.forEach((element) => {
+  //       if(!this.parentIdsLevels.includes(element)) {
+  //         this.parentIdsLevels.push(element);
+  //       }
+  //     });
+  //     var idLevels = this.parentIdsLevels.join();
+  //     this.getKnowledgeIn(idLevels);
+  //   }
+
+  // }
+
+  getKnowledgeIn(ids?: any) {
+    this._cardService.KnowledgeIn(ids).subscribe(
+      (response) => {
+        if(response.status == 0) {
+          if(!this.resultado) {
+            this.resultado = response.object
+          } else {
+            var sum = response.object.reduce( function( prevVal, elem ) {
+              console.log(prevVal);
+              console.log(elem);
+              return elem;
+          }, 0 )
+          }
+        }
+    }, (err) => {
+      console.log('Deu ruim');
+    })
   }
 
   findWorkgroup(event) {
@@ -112,17 +153,6 @@ export class ResourceFindComponent implements OnInit {
     this.size = event.pageSize;
     this.pageLength = event.length;
   }
-
-  getKnowledgeIn(ids?: any) {
-    this._cardService.KnowledgeIn(ids).subscribe(
-      (response) => {
-        if(response.status == 0) {
-          this.resultado = response.object
-        }
-    }, (err) => {
-      console.log('Deu ruim');
-    })
-  }  
 
   // getKnowledgeIn(ids?: any) {
   //   // console.log(ids);
