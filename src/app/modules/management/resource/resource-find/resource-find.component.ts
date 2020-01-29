@@ -18,22 +18,61 @@ export class ResourceFindComponent implements OnInit {
   //   { 'id': 5, 'name': 'Metodologia', 'parent': 1 },
   //   { 'id': 144, 'name': 'Materiais', 'parent': 1 },
   //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
+  //   { 'id': 16, 'name': 'Negocio Vivo', 'parent': 2 },
   // ]
-  // categoria = [
-  //   { 'id': 4, 'name': 'Tecnologia', 'parent': 1 },
-  //   { 'id': 5, 'name': 'Metodologia', 'parent': 1 },
-  //   { 'id': 144, 'name': 'Materiais', 'parent': 1 },
-  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
-  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
-  //   { 'id': 4, 'name': 'Tecnologia', 'parent': 1 },
-  //   { 'id': 5, 'name': 'Metodologia', 'parent': 1 },
-  //   { 'id': 144, 'name': 'Materiais', 'parent': 1 },
-  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
-  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
-  //   { 'id': 5, 'name': 'Metodologia', 'parent': 1 },
-  //   { 'id': 144, 'name': 'Materiais', 'parent': 1 },
-  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
-  //   { 'id': 16, 'name': 'Negocio Algar', 'parent': 2 },
+  // cla = [
+  //   { 'id': 4, 'name': 'Java', 'parent': 1 },
+  //   { 'id': 5, 'name': '.NET', 'parent': 1 },
+  //   { 'id': 144, 'name': 'Mobile', 'parent': 1 },
+  //   { 'id': 16, 'name': 'B.I', 'parent': 2 },
+  //   { 'id': 16, 'name': 'Front', 'parent': 2 },
+  //   { 'id': 4, 'name': 'C/C++', 'parent': 1 },
+  //   { 'id': 5, 'name': 'Sustentacao', 'parent': 1 },
+  //   { 'id': 144, 'name': 'Coringa', 'parent': 1 },
+  //   { 'id': 16, 'name': 'Inteligencia Artificial', 'parent': 2 },
+  //   { 'id': 16, 'name': 'Design/Front', 'parent': 2 },
+  //   { 'id': 5, 'name': 'Banco de Dados', 'parent': 1 },
+  //   { 'id': 144, 'name': 'Espaço', 'parent': 1 },
+  //   { 'id': 16, 'name': 'Equipamento', 'parent': 2 },
+  //   { 'id': 16, 'name': 'Algar', 'parent': 2 },
+  //   { 'id': 16, 'name': 'Vivo', 'parent': 2 },
+  // ]
+  // competencia = [
+  //   { 'id': 58, 'name': Oracle', 'parent': 1 },
+  //   { 'id': 59, 'name': Design Thinking', 'parent': 1 },
+  //   { 'id': 60, 'name': Prototipacao', 'parent': 1 },
+  //   { 'id': 61, 'name': Layotizacao', 'parent': 2 },
+  //   { 'id': 62, 'name': JAVASCRIPT', 'parent': 2 },
+  //   { 'id': 63, 'name': ANGULAR JS ', 'parent': 1 },
+  //   { 'id': 64, 'name': JQUERY', 'parent': 1 },
+  //   { 'id': 65, 'name': BOOTSTRAP', 'parent': 1 },
+  //   { 'id': 66, 'name': HTML', 'parent': 2 },
+  //   { 'id': 67, 'name': CSS', 'parent': 2 },
+  //   { 'id': 68, 'name': Web Application', 'parent': 1 },
+  //   { 'id': 185, 'name': Teste Automatizado', 'parent': 1 },
+  //   { 'id': 187, 'name': SCRUM', 'parent': 2 },
+  //   { 'id': 69, 'name': UX', 'parent': 2 },
+  //   { 'id': 70, 'name': UI', 'parent': 2 },
+  //   { 'id': 71, 'name': PHP', 'parent': 1 },
+  //   { 'id': 72, 'name': ANDROID', 'parent': 1 },
+  //   { 'id': 73, 'name': IONIC', 'parent': 1 },
+  //   { 'id': 74, 'name': PYTHON', 'parent': 2 },
+  //   { 'id': 75, 'name': Delphi', 'parent': 2 },
+  //   { 'id': 76, 'name': Shell Script', 'parent': 1 },
+  //   { 'id': 77, 'name': Unix/Linux', 'parent': 1 },
+  //   { 'id': 78, 'name': SOA', 'parent': 1 },
+  //   { 'id': 79, 'name': C', 'parent': 2 },
+  //   { 'id': 80, 'name': Spring boot', 'parent': 2 },
+  //   { 'id': 23, 'name': C#', 'parent': 1 },
+  //   { 'id': 24, 'name': F#', 'parent': 1 },
+  //   { 'id': 25, 'name': J#', 'parent': 2 },
+  //   { 'id': 26, 'name': C++', 'parent': 2 },
+  //   { 'id': 192, 'name': Kenan', 'parent': 2 },
+  //   { 'id': 193, 'name': Atlys', 'parent': 1 },
+  //   { 'id': 194, 'name': VivoNext', 'parent': 1 },
+  //   { 'id': 195, 'name': Organização', 'parent': 2 },
+  //   { 'id': 196, 'name': Cooperação', 'parent': 2 },
+  //   { 'id': 189, 'name': Algar CRM', 'parent': 2 },
   // ]
 
   // loaderFind: boolean = false;
@@ -43,11 +82,17 @@ export class ResourceFindComponent implements OnInit {
   // labels = [];
   // listIds: number[];
   // group: any;
-  // form = new Object();
+  form = new Object();
   // orderForm: any;
   // knowledge: any;
   // levelList = [];
   resultado: any;
+
+  level1: any
+  level2: any
+  level3: any
+  level4: any
+  workgroup1: any
 
   parentIdsLevels: number[] = [];
   parentIdsWorkGroups: number[] = [];
@@ -63,35 +108,81 @@ export class ResourceFindComponent implements OnInit {
   size : number;
   pageLength : number;
 
+  loader: boolean = false;
+
   constructor(
     private _cardService: CardService
   ) { }
 
   ngOnInit() {
-    this.getKnowledgeIn();
+    // this.getKnowledgeIn();
   }
 
-  findPerson() {
+  findPerson() {  
+    this.loader = true;
     this._cardService.findPerson(this.parentIdsLevels, this.idsWorkGroups).subscribe(
       (result) => {
         if(result['status'] == 0) {
           this.personList = result['object']['table'];
           this.size = this.personList.size;
+          this.loader = false;
         }
       }, (err) => {
         console.log('deu ruim');
+        this.loader = false;
       })
   }
 
-  FindParente(event) {
+  FindParente(event,) {
+    // console.log(' ---- this.form ---- ');
+    // console.log(event);
+    // console.log(resource);
     if(event.length) {
-      event.forEach((element) => {
+      event.value.forEach((element) => {
         if(!this.parentIdsLevels.includes(element)) {
           this.parentIdsLevels.push(element);
         }
       });
-      this.idsLevels = this.parentIdsLevels.join();
+      var idLevels = this.parentIdsLevels.join();
+      this.getKnowledgeIn(idLevels)
     }
+  }
+
+  // FindParente(event, resource) {
+
+  //   console.log(' ---- this.form ---- ');
+  //   console.log(event);
+  //   console.log(resource);
+
+  //   if(event.value.length > 0) {
+  //     event.value.forEach((element) => {
+  //       if(!this.parentIdsLevels.includes(element)) {
+  //         this.parentIdsLevels.push(element);
+  //       }
+  //     });
+  //     var idLevels = this.parentIdsLevels.join();
+  //     this.getKnowledgeIn(idLevels);
+  //   }
+
+  // }
+
+  getKnowledgeIn(ids?: any) {
+    this._cardService.KnowledgeIn(ids).subscribe(
+      (response) => {
+        if(response.status == 0) {
+          if(!this.resultado) {
+            this.resultado = response.object
+          } else {
+            var sum = response.object.reduce( function( prevVal, elem ) {
+              console.log(prevVal);
+              console.log(elem);
+              return elem;
+          }, 0 )
+          }
+        }
+    }, (err) => {
+      console.log('Deu ruim');
+    })
   }
 
   findWorkgroup(event) {
@@ -112,17 +203,6 @@ export class ResourceFindComponent implements OnInit {
     this.size = event.pageSize;
     this.pageLength = event.length;
   }
-
-  getKnowledgeIn(ids?: any) {
-    this._cardService.KnowledgeIn(ids).subscribe(
-      (response) => {
-        if(response.status == 0) {
-          this.resultado = response.object
-        }
-    }, (err) => {
-      console.log('Deu ruim');
-    })
-  }  
 
   // getKnowledgeIn(ids?: any) {
   //   // console.log(ids);
