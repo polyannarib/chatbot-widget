@@ -21,6 +21,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     $('.dropdown-trigger').dropdown();
+    if(document.body.classList.contains('nav-open')){
+      document.querySelector('.navbar-toggle').classList.add('toggled');
+    }
   }
 
   logout() {
