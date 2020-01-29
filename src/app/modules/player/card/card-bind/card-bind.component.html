@@ -1,14 +1,14 @@
 <div class="row" [ngClass]="{'help' : status}" id="input-row">
-  <div class="col s2" id="help-div" [ngClass]="{'tips' : status}">
+  <div class="col s1" id="help-div" [ngClass]="{'tips' : status}">
     <!-- <input type="text" #tooltip="matTooltip" matTooltip="Some tip"> -->
-    <button #tp1="matTooltip" matTooltip="{{ helpMessage }}" matTooltipPosition="after"id="help" 
-      class="btn-floating btn-large waves-effect waves-light" 
+    <button #tp1="matTooltip" matTooltip="{{ helpMessage }}" matTooltipPosition="after" id="help"
+      class="btn-floating btn-large waves-effect waves-light"
       (click)="onShowTips(); tp2.toggle(); tp3.toggle(); tp4.toggle(); tp5.toggle()">
       ?
     </button>
     <div id="black-filter"></div>
   </div>
-  <div class="col s10" #tp2="matTooltip" matTooltip="Use os filtros para buscar cartas específicas"
+  <div class="col s11 mt-15" #tp2="matTooltip" matTooltip="Use os filtros para buscar cartas específicas"
     matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
 
     <div class="col s3">
@@ -33,7 +33,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col s3">
+    <div class="col s3" [ngClass]="showDivAtt">
       <mat-form-field>
         <mat-label>Atributos</mat-label>
         <mat-select (selectionChange)="onChangeCompetense($event)">
@@ -44,10 +44,10 @@
       </mat-form-field>
     </div>
 
-    <div class="col s3">
+    <div class="col s3" [ngClass]="showDivComp">
       <mat-form-field>
         <mat-label>Competências</mat-label>
-        <mat-select>
+        <mat-select (selectionChange)="onChangeCards(object)">
           <mat-option *ngFor="let object of competense" [value]="object">
             {{object}}
           </mat-option>
@@ -60,9 +60,10 @@
 <div *ngIf="characters" class="row" [ngClass]="{'help' : status}">
   <div class="col s12 m4 offset-m1">
     <div class="style-custom characters" (change)="addCarouselListener()">
-      <app-slick [options]="slick" [arrows]="arrows" class="trapezio" #tp3="matTooltip" 
-        matTooltip="Use as setas para escolher os personagens que melhor representam você" 
-        matTooltipDisabled="{{ !status }}" matTooltipPosition="below" (updateAttributesEvent)="updateVisibleCard($event)">
+      <app-slick [options]="slick" [arrows]="arrows" class="trapezio" #tp3="matTooltip"
+        matTooltip="Use as setas para escolher os personagens que melhor representam você"
+        matTooltipDisabled="{{ !status }}" matTooltipPosition="below"
+        (updateAttributesEvent)="updateVisibleCard($event)">
         <div *ngFor="let character of characters; index as i;">
           <div class="card-star" [ngStyle]="{ 'background-image': 'url(' + 'https://www.kyros.com.br/portal-webplayer-images/Estrelas/' 
             + 'estrela' + character.attribute.name[0].toUpperCase() + 
@@ -71,17 +72,17 @@
             character.attribute.name[0].toUpperCase() + character.attribute.name.slice(1).toLowerCase() 
             + '.png' }}" [ngStyle]="{ 'background-image': 'url(' + filteredCard.url + filteredCard.cardName.toLowerCase()
             + '.png' + ')' }">
-          <button class="btn-floating btn-large waves-effect waves-light deckButton"
-            [ngClass]="{'isInDeck': isInDeck}" (click)="addOrRemoveCard()"></button>
+          <button class="btn-floating btn-large waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}"
+            (click)="addOrRemoveCard()"></button>
         </div>
       </app-slick>
     </div>
   </div>
 
   <div class="col s12 m6" id="attributes-div">
-    
+
     <div class="col s6 card-col" #tp4="matTooltip" *ngIf="visibleCardUpdated"
-    matTooltip="Estes são os atributos da carta" matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
+      matTooltip="Estes são os atributos da carta" matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
       <app-box-property type="topics" title="Descrição" topics="{{ cardDescription }}">
       </app-box-property>
     </div>
@@ -98,9 +99,8 @@
 
 <div *ngIf="playerDeck" class="row deck" [ngClass]="{'help' : status}">
   <div class="style-custom">
-    <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" 
-      matTooltip="Essas são as suas cartas" matTooltipDisabled="{{ !status }}" 
-      matTooltipPosition="above" [type]="refreshSlick">
+    <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" matTooltip="Essas são as suas cartas"
+      matTooltipDisabled="{{ !status }}" matTooltipPosition="above" [type]="refreshSlick">
       <ng-container *ngFor="let card of playerDeck;">
         <div *ngFor="let character of card.attributes;">
           <img class="deck-img" width="100%" src="{{ card.url + 'persona' + 
@@ -108,7 +108,7 @@
             + '.png' }}" [ngStyle]="{ 'background-image': 'url(' + card.url + card.cardName.toLowerCase()
             + '.png' + ')' }">
         </div>
-        </ng-container>
+      </ng-container>
     </app-slick>
   </div>
 </div>

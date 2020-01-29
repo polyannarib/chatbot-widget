@@ -185,3 +185,15 @@
 #input-row, #characters-row{
     margin-bottom: 0;
 }
+
+.display-hide {
+    display: none;
+}
+
+.display-show {
+    display: block;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
