@@ -3,7 +3,7 @@ export const environment = {
   URL_SSO: 'https://sso-dev.kyros.com.br/kyros-sso',
   URL_SSO_SERVICES: 'https://sso.kyros.com.br/kyros-sso',
   SYSTEM_NAME: 'WORKPLAYER',
-  WORKPLAYER_HOME: 'http://localhost:4200/home',
+  WORKPLAYER_HOME: 'https://www.kyros.com.br/webplayer',
   COMPANY: '1',
   production: true
 };
