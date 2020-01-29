@@ -58,17 +58,16 @@ export class SlickComponent implements OnInit, OnDestroy, AfterViewInit, OnChang
   }
 
   ngOnChanges(){
-    if(this.slickClass != undefined){
+/*     if(this.slickClass != undefined){
       var that = this;
-      $('.deck .slick-slide').remove();
-      setTimeout(function(){
-        that.slickClass.slick('unslick');
-        $('.deck #slick div[class]').remove();
-        that.slickClass.slick(that.options);
-        //$('.deck .slick-slide:not(.slick-active)').remove();
-      }, 1000);
+      this.slickClass.slick('unslick');
 
-    }
+      setTimeout(function(){
+        that.slickClass.slick(that.options);
+      }, 1000);
+      
+    } */
+    
       
   }
 
