@@ -40,7 +40,7 @@ export class MenuComponent implements OnInit {
           this.authService.logout().subscribe(
             () => {
               this.authService.removeToken();
-              this.router.navigate( ['/login'], { queryParams: { authenticated: false}} )
+              this.router.navigate( ['/auth/login'], { queryParams: { authenticated: false}} )
             }
           )  
       }
