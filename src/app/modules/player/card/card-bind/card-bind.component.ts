@@ -5,6 +5,8 @@ import { CardService } from 'src/app/core/services/card.service';
 import * as $ from 'jquery';
 import { stringify } from 'querystring';
 import { Observable } from 'rxjs';
+import { MatSnackBar, MatBottomSheet } from '@angular/material';
+import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 
 var slick: any;
 @Component({
@@ -16,7 +18,7 @@ var slick: any;
 export class CardBindComponent implements OnInit {
   refreshSlick: boolean = false;
   title = 'tooltip';
-  status : boolean = false;
+  status: boolean = false;
   helpMessage: any = "Clique aqui para ver dicas sobre a tela";
   playerDeck: any;
   filteredCard: any;
@@ -45,8 +47,8 @@ export class CardBindComponent implements OnInit {
   competenseType = []
   category = []
   attribute = []
-  flagComp:any
-  flagCat:any
+  flagComp: any
+  flagCat: any
   flagAtt = []
 
   showDivAtt = 'display-hide'
@@ -56,7 +58,9 @@ export class CardBindComponent implements OnInit {
 
   constructor(
     private playerService: PlayerService,
-    private service: CardService
+    private service: CardService,
+    private _snackBar: MatSnackBar,
+    private _bottomSheet: MatBottomSheet
   ) { }
 
   ngOnInit() {
@@ -90,23 +94,23 @@ export class CardBindComponent implements OnInit {
   }
 
   onChangeAttribute(value) {
+    this.showDivComp = 'display-hide'
     let aux = this.auxCat.filter((cur) => cur.name == value.value)
     this.flagCat = aux[0]
     let a = aux[0].knowledgeId
     if (a != undefined) {
-      if (this.flagComp.hasChildren === "Y") {
+      if (this.auxCat[0].hasChildren === "Y") {
         this.showDivAtt = 'display-show'
-      } 
-      if (this.flagComp.hasChildren === "N") {
-        this.showDivAtt = 'display-hide'
-      } 
-      this.service.getCategory(a).subscribe(response => {
-        this.auxAtt = response.object
-        this.attribute = response.object.map(resp => {
-          return resp.name
+        this.service.getCategory(a).subscribe(response => {
+          this.auxAtt = response.object
+          this.attribute = response.object.map(resp => {
+            return resp.name
+          })
         })
-
-      })
+      }
+      if (this.auxCat[0].hasChildren === "N") {
+        this.resultInformation(this.id)
+      }
     }
   }
 
@@ -114,19 +118,18 @@ export class CardBindComponent implements OnInit {
     let aux = this.auxAtt.filter((cur) => cur.name == value.value)
     this.id = aux[0].knowledgeId
     if (this.id != undefined) {
-      if (this.flagCat.hasChildren === "Y") {
+      if (this.auxAtt[0].hasChildren === "Y") {
         this.showDivComp = 'display-show'
-      }
-      if (this.flagCat.hasChildren === "N") {
-        this.showDivComp = 'display-hide'
-      } 
-      this.service.getCategory(this.id).subscribe(response => {
-        this.auxCards = response.object
-        this.competense = response.object.map(resp => {
-          return resp.name
+        this.service.getCategory(this.id).subscribe(response => {
+          this.auxCards = response.object
+          this.competense = response.object.map(resp => {
+            return resp.name
+          })
         })
-
-      })
+      }
+      if (this.auxAtt[0].hasChildren === "N") {
+        this.resultInformation(this.id)
+      }
     }
   }
 
@@ -138,8 +141,8 @@ export class CardBindComponent implements OnInit {
     }
   }
 
-  resultInformation(){
-    this.searchCards(this.id)
+  resultInformation(value) {
+    this.searchCards(value)
   }
 
   slick = {
@@ -208,12 +211,12 @@ export class CardBindComponent implements OnInit {
   }
 
 
-  onShowTips(){
+  onShowTips() {
     this.status = !this.status;
-    if(this.status == true){
+    if (this.status == true) {
       this.helpMessage = "Clique para sair do modo Dicas"
     }
-    if(this.status == false){
+    if (this.status == false) {
       this.helpMessage = "Clique aqui para ver dicas sobre a tela";
     }
   }
@@ -227,20 +230,20 @@ export class CardBindComponent implements OnInit {
           this.playerDeck = response.object;
 
           var that = this;
-          this.playerDeck.forEach(function(object){
-            if(object.cardName.indexOf("#") != -1){
+          this.playerDeck.forEach(function (object) {
+            if (object.cardName.indexOf("#") != -1) {
               object.cardName = object.cardName.replace("#", "sharp");
             }
             object.cardName.replace(' ', '');
           })
           this.deckIdList = [];
-        
-          this.playerDeck.forEach(function(card, index){
-            if(card.attributes.length == 0){
+
+          this.playerDeck.forEach(function (card, index) {
+            if (card.attributes.length == 0) {
               that.playerDeck.splice(index, 1);
             }
-            card.attributes.forEach(function(character){
-              that.deckIdList.push(''+card.cardId+character.id);
+            card.attributes.forEach(function (character) {
+              that.deckIdList.push('' + card.cardId + character.id);
             });
           });
           this.loaderDeck = false;
@@ -253,7 +256,7 @@ export class CardBindComponent implements OnInit {
     
   }
 
-  searchCards(id) {
+  searchCards(id: any) {
     this.loader = true;
     delete this.characters;
     this.service.findCardById(id).subscribe(
@@ -263,24 +266,22 @@ export class CardBindComponent implements OnInit {
           this.refreshSlick = !this.refreshSlick;
           this.filteredCard = response.object;
           this.characters = this.filteredCard.attributes;
-          if(this.filteredCard.cardName.indexOf("#") != -1){
+          if (this.filteredCard.cardName.indexOf("#") != -1) {
             this.filteredCard.cardName = this.filteredCard.cardName.replace("#", "sharp");
           }
-          this.cardNotFound = false;
-          this.loader = false;
         }
         else{
           this.cardNotFound = true;
         }
         this.loader = false;
       }, (err) => {
-        console.log(err);
         this.loader = false;
+
       }
     )
   }
 
-  updateVisibleCard(){
+  updateVisibleCard() {
     this.visibleCardUpdated = false;
     var that = this;
     setTimeout(function(){
@@ -342,16 +343,15 @@ export class CardBindComponent implements OnInit {
         that.visibleCardUpdated = true;
       }
     }, 500);
-    
   }
 
-  addOrRemoveCard(){
+  addOrRemoveCard() {
     var data = {
       "knowledgeId": this.filteredCard.knowledge.knowledgeId,
       "attributeId": this.characters[document.querySelector('.slick-current img').id].id
     }
 
-    if(this.isInDeck == false){
+    if (this.isInDeck == false) {
       this.service.addCard(data).subscribe(
         (response) => {
           this.isInDeck = true;
@@ -361,7 +361,7 @@ export class CardBindComponent implements OnInit {
         }
       )
     }
-    else{
+    else {
       this.service.removeCard(data).subscribe(
         (response) => {
 
