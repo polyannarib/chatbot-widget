@@ -17,6 +17,8 @@
         <mat-option value="4">Tecnologia</mat-option>
         <mat-option value="5">Metodologia</mat-option>
         <mat-option value="144">Materiais</mat-option>
+        <mat-option value="16">Negocio Algar</mat-option>
+        <mat-option value="16">Negocio Vivo</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -30,13 +32,14 @@
         <mat-option value="12">Front</mat-option>
         <mat-option value="13">C/C++</mat-option>
         <mat-option value="14">Sustentacao</mat-option>
-        <mat-option value="16">Negocio Algar </mat-option>
         <mat-option value="17">Coringa</mat-option>
         <mat-option value="19">Inteligencia Artificial</mat-option>
         <mat-option value="20">Design/Front</mat-option>
         <mat-option value="21">Banco de Dados</mat-option>
         <mat-option value="145">Espaço</mat-option>
         <mat-option value="148">Equipamento</mat-option>
+        <mat-option value="0">Algar</mat-option>
+        <mat-option value="0">Vivo</mat-option>
       </mat-select>
     </mat-form-field>
   
@@ -54,6 +57,8 @@
         <mat-option value="66">HTML</mat-option>
         <mat-option value="67">CSS</mat-option>
         <mat-option value="68">Web Application</mat-option>
+        <mat-option value="185">Teste Automatizado</mat-option>
+        <mat-option value="187">SCRUM</mat-option>
         <mat-option value="69">UX</mat-option>
         <mat-option value="70">UI</mat-option>
         <mat-option value="71">PHP</mat-option>
@@ -70,6 +75,12 @@
         <mat-option value="24">F#</mat-option>
         <mat-option value="25">J#</mat-option>
         <mat-option value="26">C++</mat-option>
+        <mat-option value="192">Kenan</mat-option>
+        <mat-option value="193">Atlys</mat-option>
+        <mat-option value="194">VivoNext</mat-option>
+        <mat-option value="195">Organização</mat-option>
+        <mat-option value="196">Cooperação</mat-option>
+        <mat-option value="189">Algar CRM</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -140,7 +151,10 @@
   </div>
 
   <div class="row">
+
+    <app-loading></app-loading>
     <app-count *ngIf="!personList && size == 0">Nenhum recurso foi encontrado!</app-count>
+
     <div class="col s12" id="tabela-col" *ngIf="personList && size > 0">
       <table id="tabela">
         <thead>

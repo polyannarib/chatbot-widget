@@ -49,6 +49,12 @@ export class ResourceFindComponent implements OnInit {
   // levelList = [];
   resultado: any;
 
+  level1: any
+  level2: any
+  level3: any
+  level4: any
+  workgroup1: any
+
   parentIdsLevels: number[] = [];
   parentIdsWorkGroups: number[] = [];
   idsLevels: any;
@@ -63,6 +69,8 @@ export class ResourceFindComponent implements OnInit {
   size : number;
   pageLength : number;
 
+  loader: boolean = false;
+
   constructor(
     private _cardService: CardService
   ) { }
@@ -71,19 +79,22 @@ export class ResourceFindComponent implements OnInit {
     // this.getKnowledgeIn();
   }
 
-  findPerson() {
+  findPerson() {  
+    this.loader = true;
     this._cardService.findPerson(this.parentIdsLevels, this.idsWorkGroups).subscribe(
       (result) => {
         if(result['status'] == 0) {
           this.personList = result['object']['table'];
           this.size = this.personList.size;
+          this.loader = false;
         }
       }, (err) => {
         console.log('deu ruim');
+        this.loader = false;
       })
   }
 
-  FindParente(event, resource) {
+  FindParente(event,) {
     // console.log(' ---- this.form ---- ');
     // console.log(event);
     // console.log(resource);
