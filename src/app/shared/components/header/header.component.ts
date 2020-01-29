@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { AppConstants } from '../../../app.constants';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -14,7 +16,8 @@ export class HeaderComponent implements OnInit {
   user: any
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.user = this.authService.getUser();
   }
@@ -27,7 +30,22 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
+    debugger;
+    let params = {
+      "SYSTEM": AppConstants.SYSTEM_NAME
+    }
+    this.authService.temporaryToken(params).subscribe(
+      (response) => {
+          let tempToken = response["user-token"];
+          this.authService.setTemporaryToken(tempToken);
+          this.authService.logout().subscribe(
+            () => {
+              this.authService.removeToken();
+              this.router.navigate( ['/login'], { queryParams: { authenticated: false}} );
+            }
+          )  
+      }
+    )
   }
 
   toggleMenu(position) {

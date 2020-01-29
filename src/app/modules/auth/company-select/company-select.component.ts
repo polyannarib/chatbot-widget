@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA, MatSnackBar } from '@angular/material';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
+import { AppConstants } from '../../../app.constants';
 
 @Component({
   selector: 'app-company-select',
@@ -24,17 +25,19 @@ export class CompanySelectComponent implements OnInit {
   }
 
   onLogin(companyCode: number): void {
-
     
     this.loader = true;
     this.form = this.data.form;
     this.form.companyCode = companyCode;
 
-
     this.authService.login(this.form).subscribe(
       (response) => {
         if(response.status == 0) {
-          this.authService.setToken(response.object.token);
+          this.authService.setAppToken(response.object.token);
+          this.authService.setSSOID(response.object.ssoId);
+          window.location.href = AppConstants.URL_SSO + '/cookie' 
+                  + '?SSOID=' + response.object.ssoId
+                  + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + '/management/dashboard';
           this.close();
           return;
         }
