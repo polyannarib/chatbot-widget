@@ -57,7 +57,6 @@ export class CardBindComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.searchCards();
     this.metricList = [];
     this.updatePlayerDeck();
 
@@ -129,6 +128,7 @@ export class CardBindComponent implements OnInit {
   }
 
   onChangeCards(value) {
+    console.log(value)
     let aux = this.auxCards.filter((cur) => cur.name == value.value)
     let a = aux[0].knowledgeId
     if (a != undefined) {
