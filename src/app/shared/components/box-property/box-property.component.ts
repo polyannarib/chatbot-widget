@@ -28,8 +28,7 @@ export class BoxPropertyComponent implements OnInit, OnChanges {
 
   updateBoxes(){
     if(this.topics){
-     
-      this.topicsParsed = JSON.parse(this.topics).descriptionTopics;
+      this.topicsParsed = JSON.parse(this.topics).topics;
     } 
 
 /*     this.titleElem.nativeElement.textContent = this.title;

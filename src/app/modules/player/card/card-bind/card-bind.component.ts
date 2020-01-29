@@ -16,7 +16,7 @@ var slick: any;
 export class CardBindComponent implements OnInit {
   refreshSlick: boolean = false;
   title = 'tooltip';
-  status: boolean = false;
+  status : boolean = false;
   helpMessage: any = "Clique aqui para ver dicas sobre a tela";
   playerDeck: any;
   filteredCard: any;
@@ -28,6 +28,7 @@ export class CardBindComponent implements OnInit {
   deckIdList: any;
   isInDeck: boolean;
   slickClass: any;
+  cardKnowledge: any;
 
   arrows: boolean = true;
   myControl = new FormControl();
@@ -56,6 +57,7 @@ export class CardBindComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.searchCards();
     this.metricList = [];
     this.updatePlayerDeck();
 
@@ -204,12 +206,12 @@ export class CardBindComponent implements OnInit {
   }
 
 
-  onShowTips() {
+  onShowTips(){
     this.status = !this.status;
-    if (this.status == true) {
+    if(this.status == true){
       this.helpMessage = "Clique para sair do modo Dicas"
     }
-    if (this.status == false) {
+    if(this.status == false){
       this.helpMessage = "Clique aqui para ver dicas sobre a tela";
     }
   }
@@ -222,16 +224,21 @@ export class CardBindComponent implements OnInit {
           console.log(this.playerDeck);
 
           var that = this;
-          this.playerDeck.forEach(function (object) {
-            if (object.cardName.indexOf("#") != -1) {
+          this.playerDeck.forEach(function(object){
+            if(object.cardName.indexOf("#") != -1){
               object.cardName = object.cardName.replace("#", "sharp");
             }
+            object.cardName.replace(' ', '');
           })
           this.deckIdList = [];
-
-          this.playerDeck.forEach(function (card) {
-            card.attributes.forEach(function (character) {
-              that.deckIdList.push('' + card.cardId + character.attribute.id);
+          console.log(this.playerDeck);
+        
+          this.playerDeck.forEach(function(card, index){
+            if(card.attributes.length == 0){
+              that.playerDeck.splice(index, 1);
+            }
+            card.attributes.forEach(function(character){
+              that.deckIdList.push(''+card.cardId+character.id);
             });
           });
         }
@@ -247,7 +254,7 @@ export class CardBindComponent implements OnInit {
         if (response.status == 0) {
           this.filteredCard = response.object;
           this.characters = this.filteredCard.attributes;
-          if (this.filteredCard.cardName.indexOf("#") != -1) {
+          if(this.filteredCard.cardName.indexOf("#") != -1){
             this.filteredCard.cardName = this.filteredCard.cardName.replace("#", "sharp");
           }
 
@@ -259,53 +266,67 @@ export class CardBindComponent implements OnInit {
     )
   }
 
-  updateVisibleCard() {
+  updateVisibleCard(){
     this.visibleCardUpdated = false;
-    if (this.characters && document.querySelector('.slick-current img')) {
-      var visibleCard = this.characters[document.querySelector('.slick-current img').id].attribute;
+    if(this.characters && document.querySelector('.slick-current img')){
+      var visibleCard = this.characters[document.querySelector('.slick-current img').id];
       var that = this;
 
-      var description = visibleCard.classification.classificationDescription.split('.');
+      var knowledge = visibleCard.attribute.classification.classificationDescription.split('.');
+      var knowledgeTopics = [];
+      knowledgeTopics.push(visibleCard.attribute.name[0].toUpperCase() + visibleCard.attribute.name.slice(1).toLowerCase());
+      knowledge.forEach(function(object){
+        if(object != ''){
+          knowledgeTopics.push(object);
+        }
+      });
+      var topics = knowledgeTopics;
+      this.cardKnowledge = {topics};
+      this.cardKnowledge = JSON.stringify(this.cardKnowledge);
+
+      var description = this.filteredCard.cardDescription.split('.');
       var descriptionTopics = [];
       descriptionTopics.push(visibleCard.name[0].toUpperCase() + visibleCard.name.slice(1).toLowerCase());
-      description.forEach(function (object) {
-        if (object != '') {
+      description.forEach(function(object){
+        if(object != ''){
           descriptionTopics.push(object);
         }
       });
-      this.cardDescription = { descriptionTopics };
+
+      topics = descriptionTopics;
+      this.cardDescription = {topics};
       this.cardDescription = JSON.stringify(this.cardDescription);
-      console.log(this.cardDescription);
+      
 
       this.metricList = [];
-      visibleCard.metricList.forEach(function (object) {
+      visibleCard.attribute.metricList.forEach(function(object){
         var metric = {};
         /* metric['title'] = object.metric.metricType.description; */
         metric['title'] = 'Experiência';
         metric['value'] = object.metric.value;
 
         var metricType;
-        if (object.metric.metricType.metricType == 'MONTHS') {
+        if(object.metric.metricType.metricType == 'MONTHS'){
           metricType = 'meses';
         }
         metric['description'] = "Maior que " + metric['value'] + " " + metricType;
         that.metricList.push(metric);
       });
 
-      if (this.deckIdList != undefined)
-        this.isInDeck = this.deckIdList.includes('' + this.filteredCard.cardId + visibleCard.id);
+      if(this.deckIdList != undefined)
+        this.isInDeck = this.deckIdList.includes(''+this.filteredCard.cardId+visibleCard.id); 
 
       this.visibleCardUpdated = true;
     }
   }
 
-  addOrRemoveCard() {
+  addOrRemoveCard(){
     var data = {
       "knowledgeId": this.filteredCard.knowledge.knowledgeId,
-      "attributeId": this.characters[document.querySelector('.slick-current img').id].attribute.id
+      "attributeId": this.characters[document.querySelector('.slick-current img').id].id
     }
 
-    if (this.isInDeck == false) {
+    if(this.isInDeck == false){
       this.service.addCard(data).subscribe(
         (response) => {
           console.log(response);
@@ -317,7 +338,7 @@ export class CardBindComponent implements OnInit {
         }
       )
     }
-    else {
+    else{
       this.service.removeCard(data).subscribe(
         (response) => {
           console.log(response);
