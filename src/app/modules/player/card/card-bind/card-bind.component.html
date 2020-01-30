@@ -60,7 +60,8 @@
 </div>
 
 <app-loading [loader]="loader"></app-loading>
-<div class="row" *ngIf="cardNotFound">
+
+<div class="row" *ngIf="!characters">
   <div class="col s12">
       <app-count>Carta não encontrada</app-count>
   </div>
@@ -111,6 +112,7 @@
 </div>
 
 <app-loading [loader]="loaderDeck"></app-loading>
+
 <div *ngIf="playerDeck !loaderDeck" class="row deck" [ngClass]="{'help' : status}">
   <div class="style-custom">
     <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" 

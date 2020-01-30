@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CardService } from 'src/app/core/services/card.service';
+import { MatSnackBar } from '@angular/material';
+import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 
 @Component({
   selector: 'app-resource-find',
@@ -113,7 +115,8 @@ export class ResourceFindComponent implements OnInit {
   loader: boolean = false;
 
   constructor(
-    private _cardService: CardService
+    private _cardService: CardService,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -128,7 +131,11 @@ export class ResourceFindComponent implements OnInit {
           this.personList = result['object']['table'];
           this.size = this.personList.size;
           this.loader = false;
+          return;
         }
+        this.loader = false;
+        this._snackBar.openFromComponent(NotifyComponent, 
+          { data: { type: 'error', message: 'Nenhum resultado foi encontrado!' }});
       }, (err) => {
         console.log('deu ruim');
         this.loader = false;
@@ -168,26 +175,26 @@ export class ResourceFindComponent implements OnInit {
 
   // }
 
-  getKnowledgeIn(ids?: any) {
-    this._cardService.KnowledgeIn(ids).subscribe(
-      (response) => {
-        if(response.status == 0) {
-          if(!this.resultado) {
-            this.resultado = response.object
-          } else {
-            var sum = response.object.reduce( function( prevVal, elem ) {
-              console.log(prevVal);
-              console.log(elem);
-              return elem;
-          }, 0 )
-          }
-        }
-    }, (err) => {
-      console.log('Deu ruim');
-    })
-  }
+  // getKnowledgeIn(ids?: any) {
+  //   this.loader = true;
+  //   this._cardService.KnowledgeIn(ids).subscribe(
+  //     (response) => {
+  //       if(response.status == 0) {
+  //         this.resultado = response.object;
+  //         this.loader = false;
+  //         return;
+  //       }
+  //       this._snackBar.openFromComponent(NotifyComponent, 
+  //         { data: { type: 'error', message: 'Nenhum resultado foi encontrado!' }});
+  //       this.loader = false;
+  //     }, (err) => {
+  //       this.loader = false;
+  //       console.log('Deu ruim');
+  //   })
+  // }
 
   findWorkgroup(event) {
+    this.parentIdsWorkGroups = [];
     if(event.value.length > 0) {
       event.value.forEach((element) => {
         if(!this.parentIdsWorkGroups.includes(element)) {
@@ -201,6 +208,7 @@ export class ResourceFindComponent implements OnInit {
   }
 
   FindParente(event) {
+    this.parentIdsLevels = [];
     if(event.value.length > 0) {
       event.value.forEach((element) => {
         if(!this.parentIdsLevels.includes(element)) {

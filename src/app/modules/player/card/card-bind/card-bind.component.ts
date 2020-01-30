@@ -253,11 +253,11 @@ export class CardBindComponent implements OnInit {
         this.loaderDeck = false;
       }
     )
-    
   }
 
   searchCards(id: any) {
     this.loader = true;
+    this.cardNotFound = false;
     delete this.characters;
     this.service.findCardById(id).subscribe(
       (response) => {
