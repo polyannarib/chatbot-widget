@@ -65,4 +65,8 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  getPicture() {
+    return 'url(https://www.kyros.com.br/portal-webplayer-images/Players/' + this.user.replace().replace(/\s+/g, '').toLowerCase() + '.png)';
+  }
+
 }

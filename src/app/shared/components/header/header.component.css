@@ -152,7 +152,7 @@ header{
 .player .image {
     content: '';
     display: inline-block;
-    background-image: url('../../../../assets/images/perfil.jpg');
+    /* background-image: url('../../../../assets/images/perfil.jpg'); */
     background-size: cover;
     width: 64px;
     height: 64px;
