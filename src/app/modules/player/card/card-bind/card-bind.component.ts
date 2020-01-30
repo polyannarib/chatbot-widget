@@ -269,7 +269,9 @@ export class CardBindComponent implements OnInit {
           if (this.filteredCard.cardName.indexOf("#") != -1) {
             this.filteredCard.cardName = this.filteredCard.cardName.replace("#", "sharp");
           }
+          this.cardNotFound = false;
         }
+        
         else{
           this.cardNotFound = true;
         }
