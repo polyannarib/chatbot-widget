@@ -1,15 +1,13 @@
 <div class="row" [ngClass]="{'help' : status}" id="input-row">
   <div class="col s1" id="help-div" [ngClass]="{'tips' : status}">
-    <!-- <input type="text" #tooltip="matTooltip" matTooltip="Some tip"> -->
-    <!-- <button #tp1="matTooltip" matTooltip="{{ helpMessage }}" matTooltipPosition="after" id="help" -->
-    <!-- <button matTooltip="{{ helpMessage }}" matTooltipPosition="after" id="help"
+    <button matTooltip="{{ helpMessage }}" matTooltipPosition="after" id="help"
       class="btn-floating btn-large waves-effect waves-light"
-      (click)="onShowTips(); tp2.toggle(); tp3.toggle(); tp4.toggle(); tp5.toggle()">
+      (click)="onShowTips();">
       ?
-    </button> -->
+    </button>
     <div id="black-filter"></div>
   </div>
-  <!-- <div class="col s11 mt-15" #tp2="matTooltip" matTooltip="Use os filtros para buscar cartas específicas" -->
+
   <div class="col s11 mt-15" matTooltip="Use os filtros para buscar cartas específicas"
     matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
 

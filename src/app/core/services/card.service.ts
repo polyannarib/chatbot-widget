@@ -59,6 +59,7 @@ export class CardService {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledge?knowledgeParentId=` + data);
   }
 
+
   // http://192.168.1.229:8989/workplayer-portal/services/card/knowledge?knowledgeParentId=1
   findPerson(parentIdsLevels: any, idsWorkGroups: any) {
     if(parentIdsLevels && idsWorkGroups == undefined) {
@@ -76,5 +77,5 @@ export class CardService {
     }
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn?knowledgeParentIds=${data}`);
   }
-  
+
 }
