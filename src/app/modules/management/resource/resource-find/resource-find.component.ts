@@ -188,6 +188,7 @@ export class ResourceFindComponent implements OnInit {
   }
 
   findWorkgroup(event) {
+    this.parentIdsWorkGroups = [];
     if(event.value.length > 0) {
       event.value.forEach((element) => {
         if(!this.parentIdsWorkGroups.includes(element)) {
@@ -201,6 +202,7 @@ export class ResourceFindComponent implements OnInit {
   }
 
   FindParente(event) {
+    this.parentIdsLevels = [];
     if(event.value.length > 0) {
       event.value.forEach((element) => {
         if(!this.parentIdsLevels.includes(element)) {
