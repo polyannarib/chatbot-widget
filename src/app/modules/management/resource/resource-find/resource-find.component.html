@@ -4,7 +4,7 @@
 
     <mat-form-field>
       <mat-label>Tipo de Competência</mat-label>
-      <mat-select (ngModelChange)="FindParente($event)" [(ngModel)]="level1" multiple>
+      <mat-select (selectionChange)="FindParente($event)" [(ngModel)]="level1" multiple>
         <mat-option value="1">Competências Técnicas</mat-option>
         <mat-option value="2">Competências de Negócio</mat-option>
         <mat-option value="3">Competências Comportamentais</mat-option>
@@ -13,7 +13,7 @@
 
     <mat-form-field>
       <mat-label>Categoria</mat-label>
-      <mat-select [disabled]="!level1" (ngModelChange)="FindParente($event)" [(ngModel)]="level2" multiple>
+      <mat-select [disabled]="!level1" (selectionChange)="FindParente($event)" [(ngModel)]="level2" multiple>
         <mat-option value="4">Tecnologia</mat-option>
         <mat-option value="5">Metodologia</mat-option>
         <mat-option value="144">Materiais</mat-option>
@@ -24,7 +24,7 @@
 
     <mat-form-field>
       <mat-label>Clã</mat-label>
-      <mat-select [disabled]="!level2" (ngModelChange)="FindParente($event)" [(ngModel)]="level3" multiple>
+      <mat-select [disabled]="!level2" (selectionChange)="FindParente($event)" [(ngModel)]="level3" multiple>
         <mat-option value="6">Java</mat-option>
         <mat-option value="7">.NET</mat-option>
         <mat-option value="10">Mobile</mat-option>
@@ -45,7 +45,7 @@
   
     <mat-form-field>
       <mat-label>Competência</mat-label>
-      <mat-select [disabled]="!level3" (ngModelChange)="FindParente($event)" [(ngModel)]="level4" multiple>
+      <mat-select [disabled]="!level3" (selectionChange)="FindParente($event)" [(ngModel)]="level4" multiple>
         <mat-option value="58">Oracle</mat-option>
         <mat-option value="59">Design Thinking</mat-option>
         <mat-option value="60">Prototipacao</mat-option>
@@ -86,7 +86,7 @@
 
     <mat-form-field>
       <mat-label>Departamento</mat-label>
-      <mat-select [disabled]="!level4" (ngModelChange)="findWorkgroup($event)" [(ngModel)]="workgroup1" multiple>
+      <mat-select [disabled]="!level4" (selectionChange)="findWorkgroup($event)" [(ngModel)]="workgroup1" multiple>
         <mat-option value="3">PROJETOS</mat-option>
         <mat-option value="5">SERVICOS GERAIS</mat-option>
         <mat-option value="6">ADMINISTRATIVO</mat-option>
