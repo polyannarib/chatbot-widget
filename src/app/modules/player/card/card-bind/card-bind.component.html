@@ -61,9 +61,9 @@
 
 <app-loading [loader]="loader"></app-loading>
 
-<div class="row" *ngIf="!characters">
+<div class="row" *ngIf="cardNotFound">
   <div class="col s12">
-      <app-count>Carta não encontrada</app-count>
+      <app-count *ngIf="cardNotFound">Carta não encontrada</app-count>
   </div>
 </div>
 
