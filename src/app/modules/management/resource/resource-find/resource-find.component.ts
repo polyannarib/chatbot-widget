@@ -133,19 +133,19 @@ export class ResourceFindComponent implements OnInit {
       })
   }
 
-  FindParente(event,) {
+  FindParente(event) {
     // console.log(' ---- this.form ---- ');
     // console.log(event);
     // console.log(resource);
-    if(event.length) {
-      event.value.forEach((element) => {
-        if(!this.parentIdsLevels.includes(element)) {
-          this.parentIdsLevels.push(element);
-        }
-      });
-      var idLevels = this.parentIdsLevels.join();
-      this.getKnowledgeIn(idLevels)
-    }
+    // if(event.length) {
+    //   event.value.forEach((element) => {
+    //     if(!this.parentIdsLevels.includes(element)) {
+    //       this.parentIdsLevels.push(element);
+    //     }
+    //   });
+    //   var idLevels = this.parentIdsLevels.join();
+    //   // this.getKnowledgeIn(idLevels)
+    // }
   }
 
   // FindParente(event, resource) {
