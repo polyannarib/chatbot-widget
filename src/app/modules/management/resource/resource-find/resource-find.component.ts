@@ -88,6 +88,8 @@ export class ResourceFindComponent implements OnInit {
   // levelList = [];
   resultado: any;
 
+  idLevels: number[] = [];
+
   level1: any
   level2: any
   level3: any
@@ -133,20 +135,20 @@ export class ResourceFindComponent implements OnInit {
       })
   }
 
-  FindParente(event) {
-    // console.log(' ---- this.form ---- ');
-    // console.log(event);
-    // console.log(resource);
-    // if(event.length) {
-    //   event.value.forEach((element) => {
-    //     if(!this.parentIdsLevels.includes(element)) {
-    //       this.parentIdsLevels.push(element);
-    //     }
-    //   });
-    //   var idLevels = this.parentIdsLevels.join();
-    //   // this.getKnowledgeIn(idLevels)
-    // }
-  }
+  // FindParente(event) {
+  //   // console.log(' ---- this.form ---- ');
+  //   // console.log(event);
+  //   // console.log(resource);
+  //   if(event.length) {
+  //     event.value.forEach((element) => {
+  //       if(!this.parentIdsLevels.includes(element)) {
+  //         this.parentIdsLevels.push(element);
+  //       }
+  //     });
+  //     this.idLevels = this.parentIdsLevels.join();
+  //     // this.getKnowledgeIn(idLevels)
+  //   }
+  // }
 
   // FindParente(event, resource) {
 
@@ -186,8 +188,8 @@ export class ResourceFindComponent implements OnInit {
   }
 
   findWorkgroup(event) {
-    if(event.length > 0) {
-      event.forEach((element) => {
+    if(event.value.length > 0) {
+      event.value.forEach((element) => {
         if(!this.parentIdsWorkGroups.includes(element)) {
           this.parentIdsWorkGroups.push(element);
         }
@@ -195,6 +197,19 @@ export class ResourceFindComponent implements OnInit {
       this.idsWorkGroups = this.parentIdsWorkGroups.join();
     } else {
       this.idsWorkGroups = null;
+    }
+  }
+
+  FindParente(event) {
+    if(event.value.length > 0) {
+      event.value.forEach((element) => {
+        if(!this.parentIdsLevels.includes(element)) {
+          this.parentIdsLevels.push(element);
+        }
+      });
+      this.idsLevels = this.parentIdsLevels.join();
+    } else {
+      this.idsLevels = null;
     }
   }
 
