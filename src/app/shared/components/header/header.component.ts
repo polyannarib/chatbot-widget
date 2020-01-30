@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
     )
   }
 
-  toggleMenu(position) {
+  toggleMenu(position?) {
     if (position === 'left') {
       document.body.classList.toggle('sidebar-mini');
       if (this.btnMenuClass === 'hamRotate') {
