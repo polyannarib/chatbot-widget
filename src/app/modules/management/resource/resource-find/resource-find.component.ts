@@ -133,7 +133,7 @@ export class ResourceFindComponent implements OnInit {
       })
   }
 
-  FindParente(event,) {
+  FindParente(event) {
     // console.log(' ---- this.form ---- ');
     // console.log(event);
     // console.log(resource);
