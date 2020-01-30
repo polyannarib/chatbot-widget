@@ -1,14 +1,16 @@
 <div class="row" [ngClass]="{'help' : status}" id="input-row">
   <div class="col s1" id="help-div" [ngClass]="{'tips' : status}">
     <!-- <input type="text" #tooltip="matTooltip" matTooltip="Some tip"> -->
-    <button #tp1="matTooltip" matTooltip="{{ helpMessage }}" matTooltipPosition="after" id="help"
+    <!-- <button #tp1="matTooltip" matTooltip="{{ helpMessage }}" matTooltipPosition="after" id="help" -->
+    <!-- <button matTooltip="{{ helpMessage }}" matTooltipPosition="after" id="help"
       class="btn-floating btn-large waves-effect waves-light"
       (click)="onShowTips(); tp2.toggle(); tp3.toggle(); tp4.toggle(); tp5.toggle()">
       ?
-    </button>
+    </button> -->
     <div id="black-filter"></div>
   </div>
-  <div class="col s11 mt-15" #tp2="matTooltip" matTooltip="Use os filtros para buscar cartas específicas"
+  <!-- <div class="col s11 mt-15" #tp2="matTooltip" matTooltip="Use os filtros para buscar cartas específicas" -->
+  <div class="col s11 mt-15" matTooltip="Use os filtros para buscar cartas específicas"
     matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
 
     <div class="col s3">
@@ -67,7 +69,8 @@
 <div *ngIf="characters && !loader" class="row" [ngClass]="{'help' : status}">
   <div class="col s12 m4 offset-m1">
     <div class="style-custom characters" (change)="addCarouselListener()">
-      <app-slick [options]="slick" [arrows]="arrows" class="trapezio" #tp3="matTooltip" 
+      <!-- <app-slick [options]="slick" [arrows]="arrows" class="trapezio" #tp3="matTooltip"  -->
+      <app-slick [options]="slick" [arrows]="arrows" class="trapezio" 
         matTooltip="Use as setas para escolher os personagens que melhor representam você" 
         matTooltipDisabled="{{ !status }}" matTooltipPosition="below" (updateAttributesEvent)="updateVisibleCard($event)">
         <div *ngFor="let character of characters; index as i;">

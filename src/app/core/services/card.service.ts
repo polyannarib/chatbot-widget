@@ -59,13 +59,16 @@ export class CardService {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledge?knowledgeParentId=` + data);
   }
 
+
+  // http://192.168.1.229:8989/workplayer-portal/services/card/knowledge?knowledgeParentId=1
   findPerson(parentIdsLevels: any, idsWorkGroups: any) {
-    if(parentIdsLevels && !idsWorkGroups)
+    if(parentIdsLevels && idsWorkGroups == undefined) {
       return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?knowledgeIds=${parentIdsLevels}&page=1&pageSize=30`);
-    if(!idsWorkGroups && idsWorkGroups)
+    }
+    if(parentIdsLevels == undefined && idsWorkGroups) {
       return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?workgroupIds${idsWorkGroups}&page=1&pageSize=30`);
+    }
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?page=1&pageSize=30&knowledgeIds=${parentIdsLevels}&workgroupIds=${idsWorkGroups}`);
-    
   }
   
   KnowledgeIn(data?: any): Observable<any> {
@@ -74,7 +77,5 @@ export class CardService {
     }
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn?knowledgeParentIds=${data}`);
   }
-
-
 
 }
