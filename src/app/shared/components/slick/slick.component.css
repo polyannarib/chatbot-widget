@@ -64,3 +64,6 @@
 .slick-slide {
     margin: 10px;
 }
+.slick-slide.slick-center ::ng-deep {
+    transform: scale(1.12);
+}

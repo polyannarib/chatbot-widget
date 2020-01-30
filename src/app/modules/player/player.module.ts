@@ -6,6 +6,8 @@ import { PlayerComponent } from './player.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardBindComponent } from './card/card-bind/card-bind.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -13,7 +15,9 @@ import { CardBindComponent } from './card/card-bind/card-bind.component';
     PlayerRoutingModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatSelectModule
   ],
   declarations: [
     PlayerComponent, 

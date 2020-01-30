@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit{
-  
+  btnMenuClass: string;
   private themeWrapper = document.querySelector('body');
 
   constructor(
@@ -31,5 +31,24 @@ export class AppComponent implements OnInit{
       });
     })
 
+    this.btnMenuClass = 'hamRotate';
+    this.toggleMenu('left');
+  }
+
+  toggleMenu(position) {
+    if (position === 'left') {
+      document.body.classList.toggle('sidebar-mini');
+      if (this.btnMenuClass === 'hamRotate') {
+        this.btnMenuClass = 'hamRotateInvert';
+      } else {
+        this.btnMenuClass = 'hamRotate';
+      }
+    } else {
+      // document.querySelector('.row-offcanvas-right').classList.toggle('active');
+      document.querySelector('body').classList.toggle('nav-open');
+      setTimeout(() => {
+        document.querySelector('.navbar-toggle').classList.toggle('toggled');
+      }, 300);
+    }
   }
 }

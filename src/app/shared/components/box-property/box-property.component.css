@@ -2,16 +2,19 @@
 .card {
     background: #ffffff61;
     color: #404040;
+    margin-bottom: 8px;
+    z-index: 1001;
 }
 
 .card-content:nth-child(2){
     max-height: 150px;
-    min-height: 150px;
+    min-height: 95px;
     overflow: auto;
     overflow-x: hidden;
 }
 
 .card-content:nth-child(1){
+    overflow: hidden;
     background: linear-gradient(180deg, #ffffffb8, #ffffff85);
     padding: 14px 20px;
     border-top: 3px solid #650199;
@@ -52,7 +55,6 @@
 /*-------TOPICS-------*/
 .card.topics span{
     display: block;
-    margin-bottom: 9px;
 }
 
 .card.topics span:before{
@@ -83,7 +85,7 @@
 
 .card.numeric span{
     display: inline-block;
-    width: 192px;
+    width: calc(65% - 8px);
     vertical-align: middle;
 }
 
