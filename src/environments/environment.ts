@@ -4,7 +4,11 @@
 
 export const environment = {
   back_end_url: 'http://192.168.1.235:8989/workplayer-portal/services',
-  // back_end_url: 'http://localhost:8080/workplayer-portal/services',
+  URL_SSO: 'https://sso-dev.kyros.com.br/kyros-sso',
+  URL_SSO_SERVICES: 'https://sso-dev.kyros.com.br/kyros-sso',
+  SYSTEM_NAME: 'WORKPLAYER',
+  WORKPLAYER_HOME: 'http://192.168.1.235/webplayer',
+  COMPANY: '1',
   production: false
 };
 

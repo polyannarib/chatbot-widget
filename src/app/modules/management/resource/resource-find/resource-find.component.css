@@ -1,11 +1,38 @@
-.container-fluid{
-    width: 90%;
-    margin: auto;
-}
-
 /* .row .col{
     padding: 0 4px;
 } */
+
+
+/* CODIGO FEITO PARA BUSCA */
+.cdk-overlay-pane {
+    left: 115px !important;
+}
+.mat-form-field {
+    /* display: inline-block; */
+    position: relative;
+    text-align: left;
+    padding: 15px;
+    width: 225px;
+    float: left;
+}
+button {
+    margin-top: 15px;
+}
+.mat-paginator {
+    background-color: transparent;
+}
+@media only screen and (max-width: 700px){
+    .mat-form-field {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
 
 /*-----TABLE-----*/
     .perfil {
@@ -74,24 +101,24 @@
     }
 
     #tabela{
-        margin-left: 21px;
+        padding-left: 24px;
     }
 
-    @media only screen and (max-width: 700px){
-        #tabela-col{
-            overflow: auto;
-            white-space: nowrap;
-        }
-
-        div#tabela-col::-webkit-scrollbar {
-            height: 11px;
-            width: 11px;
-        }
-
-        div.content{
-            margin-top: 79px;
-        }
+@media only screen and (max-width: 700px){
+    #tabela-col{
+        overflow: auto;
+        white-space: nowrap;
     }
+
+    div#tabela-col::-webkit-scrollbar {
+        height: 11px;
+        width: 11px;
+    }
+
+    div.content{
+        margin-top: 79px;
+    }
+}
 /*-----------------*/
 
 

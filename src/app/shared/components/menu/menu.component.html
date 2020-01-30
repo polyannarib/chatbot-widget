@@ -1,11 +1,5 @@
 <ul class="nav">
     <li routerLinkActive="active">
-        <a [routerLink]="['/player/bind/cards']">
-            <span><i class="material-icons-outlined">build</i></span>
-            <p>Competências</p>
-        </a>
-    </li>
-    <li routerLinkActive="active">
         <a [routerLink]="['/management/dashboard']">
             <span><i class="material-icons-outlined">dashboard</i></span>
             <p>{{ 'COCKPIT' | translate }}</p>
@@ -17,6 +11,14 @@
             <p>Recursos</p>
         </a>
     </li>
+    <li routerLinkActive="active">
+        <a [routerLink]="['/player/bind/cards']">
+            <span><i class="material-icons-outlined">build</i></span>
+            <p>Competências</p>
+        </a>
+    </li>
+
+    
     <li routerLinkActive="active" id="logout">
         <a [routerLink]="['/login/auth']" (click)="logout()">
             <span><i class="material-icons-outlined">exit_to_app</i></span>

@@ -1,8 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PlayerService } from 'src/app/core/services/player.service';
 import { format, eachDayOfInterval, addDays, subDays } from 'date-fns';
-import { PageEvent, MatDialog } from '@angular/material';
+import { PageEvent, MatDialog, MatSnackBar } from '@angular/material';
 import { ResourceDetailsComponent } from '../resource-details/resource-details.component';
+import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 
 @Component({
   selector: 'app-resource-list',
@@ -19,21 +20,17 @@ export class ResourceListComponent implements OnInit {
   pageLength: number;
   pageSize: number;
   pageSizeOptions: number[] = [10, 25, 50];
-
   loader: boolean = false;
   loaderDays: boolean = false;
-
   numberOfDays = 12;
   startDate = new Date(Date.now());
-  endDate = addDays(new Date(Date.now()), this.numberOfDays - 1);
+  endDate = addDays(new Date(Date.now()), this.numberOfDays);
 
   constructor(
     private playerService: PlayerService,
-    public dialog: MatDialog
-  ) {
-    // this.startDate = new Date(Date.now());
-    // this.endDate = addDays(new Date(Date.now()), 12);
-  }
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
     this.daysOfWeek(this.startDate, this.endDate);
@@ -57,13 +54,17 @@ export class ResourceListComponent implements OnInit {
     }
     this.playerService.findPlayers(params).subscribe(
       (response) => {
+        if(response.status == 0) {
+          this.loader = false;
+          this.players = response.object.list;
+          this.filteredPlayers = this.players;
+          return;
+        }
+        this.httpError(response.message);
         this.loader = false;
-        this.loaderResource.emit(false);
-        this.players = response.object.list;
-        this.filteredPlayers = this.players;
       }, (err) => {
+        this.httpError(null);
         this.loader = false;
-        this.loaderResource.emit(false);
       }
     );
   }
@@ -102,6 +103,19 @@ export class ResourceListComponent implements OnInit {
       this.daysOfWeek(this.startDate, this.endDate);
       this.findPlayers();
       this.loaderDays = false;
+    }
+  }
+
+  httpError(value) {
+    switch (value) {
+      case 'FAIL_TO_LIST_TASK':
+        this._snackBar.openFromComponent(NotifyComponent, 
+          { data: { type: 'error', message: 'Problemas, contate o administrador' }});
+        break;
+      default:
+        this._snackBar.openFromComponent(NotifyComponent, 
+          { data: { type: 'error', message: 'Problemas, contate o administrador' }});
+        break;
     }
   }
 
