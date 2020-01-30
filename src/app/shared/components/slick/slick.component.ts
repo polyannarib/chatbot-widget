@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, OnDestroy, AfterContentInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy, AfterContentInit, AfterViewInit, EventEmitter, OnChanges } from '@angular/core';
+
 
 declare var $: any;
 
@@ -7,13 +8,15 @@ declare var $: any;
   templateUrl: './slick.component.html',
   styleUrls: ['./slick.component.css']
 })
-export class SlickComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SlickComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
 
   @Input() options: any
   @Input() data: any
   @Input() arrows: boolean
   class: any;
   slickClass: any;
+  @Output() updateAttributesEvent = new EventEmitter<string>();
+  @Input() type: any;
   
   constructor() {
   }
@@ -29,7 +32,18 @@ export class SlickComponent implements OnInit, OnDestroy, AfterViewInit {
 
   initSlick() {
     this.slickClass = $(`.${this.class}`);
+    console.log(this.slickClass);
     this.slickClass.slick(this.options);
+
+    if($('#slick .card-img').length >= 0){  //Se for o carrossel de cartas
+      var that = this;
+      setTimeout(function(){
+        $('#slick').on('afterChange', function(slick, currentSlide){
+          that.updateAttributesEvent.emit('updateAttributes');
+        });
+        that.updateAttributesEvent.emit('updateAttributes');
+      }, 500);
+    }
   }
 
   ngOnDestroy() {
@@ -42,5 +56,21 @@ export class SlickComponent implements OnInit, OnDestroy, AfterViewInit {
       this.options.nextArrow = "<span class='ct-slick-next'><i class='material-icons'>keyboard_arrow_right</i></span>";
     }
   }
+
+  ngOnChanges(){
+/*     if(this.slickClass != undefined){
+      var that = this;
+      this.slickClass.slick('unslick');
+
+      setTimeout(function(){
+        that.slickClass.slick(that.options);
+      }, 1000);
+      
+    } */
+    
+      
+  }
+
+
 
 }

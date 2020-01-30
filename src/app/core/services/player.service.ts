@@ -28,4 +28,8 @@ export class PlayerService {
     return this.http.get(`${environment.back_end_url}/user`);
   }
 
+  findPlayerDeck(): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/card/myDeck`);
+  }
+
 }

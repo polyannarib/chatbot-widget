@@ -86,9 +86,9 @@ body {
     background: rgba(255,255,255,0.4);
     transform: perspective(2px) rotateY(1deg);
     position: absolute;
-    top: 39%;
+    top: calc(50% - 45px);
     right: -17px;
-    border-left: #660080 5px solid;
+    border-left: #650199 5px solid;
     padding-left: 2px;
     background-clip: content-box;
     z-index: 15;
@@ -102,7 +102,7 @@ body {
     background: rgba(255,255,255,0.4);
     transform: perspective(2px) rotateY(-1deg);
     position: absolute;
-    top: 39%;
+    top: calc(50% - 45px);
     left: -17px;
     border-right: #660080 5px solid;
     padding-right: 2px;
@@ -258,19 +258,19 @@ mz-collapsible-item-body ul {
     border: none;
     outline: none;
     font-size: xx-large !important;
-    color: crimson !important;
+    color: #650199 !important;
     border-radius: 0;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
     opacity: 1;
 }
 .ct-slick-prev {
-    left: -24px;
+    left: -25px;
     z-index: 9;
     padding: 0px;
     opacity: 0.8;
 }
 .ct-slick-next {
-    right: -24px;
+    right: -25px;
     z-index: 9;
     padding: 0px;
     opacity: 0.8;

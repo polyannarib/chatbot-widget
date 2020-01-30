@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, ViewEncapsulation, OnChanges } from '@angular/core';
 import * as $ from 'jquery';
 
 @Component({
@@ -7,39 +7,53 @@ import * as $ from 'jquery';
   styleUrls: ['./box-property.component.css'],
   encapsulation: ViewEncapsulation.Native
 })
-export class BoxPropertyComponent implements OnInit {
-
-  // @ViewChild('title', {static: false}) titleElem: ElementRef;
-  // @ViewChild('content', {static: false}) contentElem: ElementRef;
-  // @ViewChild('card', {static: false}) cardElem: ElementRef;
-  
+export class BoxPropertyComponent implements OnInit, OnChanges {
   @Input() type: string;
   @Input() title: string;
 
+  //Numeric
   @Input() number: string;
   @Input() description: string;
-  @Input() topics: any;
 
+  //Topics
+  @Input() topics: any;
+  topicsParsed: any;
   constructor() { }
 
   ngOnInit() {
-    // this.titleElem.nativeElement.textContent = this.title;
+    var that = this;
+    console.log(this.topics)
+    setTimeout(function(){that.updateBoxes()}, 5000);
+  }
 
-    // if(this.type == 'numeric'){
-    //   this.cardElem.nativeElement.classList.add('numeric');
-    //   this.contentElem.nativeElement.innerHTML = '<span>'+ this.number +'</span><span>' + this.description +
-    //   '</span>';
-    // }
+  updateBoxes(){
+    if(this.topics){
+      this.topicsParsed = JSON.parse(this.topics).topics;
+    } 
 
-    // if(this.type == 'topics') {
-    //   this.cardElem.nativeElement.classList.add('topics');
-    //   this.topics = JSON.parse(this.topics);
-    //   const that = this;
-    //   this.topics.topics.forEach(function(object){
-    //     that.contentElem.nativeElement.innerHTML += '<span>'+ object +'</span>';
-    //   });
-    // }
-    
+/*     this.titleElem.nativeElement.textContent = this.title;
+
+    if(this.type == 'numeric'){
+      this.cardElem.nativeElement.classList.add('numeric');
+      this.contentElem.nativeElement.innerHTML = '';
+      this.contentElem.nativeElement.innerHTML = '<span>'+ this.number +'</span><span>' + this.description +
+      '</span>';
+    }
+
+    if(this.type == 'topics'){
+      this.cardElem.nativeElement.classList.add('topics');
+      this.topics = JSON.parse(this.topics);
+      const that = this;
+      this.contentElem.nativeElement.innerHTML = '';
+      this.topics.topics.forEach(function(object){
+        that.contentElem.nativeElement.innerHTML += '<span>'+ object +'</span>';
+      });
+
+    } */
+  }
+
+  ngOnChanges(){
+    this.updateBoxes();
   }
 
 }
