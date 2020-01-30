@@ -61,7 +61,7 @@
 
 <div class="row" *ngIf="cardNotFound">
   <div class="col s12">
-      <app-count>Carta não encontrada</app-count>
+      <app-count *ngIf="cardNotFound">Carta não encontrada</app-count>
   </div>
 </div>
 
