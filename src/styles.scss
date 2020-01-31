@@ -1,10 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face { font-family: 'Blogger'; src: url('./assets/fonts/blogger-sans.ttf'); } 
+@font-face { font-family: 'BloggerBold'; src: url("./assets/fonts/blogger-sans-bold.ttf"); }
+@font-face { font-family: 'BloggerLight'; src: url("./assets/fonts/bloggersans-light.ttf"); }
+@font-face { font-family: 'BloggerItalic'; src: url("./assets/fonts/blogger-sans-italic.ttf"); }
+
 @import './theme.scss';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons++Icons+Sharp');
 
+html {
+    font-family: 'Blogger' !important;
+    // line-height: 1.5;
+    // font-weight: normal;
+    // color: rgba(0,0,0,0.87);
+}
+* {
+    font-family: 'Blogger';
+}
 body {
+    font-family: 'Blogger' !important;
     background-image: url('./assets/images/fundo.png');
+    width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
 }

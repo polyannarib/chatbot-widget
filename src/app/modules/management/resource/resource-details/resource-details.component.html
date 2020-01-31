@@ -39,7 +39,7 @@
 
                 <div class="col m2 s12 left-align">{{ activity.project.code }}</div>
                 <div class="col m6 s12 left-align">{{ activity.name }}</div>
-                <div class="col m2 s12 left-align">{{ activity.previewedAt | date:'dd/MM/yyyy' }}}</div>
+                <div class="col m2 s12 left-align">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</div>
                 <div class="col m1 s12 left-align">{{ activity.dailyEffort }}h</div>
                 <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}" 
                   [ngStyle]="{'color': getColor(activity.status)}">fiber_manual_record</i></div>
