@@ -2,7 +2,7 @@
 <div class="container-fluid">
   <div class="row">
 
-    <mat-form-field>
+    <!-- <mat-form-field>
       <mat-label>Tipo de Competência</mat-label>
       <mat-select (selectionChange)="FindParente($event)" [(ngModel)]="level1" multiple>
         <mat-option value="1">Competências Técnicas</mat-option>
@@ -103,14 +103,18 @@
         <mat-option value="26">Suporte</mat-option>
         <mat-option value="27">Produtos</mat-option>
       </mat-select>
-    </mat-form-field>
-
-    <!-- <mat-form-field *ngFor="let levelElement of resultado; let i= index">
-      <mat-label>{{ levelElement.knowledgeList[0].name }}</mat-label>
-      <mat-select (selectionChange)="FindParente($event, levelElement)" multiple>
-        <mat-option *ngFor="let knowledge of levelElement.knowledgeList" [value]="knowledge.knowledgeId">{{ knowledge.name }}</mat-option>
-      </mat-select>
     </mat-form-field> -->
+
+    <div class="find">
+      <mat-form-field *ngFor="let levelElement of filterListKnowledge; let i= index">
+        <mat-label>{{ levelElement.knowledgeList[0].type.name }}</mat-label>
+        <mat-select (selectionChange)="FindParente($event, levelElement)" multiple>
+          <mat-option *ngFor="let knowledge of levelElement.knowledgeList" [value]="knowledge.knowledgeId">{{ knowledge.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <app-loading [loader]="loaderFind"></app-loading>
+      <button (click)="findPerson()" [disabled]="disabled" *ngIf="!loaderFind" matTooltip="Procurar" mat-mini-fab color="warn"><i class="material-icons">search</i></button>
+    </div>
 
     <!-- <div *ngFor="let result of resultLevel">
       <div class="card">
@@ -122,8 +126,6 @@
         </div>
       </div>
     </div> -->
-
-    <button (click)="findPerson()" [disabled]="!level4" matTooltip="Procurar" mat-mini-fab color="warn"><i class="material-icons">search</i></button>
 
     <!-- <div *ngIf="results">
       <mat-form-field *ngFor="let levelElement of levelList; let i= index">
@@ -151,11 +153,11 @@
   </div>
 
   <div class="row">
-
+    
     <app-loading [loader]="loader"></app-loading>
-    <app-count *ngIf="!personList">Nenhum recurso foi encontrado!</app-count>
+    <!-- <app-count>Nenhum recurso foi encontrado!</app-count> -->
 
-    <div class="col s12" id="tabela-col" *ngIf="personList">
+    <div class="col s12" id="tabela-col" *ngIf="personList?.length > 0">
       <table id="tabela">
         <thead>
           <tr>

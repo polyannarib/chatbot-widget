@@ -88,7 +88,10 @@ export class ResourceFindComponent implements OnInit {
   // orderForm: any;
   // knowledge: any;
   // levelList = [];
-  resultado: any;
+  listKnowledge: any;
+  filterListKnowledge: any;
+  selectedLevelElement;
+  disabled: boolean = true;
 
   idLevels: number[] = [];
 
@@ -113,14 +116,15 @@ export class ResourceFindComponent implements OnInit {
   pageLength : number;
 
   loader: boolean = false;
-
+  loaderFind: boolean = false;
+  
   constructor(
     private _cardService: CardService,
     private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
-    // this.getKnowledgeIn();
+    this.getKnowledgeIn();
   }
 
   findPerson() {  
@@ -142,56 +146,63 @@ export class ResourceFindComponent implements OnInit {
       })
   }
 
-  // FindParente(event) {
-  //   // console.log(' ---- this.form ---- ');
-  //   // console.log(event);
-  //   // console.log(resource);
-  //   if(event.length) {
-  //     event.value.forEach((element) => {
-  //       if(!this.parentIdsLevels.includes(element)) {
-  //         this.parentIdsLevels.push(element);
-  //       }
-  //     });
-  //     this.idLevels = this.parentIdsLevels.join();
-  //     // this.getKnowledgeIn(idLevels)
-  //   }
-  // }
+  FindParente(event, resource) {
+    if(resource.level === 4) {
+      this.disabled = false;
+    } else {
+      this.disabled = true;
+    }
+    this.parentIdsLevels = [];
+    if(this.filterListKnowledge) {
+      this.filterListKnowledge.forEach((element, position) => {
+        if(element.level > resource.level) {
+          var index = this.filterListKnowledge.indexOf(position);
+          this.filterListKnowledge.splice(index, 1);
+        }
+      });
+    }
+    if(event.value.length > 0) {
+      event.value.forEach((element) => {
+        if(!this.parentIdsLevels.includes(element)) {
+          this.parentIdsLevels.push(element);
+        }
+      });
+      var idLevels = this.parentIdsLevels.join();
+      this.getKnowledgeIn(idLevels);
+    }
+  }
 
-  // FindParente(event, resource) {
+  getKnowledgeIn(ids?: any) {
+    this.loaderFind = true;
+    this._cardService.KnowledgeIn(ids).subscribe(
+      (response) => {
+        if(response.status == 0) {
+          this.listKnowledge = response.object;
+          this.filterList(this.listKnowledge);
+          this.loaderFind = false;
+          return;
+        }
+        this.loaderFind = false;
+      }, (err) => {
+        this.loaderFind = false;
+        console.log('Deu ruim');
+    })
+  }
 
-  //   console.log(' ---- this.form ---- ');
-  //   console.log(event);
-  //   console.log(resource);
-
-  //   if(event.value.length > 0) {
-  //     event.value.forEach((element) => {
-  //       if(!this.parentIdsLevels.includes(element)) {
-  //         this.parentIdsLevels.push(element);
-  //       }
-  //     });
-  //     var idLevels = this.parentIdsLevels.join();
-  //     this.getKnowledgeIn(idLevels);
-  //   }
-
-  // }
-
-  // getKnowledgeIn(ids?: any) {
-  //   this.loader = true;
-  //   this._cardService.KnowledgeIn(ids).subscribe(
-  //     (response) => {
-  //       if(response.status == 0) {
-  //         this.resultado = response.object;
-  //         this.loader = false;
-  //         return;
-  //       }
-  //       this._snackBar.openFromComponent(NotifyComponent, 
-  //         { data: { type: 'error', message: 'Nenhum resultado foi encontrado!' }});
-  //       this.loader = false;
-  //     }, (err) => {
-  //       this.loader = false;
-  //       console.log('Deu ruim');
-  //   })
-  // }
+  filterList(list) {
+    if(!this.filterListKnowledge) {
+      this.filterListKnowledge = list;
+      return;
+    }
+    list.forEach((element) => {
+      var levelFind = this.filterListKnowledge.find((elementFind) => {
+        return elementFind.level == element.level;
+      });
+      if(!!!levelFind) {
+        this.filterListKnowledge.push(element);
+      }
+    });
+  }
 
   findWorkgroup(event) {
     this.parentIdsWorkGroups = [];
@@ -207,19 +218,19 @@ export class ResourceFindComponent implements OnInit {
     }
   }
 
-  FindParente(event) {
-    this.parentIdsLevels = [];
-    if(event.value.length > 0) {
-      event.value.forEach((element) => {
-        if(!this.parentIdsLevels.includes(element)) {
-          this.parentIdsLevels.push(element);
-        }
-      });
-      this.idsLevels = this.parentIdsLevels.join();
-    } else {
-      this.idsLevels = null;
-    }
-  }
+  // FindParente(event) {
+  //   this.parentIdsLevels = [];
+  //   if(event.value.length > 0) {
+  //     event.value.forEach((element) => {
+  //       if(!this.parentIdsLevels.includes(element)) {
+  //         this.parentIdsLevels.push(element);
+  //       }
+  //     });
+  //     this.idsLevels = this.parentIdsLevels.join();
+  //   } else {
+  //     this.idsLevels = null;
+  //   }
+  // }
 
   onPaginateChange(event) {
     this.currentPage = event.pageIndex;
@@ -227,17 +238,25 @@ export class ResourceFindComponent implements OnInit {
     this.pageLength = event.length;
   }
 
+
+
+
+
+
+
+
+
+
+
   // getKnowledgeIn(ids?: any) {
   //   // console.log(ids);
   //   this.cardService.KnowledgeIn(ids).subscribe(
   //     (response) => {
   //       if(response.status == 0) {
-  //         // this.levelList = [];
-          
-  //         // this.levelList.push({
-  //         //   level: 1,
-  //         // });
-          
+  //         this.levelList = [];
+  //         this.levelList.push({
+  //           level: 1,
+  //         });
   //         if(!ids) {
   //           this.results[response.object[0].level] = response.object[0];
   //           console.log(this.results);
