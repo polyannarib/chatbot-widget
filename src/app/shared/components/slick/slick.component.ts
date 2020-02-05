@@ -10,13 +10,16 @@ declare var $: any;
 })
 export class SlickComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
 
+  @Output() identifySlick = new EventEmitter<any>();
+
   @Input() options: any
   @Input() data: any
   @Input() arrows: boolean
+  @Input() type: any;
+  @Input() updateAttributes: any;
+
   class: any;
   slickClass: any;
-  @Output() updateAttributesEvent = new EventEmitter<string>();
-  @Input() type: any;
   
   constructor() {
   }
@@ -28,22 +31,13 @@ export class SlickComponent implements OnInit, OnDestroy, AfterViewInit, OnChang
 
   ngAfterViewInit() {
     this.initSlick();
+    this.identifySlick.emit(this.slickClass);
   }
 
   initSlick() {
+    const _this = this;
     this.slickClass = $(`.${this.class}`);
-    console.log(this.slickClass);
     this.slickClass.slick(this.options);
-
-    if($('#slick .card-img').length >= 0){  //Se for o carrossel de cartas
-      var that = this;
-      setTimeout(function(){
-        $('#slick').on('afterChange', function(slick, currentSlide){
-          that.updateAttributesEvent.emit('updateAttributes');
-        });
-        that.updateAttributesEvent.emit('updateAttributes');
-      }, 500);
-    }
   }
 
   ngOnDestroy() {
@@ -57,20 +51,19 @@ export class SlickComponent implements OnInit, OnDestroy, AfterViewInit, OnChang
     }
   }
 
-  ngOnChanges(){
-/*     if(this.slickClass != undefined){
-      var that = this;
-      this.slickClass.slick('unslick');
-
-      setTimeout(function(){
-        that.slickClass.slick(that.options);
-      }, 1000);
-      
-    } */
-    
-      
+  ngOnChanges() {
+    // console.log('entrou dentro do onChanges');
+    // const _this = this;
+    // if(this.updateAttributes) {
+    //   console.log('entrou dentro do if(this.updateAttributes)');
+    //   this.slickClass.on('afterChange', (event, slick, currentSlide, nextSlide) => {
+    //     this.updateAttributesEvent.emit({
+    //       slickClass: _this.class,
+    //       name: 'slick',
+    //       updateAttributes: _this.updateAttributes
+    //     })
+    //   });
+    // }
   }
-
-
 
 }
