@@ -2,13 +2,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, } from '@angular/forms';
 import { PlayerService } from 'src/app/core/services/player.service';
 import { CardService } from 'src/app/core/services/card.service';
-import * as $ from 'jquery';
-import { stringify } from 'querystring';
-import { Observable } from 'rxjs';
 import { MatSnackBar, MatBottomSheet } from '@angular/material';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 
-var slick: any;
 @Component({
   selector: 'app-card-bind',
   templateUrl: './card-bind.component.html',
@@ -17,45 +13,19 @@ var slick: any;
 })
 export class CardBindComponent implements OnInit {
 
-  // refreshSlick: boolean = false;
-  // title = 'tooltip';
   status: boolean = false;
   helpMessage: any = "Clique aqui para ver dicas sobre a tela";
   playerDeck: any;
-  // filteredCard: any;
   characters: any;
-  // cardDescription: any;
-  // metricList: any;
-  // listenerAdded: boolean = false;
-  // visibleCardUpdated: boolean = true;
-  // deckIdList: any;
-  // isInDeck: boolean;
-  // slickClass: any;
-  // cardKnowledge: any;
   loader: boolean = false;
   cardNotFound: boolean = false;
   indexSlick: number = 0;
-  
-  // myControl = new FormControl();
-  // myControl1 = new FormControl();
-  // options: string[] = [];
   arrows: boolean = true;
   auxComp = [];
   cardKnowledgeFilter: any;
   parentIdsLevels: any;
   disabled: any;
   listKnowledge: any;
-  // auxCat = []
-  // auxAtt = []
-  // auxCards = []
-  // filteredOptions: Observable<string[]>;
-  // competense = []
-  // competenseType = []
-  // category = []
-  // attribute = []
-  // flagComp: any
-  // flagCat: any
-  // flagAtt = []
   slick = {
     lazyLoad: 'ondemand',
     dots: false,
@@ -88,7 +58,6 @@ export class CardBindComponent implements OnInit {
     ]
   };
   deck = {
-    lazyLoad: 'ondemand',
     centerMode: true,
     centerPadding: '70px',
     dots: false,
@@ -99,6 +68,8 @@ export class CardBindComponent implements OnInit {
       {
         breakpoint: 1024,
         settings: {
+          centerMode: true,
+          centerPadding: '40px',
           slidesToShow: 5,
           slidesToScroll: 1,
           infinite: true,
@@ -107,14 +78,18 @@ export class CardBindComponent implements OnInit {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 3,
+          centerMode: true,
+          centerPadding: '40px',
+          slidesToShow: 4,
           slidesToScroll: 1
         }
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2,
+          centerMode: true,
+          centerPadding: '40px',
+          slidesToShow: 3,
           slidesToScroll: 1
         }
       }
@@ -127,10 +102,8 @@ export class CardBindComponent implements OnInit {
   loaderDeck: boolean = false;
 
   constructor(
-    private playerService: PlayerService,
     private service: CardService,
     private _snackBar: MatSnackBar,
-    private _bottomSheet: MatBottomSheet
   ) { }
 
   ngOnInit() {
@@ -208,17 +181,15 @@ export class CardBindComponent implements OnInit {
     this.service.findCardById(id).subscribe(
       (response) => {
         if (response.status == 0) {
-          
           this.characters = response.object;
+          console.log(' -------- this.characters ---------');
           console.log(this.characters);
-
           if (this.characters.cardName.indexOf("#") != -1) {
             this.characters.cardName = this.characters.cardName.replace("#", "sharp");
           }
           this.loader = false;
           return;
         }
-        // this.cardNotFound = true;
         this.loader = false;
       }, (err) => {
         this.loader = false;
@@ -246,16 +217,33 @@ export class CardBindComponent implements OnInit {
     return url;
   }
 
+  getCardDeck(card) {
+    var url = card.url;
+    url += 'persona';
+    url += card.attributes[0].attribute.name[0].toUpperCase();
+    url += card.attributes[0].attribute.name.slice(1).toLowerCase();
+    url += '.png';
+    return url;
+  }
+
+  getLogo(card, index) {
+    var cardName = card.cardName.toLowerCase();
+    var url = card.url;
+    if (cardName.indexOf("#") != -1) {
+      cardName = cardName.replace("#", "sharp");
+    }
+    cardName.replace(' ', '');
+    url += cardName;
+    url += '.png';
+    return url;
+  }
+
   myDeck() {
     delete this.playerDeck;
     this.loaderDeck = true;
-    this.service.listCardsByUser().subscribe(
+    this.service.myDeck().subscribe(
       (response) => {
         if (response.status == 0) {
-
-          console.log('Entrou dentro do player Deck');
-          console.log(response.object);
-
           this.playerDeck = response.object;
           this.loaderDeck = false;
           return;
@@ -270,6 +258,30 @@ export class CardBindComponent implements OnInit {
     event.on('afterChange', (event, slick, currentSlide, nextSlide) => { 
       this.indexSlick = currentSlide;
     });
+  }
+
+  addOrRemoveCard(knowledgeId, attributesId) {
+    var data = {
+      "knowledgeId": knowledgeId,
+      "attributeId": attributesId
+    }
+    this.service.addCard(data).subscribe(
+      (response) => {
+        if(response.status == 0) {
+          this.myDeck();
+          this._snackBar.openFromComponent(NotifyComponent, 
+            { data: { type: 'success', message: 'Carta adicionada com sucesso!' }});
+          return;
+        }
+        this._snackBar.openFromComponent(NotifyComponent, 
+          { data: { type: 'error', message: 'Você já possui essa carta' }});
+        console.log('problemas');
+      }, (err) => {
+        this._snackBar.openFromComponent(NotifyComponent, 
+          { data: { type: 'error', message: 'Problemas ao cadastrar a carta ao deck, contate o adminstrador' }});
+        console.log(err);
+      }
+    )
   }
 
   // updatePlayerDeck() {
@@ -359,33 +371,5 @@ export class CardBindComponent implements OnInit {
   //     }
   //   }, 500);
   // }
-
-  // addOrRemoveCard() {
-  //   var data = {
-  //     "knowledgeId": this.filteredCard.knowledge.knowledgeId,
-  //     "attributeId": this.characters[document.querySelector('.slick-current img').id].id
-  //   }
-  //   if (this.isInDeck == false) {
-  //     this.service.addCard(data).subscribe(
-  //       (response) => {
-  //         this.isInDeck = true;
-  //         this.updatePlayerDeck();
-  //       }, (err) => {
-  //         console.log(err);
-  //       }
-  //     )
-  //   }
-  //   else {
-  //     this.service.removeCard(data).subscribe(
-  //       (response) => {
-  //         this.isInDeck = false;
-  //         this.updatePlayerDeck();
-  //       }, (err) => {
-  //         console.log(err);
-  //       }
-  //     )
-  //   }
-  // }
-
 
 }

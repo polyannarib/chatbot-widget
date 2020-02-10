@@ -4,8 +4,7 @@ import * as $ from 'jquery';
 @Component({
   selector: 'app-box-property',
   templateUrl: './box-property.component.html',
-  styleUrls: ['./box-property.component.css'],
-  encapsulation: ViewEncapsulation.Native
+  styleUrls: ['./box-property.component.css']
 })
 export class BoxPropertyComponent implements OnInit {
   

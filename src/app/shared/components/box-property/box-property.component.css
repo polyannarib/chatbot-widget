@@ -2,9 +2,11 @@
 .card {
     background: #ffffff61;
     color: #404040;
-    margin: 0px 8px 8px 8px;
-    z-index: 1001;
+    margin: 0px 8px 13px 8px;
+    /* z-index: 1001; */
     width: 300px;
+    box-shadow: none;
+    border-top: 3px solid #650199;
 }
 .card .title {
     background: linear-gradient(180deg, #ffffffb8, #ffffff85);
