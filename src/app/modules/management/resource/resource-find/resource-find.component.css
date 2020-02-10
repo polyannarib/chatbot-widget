@@ -27,10 +27,15 @@ button {
     justify-content: center;
     align-items: center;
     width: 100%;
+    flex-wrap: wrap;
 }
-@media only screen and (max-width: 700px){
+@media (max-width: 538px) {
     .mat-form-field {
-        width: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+    .find {
+        flex-direction: column;
     }
 }
 

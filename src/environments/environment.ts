@@ -9,6 +9,7 @@ export const environment = {
   SYSTEM_NAME: 'WORKPLAYER',
   WORKPLAYER_HOME: 'http://192.168.1.235/webplayer',
   COMPANY: '1',
+  URL_STATUS_REPORT: 'http://192.168.0.216:8080/pentaho/api/repos/%3Ahome%3Aworkplayer%3AStatus_Report.prpt/viewer?userid=workplayer&password=admin123&id_project=',
   production: false
 };
 

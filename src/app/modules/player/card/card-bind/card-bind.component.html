@@ -1,129 +1,51 @@
-<div class="row" [ngClass]="{'help' : status}" id="input-row">
-  <div class="col s1" id="help-div" [ngClass]="{'tips' : status}">
-    <button matTooltip="{{ helpMessage }}" matTooltipPosition="after" id="help"
+<div class="row" id="input-row">
+  <div id="help-div" [ngClass]="{'tips' : status}">
+    <button matTooltip="{{ helpMessage }}" 
+      matTooltipPosition="after" 
+      id="help"
       class="btn-floating btn-large waves-effect waves-light"
-      (click)="onShowTips();">
-      ?
-    </button>
+      (click)="onShowTips()"> ? </button >
     <div id="black-filter"></div>
   </div>
-
-  <div class="col s11 mt-15" matTooltip="Use os filtros para buscar cartas específicas"
-    matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
-
-    <div class="col s3">
-      <mat-form-field>
-        <mat-label>Tipo de Competência</mat-label>
-        <mat-select (selectionChange)="onChangeCategory($event)">
-          <mat-option *ngFor="let object of competenseType" [value]="object">
-            {{object}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col s3">
-      <mat-form-field>
-        <mat-label>Categoria</mat-label>
-        <mat-select (selectionChange)="onChangeAttribute($event)">
-          <mat-option *ngFor="let object of category" [value]="object">
-            {{object}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col s3" [ngClass]="showDivAtt">
-      <mat-form-field>
-        <mat-label>Clã</mat-label>
-        <mat-select (selectionChange)="onChangeCompetense($event)">
-          <mat-option *ngFor="let object of attribute" [value]="object">
-            {{object}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col s3" [ngClass]="showDivComp">
-      <mat-form-field>
-        <mat-label>Competência</mat-label>
-        <mat-select (selectionChange)="onChangeCards($event)">
-          <mat-option *ngFor="let object of competense" [value]="object">
-            {{object}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+  <div class="col s12" matTooltip="Use os filtros para buscar cartas específicas" matTooltipPosition="above">
+    <div class="find">
+      <div *ngFor="let levelElement of cardKnowledgeFilter; let i= index" [ngClass]="{'help' : status}">
+        <mat-form-field>
+          <mat-label>{{ levelElement.knowledgeList[0].type.name }}</mat-label>
+          <mat-select (selectionChange)="FindParente($event.value, levelElement)">
+            <mat-option *ngFor="let knowledge of levelElement.knowledgeList; let i= index" [value]="knowledge">{{ knowledge.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
   </div>
 </div>
-
-<app-loading [loader]="loader"></app-loading>
-
-<div class="row" *ngIf="cardNotFound">
-  <div class="col s12">
-      <app-count *ngIf="cardNotFound">Carta não encontrada</app-count>
-  </div>
-</div>
-
-<div *ngIf="characters && !loader" class="row" [ngClass]="{'help' : status}">
-  <div class="col s12 m4 offset-m1">
-    <div class="style-custom characters" (change)="addCarouselListener()">
-      <!-- <app-slick [options]="slick" [arrows]="arrows" class="trapezio" #tp3="matTooltip"  -->
-      <app-slick [options]="slick" [arrows]="arrows" class="trapezio" 
-        matTooltip="Use as setas para escolher os personagens que melhor representam você" 
-        matTooltipDisabled="{{ !status }}" matTooltipPosition="below" (updateAttributesEvent)="updateVisibleCard($event)">
-        <div *ngFor="let character of characters; index as i;">
-          <div class="card-star" [ngStyle]="{ 'background-image': 'url(' + 'https://www.kyros.com.br/portal-webplayer-images/Estrelas/' 
-            + 'estrela' + character.attribute.name[0].toUpperCase() + 
-            character.attribute.name.slice(1).toLowerCase() + '.png' + ')' }"></div>
-          <img class="card-img" id="{{i}}" width="100%" src="{{ filteredCard.url + 'persona' + 
-            character.attribute.name[0].toUpperCase() + character.attribute.name.slice(1).toLowerCase() 
-            + '.png' }}" [ngStyle]="{ 'background-image': 'url(' + filteredCard.url + filteredCard.cardName.toLowerCase()
-            + '.png' + ')' }">
-          <button class="btn-floating btn-large waves-effect waves-light deckButton"
-            [ngClass]="{'isInDeck': isInDeck}" (click)="addOrRemoveCard()"></button>
+<div *ngIf="characters" class="row">
+  <div class="col s12 m5">
+    <div class="style-custom" [ngClass]="{'help' : status}">
+      <app-slick (identifySlick)="classSlick($event)" [options]="slick" [arrows]="arrows" class="trapezio" matTooltip="Use as setas para escolher os personagens que melhor representam você" matTooltipDisabled="{{ !status }}" matTooltipPosition="below">
+        <div class="characters" *ngFor="let attribute of characters.attributes; index as i;">
+          <img class="card-star" src="{{ getStar(attribute) }}">
+          <img class="card-img" width="100%" src="{{ getCard(characters, i) }}">
+          <img class="logo" src="{{ getLogo(characters, i) }}">
+          <button class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="addOrRemoveCard(characters.knowledge.knowledgeId, characters.attributes[indexSlick].id)"> <i class="material-icons">add</i> </button>
         </div>
       </app-slick>
     </div>
   </div>
-
-  <div class="col s12 m6" id="attributes-div">
-    
-    <div class="col s6 card-col" #tp4="matTooltip" *ngIf="visibleCardUpdated"
-    matTooltip="Estes são os atributos da carta" matTooltipDisabled="{{ !status }}" matTooltipPosition="above">
-      <app-box-property type="topics" title="Descrição" topics="{{ cardDescription }}">
-      </app-box-property>
+  <div class="col s12 m7">
+    <div class="boxAttributes">
+      <app-box-property [ngClass]="{'help' : status}" [title]="'Descrição'"> {{ characters.cardDescription }} </app-box-property>
+      <app-box-property [ngClass]="{'help' : status}" [title]="'Conhecimento'"> {{ characters.attributes[indexSlick].attribute.classification.classificationDescription }} </app-box-property>
+      <app-box-property [ngClass]="{'help' : status}" title="{{ metricList.metric.metricType.metricType + 'PROJECT' | translate }}" *ngFor="let metricList of characters.attributes[indexSlick].attribute.metricList" number="{{ metricList.metric.value }}"> {{ metricList.metric.metricType.description }} </app-box-property>
     </div>
-
-    <div class="col s6 card-col">
-      <app-box-property type="topics" title="Conhecimento" topics="{{ cardKnowledge }}">
-      </app-box-property>
-    </div>
-
-    <div class="col s6 card-col" *ngFor="let metric of metricList">
-      <app-box-property type="numeric" title="{{ metric.title }}" number="{{ metric.value }}"
-        description="{{ metric.description }}">
-      </app-box-property>
-    </div>
-
   </div>
 </div>
-
 <app-loading [loader]="loaderDeck"></app-loading>
-
-<div *ngIf="playerDeck !loaderDeck" class="row deck" [ngClass]="{'help' : status}">
-  <div class="style-custom">
-    <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" 
-      matTooltip="Essas são as suas cartas" matTooltipDisabled="{{ !status }}" 
-      matTooltipPosition="above" [type]="refreshSlick">
-      <ng-container *ngFor="let card of playerDeck;">
-        <div *ngFor="let character of card.attributes;">
-          <img class="deck-img" width="100%" src="{{ card.url + 'persona' + 
-            character.attribute.name[0].toUpperCase() + character.attribute.name.slice(1).toLowerCase() 
-            + '.png' }}" [ngStyle]="{ 'background-image': 'url(' + card.url + card.cardName.toLowerCase()
-            + '.png' + ')' }">
-        </div>
-        </ng-container>
-    </app-slick>
-  </div>
+<div class="row deck" *ngIf="playerDeck">
+  <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" matTooltip="Essas são as suas cartas" matTooltipDisabled="{{ !status }}" matTooltipPosition="above" [type]="refreshSlick">
+      <div *ngFor="let card of playerDeck; index as i;" [ngClass]="{'help' : status}">
+        <img class="deck-img" width="100%" src="{{ getCardDeck(card) }}">
+      </div>
+  </app-slick>
 </div>

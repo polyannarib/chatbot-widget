@@ -22,7 +22,7 @@ export class ProjectsListComponent implements OnInit {
   loader: boolean = false;
   loaderDays: boolean = false;
   project: any;
-  numberOfDays: number = 8
+  numberOfDays: number = 8;
   startDate: any = new Date(Date.now());
   endDate: any = addDays(this.startDate, this.numberOfDays);
 
@@ -92,7 +92,8 @@ export class ProjectsListComponent implements OnInit {
       width: '90vw',
       data: dataSend
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(
+    (result) => {
       this.findProjects();
     });
   }

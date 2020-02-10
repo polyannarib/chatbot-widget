@@ -1,18 +1,106 @@
+.find {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.boxAttributes {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+.mat-form-field {
+    position: relative;
+    text-align: left;
+    padding: 15px;
+    width: 250px;
+}
 .style-custom {
-    width: 78%;
+    width: 50%;
     position: relative;
     margin: 0 auto;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
+}
+.deck {
+    width: 80%;
+    position: relative;
+    margin: 0 auto;
+}
+.slick-slide {
+    position: relative;
+}
+.deckButton {
+    position: absolute;
+    bottom: -20px;
+    margin: 0 auto;
+    left: calc(50% - 17px);
+    background: #650199;
+}
+.characters {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #ffffff69;
+    background-repeat: no-repeat;
+    border: solid 2px white;
+}
+.characters .card-star {
+    position: absolute;
+    width: 55px;
+    top: -30px;
+    left: calc(50% - 25px);
+}
+.characters .logo {
+    width: 40%;
+    position: absolute;
+    bottom: 0px;
+}
+.deck {
+    padding: 30px 0px;
+}
+.deck .slick-slide img {
+    background-color: #ffffff69;
+    border: solid 2px white;
+}
+.deck .slick-slide {
+    margin: 10px;
+}
+.deck .slick-slide.slick-center {
+    transform: scale(1.15);
+    opacity: 1;
+    transition: all ease 0.2s;
+}
+@media (max-width: 600px) {
+    .boxAttributes {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+    .style-custom {
+        width: 60%;
+    }
+}
+@media (max-width: 538px) {
+    .mat-form-field {
+        padding: 0px;
+    }
 }
 
-.col.card-col:nth-child(odd) {
-    float: left;
-}
 
-.col.card-col:nth-child(even) {
-    float: right;
+/* Codigo adicionado para fazer o botão e a funcionalidade de help */
+.tips #black-filter {
+    background-color: rgba(0, 0, 0, 0.72);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    transition: all ease 0.25s;
+    top: 0;
+    z-index: 1000;
 }
-
 #help{
     background: #8cd7da;
     font-size: 25px;
@@ -23,208 +111,17 @@
     margin-left: 15px;
     z-index: 1001;
 }
-
-.tips #black-filter {
-    background-color: rgba(0, 0, 0, 0.72);
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    transition: all ease 0.25s;
-    top: 0;
-    z-index: 1000;
+#help-div button {
+    position: absolute;
+    left: -7px;
+    top: -25px;
 }
-
-#help-div{
-    padding: 0;
-    margin: 0;
-}
-
 .mat-tooltip {
     border: 2px solid white;
     border-radius: 0;
     background: #67b3b6;
     z-index: 1002px;
 }
-
-.cdk-overlay-container{
-    z-index: 1002 !important;
-}
-
-.help .mat-form-field-infix{
-    background: #ffffffbd;
-    box-shadow: 0 0 0 6px #ffffffbd;
-}
-
-.help .mat-form-field, .help .style-custom{
-    z-index: 1001;
-}
-.help .card-col{
-    z-index: 1001;
-    position: relative;
-}
-
-.deck-img{
-    background-color: #ffffff5c;
-    border: 2px solid white;
-    border-top: 14px solid white;
-}
-
-.deck .slick-slide{
-    padding: 13px;
-    opacity: 0.8;
-    transition: all ease 0.2s;
-}
-
-.deck .slick-slide.slick-center{
-    transform: scale(1.15);
-    opacity: 1;
-    transition: all ease 0.2s;
-}
-
-
-@media only screen and (max-width: 1068px) and (min-width: 915px){
-    .card.numeric .card-content span:nth-child(2){
-        width: calc(61% - 8px);
-    }
-}
-
-@media only screen and (max-width: 915px){
-    .card.numeric .card-content span:nth-child(2){
-        width: 100%;
-        text-align: center;
-    }
-
-    .card.numeric .card-content span:nth-child(1){
-        margin-left: calc(50% - 27px);
-        margin-bottom: 4px;
-    }
-}
-
-.characters .slick-slide{
-    position: relative;
-    margin-top: 2%;
-    padding: 4px;
-}
-
-.slick-slide img{
-    background-color: #ffffff69;
-    background-repeat: no-repeat;
-    background-position-y: 96%;
-    background-position-x: 208%;
-    background-size: 80%;
-    border: solid 2px white;
-    min-width: 50px;
-    min-height: 50px;
-}
-
-.characters .slick-slide img{
-    background-color: #ffffff69;
-    background-repeat: no-repeat;
-    background-position-y: 91%;
-    background-position-x: 52%;
-    background-size: 64%;
-    border: solid 2px white;
-    min-width: 50px;
-    min-height: 50px;
-    padding-bottom: 50px;
-    padding-top: 7px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.deck .slick-slide img{
-    background-color: #ffffff69;
-    background-repeat: no-repeat;
-    background-position-y: 96%;
-    background-position-x: 208%;
-    background-size: 80%;
-    border: solid 2px white;
-    min-width: 50px;
-    min-height: 50px;
-    padding-bottom: 15px;
-}
-
-.deck .slick-slide img{
-    background-color: #ffffff69;
-    background-repeat: no-repeat;
-    background-position-y: 100%;
-    background-position-x: 57%;
-    background-size: 80%;
-    border: solid 2px white;
-}
-
-#attributes-div{
-    margin-top: 4%;
-}
-
-.card-star{
-    background-repeat: no-repeat;
-    position: absolute;
-    width: 100%;
-    height: 28%;
-    background-size: 28%;
-    top: -8%;
-    z-index: 20;
-    display: inline-block;
-    background-position-x: center;
-}
-
-.deckButton {
-    left: calc(50% - 29px);
-    bottom: 29px;
-    font-size: 43px;
-    padding-bottom: 13px !important;
-    line-height: 1;
-    border: white 3px solid !important;
-    background: #65019999;
-    color: #ffffff;
-    z-index: 22;
-}
-
-.deckButton:hover {
-    background-color: #b21dff99;
-    transition: all ease 0.3s;
-}
-
-.deckButton:focus {
-    background-color: #a800ff99;
-    transition: all ease 0.3s;
-}
-
-.deckButton.isInDeck:hover{
-    background-color: #84848499;
-    transition: all ease 0.3s;
-}
-
-.deckButton.isInDeck:focus{
-    background-color: #5e5e5e99;
-    transition: all ease 0.3s;
-}
-
-.deckButton:before{
-    content: '+'
-}
-
-.deckButton.isInDeck {
-    background: #2c2c2c99;
-}
-
-.deckButton.isInDeck:before{
-    content: '-'
-}
-
-#input-row, #characters-row{
-    margin-bottom: 0;
-}
-
-.display-hide {
-    display: none;
-}
-
-.display-show {
-    display: block;
-}
-
-.mt-15 {
-    margin-top: 15px;
+.help {
+    z-index: 1500;
 }
