@@ -1,0 +1,16 @@
+section {
+    padding: 15px;
+}
+section table tr td {
+    padding: 3px 0px 3px 10px;
+    margin: 0px;
+}
+section table .numberProject {
+    font-family: 'BloggerBold'
+}
+section table .badge {
+    /* background-color: #808080; */
+    border-radius: 4px;
+    color: #fff;
+    /* padding: 3px 3px 3px 3px; */
+}

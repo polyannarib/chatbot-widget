@@ -11,23 +11,26 @@
             <p>Recursos</p>
         </a>
     </li>
-
     <li routerLinkActive="active">
         <a [routerLink]="['/player/bind/cards']">
             <span><i class="material-icons-outlined">build</i></span>
             <p>Competências</p>
         </a>
     </li>
+    <li routerLinkActive="active">
+        <a [routerLink]="['/management/import/project']">
+            <span><i class="material-icons-outlined">assignment_returned</i></span>
+            <p>Importar projeto</p>
+        </a>
+    </li>
 
-    
-
+    <!-- Logout -->
     <li routerLinkActive="active" id="logout">
         <a [routerLink]="['/login/auth']" (click)="logout()">
             <span><i class="material-icons-outlined">exit_to_app</i></span>
             <p>Sair</p>
         </a>
     </li>
-
     <!-- <li routerLinkActive="active">
         <a [routerLink]="['/bind/cards']">
             <span><i class="material-icons-outlined">insert_chart</i></span>
@@ -68,6 +71,5 @@
                 </li>
             </ul>
         </div> -->
-
     <!-- </li> -->
 </ul>

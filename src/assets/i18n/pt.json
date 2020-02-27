@@ -85,5 +85,9 @@
     "EDITPROJECT": "Editar projeto",
     "MONTHSPROJECT": "Meses de projeto",
     "HOURSPROJECT": "Horas de projeto",
-    "GENERATEREPORT": "Gerar relatório"
+    "GENERATEREPORT": "Gerar relatório",
+    "TITLEMESSAGECONFIRM": "Confirmação",
+    "MESSAGECONFIRM": "Você deseja realmente fazer essa ação?",
+    "INVALID_PROJECT": "Projeto inválido",
+    "PROJECT_IN_WORKPLAYER": "Projeto já existente"
 }
