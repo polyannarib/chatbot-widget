@@ -69,6 +69,8 @@ import { MatNativeDateModule } from '@angular/material';
 
 //Serviços
 import { MenuItems } from './components/menu/menu.json';
+import { ConfirmComponent } from './components/modal/confirm/confirm.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   imports: [
@@ -128,7 +130,9 @@ import { MenuItems } from './components/menu/menu.json';
     FocusableDirective,
     SlickComponent,
     RectangleDirective,
-    ProgressComponent
+    ProgressComponent,
+    ConfirmComponent,
+    PaginatorComponent
   ],
   exports: [
     MenuComponent,
@@ -184,7 +188,8 @@ import { MenuItems } from './components/menu/menu.json';
     SuspendComponent,
     NotifyComponent,
     SucessComponent,
-    ErrorComponent
+    ErrorComponent,
+    ConfirmComponent
   ],
   providers: [
     {

@@ -7,6 +7,14 @@
   <div class="modal-body">
 
     <mat-form-field class="example-full-width">
+      <input matInput placeholder="{{ 'PROJECTNAME' | translate }}" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="{{ 'PROJECTCODE' | translate }}" formControlName="code">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
       <input matInput placeholder="{{ 'PROJECTMANAGER' | translate }}" formControlName="projectManager">
       <!-- <textarea matInput placeholder="{{ 'PROJECTMANAGER' | translate }}" type="text" formControlName="projectManager"></textarea> -->
     </mat-form-field>
