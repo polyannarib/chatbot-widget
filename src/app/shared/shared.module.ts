@@ -180,7 +180,8 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     EditModeDirective,
     ViewModeDirective,
     EditableOnEnterDirective,
-    FocusableDirective
+    FocusableDirective,
+    PaginatorComponent
   ],
   entryComponents: [
     FinalizeComponent,

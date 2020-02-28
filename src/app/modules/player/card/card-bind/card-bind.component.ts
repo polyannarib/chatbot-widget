@@ -160,10 +160,6 @@ export class CardBindComponent implements OnInit {
     })
   }
 
-  // resultInformation(value) {
-  //   this.searchCards(value)
-  // }
-
   onShowTips() {
     this.status = !this.status;
     if (this.status == true) {
@@ -283,93 +279,5 @@ export class CardBindComponent implements OnInit {
       }
     )
   }
-
-  // updatePlayerDeck() {
-  //   delete this.playerDeck;
-  //   this.loaderDeck = true;
-  //   this.service.listCardsByUser().subscribe(
-  //     (response) => {
-  //       if (response.status == 0) {
-  //         this.playerDeck = response.object;
-  //         var that = this;
-  //         this.playerDeck.forEach(function (object) {
-  //           if (object.cardName.indexOf("#") != -1) {
-  //             object.cardName = object.cardName.replace("#", "sharp");
-  //           }
-  //           object.cardName.replace(' ', '');
-  //         })
-  //         this.deckIdList = [];
-  //         this.playerDeck.forEach(function (card, index) {
-  //           if (card.attributes.length == 0) {
-  //             that.playerDeck.splice(index, 1);
-  //           }
-  //           card.attributes.forEach(function (character) {
-  //             that.deckIdList.push('' + card.cardId + character.id);
-  //           });
-  //         });
-  //         this.loaderDeck = false;
-  //       }
-  //     }, (err) => {
-  //       console.log(err);
-  //       this.loaderDeck = false;
-  //     }
-  //   )
-  // }
-
-
-  // updateVisibleCard() {
-  //   this.visibleCardUpdated = false;
-  //   var that = this;
-  //   setTimeout(function() {
-  //     if(that.characters && document.querySelector('.slick-current img')){
-  //       var visibleCard = that.characters[document.querySelector('.slick-current img').id];
-  //       var knowledge = visibleCard.attribute.classification.classificationDescription.split('.');
-  //       var knowledgeTopics = [];
-  //       knowledgeTopics.push(visibleCard.attribute.name[0].toUpperCase() + visibleCard.attribute.name.slice(1).toLowerCase());
-  //       knowledge.forEach(function(object){
-  //         if(object != ''){
-  //           knowledgeTopics.push(object);
-  //         }
-  //       });
-  //       var topics = knowledgeTopics;
-  //       that.cardKnowledge = {topics};
-  //       that.cardKnowledge = JSON.stringify(that.cardKnowledge);
-  //       var description = that.filteredCard.cardDescription.split('.');
-  //       var descriptionTopics = [];
-  //       description.forEach(function(object){
-  //         if(object != ''){
-  //           descriptionTopics.push(object);
-  //         }
-  //       });
-  //       topics = descriptionTopics;
-  //       that.cardDescription = {topics};
-  //       that.cardDescription = JSON.stringify(that.cardDescription);
-  //       that.metricList = [];
-  //       visibleCard.attribute.metricList.forEach(function(object){
-  //         var metric = {};
-  //         /* metric['title'] = object.metric.metricType.description; */
-  //         metric['value'] = object.metric.value;
-  //         var metricType;
-  //         if(object.metric.metricType.description == 'Meses de experiência na área'){
-  //           metric['title'] = 'Experiência';
-  //         }
-  //         else if(object.metric.metricType.description == 'Horas de projeto'){
-  //           metric['title'] = 'Tempo de Projeto';
-  //         }
-  //         if(object.metric.metricType.metricType == 'MONTHS'){
-  //           metricType = 'meses';
-  //         }
-  //         else if(object.metric.metricType.metricType == 'HOURS'){
-  //           metricType = 'horas';
-  //         }
-  //         metric['description'] = "Maior que " + metric['value'] + " " + metricType;
-  //         that.metricList.push(metric);
-  //       });
-  //       if(that.deckIdList != undefined)
-  //         that.isInDeck = that.deckIdList.includes(''+that.filteredCard.cardId+visibleCard.id); 
-  //       that.visibleCardUpdated = true;
-  //     }
-  //   }, 500);
-  // }
 
 }
