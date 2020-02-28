@@ -82,4 +82,11 @@ export class CardService {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn?knowledgeParentIds=${data}`);
   }
 
+  searchWorkgroup(id?: number): Observable<any> {
+    if(!id || id == undefined) {
+      return this.http.get(`${environment.back_end_url}/${this.prefixService}/workgroup`);
+    }
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/workgroup?workgroupParentIds=${id}`);
+  }
+
 }

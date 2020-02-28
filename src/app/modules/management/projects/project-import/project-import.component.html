@@ -1,6 +1,6 @@
 <app-loading [loader]="loader"></app-loading>
 <section>
-    <table *ngIf="projectsList" class="responsive-table">
+    <table *ngIf="projects" class="responsive-table">
         <thead>
             <tr>
                 <th>N°</th>
@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let project of projectsList">
+            <tr *ngFor="let project of projects">
                 <td class="numberProject">{{ project.identify }}</td>
                 <td>{{ project.name }}</td>
                 <td><span class="badge" [ngStyle]="{'background-color': getColor(project)}">{{ statusProjectText | translate }}</span></td>
@@ -20,14 +20,10 @@
             </tr>
         </tbody>
     </table>
-  <!-- <div *ngIf="projectsList">
-      <mat-paginator 
-          [length]="projectsList.totalFound"
-          [pageIndex]="projectsList.page"
-          [pageSize]="pageSize"
-          [pageSizeOptions]="[10, 25, 50, 100]"
-          (page)="getPaginatorData($event)">
-      </mat-paginator>    
-  </div> -->
+    <!-- <app-paginator 
+        [page]="page"
+        [pageSize]="pageSize"
+        [totalFound]="totalFound">
+    </app-paginator> -->
 </section>
     

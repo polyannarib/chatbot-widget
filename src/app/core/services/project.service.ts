@@ -25,7 +25,7 @@ export class ProjectService {
   }
 
   getAllProjectsKyrograma(): Observable<any> {
-    return this.http.get(`${environment.back_end_url}/externalProject`);
+      return this.http.get(`${environment.back_end_url}/externalProject`);
   }
 
   importProjectWorkplayer(data): Observable<any> {

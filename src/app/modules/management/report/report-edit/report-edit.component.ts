@@ -116,7 +116,7 @@ export class ReportEditComponent implements OnInit {
       typeId: this.formFind.value.typeId
     }
     const dialogRef = this.dialog.open(ReportEditNoteComponent, {
-      width: '40vw',
+      width: '600px',
       data: dataSend
     });
     dialogRef.afterClosed().subscribe(result => {

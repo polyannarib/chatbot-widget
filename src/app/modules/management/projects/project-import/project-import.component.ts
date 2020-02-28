@@ -11,11 +11,14 @@ import { ProjectEditComponent } from '../project-edit/project-edit.component';
 })
 export class ProjectImportComponent implements OnInit {
 
-  projectsList: any;
+  projects: any;
   loader: boolean = false;
   projectDetails: any;
-  pageSize: number = 10;
   statusProjectText: String;
+  
+  pageSize: number = 10;
+  page: number;
+  totalFound: number;
 
   constructor(
     private projectService: ProjectService,
@@ -31,7 +34,13 @@ export class ProjectImportComponent implements OnInit {
     this.projectService.getAllProjectsKyrograma().subscribe(
       (response) => {
         if(response.totalFound > 0) {
-          this.projectsList = response.list;
+          this.projects = response.list;
+
+          // Dados de retorno da paginação
+          this.pageSize = response.pageSize;
+          this.page = response.page;
+          this.totalFound = response.totalFound;
+
           this.loader = false;
           return;
         }

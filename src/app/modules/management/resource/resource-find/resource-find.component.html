@@ -1,110 +1,6 @@
 
 <div class="container-fluid">
   <div class="row">
-
-    <!-- <mat-form-field>
-      <mat-label>Tipo de Competência</mat-label>
-      <mat-select (selectionChange)="FindParente($event)" [(ngModel)]="level1" multiple>
-        <mat-option value="1">Competências Técnicas</mat-option>
-        <mat-option value="2">Competências de Negócio</mat-option>
-        <mat-option value="3">Competências Comportamentais</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Categoria</mat-label>
-      <mat-select [disabled]="!level1" (selectionChange)="FindParente($event)" [(ngModel)]="level2" multiple>
-        <mat-option value="4">Tecnologia</mat-option>
-        <mat-option value="5">Metodologia</mat-option>
-        <mat-option value="144">Materiais</mat-option>
-        <mat-option value="16">Negocio Algar</mat-option>
-        <mat-option value="16">Negocio Vivo</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Clã</mat-label>
-      <mat-select [disabled]="!level2" (selectionChange)="FindParente($event)" [(ngModel)]="level3" multiple>
-        <mat-option value="6">Java</mat-option>
-        <mat-option value="7">.NET</mat-option>
-        <mat-option value="10">Mobile</mat-option>
-        <mat-option value="11">B.I</mat-option>
-        <mat-option value="12">Front</mat-option>
-        <mat-option value="13">C/C++</mat-option>
-        <mat-option value="14">Sustentacao</mat-option>
-        <mat-option value="17">Coringa</mat-option>
-        <mat-option value="19">Inteligencia Artificial</mat-option>
-        <mat-option value="20">Design/Front</mat-option>
-        <mat-option value="21">Banco de Dados</mat-option>
-        <mat-option value="145">Espaço</mat-option>
-        <mat-option value="148">Equipamento</mat-option>
-        <mat-option value="0">Algar</mat-option>
-        <mat-option value="0">Vivo</mat-option>
-      </mat-select>
-    </mat-form-field>
-  
-    <mat-form-field>
-      <mat-label>Competência</mat-label>
-      <mat-select [disabled]="!level3" (selectionChange)="FindParente($event)" [(ngModel)]="level4" multiple>
-        <mat-option value="58">Oracle</mat-option>
-        <mat-option value="59">Design Thinking</mat-option>
-        <mat-option value="60">Prototipacao</mat-option>
-        <mat-option value="61">Layotizacao</mat-option>
-        <mat-option value="62">JAVASCRIPT</mat-option>
-        <mat-option value="63">ANGULAR JS </mat-option>
-        <mat-option value="64">JQUERY</mat-option>
-        <mat-option value="65">BOOTSTRAP</mat-option>
-        <mat-option value="66">HTML</mat-option>
-        <mat-option value="67">CSS</mat-option>
-        <mat-option value="68">Web Application</mat-option>
-        <mat-option value="185">Teste Automatizado</mat-option>
-        <mat-option value="187">SCRUM</mat-option>
-        <mat-option value="69">UX</mat-option>
-        <mat-option value="70">UI</mat-option>
-        <mat-option value="71">PHP</mat-option>
-        <mat-option value="72">ANDROID</mat-option>
-        <mat-option value="73">IONIC</mat-option>
-        <mat-option value="74">PYTHON</mat-option>
-        <mat-option value="75">Delphi</mat-option>
-        <mat-option value="76">Shell Script</mat-option>
-        <mat-option value="77">Unix/Linux</mat-option>
-        <mat-option value="78">SOA</mat-option>
-        <mat-option value="79">C</mat-option>
-        <mat-option value="80">Spring boot</mat-option>
-        <mat-option value="23">C#</mat-option>
-        <mat-option value="24">F#</mat-option>
-        <mat-option value="25">J#</mat-option>
-        <mat-option value="26">C++</mat-option>
-        <mat-option value="192">Kenan</mat-option>
-        <mat-option value="193">Atlys</mat-option>
-        <mat-option value="194">VivoNext</mat-option>
-        <mat-option value="195">Organização</mat-option>
-        <mat-option value="196">Cooperação</mat-option>
-        <mat-option value="189">Algar CRM</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Departamento</mat-label>
-      <mat-select [disabled]="!level4" (selectionChange)="findWorkgroup($event)" [(ngModel)]="workgroup1" multiple>
-        <mat-option value="3">PROJETOS</mat-option>
-        <mat-option value="5">SERVICOS GERAIS</mat-option>
-        <mat-option value="6">ADMINISTRATIVO</mat-option>
-        <mat-option value="7">COMERCIAL</mat-option>
-        <mat-option value="8">CONFERENCIA</mat-option>
-        <mat-option value="9">SUSTENTACAO</mat-option>
-        <mat-option value="10">MARKETING</mat-option>
-        <mat-option value="11">FINANCEIRO</mat-option>
-        <mat-option value="12">RECEPCAO</mat-option>
-        <mat-option value="13">QA</mat-option>
-        <mat-option value="17">RH</mat-option>
-        <mat-option value="22">ENGENHARIA</mat-option>
-        <mat-option value="23">CONSULTORIA</mat-option>
-        <mat-option value="26">Suporte</mat-option>
-        <mat-option value="27">Produtos</mat-option>
-      </mat-select>
-    </mat-form-field> -->
-
     <div class="find">
       <mat-form-field *ngFor="let levelElement of filterListKnowledge; let i= index">
         <mat-label>{{ levelElement.knowledgeList[0].type.name }}</mat-label>
@@ -112,52 +8,29 @@
           <mat-option *ngFor="let knowledge of levelElement.knowledgeList" [value]="knowledge.knowledgeId">{{ knowledge.name }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <app-loading [loader]="loaderFind"></app-loading>
       <button (click)="findPerson()" [disabled]="disabled" *ngIf="!loaderFind" matTooltip="Procurar" mat-mini-fab color="warn"><i class="material-icons">search</i></button>
     </div>
-
-    <!-- <div *ngFor="let result of resultLevel">
-      <div class="card">
-        <pre>{{ result | json }}</pre>
-      </div>
-      <div *ngFor="let result of results">
-        <div class="card">
-          <pre>{{ result | json }}</pre>
-        </div>
-      </div>
-    </div> -->
-
-    <!-- <div *ngIf="results">
-      <mat-form-field *ngFor="let levelElement of levelList; let i= index">
-        <mat-label>{{ results[levelElement.level].knowledgeList[0].name }}</mat-label>
-        <mat-select (ngModelChange)="FindParente($event, levelElement.level)" [(ngModel)]="form[levelElement.level]" multiple>
-          <mat-option *ngFor="let knowledge of getResults[levelElement.level].knowledgeList" [value]="knowledge.knowledgeId">{{ knowledge.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div> -->
-
-    <!-- <div class="card">
-      <pre>{{ levelList | json }}</pre>
-    </div> -->
-    <!-- <div *ngFor="let result of results">
-      <div class="card">
-        <pre>{{ results | json }}</pre>
-      </div>
-      <div *ngFor="let result of results">
-        <div class="card">
-          <pre>{{ result | json }}</pre>
-        </div>
-      </div>
-    </div> -->
-
   </div>
+  <!-- <div class="row" *ngIf="!disabled">
+    <div class="find">
+      <div *ngFor="let workGroup of workGroupFilter; let i= index" [ngClass]="{'help' : status}">
+        <mat-form-field>
+          <mat-label>{{ workGroup.knowledgeList[0].type.name }}</mat-label>
+          <mat-select (selectionChange)="FindParenteWorkgroup($event.value, workGroup)">
+            <mat-option *ngFor="let workGroupItem of workGroup.workgroupList; let i= index" [value]="workGroupItem">{{ workGroupItem.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div> -->
 
   <div class="row">
     
     <app-loading [loader]="loader"></app-loading>
-    <!-- <app-count>Nenhum recurso foi encontrado!</app-count> -->
+    <app-count>Nenhum recurso foi encontrado!</app-count>
 
     <div class="col s12" id="tabela-col" *ngIf="personList?.length > 0">
+      
       <table id="tabela">
         <thead>
           <tr>
@@ -182,23 +55,6 @@
           </tr>
         </tbody>
       </table>
-
-      <!-- <mat-paginator 
-        [length]="size"
-        [pageSize]="10"
-        [pageSizeOptions]="[10, 25, 50, 100]"
-        (page)="onPaginateChange($event)">
-      </mat-paginator> -->
-
-      <!-- <table mat-table [dataSource]="data" class="mat-elevation-z8">
-        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
-          <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-          <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-        </ng-container>
-        
-        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-      </table> -->
 
     </div>
   </div>
