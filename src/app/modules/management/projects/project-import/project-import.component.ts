@@ -87,7 +87,7 @@ export class ProjectImportComponent implements OnInit {
       project: project
     }
     const dialogRef = this.dialog.open(ProjectEditComponent, {
-      width: '50vw',
+      width: '600px',
       data: dataSend
     });
     dialogRef.afterClosed().subscribe(
