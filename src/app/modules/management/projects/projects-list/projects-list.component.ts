@@ -6,6 +6,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { ProjectDetailsComponent } from '../project-details/project-details.component';
 import { ReportEditComponent } from '../../report/report-edit/report-edit.component';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
+import { ProjectDetailsTaskComponent } from '../project-details-task/project-details-task.component';
 
 @Component({
   selector: 'app-projects-list',
@@ -88,7 +89,7 @@ export class ProjectsListComponent implements OnInit {
     const dataSend = {
       project: project
     }
-    const dialogRef = this.dialog.open(ReportEditComponent, {
+    const dialogRef = this.dialog.open(ProjectDetailsTaskComponent, {
       width: '90vw',
       data: dataSend
     });

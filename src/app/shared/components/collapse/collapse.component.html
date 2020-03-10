@@ -1,0 +1,9 @@
+<ng-content class="title" select="[header]"></ng-content>
+<div class="collapse">
+    <div class="header" (click)="clickEvent($event)">
+        <ng-content select="[body]"></ng-content>
+    </div>
+    <div class="body" [ngStyle]="{ 'display': toggle }">
+        <ng-content select="[collapsible]"></ng-content>
+    </div>
+</div>

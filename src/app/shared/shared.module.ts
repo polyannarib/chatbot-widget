@@ -34,6 +34,9 @@ import { MenuComponent } from './components/menu/menu.component';
 import { SlickComponent } from './components/slick/slick.component';
 import { ProgressComponent } from './components/progress/progress.component';
 import { BoxPropertyComponent } from './components/box-property/box-property.component';
+import { ConfirmComponent } from './components/modal/confirm/confirm.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { CollapseComponent } from './components/collapse/collapse.component';
 
 
 // Diretivas
@@ -69,8 +72,6 @@ import { MatNativeDateModule } from '@angular/material';
 
 //Serviços
 import { MenuItems } from './components/menu/menu.json';
-import { ConfirmComponent } from './components/modal/confirm/confirm.component';
-import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   imports: [
@@ -132,7 +133,8 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     RectangleDirective,
     ProgressComponent,
     ConfirmComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    CollapseComponent
   ],
   exports: [
     MenuComponent,
@@ -181,7 +183,8 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     ViewModeDirective,
     EditableOnEnterDirective,
     FocusableDirective,
-    PaginatorComponent
+    PaginatorComponent,
+    CollapseComponent
   ],
   entryComponents: [
     FinalizeComponent,
