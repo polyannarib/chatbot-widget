@@ -15,11 +15,11 @@
         <li><a (click)="changeDays('next')" class="button button-primary button-floating"><i class="material-icons">chevron_right</i></a></li>
       </ul>
     </div>
-    <div class="col m3 s12">
+    <!-- <div class="col m3 s12">
       <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'ADDPROJECT' | translate }}">
         <i (click)="finalize()" class="material-icons">add</i>
       </button>
-    </div>
+    </div> -->
   </div>
 
   <app-loading [loader]="loaderDays && !daysOfWeek10"></app-loading>
@@ -33,9 +33,12 @@
           <th *ngFor="let day of daysOfWeek10">{{ day | date:'E' }}</th>
           <th class="hour">{{ 'HOURS' | translate }}</th>
           <th>{{ 'DATE' | translate }}</th>
+          <th>{{ 'RSC' | translate }}</th>
           <th>{{ 'EXP' | translate }}</th>
           <th>{{ 'EFF' | translate }}</th>
-          <th>{{ 'EDIT' | translate }}</th>
+          <th><!-- {{ 'EDIT' | translate }} --></th>
+          <th><!-- {{ 'STATUSREPORT' | translate }} --></th>
+          <th><!-- {{ 'GENERATEREPORT' | translate }} --></th>
         </tr>
       </thead>
       <tbody>
@@ -54,10 +57,19 @@
               <i class="material-icons" [ngStyle]="{ 'color': project.expectedStyle }">fiber_manual_record</i>
             </td>
             <td>
+              <i class="material-icons" [ngStyle]="{ 'color': project.expectedStyle }">fiber_manual_record</i>
+            </td>
+            <td>
               <i class="material-icons" [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i>
             </td>
             <td>
-              <button mat-icon-button (click)="openReport(project)"><i class="material-icons">more_vert</i></button>
+              <button matTooltip="{{ 'EDIT' | translate }}" mat-icon-button (click)="openProjectEdit(project)"><i class="material-icons">more_vert</i></button>
+            </td>
+            <td>
+              <button matTooltip="{{ 'STATUSREPORT' | translate }}" mat-icon-button (click)="openReport(project)"><i class="material-icons">report</i></button>
+            </td>
+            <td>
+              <button matTooltip="{{ 'GENERATEREPORT' | translate }}" mat-icon-button (click)="generateReport(project)"><i class="material-icons">send</i></button>
             </td>
           </tr>
           <!-- <tr>

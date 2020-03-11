@@ -4,7 +4,7 @@
       <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
     </div>
     <div class="modal-body">
-      <p *ngIf="statusErr === 0 || !statusErr">{{ 'MESSAGECONFIRM' | translate }}</p>
+      <p>{{ 'MESSAGECONFIRM' | translate }}</p>
     </div>
     <div class="modal-footer">
       <button class="button button-primary right" (click)="confirm()">{{ 'CONFIRM' | translate }}</button>
