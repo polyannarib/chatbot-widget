@@ -9,6 +9,9 @@ import { NotifyComponent } from 'src/app/shared/components/notify/notify.compone
 <<<<<<< HEAD
 =======
 import { ProjectDetailsTaskComponent } from '../project-details-task/project-details-task.component';
+<<<<<<< HEAD
+>>>>>>> parent of 66c420f... subindo atualizações
+=======
 >>>>>>> parent of 66c420f... subindo atualizações
 
 @Component({
