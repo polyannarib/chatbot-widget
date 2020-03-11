@@ -51,25 +51,6 @@ mat-dialog-content .activityDay {
 /* mz-collapsible-item-header {
     width: 100%;
 }
-mz-collapsible-item-header .collapsible-header {
-    display: -webkit-box;
-    display: flex;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    line-height: 1.5;
-    padding: 0 !important;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-}
-mz-collapsible-item-header .collapsible-header {
-    display: block;
-    cursor: pointer;
-    min-height: 3rem;
-    line-height: 3rem;
-    padding: 0 !important;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-}
 mat-dialog-content section .text-header span {
     font-size: 15px;
     font-weight: bold;
