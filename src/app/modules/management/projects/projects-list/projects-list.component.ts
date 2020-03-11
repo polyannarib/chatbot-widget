@@ -6,6 +6,10 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { ProjectDetailsComponent } from '../project-details/project-details.component';
 import { ReportEditComponent } from '../../report/report-edit/report-edit.component';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
+<<<<<<< HEAD
+=======
+import { ProjectDetailsTaskComponent } from '../project-details-task/project-details-task.component';
+>>>>>>> parent of 66c420f... subindo atualizações
 
 @Component({
   selector: 'app-projects-list',
