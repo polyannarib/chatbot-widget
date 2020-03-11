@@ -70,9 +70,9 @@
       </table>
     </div>
   </div>
-  <div class="modal-footer">
-    <button (click)="modalEditProject()" class="button button-primary">{{ 'EDITPROJECT' | translate }}</button>
-    <button *ngIf="formFind.valid" (click)="modalCreateNotesReport()" class="button button-primary right">{{ 'ADDNOTES' | translate }}</button>
-    <button (click)="generateReport()" target="_blank" class="button button-primary right">{{ 'GENERATEREPORT' | translate }}</button>
+  <div class="modal-footer" *ngIf="formFind.valid">
+    <!-- <button (click)="modalEditProject()" class="button button-primary">{{ 'EDITPROJECT' | translate }}</button> -->
+    <button (click)="modalCreateNotesReport()" class="button button-primary right">{{ 'ADDNOTES' | translate }}</button>
+    <!-- <button (click)="generateReport()" target="_blank" class="button button-primary right">{{ 'GENERATEREPORT' | translate }}</button> -->
   </div>
 </div>
