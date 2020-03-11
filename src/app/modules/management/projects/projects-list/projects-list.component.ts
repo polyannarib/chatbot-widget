@@ -7,6 +7,7 @@ import { ProjectDetailsComponent } from '../project-details/project-details.comp
 import { ReportEditComponent } from '../../report/report-edit/report-edit.component';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 import { ProjectDetailsTaskComponent } from '../project-details-task/project-details-task.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-projects-list',
@@ -85,7 +86,7 @@ export class ProjectsListComponent implements OnInit {
     });
   }
 
-  openReport(project) {
+  openProjectEdit(project) {
     const dataSend = {
       project: project
     }
@@ -97,6 +98,24 @@ export class ProjectsListComponent implements OnInit {
     (result) => {
       this.findProjects();
     });
+  }
+
+  openReport(project) {
+    const dataSend = {
+      project: project
+    }
+    const dialogRef = this.dialog.open(ReportEditComponent, {
+      width: '90vw',
+      data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(
+    (result) => {
+      this.findProjects();
+    });
+  }
+
+  generateReport(project) {
+    window.open( environment.URL_STATUS_REPORT + project.id, '_blank');
   }
 
   changeDays(date) {

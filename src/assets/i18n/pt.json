@@ -90,5 +90,6 @@
     "TITLEMESSAGECONFIRM": "Confirmação",
     "MESSAGECONFIRM": "Você deseja realmente fazer essa ação?",
     "INVALID_PROJECT": "Projeto inválido",
-    "PROJECT_IN_WORKPLAYER": "Projeto já existente"
+    "PROJECT_IN_WORKPLAYER": "Projeto já existente",
+    "RSC": "Rsc"
 }

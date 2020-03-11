@@ -10,6 +10,8 @@ import { ReportEditComponent } from '../../report/report-edit/report-edit.compon
 })
 export class ProjectDetailsTaskComponent implements OnInit {
 
+  projectTasks: any;
+
   constructor(
     public dialogRef: MatDialogRef<ProjectDetailsTaskComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
