@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.authService.login(this.form.value).subscribe(
         (response) => {
           if (response.status == 0) {
-            this.authService.setAppToken(response.object.token);
+            this.authService.setAppToken(response.object.appToken);
             this.authService.setSSOID(response.object.ssoId);
             window.location.href = AppConstants.URL_SSO + '/cookie' 
                   + '?SSOID=' + response.object.ssoId
