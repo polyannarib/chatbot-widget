@@ -1,0 +1,29 @@
+<app-loading [loader]="loader"></app-loading>
+<section>
+    <table *ngIf="projects">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Projeto</th>
+                <th>Status</th>
+                <th>Criação</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let project of projects">
+                <td class="numberProject">{{ project.identify }}</td>
+                <td>{{ project.name }}</td>
+                <td><span class="badge" [ngStyle]="{'background-color': getColor(project)}">{{ statusProjectText | translate }}</span></td>
+                <td>{{ project.createdBy }}</td>
+                <td><button [disabled]="project.valid != true || project.workplayerProjectId" (click)="openConfirm(project)" matTooltip="Importar projeto" mat-mini-fab color="warn"><i class="material-icons">assignment_returned</i></button></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- <app-paginator 
+        [page]="page"
+        [pageSize]="pageSize"
+        [totalFound]="totalFound">
+    </app-paginator> -->
+</section>
+    

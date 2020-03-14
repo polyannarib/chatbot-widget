@@ -5,6 +5,10 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { AppConstants } from '../../app.constants';
+
+export const SSOID_NAME: string = '_ssoId';
+export const COMPANY: string = "_company";
 
 @Injectable({
   providedIn: 'root'
@@ -22,14 +26,28 @@ export class AuthService {
     return this.http.post<any>(`${environment.back_end_url}/login`, data);
   }
   
-  logout(): void {
+  logout(): Observable<any> {
+    return this.http.get(AppConstants.URL_SSO_SERVICES + '/user/logout' );
+  }
+
+  removeToken() {
     localStorage.removeItem('acessToken');
   }
 
   getUser() {
+    var token;
     if(localStorage.getItem('acessToken') && this.isAuthenticated()) {
-      return this.jwtHelper.decodeToken(localStorage.getItem('acessToken'));
+      token = this.jwtHelper.decodeToken(localStorage.getItem('acessToken'))
+      return token.displayName;
     }
+  }
+
+  setTemporaryToken(token: string): void {
+    localStorage.setItem('tempToken', token);
+  }
+
+  setAppToken(token: string): void {
+    localStorage.setItem('acessToken', token);
   }
 
   setToken(token: string): void {
@@ -37,12 +55,43 @@ export class AuthService {
     this.router.navigate(['/management/dashboard']);
   }
 
+  getSSOID(): string {
+    return localStorage.getItem(SSOID_NAME);
+  }
+
+  setSSOID(ssoId: string) {
+    localStorage.setItem(SSOID_NAME, ssoId);
+  }
+
+  setCompany(company: string) {
+    localStorage.setItem(COMPANY, company);
+  }
+
+  getCompany(): any {
+    return localStorage.getItem(COMPANY);
+  }
+
+  temporaryToken(params: any) {
+    return this.http.post(AppConstants.URL_SSO_SERVICES + '/exposed/token/temporary', params );
+  }
+
+  findAppToken(systemCode: string, company: any): Observable<any> {
+    return this.http.get(AppConstants.URL_SSO_SERVICES + '/token/authorization/system/' + AppConstants.SYSTEM_NAME + '/company/' + company);
+  }
+
+  findWorkplayerToken(params: any) {
+    return this.http.post(AppConstants.URL_ROOT + '/login/info', params);
+  }
+
   isAuthenticated(): boolean {
-    if(!this.jwtHelper.isTokenExpired(localStorage.getItem('acessToken'))) {
-      return true;
-    } else {
-      return false;
+    if( localStorage.getItem('acessToken') != null || !localStorage.getItem('acessToken') ) {
+      if(!this.jwtHelper.isTokenExpired(localStorage.getItem('acessToken'))) {
+        return true;
+      } else {
+        return false;
+      }
     }
+    return false;
   }
 
 }

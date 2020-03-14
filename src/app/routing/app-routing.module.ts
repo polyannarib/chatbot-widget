@@ -4,11 +4,10 @@ import { AuthGuard } from '../core/guards/auth-guard';
 
 const APP_ROUTES: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
-  { path: 'auth', loadChildren: '../modules/auth/auth.module#AuthModule' },
+  { path: 'player', loadChildren: '../modules/player/player.module#PlayerModule', canActivate: [AuthGuard] },
   { path: 'management', loadChildren: '../modules/management/management.module#ManagementModule', canActivate: [AuthGuard] },
   { path: 'admin', loadChildren: '../modules/admin/admin.module#AdminModule', canActivate: [AuthGuard] },
-  // {path: 'home', loadChildren: '../modules/home/home.module#HomeModule' },
-  // {path: 'home', loadChildren: './home/home.module#HomeModule', canActivate: [AuthGuardService] },
+  { path: 'auth', loadChildren: '../modules/auth/auth.module#AuthModule' },
 ];
 
 @NgModule({

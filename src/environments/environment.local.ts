@@ -4,6 +4,12 @@
 
 export const environment = {
   back_end_url: 'http://192.168.1.235:8989/workplayer-portal/services',
+  URL_SSO: 'http://192.168.1.235/kyros-sso',
+  URL_SSO_SERVICES: 'http://192.168.1.229:8593/kyros-sso',
+  SYSTEM_NAME: 'WORKPLAYER',
+  WORKPLAYER_HOME: 'http://localhost:4200',
+  COMPANY: '1',
+  URL_STATUS_REPORT: 'http://192.168.0.216:8080/pentaho/api/repos/%3Ahome%3Aworkplayer%3AStatus_Report.prpt/viewer?userid=workplayer&password=admin123&id_project=',
   production: false
 };
 

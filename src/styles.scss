@@ -1,11 +1,74 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face { font-family: 'Blogger'; src: url('./assets/fonts/blogger-sans.ttf') } 
+@font-face { font-family: 'BloggerBold'; src: url("./assets/fonts/blogger-sans-bold.ttf") }
+@font-face { font-family: 'BloggerLight'; src: url("./assets/fonts/bloggersans-light.ttf") }
+@font-face { font-family: 'BloggerItalic'; src: url("./assets/fonts/blogger-sans-italic.ttf") }
+
 @import './theme.scss';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons++Icons+Sharp');
 
-
-body {
-    background-color: #EBEBEB;
+html {
+    font-family: 'Blogger' !important;
+    // line-height: 1.5;
+    // font-weight: normal;
+    // color: rgba(0,0,0,0.87);
 }
+* {
+    font-family: 'Blogger';
+}
+body {
+    font-family: 'Blogger' !important;
+    background-image: url('./assets/images/fundo.png');
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.button {
+    font-family: 'Blogger' !important;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: none;
+    padding: 10px 25px;
+    font-size: 1rem;
+    // line-height: 1.5;
+    border-radius: 3px;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.button:hover, .button:active, .button:focus {
+    opacity: 0.75;
+    color: #fff;
+}
+.button-primary {
+    background-color: #650199 !important;
+    color: #fff;
+}
+.button-danger {
+    background-color: #ff644a !important;
+    color: #fff;
+}
+.button-floating {
+    position: relative;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    line-height: 53px;
+    padding: 0;
+    border-radius: 50%;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
 
 /* Codigo de padronização dos botões de dias do Dashboard */
 .btnDayCalendar {
@@ -15,7 +78,7 @@ body {
     overflow: hidden;
     z-index: 1;
     width: 33px;
-    height: 33px;
+    height: 100%;
     line-height: 33px;
     padding: 0;
     border-radius: 0%;
@@ -28,21 +91,87 @@ body {
 }
 
 
+
+
+// CODIGO PARA ADICIONAR O TRAPEZIO NA LATERAL DA DIV
+.trapezio:after {
+    content: "";
+    /* box-shadow: inset -0.5px 0 0px 3px white; */
+    display: inline-block;
+    width: 15px;
+    height: 88px;
+    background: rgba(255,255,255,0.4);
+    transform: perspective(2px) rotateY(1deg);
+    position: absolute;
+    top: calc(50% - 45px);
+    right: -17px;
+    border-left: #650199 5px solid;
+    padding-left: 2px;
+    background-clip: content-box;
+    z-index: 15;
+  }
+  .trapezio:before {
+    content: "";
+    /* box-shadow: inset -0.5px 0 0px 3px white; */
+    display: inline-block;
+    width: 15px;
+    height: 88px;
+    background: rgba(255,255,255,0.4);
+    transform: perspective(2px) rotateY(-1deg);
+    position: absolute;
+    top: calc(50% - 45px);
+    left: -17px;
+    border-right: #660080 5px solid;
+    padding-right: 2px;
+    background-clip: content-box;
+    z-index: 15;
+}
+
+
+
 /* Codigos para padronizar o modal */
 #modal .modal-header {
     font-size: 1.64rem;
     text-align: center;
     padding-bottom: 10px;
+    border-bottom: 1px solid #ebebeb;
 }
 #modal .modal-body {
-    border-top: 1px solid #ebebeb;
-    border-bottom: 1px solid #ebebeb;
     padding: 15px 0px;
     max-height: 60vh;
     overflow-y: auto;
 }
 #modal .modal-footer {
+    border-top: 1px solid #ebebeb;
     padding-top: 20px;
+}
+#modal .close {
+    transition: all 0.05s ease;
+    background: #ff644a;
+    color: white;
+    box-shadow: none;
+    font-size: 31px;
+    border-radius: 100%;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    padding-bottom: 2px;
+    position: absolute;
+    right: -38px;
+    top: -38px;
+}
+#modal .close:hover {
+    transition: all 0.05s ease;
+    // transform: scale(1.1);
+    background: #ff4524;
+}
+#modal {
+    position: relative;
+}
+.mat-dialog-container {
+    overflow: visible !important;
+    border-top: #650199 3px solid;
+    border-radius: 3px !important;
 }
 
 
@@ -53,9 +182,6 @@ body {
     box-sizing: border-box;
     padding: 15px;
 }
-mz-collapsible-item-header {
-    width: 100%;
-}
 .collapsible-header {
     display: -webkit-box;
     display: flex;
@@ -65,6 +191,10 @@ mz-collapsible-item-header {
     padding: 10px 0px !important;
     background-color: #fff;
     border-bottom: 1px solid #ddd;
+}
+mz-collapsible-item-header {
+    width: 100%;
+    font-size: 14px;
 }
 mz-collapsible-item-body {
     padding: 10px;
@@ -109,14 +239,61 @@ mz-collapsible-item-body ul {
 .cdk-overlay-dark-backdrop {
     background: rgba(0,0,0,0.87);
 }
-// .modalBg {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     height: 100vh;
-//     width: 100vw;
-//     background-color: #0000001A;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-// }
+
+
+
+.ct-slick-prev,
+.ct-slick-next {
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    background-color: #fff;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: xx-large !important;
+    color: #650199 !important;
+    border-radius: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    opacity: 1;
+}
+.ct-slick-prev {
+    left: -25px;
+    z-index: 9;
+    padding: 0px;
+    opacity: 0.8;
+}
+.ct-slick-next {
+    right: -25px;
+    z-index: 9;
+    padding: 0px;
+    opacity: 0.8;
+}
+.ct-slick-prev::after {
+    border: 12px solid transparent;
+    border-right-color: #fff;
+    content: "";
+    left: -24px;
+    position: absolute;
+}
+.ct-slick-next:before {
+    border: 12px solid transparent;
+    border-left-color: #fff;
+    content: "";
+    right: -24px;
+    position: absolute;
+}
+.ct-slick-prev i {
+    position: relative;
+    left: -14px;
+    z-index: 5;
+}
+.ct-slick-next i {
+    position: relative;
+    right: -14px;
+    z-index: 5;
+}

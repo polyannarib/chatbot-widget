@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TaskService } from 'src/app/core/services/task.service';
 import { MatDialog } from '@angular/material';
 import { RemoveComponent } from '../../modal/remove/remove.component';
@@ -11,6 +11,7 @@ import { RemoveComponent } from '../../modal/remove/remove.component';
 export class ButtonRemoveComponent implements OnInit {
 
   @Input() activityId: number;
+  @Output() update: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private taskService: TaskService,
@@ -28,9 +29,10 @@ export class ButtonRemoveComponent implements OnInit {
       width: '500px',
       data: dataSend
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('result ------- remove component --------');
-      console.log(result);
+    dialogRef.afterClosed().subscribe((result) => {
+      this.update.emit(true);
+      // console.log('result ------- finalize component --------');
+      // console.log(result);
     });
   }
 

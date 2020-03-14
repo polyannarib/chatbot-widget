@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PlayerService } from 'src/app/core/services/player.service';
 import { format } from 'date-fns';
 import { TaskService } from 'src/app/core/services/task.service';
@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class PlayersFindComponent implements OnInit {
 
+  @Output() taskDesignatedSucess = new EventEmitter();
   @Input() taskId: number;
   @Input() dataInicial: any;
   @Input() dataFim: any;
@@ -43,7 +44,13 @@ export class PlayersFindComponent implements OnInit {
     this.playerService.findDesignatePlayers(taskId).subscribe(
       (response) => {
         this.playerRated = response.object.rated;
+        this.playerRatedFilter = this.playerRated;
+
         this.playerAvailable = response.object.available;
+        this.playerAvailableFilter = this.playerAvailable;
+
+        this.onSearchChange('');
+
         this.loader = false;
       }, (err) => {
         this.loader = false;
@@ -56,6 +63,7 @@ export class PlayersFindComponent implements OnInit {
     this.taskService.assignTask(this.taskId, this.playerSelect).subscribe(
       (response) => {
         if(response.status == 0) {
+          this.taskDesignatedSucess.emit(true);
           this._snackBar.openFromComponent(NotifyComponent, 
             { data: { type: 'success', message: 'Tarefa designada com sucesso!' }});
           this.loader = false;
@@ -73,16 +81,23 @@ export class PlayersFindComponent implements OnInit {
   }
 
   onSearchChange(searchValue: string): void {
-    this.playerRatedFilter = this.playerRated.filter(
-      (curr) => {
-        return curr.name.toUpperCase().includes(searchValue.toUpperCase());
-      }
-    )
-    this.playerAvailableFilter = this.playerAvailable.filter(
-      (curr) => {
-        return curr.name.toUpperCase().includes(searchValue.toUpperCase());
-      }
-    )
+    if(this.playerRated != null){
+      this.playerRatedFilter = this.playerRated.filter(
+        (curr) => {
+          return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+        }
+      )
+      this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
+    }
+    if(this.playerAvailable != null){
+      this.playerAvailableFilter = this.playerAvailable.filter(
+        (curr) => {
+          return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+        }
+      )
+      this.playerAvailableFilter.splice(5,this.playerAvailableFilter.length);
+    }
+
   }
 
 

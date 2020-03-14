@@ -1,0 +1,12 @@
+<div id="modal">
+    <div class="modal-header">
+      {{ 'TITLEMESSAGECONFIRM' | translate }}
+      <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+    </div>
+    <div class="modal-body">
+      <p>{{ 'MESSAGECONFIRM' | translate }}</p>
+    </div>
+    <div class="modal-footer">
+      <button class="button button-primary right" (click)="confirm()">{{ 'CONFIRM' | translate }}</button>
+    </div>
+</div>

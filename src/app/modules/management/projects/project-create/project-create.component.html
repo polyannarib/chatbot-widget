@@ -1,0 +1,40 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div id="modal" *ngIf="!loader">
+  <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+  <div class="modal-header"> {{ data.project.name }} </div>
+  <form [formGroup]="form" (ngSubmit)="editProject()">
+  <div class="modal-body">
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="{{ 'PROJECTNAME' | translate }}" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="{{ 'PROJECTCODE' | translate }}" formControlName="code">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="{{ 'PROJECTMANAGER' | translate }}" formControlName="projectManager">
+      <!-- <textarea matInput placeholder="{{ 'PROJECTMANAGER' | translate }}" type="text" formControlName="projectManager"></textarea> -->
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="{{ 'CUSTOMEROWNERPROJECT' | translate }}" formControlName="customerOwner">
+      <!-- <textarea matInput placeholder="{{ 'CUSTOMEROWNERPROJECT' | translate }}" type="text" formControlName="customerOwner"></textarea> -->
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <textarea matInput placeholder="{{ 'OBSERVATIONPROJECT' | translate }}" type="text" formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="{{ 'IDENTIFYPROJECT' | translate }}" formControlName="identify">
+    </mat-form-field>
+      
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="button button-primary right">{{ 'UPDATE' | translate }}</button>
+  </div>
+  </form>
+</div>

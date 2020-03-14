@@ -1,9 +1,8 @@
 <div id="modal">
-  <div class="modal-header">{{ 'SUCCESSTITLE' | translate }}</div>
+  <div class="modal-header">{{ 'SUCCESSTITLE' | translate }}
+    <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+  </div>
   <div class="modal-body">
     <p>{{ 'SUCCESSMESSAGE' | translate }}</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn waves-effect waves-light" [mat-dialog-close]="true">{{ 'CLOSE' | translate }}</button>
   </div>
 </div>

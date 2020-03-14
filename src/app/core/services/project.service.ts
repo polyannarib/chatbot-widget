@@ -17,7 +17,23 @@ export class ProjectService {
   }
 
   findAllocation(params): Observable<any> {
-    return this.http.get(this.url + '/project_allocation', {params: params} );
+    return this.http.get(this.url + '/project_allocation', {params: params});
+  }
+
+  getProject(params: any): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/project`, {params: params});
+  }
+
+  getAllProjectsKyrograma(): Observable<any> {
+      return this.http.get(`${environment.back_end_url}/externalProject`);
+  }
+
+  importProjectWorkplayer(data): Observable<any> {
+    return this.http.post(`${environment.back_end_url}/externalProject/start`, data);
+  }
+
+  updateProject(params: any): Observable<any> {
+    return this.http.post(`${environment.back_end_url}/project`, params);
   }
   
 }

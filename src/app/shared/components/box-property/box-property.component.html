@@ -1,0 +1,9 @@
+<div class="card">
+  <div class="title">
+    {{ title }}
+  </div>
+  <div class="body">
+    <span *ngIf="number">{{ number }}</span>
+    <ng-content></ng-content>
+  </div>
+</div>

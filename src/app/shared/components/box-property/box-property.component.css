@@ -1,0 +1,113 @@
+/*-------CARDS EM GERAL-------*/
+.card {
+    background: #ffffff61;
+    color: #404040;
+    margin: 0px 8px 13px 8px;
+    /* z-index: 1001; */
+    width: 300px;
+    box-shadow: none;
+    border-top: 3px solid #650199;
+}
+.card .title {
+    background: linear-gradient(180deg, #ffffffb8, #ffffff85);
+    padding: 8px 15px;
+    color: #650199;
+    box-shadow: inset 0 0 0 1px #ffffff70;
+    font-size: 20px;
+    font-weight: 600;
+}
+.card .body {
+    padding: 15px 15px;
+    color: #404040;
+    font-size: 16px;
+}
+.card .body span{
+    padding: 5px 6px;
+    border: 4px solid #650199;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* .card-content:nth-child(2) {
+    max-height: 150px;
+    min-height: 95px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+.card-content:nth-child(1){
+    overflow: hidden;
+    background: linear-gradient(180deg, #ffffffb8, #ffffff85);
+    padding: 14px 20px;
+    border-top: 3px solid #650199;
+    color: #650199;
+    box-shadow: inset 0 0 0 1px #ffffff70;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.card-content.title span{
+    font-weight: 600
+}
+
+.card-content{
+    background: #ffffff36;
+    padding: 12px 18px;
+}
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4c0075; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #410064; 
+}
+.card.topics span{
+    display: block;
+}
+
+.card.topics span:before{
+    content: '+';
+    color: #650199;
+    font-size: 22px;
+    font-weight: 700;
+    margin-right: 6px;
+}
+.card.numeric .card-content span:nth-child(1){
+    display: inline-block;
+    background: #65019900;
+    margin-right: 15px;
+    border-radius: 100%;
+    border: 6px solid #650199;
+    padding: 6px;
+    width: 27px;
+    height: 27px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #5a5a5a;
+    padding-top: 7px;
+}
+.card.numeric span{
+    display: inline-block;
+    width: calc(65% - 8px);
+    vertical-align: middle;
+} */
