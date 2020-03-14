@@ -56,11 +56,11 @@ export class CardService {
   }
 
   searchComboCompetence(): Observable<any> {
-    return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledge`);
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn`);
   }
 
   getCategory(data): Observable<any> { 
-    return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledge?knowledgeParentId=` + data);
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn?knowledgeParentId=` + data);
   }
 
 
