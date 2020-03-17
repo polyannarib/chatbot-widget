@@ -22,7 +22,7 @@ export class ResourceListComponent implements OnInit {
   pageSizeOptions: number[] = [10, 25, 50];
   loader: boolean = false;
   loaderDays: boolean = false;
-  numberOfDays = 12;
+  numberOfDays = 8;
   startDate = new Date(Date.now());
   endDate = addDays(new Date(Date.now()), this.numberOfDays);
 

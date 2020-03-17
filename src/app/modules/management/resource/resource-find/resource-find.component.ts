@@ -44,7 +44,7 @@ export class ResourceFindComponent implements OnInit {
 
   ngOnInit() {
     this.getKnowledgeIn();
-    this.searchWorkgroup();
+    // this.searchWorkgroup();
   }
 
   findPerson() {  
@@ -96,7 +96,12 @@ export class ResourceFindComponent implements OnInit {
     this._cardService.KnowledgeIn(ids).subscribe(
       (response) => {
         if(response.status == 0) {
-          this.listKnowledge = response.object;
+          if(!this.listKnowledge && !ids) {
+            this.listKnowledge = this.listKnowledge.push({
+              'level': 1,
+              'knowledgeList': response.object
+            });
+          }
           this.filterList(this.listKnowledge);
           this.loaderFind = false;
           return;
@@ -123,61 +128,61 @@ export class ResourceFindComponent implements OnInit {
     });
   }
 
-  findWorkgroup(event) {
-    this.parentIdsWorkGroups = [];
-    if(event.value.length > 0) {
-      event.value.forEach((element) => {
-        if(!this.parentIdsWorkGroups.includes(element)) {
-          this.parentIdsWorkGroups.push(element);
-        }
-      });
-      this.idsWorkGroups = this.parentIdsWorkGroups.join();
-    } else {
-      this.idsWorkGroups = null;
-    }
-  }
+  // findWorkgroup(event) {
+  //   this.parentIdsWorkGroups = [];
+  //   if(event.value.length > 0) {
+  //     event.value.forEach((element) => {
+  //       if(!this.parentIdsWorkGroups.includes(element)) {
+  //         this.parentIdsWorkGroups.push(element);
+  //       }
+  //     });
+  //     this.idsWorkGroups = this.parentIdsWorkGroups.join();
+  //   } else {
+  //     this.idsWorkGroups = null;
+  //   }
+  // }
 
-  searchWorkgroup() {
-    this.workGroupFilter = [];
-    this._cardService.searchWorkgroup().subscribe(
-      (response) => {
-        if(response.status == 0) {
-          this.workGroupFilter.push({
-            'level': this.levelWorkgroup,
-            'workgroupList': response.object
-          })
-          return;
-        }
-        console.log('deu ruim');
-      }, (err) => {
-        console.log('deu ruim');
-    })
-  }
+  // searchWorkgroup() {
+  //   this.workGroupFilter = [];
+  //   this._cardService.searchWorkgroup().subscribe(
+  //     (response) => {
+  //       if(response.status == 0) {
+  //         this.workGroupFilter.push({
+  //           'level': this.levelWorkgroup,
+  //           'workgroupList': response.object
+  //         })
+  //         return;
+  //       }
+  //       console.log('deu ruim');
+  //     }, (err) => {
+  //       console.log('deu ruim');
+  //   })
+  // }
 
-  FindParenteWorkgroup(value, workgroup) {
-    if(value.hasChildren == 'N') {
-      this.idsWorkGroups = value.id;
-      this.findPerson();
-      return;
-    }
-    this.levelWorkgroup = this.levelWorkgroup++;
-    this.searchWorkgroupParent(value.id);
-  }
+  // FindParenteWorkgroup(value, workgroup) {
+  //   if(value.hasChildren == 'N') {
+  //     this.idsWorkGroups = value.id;
+  //     this.findPerson();
+  //     return;
+  //   }
+  //   this.levelWorkgroup = this.levelWorkgroup++;
+  //   this.searchWorkgroupParent(value.id);
+  // }
 
-  searchWorkgroupParent(id: number) {
-    this._cardService.searchWorkgroup(id).subscribe(
-      (response) => {
-        if(response.status == 0) {
-          this.workGroupFilter.push({
-            'level': this.levelWorkgroup,
-            'workgroupList': response.object
-          })
-          return;
-        }
-        console.log('deu ruim');
-      }, (err) => {
-        console.log('deu ruim');
-    })
-  }
+  // searchWorkgroupParent(id: number) {
+  //   this._cardService.searchWorkgroup(id).subscribe(
+  //     (response) => {
+  //       if(response.status == 0) {
+  //         this.workGroupFilter.push({
+  //           'level': this.levelWorkgroup,
+  //           'workgroupList': response.object
+  //         })
+  //         return;
+  //       }
+  //       console.log('deu ruim');
+  //     }, (err) => {
+  //       console.log('deu ruim');
+  //   })
+  // }
 
 }

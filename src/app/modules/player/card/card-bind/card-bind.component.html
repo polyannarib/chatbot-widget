@@ -7,6 +7,7 @@
       (click)="onShowTips()"> ? </button >
     <div id="black-filter"></div>
   </div>
+
   <div class="col s12" matTooltip="Use os filtros para buscar cartas específicas" matTooltipPosition="above">
     <div class="find">
       <div *ngFor="let levelElement of cardKnowledgeFilter; let i= index" [ngClass]="{'help' : status}">
@@ -20,6 +21,7 @@
     </div>
   </div>
 </div>
+
 <div *ngIf="characters" class="row">
   <div class="col s12 m5">
     <div class="style-custom" [ngClass]="{'help' : status}">
@@ -44,8 +46,8 @@
 <app-loading [loader]="loaderDeck"></app-loading>
 <div class="row deck" *ngIf="playerDeck">
   <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" matTooltip="Essas são as suas cartas" matTooltipDisabled="{{ !status }}" matTooltipPosition="above" [type]="refreshSlick">
-      <div *ngFor="let card of playerDeck; index as i;" [ngClass]="{'help' : status}">
-        <img class="deck-img" width="100%" src="{{ getCardDeck(card) }}">
-      </div>
+    <div *ngFor="let card of playerDeck; index as i;" [ngClass]="{'help' : status}">
+      <img class="deck-img" width="100%" src="{{ getCardDeck(card) }}">
+    </div>
   </app-slick>
 </div>

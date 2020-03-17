@@ -26,7 +26,7 @@ export class ProjectsListComponent implements OnInit {
   loader: boolean = false;
   loaderDays: boolean = false;
   project: any;
-  numberOfDays: number = 8;
+  numberOfDays: number = 4;
   startDate: any = new Date(Date.now());
   endDate: any = addDays(this.startDate, this.numberOfDays);
 
@@ -126,13 +126,13 @@ export class ProjectsListComponent implements OnInit {
     this.loaderDays = true;
     if (date == 'prev') {
       this.endDate = this.startDate;
-      this.startDate = subDays(this.startDate, 8);
+      this.startDate = subDays(this.startDate, this.numberOfDays);
       this.daysOfWeek(this.startDate, this.endDate);
       this.findProjects();
       this.loaderDays = false;
     } if (date == 'next') {
       this.startDate = this.endDate;
-      this.endDate = addDays(this.startDate, 8);
+      this.endDate = addDays(this.startDate, this.numberOfDays);
       this.daysOfWeek(this.startDate, this.endDate);
       this.findProjects();
       this.loaderDays = false;
