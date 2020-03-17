@@ -2,6 +2,7 @@ import { Injectable, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 import { AuthService, SSOID_NAME } from '../services/auth.service';
+import { RouterStateSnapshot } from '@angular/router';
 
 
 @Injectable()
@@ -14,7 +15,6 @@ export class HttpInverceptor implements HttpInterceptor {
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        
         if (request.headers.has('Content-Type')) {
             this.contentType = request.headers.get('Content-Type');
         }
@@ -39,6 +39,5 @@ export class HttpInverceptor implements HttpInterceptor {
             });
             return next.handle(newRequest);
         }
-
     }
 }

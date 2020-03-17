@@ -46,7 +46,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     AuthService,
-    AuthService,
     AuthenticatedGuard,
     ProjectService,
     LoadingService,

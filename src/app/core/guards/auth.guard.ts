@@ -18,4 +18,32 @@ export class AuthGuardTeste implements CanActivate, CanActivateChild, CanLoad {
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
     return true;
   }
+
+  canActivatedByScope(route, scopes) {
+    let canActivated = true;  
+    const permissions = [];
+
+    const NAO_TEM = 0;
+    const TEM = 1;
+
+    if (route.data) {
+      if (route.data.scopes) {
+        if (route.data.scopes.length < 1) {
+          canActivated = false;
+        }
+        if (route.data.scopes.length > 1) {
+          route.data.scopes.forEach(scope => {
+            if (scopes.hasOwnProperty(scope)) {
+              permissions.push(TEM);
+            } else {
+              permissions.push(NAO_TEM);
+            }
+          });
+        }
+      } else {
+        canActivated = false;
+      }
+    }
+    return canActivated;
+  }
 }
