@@ -178,8 +178,6 @@ export class CardBindComponent implements OnInit {
       (response) => {
         if (response.status == 0) {
           this.characters = response.object;
-          console.log(' -------- this.characters ---------');
-          console.log(this.characters);
           if (this.characters.cardName.indexOf("#") != -1) {
             this.characters.cardName = this.characters.cardName.replace("#", "sharp");
           }

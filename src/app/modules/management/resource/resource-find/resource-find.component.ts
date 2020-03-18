@@ -12,7 +12,7 @@ export class ResourceFindComponent implements OnInit {
 
   form = new Object();
   
-  listKnowledge: any;
+  listKnowledge = [];
   filterListKnowledge: any;
   selectedLevelElement;
   disabled: boolean = true;
@@ -66,6 +66,9 @@ export class ResourceFindComponent implements OnInit {
   }
 
   FindParente(event, resource) {
+    console.log(' --------- event findParente --------- ');
+    console.log(event);
+    console.log(resource);
     if(resource.level === 4) {
       this.disabled = false;
     } else {
@@ -97,9 +100,17 @@ export class ResourceFindComponent implements OnInit {
       (response) => {
         if(response.status == 0) {
           if(!this.listKnowledge && !ids) {
-            this.listKnowledge = this.listKnowledge.push({
-              'level': 1,
+            this.listKnowledge.push({
+              'level': response.object[0].type.level,
               'knowledgeList': response.object
+            });
+          } else {
+            this.listKnowledge.push({
+              'level': response.object[0].type.level,
+              'knowledgeList': response.object.map(element => {
+                element.parent = ids;
+                return element;
+              })
             });
           }
           this.filterList(this.listKnowledge);

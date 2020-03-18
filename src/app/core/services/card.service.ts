@@ -79,7 +79,7 @@ export class CardService {
     if(!data) {
       return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn`);
     }
-    return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn?knowledgeParentIds=${data}`);
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn?knowledgeParentId=${data}`);
   }
 
   searchWorkgroup(id?: number): Observable<any> {
