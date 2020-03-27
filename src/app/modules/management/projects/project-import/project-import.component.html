@@ -1,6 +1,37 @@
 <app-loading [loader]="loader"></app-loading>
-<section>
-    <table *ngIf="projects">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12 m4">
+            <!-- <div class="input-field">
+                <input autocomplete="off" id="findProject" (keyup)="onSearchChangeProject($event.target.value)" matInput id="findProject" type="text" class="validate" value="">
+                <label for="findProject">Buscar projetos</label>
+            </div> -->
+
+            <div class="input-field">
+                <input autocomplete="off" type="text" id="findProject" class="validate" [(ngModel)]="projectName">
+                <label for="findProject">Buscar projetos</label>
+            </div>
+        </div>
+        <div class="col s12 m8">
+            <button (click)="getProjectsName()" class="button button-primary button-floating">
+                <i class="material-icons">search</i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<section *ngIf="projects">
+    <!-- <div class="boxFilter">
+        <div class="input-field">
+            <input type="text" class="validate" [(ngModel)]="projectName">
+            <label for="findProject">Buscar projetos</label>
+        </div>
+        <button (click)="getProjectsName()" class="button button-primary button-floating">
+            <i class="material-icons">chevron_left</i>
+        </button>
+    </div>     -->
+    <table>
         <thead>
             <tr>
                 <th>N°</th>
@@ -20,10 +51,13 @@
             </tr>
         </tbody>
     </table>
-    <!-- <app-paginator 
-        [page]="page"
+
+    <mat-paginator 
+        [length]="length"
         [pageSize]="pageSize"
-        [totalFound]="totalFound">
-    </app-paginator> -->
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="pageEvent($event)">
+    </mat-paginator>
+
 </section>
     

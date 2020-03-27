@@ -17,3 +17,14 @@ section table .badge {
     color: #fff;
     /* padding: 3px 3px 3px 3px; */
 }
+.boxFilter .input-field {
+    width: 300px;
+}
+.mat-paginator {
+    background: transparent;
+}
+/* .boxFilter button {
+    position: relative;
+    left: 300px;
+    top: -70px;
+} */

@@ -36,7 +36,7 @@
           <th>{{ 'RSC' | translate }}</th>
           <th>{{ 'EXP' | translate }}</th>
           <th>{{ 'EFF' | translate }}</th>
-          <th><!-- {{ 'EDIT' | translate }} --></th>
+          <!-- <th>{{ 'EDIT' | translate }}</th> -->
           <th><!-- {{ 'STATUSREPORT' | translate }} --></th>
           <th><!-- {{ 'GENERATEREPORT' | translate }} --></th>
         </tr>
@@ -54,7 +54,7 @@
             <td class="fontMin"><b>Real:</b> {{ project.actualEffort }} <br><b>Prev:</b> {{ project.predictEffort }}</td>
             <td class="fontMin">{{ project.actualConclusion}} <br> {{ project.predictConclusion }}</td>
             <td>
-              <i class="material-icons" [ngStyle]="{ 'color': project.expectedStyle }">fiber_manual_record</i>
+              <i class="material-icons" [ngStyle]="{ 'color': project.riskProject }">fiber_manual_record</i>
             </td>
             <td>
               <i class="material-icons" [ngStyle]="{ 'color': project.expectedStyle }">fiber_manual_record</i>
@@ -62,9 +62,9 @@
             <td>
               <i class="material-icons" [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i>
             </td>
-            <td>
+            <!-- <td>
               <button matTooltip="{{ 'EDIT' | translate }}" mat-icon-button (click)="openProjectEdit(project)"><i class="material-icons">more_vert</i></button>
-            </td>
+            </td> -->
             <td>
               <button matTooltip="{{ 'STATUSREPORT' | translate }}" mat-icon-button (click)="openReport(project)"><i class="material-icons">report</i></button>
             </td>

@@ -12,7 +12,7 @@ export class ResourceFindComponent implements OnInit {
 
   form = new Object();
   
-  listKnowledge: any;
+  listKnowledge = [];
   filterListKnowledge: any;
   selectedLevelElement;
   disabled: boolean = true;
@@ -44,7 +44,7 @@ export class ResourceFindComponent implements OnInit {
 
   ngOnInit() {
     this.getKnowledgeIn();
-    this.searchWorkgroup();
+    // this.searchWorkgroup();
   }
 
   findPerson() {  
@@ -75,8 +75,11 @@ export class ResourceFindComponent implements OnInit {
     if(this.filterListKnowledge) {
       this.filterListKnowledge.forEach((element, position) => {
         if(element.level > resource.level) {
-          var index = this.filterListKnowledge.indexOf(position);
-          this.filterListKnowledge.splice(index, 1);
+          // debugger;
+          // var index = this.filterListKnowledge.indexOf(position);
+          this.filterListKnowledge.splice(position, this.filterListKnowledge.length);
+          // var debuger = this.filterListKnowledge;
+          // console.log(debuger);
         }
       });
     }
@@ -84,10 +87,11 @@ export class ResourceFindComponent implements OnInit {
       event.value.forEach((element) => {
         if(!this.parentIdsLevels.includes(element)) {
           this.parentIdsLevels.push(element);
+          this.getKnowledgeIn(element);
         }
       });
-      var idLevels = this.parentIdsLevels.join();
-      this.getKnowledgeIn(idLevels);
+      // var idLevels = this.parentIdsLevels.join();
+      // this.getKnowledgeIn(idLevels);
     }
   }
 
@@ -96,7 +100,29 @@ export class ResourceFindComponent implements OnInit {
     this._cardService.KnowledgeIn(ids).subscribe(
       (response) => {
         if(response.status == 0) {
-          this.listKnowledge = response.object;
+          if(!this.listKnowledge && !ids) {
+            this.listKnowledge.push({
+              'level': response.object[0].type.level,
+              'knowledgeList': response.object
+            });
+          } else {
+            var listLevelIds = this.listKnowledge.map(element => element.level);
+            if(listLevelIds.includes(response.object[0].type.level)) {
+              this.listKnowledge.forEach((element, position) => {
+                if(element.level == response.object[0].type.level) {
+                  this.listKnowledge[position].listKnowledge = [...response.object]
+                }
+              });
+            } else {
+              this.listKnowledge.push({
+                'level': response.object[0].type.level,
+                'knowledgeList': response.object.map(element => {
+                  element.parent = ids;
+                  return element;
+                })
+              });
+            }
+          }
           this.filterList(this.listKnowledge);
           this.loaderFind = false;
           return;
@@ -123,61 +149,61 @@ export class ResourceFindComponent implements OnInit {
     });
   }
 
-  findWorkgroup(event) {
-    this.parentIdsWorkGroups = [];
-    if(event.value.length > 0) {
-      event.value.forEach((element) => {
-        if(!this.parentIdsWorkGroups.includes(element)) {
-          this.parentIdsWorkGroups.push(element);
-        }
-      });
-      this.idsWorkGroups = this.parentIdsWorkGroups.join();
-    } else {
-      this.idsWorkGroups = null;
-    }
-  }
+  // findWorkgroup(event) {
+  //   this.parentIdsWorkGroups = [];
+  //   if(event.value.length > 0) {
+  //     event.value.forEach((element) => {
+  //       if(!this.parentIdsWorkGroups.includes(element)) {
+  //         this.parentIdsWorkGroups.push(element);
+  //       }
+  //     });
+  //     this.idsWorkGroups = this.parentIdsWorkGroups.join();
+  //   } else {
+  //     this.idsWorkGroups = null;
+  //   }
+  // }
 
-  searchWorkgroup() {
-    this.workGroupFilter = [];
-    this._cardService.searchWorkgroup().subscribe(
-      (response) => {
-        if(response.status == 0) {
-          this.workGroupFilter.push({
-            'level': this.levelWorkgroup,
-            'workgroupList': response.object
-          })
-          return;
-        }
-        console.log('deu ruim');
-      }, (err) => {
-        console.log('deu ruim');
-    })
-  }
+  // searchWorkgroup() {
+  //   this.workGroupFilter = [];
+  //   this._cardService.searchWorkgroup().subscribe(
+  //     (response) => {
+  //       if(response.status == 0) {
+  //         this.workGroupFilter.push({
+  //           'level': this.levelWorkgroup,
+  //           'workgroupList': response.object
+  //         })
+  //         return;
+  //       }
+  //       console.log('deu ruim');
+  //     }, (err) => {
+  //       console.log('deu ruim');
+  //   })
+  // }
 
-  FindParenteWorkgroup(value, workgroup) {
-    if(value.hasChildren == 'N') {
-      this.idsWorkGroups = value.id;
-      this.findPerson();
-      return;
-    }
-    this.levelWorkgroup = this.levelWorkgroup++;
-    this.searchWorkgroupParent(value.id);
-  }
+  // FindParenteWorkgroup(value, workgroup) {
+  //   if(value.hasChildren == 'N') {
+  //     this.idsWorkGroups = value.id;
+  //     this.findPerson();
+  //     return;
+  //   }
+  //   this.levelWorkgroup = this.levelWorkgroup++;
+  //   this.searchWorkgroupParent(value.id);
+  // }
 
-  searchWorkgroupParent(id: number) {
-    this._cardService.searchWorkgroup(id).subscribe(
-      (response) => {
-        if(response.status == 0) {
-          this.workGroupFilter.push({
-            'level': this.levelWorkgroup,
-            'workgroupList': response.object
-          })
-          return;
-        }
-        console.log('deu ruim');
-      }, (err) => {
-        console.log('deu ruim');
-    })
-  }
+  // searchWorkgroupParent(id: number) {
+  //   this._cardService.searchWorkgroup(id).subscribe(
+  //     (response) => {
+  //       if(response.status == 0) {
+  //         this.workGroupFilter.push({
+  //           'level': this.levelWorkgroup,
+  //           'workgroupList': response.object
+  //         })
+  //         return;
+  //       }
+  //       console.log('deu ruim');
+  //     }, (err) => {
+  //       console.log('deu ruim');
+  //   })
+  // }
 
 }

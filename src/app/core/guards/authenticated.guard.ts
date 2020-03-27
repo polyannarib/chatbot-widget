@@ -18,6 +18,7 @@ export class AuthenticatedGuard implements CanActivate {
 
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise< boolean > {
         let authenticated = route.queryParams.authenticated;
+
         return new Promise((resolve, reject) => {
             if( this.authService.isAuthenticated() ) {
                 this.router.navigate(['/management/dashboard']);
@@ -69,7 +70,7 @@ export class AuthenticatedGuard implements CanActivate {
                                             + "&goTo=%2F&company=" + company
                                             + "&authenticateMe=0"
             }
-        }).then( function(result) {
+        }).then(function(result) {
             return result;
         }, function(error) {
             return error;
