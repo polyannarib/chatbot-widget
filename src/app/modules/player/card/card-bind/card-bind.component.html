@@ -44,10 +44,10 @@
   </div>
 </div>
 <app-loading [loader]="loaderDeck"></app-loading>
-<div class="row deck" *ngIf="playerDeck">
+<!-- <div class="row deck" *ngIf="playerDeck">
   <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" matTooltip="Essas são as suas cartas" matTooltipDisabled="{{ !status }}" matTooltipPosition="above" [type]="refreshSlick">
     <div *ngFor="let card of playerDeck; index as i;" [ngClass]="{'help' : status}">
       <img class="deck-img" width="100%" src="{{ getCardDeck(card) }}">
     </div>
   </app-slick>
-</div>
+</div> -->

@@ -56,13 +56,12 @@ export class CardService {
   }
 
   searchComboCompetence(): Observable<any> {
-    return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledge`);
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn`);
   }
 
   getCategory(data): Observable<any> { 
-    return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledge?knowledgeParentId=` + data);
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn?knowledgeParentId=` + data);
   }
-
 
   // http://192.168.1.229:8989/workplayer-portal/services/card/knowledge?knowledgeParentId=1
   findPerson(parentIdsLevels: any, idsWorkGroups: any) {

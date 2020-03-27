@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from 'src/app/core/services/project.service';
 import { ConfirmComponent } from 'src/app/shared/components/modal/confirm/confirm.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, PageEvent } from '@angular/material';
 import { ProjectEditComponent } from '../project-edit/project-edit.component';
 
 @Component({
@@ -12,13 +12,19 @@ import { ProjectEditComponent } from '../project-edit/project-edit.component';
 export class ProjectImportComponent implements OnInit {
 
   projects: any;
-  loader: boolean = false;
   projectDetails: any;
+  projectName: string;
+  loader: boolean = false;
   statusProjectText: String;
   
-  pageSize: number = 10;
-  page: number;
+  page: number = 1
   totalFound: number;
+
+  // --------------- Paginação --------------- //
+  length: number;
+  pageSize: number = 20;
+  // pageSizeOptions: number[] = [20, 30, 50, 100];
+  // pageEvent: PageEvent;
 
   constructor(
     private projectService: ProjectService,
@@ -26,12 +32,23 @@ export class ProjectImportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getProjects();
+    this.getProjects({ page: this.page, pageSize: this.pageSize });
   }
 
-  getProjects() {
+  pageEvent(eventoPaginator) {
+    console.log('Entrou dentro do pageEvent');
+    console.log(eventoPaginator);
+    this.length = eventoPaginator.length;
+    this.pageSize = eventoPaginator.pageSize;
+    this.page = eventoPaginator.pageIndex + 1;
+    console.log(this.page);
+    this.getProjects({ page: this.page, pageSize: this.pageSize });
+  }
+
+  getProjects(data) {
+    this.projects = [];
     this.loader = true;
-    this.projectService.getAllProjectsKyrograma().subscribe(
+    this.projectService.getAllProjectsKyrograma(data).subscribe(
       (response) => {
         if(response.totalFound > 0) {
           this.projects = response.list;
@@ -39,7 +56,7 @@ export class ProjectImportComponent implements OnInit {
           // Dados de retorno da paginação
           this.pageSize = response.pageSize;
           this.page = response.page;
-          this.totalFound = response.totalFound;
+          this.length = response.totalFound;
 
           this.loader = false;
           return;
@@ -93,7 +110,7 @@ export class ProjectImportComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if(result.confirm == true) {
-          this.getProjects();
+          this.getProjects({ page: this.page, pageSize: this.pageSize });
         }
     });
   }
@@ -133,6 +150,20 @@ export class ProjectImportComponent implements OnInit {
         this.statusProjectText = project.status;
         return '#000';
     }
+  }
+
+  // setPageSizeOptions(setPageSizeOptionsInput: string) {
+  //   if (setPageSizeOptionsInput) {
+  //     this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  //   }
+  // }
+
+  getProjectsName() {
+    if(this.projectName) {
+      this.getProjects({ page: this.page, pageSize: 20, name: this.projectName });
+      return;
+    }
+    alert('Digite algo')
   }
 
 }

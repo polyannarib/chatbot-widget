@@ -66,9 +66,6 @@ export class ResourceFindComponent implements OnInit {
   }
 
   FindParente(event, resource) {
-    console.log(' --------- event findParente --------- ');
-    console.log(event);
-    console.log(resource);
     if(resource.level === 4) {
       this.disabled = false;
     } else {
@@ -78,8 +75,11 @@ export class ResourceFindComponent implements OnInit {
     if(this.filterListKnowledge) {
       this.filterListKnowledge.forEach((element, position) => {
         if(element.level > resource.level) {
-          var index = this.filterListKnowledge.indexOf(position);
-          this.filterListKnowledge.splice(index, 1);
+          // debugger;
+          // var index = this.filterListKnowledge.indexOf(position);
+          this.filterListKnowledge.splice(position, this.filterListKnowledge.length);
+          // var debuger = this.filterListKnowledge;
+          // console.log(debuger);
         }
       });
     }
@@ -87,10 +87,11 @@ export class ResourceFindComponent implements OnInit {
       event.value.forEach((element) => {
         if(!this.parentIdsLevels.includes(element)) {
           this.parentIdsLevels.push(element);
+          this.getKnowledgeIn(element);
         }
       });
-      var idLevels = this.parentIdsLevels.join();
-      this.getKnowledgeIn(idLevels);
+      // var idLevels = this.parentIdsLevels.join();
+      // this.getKnowledgeIn(idLevels);
     }
   }
 
@@ -105,13 +106,22 @@ export class ResourceFindComponent implements OnInit {
               'knowledgeList': response.object
             });
           } else {
-            this.listKnowledge.push({
-              'level': response.object[0].type.level,
-              'knowledgeList': response.object.map(element => {
-                element.parent = ids;
-                return element;
-              })
-            });
+            var listLevelIds = this.listKnowledge.map(element => element.level);
+            if(listLevelIds.includes(response.object[0].type.level)) {
+              this.listKnowledge.forEach((element, position) => {
+                if(element.level == response.object[0].type.level) {
+                  this.listKnowledge[position].listKnowledge = [...response.object]
+                }
+              });
+            } else {
+              this.listKnowledge.push({
+                'level': response.object[0].type.level,
+                'knowledgeList': response.object.map(element => {
+                  element.parent = ids;
+                  return element;
+                })
+              });
+            }
           }
           this.filterList(this.listKnowledge);
           this.loaderFind = false;
