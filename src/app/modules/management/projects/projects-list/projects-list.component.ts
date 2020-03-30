@@ -2,9 +2,12 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { format, eachDayOfInterval, addDays, subDays } from 'date-fns';
 import { ProjectService } from 'src/app/core/services/project.service';
 import { Project } from 'src/app/shared/models/project';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { ProjectDetailsComponent } from '../project-details/project-details.component';
 import { ReportEditComponent } from '../../report/report-edit/report-edit.component';
+import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
+import { ProjectDetailsTaskComponent } from '../project-details-task/project-details-task.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-projects-list',
@@ -21,14 +24,14 @@ export class ProjectsListComponent implements OnInit {
   loader: boolean = false;
   loaderDays: boolean = false;
   project: any;
-
-  numberOfDays: number = 8
+  numberOfDays: number = 4;
   startDate: any = new Date(Date.now());
   endDate: any = addDays(this.startDate, this.numberOfDays);
 
   constructor(
     private projectService: ProjectService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -54,13 +57,17 @@ export class ProjectsListComponent implements OnInit {
     };
     this.projectService.listProjects(params).subscribe(
       (response) => {
+        if(response.status == 0) {
+          this.loader = false;
+          this.projectsList = response.object.list;
+          this.filteredProjectsList = this.projectsList;
+          return;
+        }
+        this.httpError(response.message);
         this.loader = false;
-        // this.loaderProject.emit(false);
-        this.projectsList = response.object.list;
-        this.filteredProjectsList = this.projectsList;
       }, (err) => {
+        this.httpError(null);
         this.loader = false;
-        // this.loaderProject.emit(false);
       }
     );
   }
@@ -79,6 +86,20 @@ export class ProjectsListComponent implements OnInit {
     });
   }
 
+  openProjectEdit(project) {
+    const dataSend = {
+      project: project
+    }
+    const dialogRef = this.dialog.open(ProjectDetailsTaskComponent, {
+      width: '90vw',
+      data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(
+    (result) => {
+      this.findProjects();
+    });
+  }
+
   openReport(project) {
     const dataSend = {
       project: project
@@ -87,22 +108,27 @@ export class ProjectsListComponent implements OnInit {
       width: '90vw',
       data: dataSend
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(
+    (result) => {
       this.findProjects();
     });
+  }
+
+  generateReport(project) {
+    window.open( environment.URL_STATUS_REPORT + project.id, '_blank');
   }
 
   changeDays(date) {
     this.loaderDays = true;
     if (date == 'prev') {
       this.endDate = this.startDate;
-      this.startDate = subDays(this.startDate, 8);
+      this.startDate = subDays(this.startDate, this.numberOfDays);
       this.daysOfWeek(this.startDate, this.endDate);
       this.findProjects();
       this.loaderDays = false;
     } if (date == 'next') {
       this.startDate = this.endDate;
-      this.endDate = addDays(this.startDate, 8);
+      this.endDate = addDays(this.startDate, this.numberOfDays);
       this.daysOfWeek(this.startDate, this.endDate);
       this.findProjects();
       this.loaderDays = false;
@@ -118,6 +144,19 @@ export class ProjectsListComponent implements OnInit {
     //     return curr.name.toUpperCase().includes(searchValue.toUpperCase());
     //   }
     // )
+  }
+
+  httpError(value) {
+    switch (value) {
+      case 'FAIL_TO_LIST_TASK':
+        this._snackBar.openFromComponent(NotifyComponent, 
+          { data: { type: 'error', message: 'Problemas, contate o administrador' }});
+        break;
+      default:
+        this._snackBar.openFromComponent(NotifyComponent, 
+          { data: { type: 'error', message: 'Problemas, contate o administrador' }});
+        break;
+    }
   }
 
 }

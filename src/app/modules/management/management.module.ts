@@ -23,6 +23,9 @@ import { ProjectDetailsComponent } from './projects/project-details/project-deta
 import { ReportEditComponent } from './report/report-edit/report-edit.component';
 import { ReportEditNoteComponent } from './report/report-edit-note/report-edit-note.component';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
+import { ProjectImportComponent } from './projects/project-import/project-import.component';
+import { ProjectCreateComponent } from './projects/project-create/project-create.component';
+import { ProjectDetailsTaskComponent } from './projects/project-details-task/project-details-task.component';
 
 @NgModule({
   imports: [
@@ -44,14 +47,18 @@ import { ProjectEditComponent } from './projects/project-edit/project-edit.compo
     ReportEditComponent,
     ReportEditNoteComponent,
     ProjectEditComponent,
-    ResourceFindComponent
+    ResourceFindComponent,
+    ProjectImportComponent,
+    ProjectCreateComponent,
+    ProjectDetailsTaskComponent
   ],
   entryComponents: [
     ProjectDetailsComponent,
     ResourceDetailsComponent,
     ReportEditComponent,
     ReportEditNoteComponent,
-    ProjectEditComponent
+    ProjectEditComponent,
+    ProjectDetailsTaskComponent
   ]
 })
 export class ManagementModule { }

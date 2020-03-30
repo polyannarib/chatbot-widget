@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/
 import { empty, BehaviorSubject } from 'rxjs';
 import { ReportEditNoteComponent } from '../report-edit-note/report-edit-note.component';
 import { ProjectEditComponent } from '../../projects/project-edit/project-edit.component';
+import { environment } from 'src/environments/environment';
 
 declare var $: any;
 
@@ -115,7 +116,7 @@ export class ReportEditComponent implements OnInit {
       typeId: this.formFind.value.typeId
     }
     const dialogRef = this.dialog.open(ReportEditNoteComponent, {
-      width: '40vw',
+      width: '600px',
       data: dataSend
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -152,6 +153,10 @@ export class ReportEditComponent implements OnInit {
       width: '50vw',
       data: dataSend
     });
+  }
+
+  generateReport() {
+    window.open( environment.URL_STATUS_REPORT + this.data.project.id, '_blank');
   }
 
 }

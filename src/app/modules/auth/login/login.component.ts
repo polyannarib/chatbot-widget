@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/models/user';
-
+import { AppConstants } from '../../../app.constants';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 import { MatBottomSheet } from '@angular/material';
@@ -48,8 +48,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.authService.login(this.form.value).subscribe(
         (response) => {
           if (response.status == 0) {
-            this.authService.setToken(response.object.token);
-            this.router.navigate(['/management']);
+            this.authService.setAppToken(response.object.appToken);
+            this.authService.setSSOID(response.object.ssoId);
+            window.location.href = AppConstants.URL_SSO + '/cookie' 
+                  + '?SSOID=' + response.object.ssoId
+                  + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + '/management/dashboard';
             return;
           } if (response.status == 1) {
             this.loader = false;

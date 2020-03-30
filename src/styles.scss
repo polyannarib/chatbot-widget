@@ -1,14 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face { font-family: 'Blogger'; src: url('./assets/fonts/blogger-sans.ttf') } 
+@font-face { font-family: 'BloggerBold'; src: url("./assets/fonts/blogger-sans-bold.ttf") }
+@font-face { font-family: 'BloggerLight'; src: url("./assets/fonts/bloggersans-light.ttf") }
+@font-face { font-family: 'BloggerItalic'; src: url("./assets/fonts/blogger-sans-italic.ttf") }
+
 @import './theme.scss';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons++Icons+Sharp');
 
+html {
+    font-family: 'Blogger' !important;
+    // line-height: 1.5;
+    // font-weight: normal;
+    // color: rgba(0,0,0,0.87);
+}
+* {
+    font-family: 'Blogger';
+}
 body {
+    font-family: 'Blogger' !important;
     background-image: url('./assets/images/fundo.png');
+    width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
 }
 .button {
+    font-family: 'Blogger' !important;
     display: inline-block;
     font-weight: 400;
     text-align: center;
@@ -86,9 +103,9 @@ body {
     background: rgba(255,255,255,0.4);
     transform: perspective(2px) rotateY(1deg);
     position: absolute;
-    top: 39%;
+    top: calc(50% - 45px);
     right: -17px;
-    border-left: #660080 5px solid;
+    border-left: #650199 5px solid;
     padding-left: 2px;
     background-clip: content-box;
     z-index: 15;
@@ -102,15 +119,13 @@ body {
     background: rgba(255,255,255,0.4);
     transform: perspective(2px) rotateY(-1deg);
     position: absolute;
-    top: 39%;
+    top: calc(50% - 45px);
     left: -17px;
     border-right: #660080 5px solid;
     padding-right: 2px;
     background-clip: content-box;
     z-index: 15;
-  }
-
-
+}
 
 
 
@@ -158,8 +173,6 @@ body {
     border-top: #650199 3px solid;
     border-radius: 3px !important;
 }
-
-
 
 
 /* Codigo para padronização do collapse */
@@ -211,12 +224,6 @@ mz-collapsible-item-body ul {
 }
 
 
-
-
-
-
-
-
 // codigo para o toastr/notify
 .mat-snack-bar-container {
     border-radius: 4px;
@@ -235,15 +242,6 @@ mz-collapsible-item-body ul {
 
 
 
-
-
-
-
-
-
-
-
-
 .ct-slick-prev,
 .ct-slick-next {
     line-height: 0;
@@ -258,19 +256,19 @@ mz-collapsible-item-body ul {
     border: none;
     outline: none;
     font-size: xx-large !important;
-    color: crimson !important;
+    color: #650199 !important;
     border-radius: 0;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
     opacity: 1;
 }
 .ct-slick-prev {
-    left: -24px;
+    left: -25px;
     z-index: 9;
     padding: 0px;
     opacity: 0.8;
 }
 .ct-slick-next {
-    right: -24px;
+    right: -25px;
     z-index: 9;
     padding: 0px;
     opacity: 0.8;

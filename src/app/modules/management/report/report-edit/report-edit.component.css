@@ -31,3 +31,19 @@ input {
 .action {
     width: 60px;
 }
+.find {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+    .button {
+        width: 100%;
+        display: block;
+        margin: 5px 0px;
+    }
+}

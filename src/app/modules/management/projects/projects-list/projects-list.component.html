@@ -9,12 +9,17 @@
         <label for="findProject">Buscar projetos</label>
       </div>
     </div>
-    <div class="col m6 s12">
+    <div class="col m3 s12">
       <ul>
         <li><a (click)="changeDays('prev')" class="button button-primary button-floating"><i class="material-icons">chevron_left</i></a></li>
         <li><a (click)="changeDays('next')" class="button button-primary button-floating"><i class="material-icons">chevron_right</i></a></li>
       </ul>
     </div>
+    <!-- <div class="col m3 s12">
+      <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'ADDPROJECT' | translate }}">
+        <i (click)="finalize()" class="material-icons">add</i>
+      </button>
+    </div> -->
   </div>
 
   <app-loading [loader]="loaderDays && !daysOfWeek10"></app-loading>
@@ -28,9 +33,12 @@
           <th *ngFor="let day of daysOfWeek10">{{ day | date:'E' }}</th>
           <th class="hour">{{ 'HOURS' | translate }}</th>
           <th>{{ 'DATE' | translate }}</th>
+          <th>{{ 'RSC' | translate }}</th>
           <th>{{ 'EXP' | translate }}</th>
           <th>{{ 'EFF' | translate }}</th>
-          <th>{{ 'STATUSREPORT' | translate }}</th>
+          <!-- <th>{{ 'EDIT' | translate }}</th> -->
+          <th><!-- {{ 'STATUSREPORT' | translate }} --></th>
+          <th><!-- {{ 'GENERATEREPORT' | translate }} --></th>
         </tr>
       </thead>
       <tbody>
@@ -46,13 +54,22 @@
             <td class="fontMin"><b>Real:</b> {{ project.actualEffort }} <br><b>Prev:</b> {{ project.predictEffort }}</td>
             <td class="fontMin">{{ project.actualConclusion}} <br> {{ project.predictConclusion }}</td>
             <td>
+              <i class="material-icons" [ngStyle]="{ 'color': project.riskProject }">fiber_manual_record</i>
+            </td>
+            <td>
               <i class="material-icons" [ngStyle]="{ 'color': project.expectedStyle }">fiber_manual_record</i>
             </td>
             <td>
               <i class="material-icons" [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i>
             </td>
+            <!-- <td>
+              <button matTooltip="{{ 'EDIT' | translate }}" mat-icon-button (click)="openProjectEdit(project)"><i class="material-icons">more_vert</i></button>
+            </td> -->
             <td>
-              <button mat-icon-button (click)="openReport(project)"><i class="material-icons">send</i></button>
+              <button matTooltip="{{ 'STATUSREPORT' | translate }}" mat-icon-button (click)="openReport(project)"><i class="material-icons">report</i></button>
+            </td>
+            <td>
+              <button matTooltip="{{ 'GENERATEREPORT' | translate }}" mat-icon-button (click)="generateReport(project)"><i class="material-icons">send</i></button>
             </td>
           </tr>
           <tr>

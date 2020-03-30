@@ -28,7 +28,6 @@ export class ProjectEditComponent implements OnInit {
     description: [this.data.project.description],
     identify: [this.data.project.identify],
   });
-
   loader: boolean = false;
 
   constructor(
@@ -52,6 +51,7 @@ export class ProjectEditComponent implements OnInit {
           if (response.status == 0) {
             this._snackBar.openFromComponent(NotifyComponent, 
               { data: { type: 'success', message: 'Projeto atualizado com sucesso!' }});
+              this.dialogRef.close({confirm: true});
             this.loader = false;
             return;
           }

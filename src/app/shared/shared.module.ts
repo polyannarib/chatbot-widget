@@ -34,6 +34,9 @@ import { MenuComponent } from './components/menu/menu.component';
 import { SlickComponent } from './components/slick/slick.component';
 import { ProgressComponent } from './components/progress/progress.component';
 import { BoxPropertyComponent } from './components/box-property/box-property.component';
+import { ConfirmComponent } from './components/modal/confirm/confirm.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { CollapseComponent } from './components/collapse/collapse.component';
 
 
 // Diretivas
@@ -46,7 +49,6 @@ import { RectangleDirective } from './directives/rectangle.directive';
 // NgxMaterial components importados
 import { MzCollapsibleModule } from 'ngx-materialize';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 // Material Angular components importados
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -98,8 +100,7 @@ import { MenuItems } from './components/menu/menu.json';
     MatChipsModule,
     MatInputModule,
     MatNativeDateModule,
-    RouterModule,
-    NgxMatSelectSearchModule
+    RouterModule
   ],
   declarations: [
     SidebarComponent,
@@ -130,7 +131,10 @@ import { MenuItems } from './components/menu/menu.json';
     FocusableDirective,
     SlickComponent,
     RectangleDirective,
-    ProgressComponent
+    ProgressComponent,
+    ConfirmComponent,
+    PaginatorComponent,
+    CollapseComponent
   ],
   exports: [
     MenuComponent,
@@ -179,7 +183,8 @@ import { MenuItems } from './components/menu/menu.json';
     ViewModeDirective,
     EditableOnEnterDirective,
     FocusableDirective,
-    NgxMatSelectSearchModule
+    PaginatorComponent,
+    CollapseComponent
   ],
   entryComponents: [
     FinalizeComponent,
@@ -187,7 +192,8 @@ import { MenuItems } from './components/menu/menu.json';
     SuspendComponent,
     NotifyComponent,
     SucessComponent,
-    ErrorComponent
+    ErrorComponent,
+    ConfirmComponent
   ],
   providers: [
     {

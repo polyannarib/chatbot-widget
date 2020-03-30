@@ -32,29 +32,10 @@
         </div>
       </form>
     </div>
-
     <app-loading [loader]="loaderNotes"></app-loading>
     <div *ngIf="!loaderNotes">
 
       <app-count *ngIf="messageNotes && !notes">Esse projeto não tem nota cadastrada no momento!</app-count>
-
-      <!-- <table *ngIf="dataSource" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
-          <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-          <td mat-cell *matCellDef="let element;let index = index"> 
-            <editable (update)="updateField(index, column)">
-              <ng-template viewMode>
-                {{ element[column] }}
-              </ng-template>
-              <ng-template editMode>
-                <input matInput [formControl]="getControl(index, column)">
-              </ng-template>
-            </editable> 
-          </td>
-        </ng-container>        
-        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-      </table> -->
 
       <table *ngIf="notes">
         <thead>
@@ -88,10 +69,10 @@
         </tbody>
       </table>
     </div>
-    
   </div>
   <div class="modal-footer" *ngIf="formFind.valid">
-    <button (click)="modalEditProject()" class="button button-primary">{{ 'EDITPROJECT' | translate }}</button>
+    <!-- <button (click)="modalEditProject()" class="button button-primary">{{ 'EDITPROJECT' | translate }}</button> -->
     <button (click)="modalCreateNotesReport()" class="button button-primary right">{{ 'ADDNOTES' | translate }}</button>
+    <!-- <button (click)="generateReport()" target="_blank" class="button button-primary right">{{ 'GENERATEREPORT' | translate }}</button> -->
   </div>
 </div>

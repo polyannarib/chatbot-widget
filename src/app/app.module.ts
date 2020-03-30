@@ -1,3 +1,9 @@
+import { AuthGuard } from './core/guards/auth-guard';
+import { AuthenticatedGuard } from './core/guards/authenticated.guard';
+import { AuthService } from './core/services/auth.service';
+import { LoginComponent } from './modules/auth/login/login.component';
+import { ProjectService } from './core/services/project.service';
+import { LoadingService } from './core/services/loading.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, LOCALE_ID } from '@angular/core';
@@ -39,6 +45,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [
+    AuthService,
+    AuthenticatedGuard,
+    ProjectService,
+    LoadingService,
     DatePipe,
     { provide: LOCALE_ID, useValue: 'pt' }
   ],

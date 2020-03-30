@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { AppConstants } from '../../../app.constants';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -14,22 +16,39 @@ export class HeaderComponent implements OnInit {
   user: any
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.user = this.authService.getUser();
   }
 
   ngOnInit() {
     $('.dropdown-trigger').dropdown();
-    this.btnMenuClass = 'hamRotate';
-    this.toggleMenu('left');
+    if(document.body.classList.contains('nav-open')){
+      document.querySelector('.navbar-toggle').classList.add('toggled');
+    }
   }
 
   logout() {
-    this.authService.logout();
+    debugger;
+    let params = {
+      "SYSTEM": AppConstants.SYSTEM_NAME
+    }
+    this.authService.temporaryToken(params).subscribe(
+      (response) => {
+          let tempToken = response["user-token"];
+          this.authService.setTemporaryToken(tempToken);
+          this.authService.logout().subscribe(
+            () => {
+              this.authService.removeToken();
+              this.router.navigate( ['/login'], { queryParams: { authenticated: false}} );
+            }
+          )  
+      }
+    )
   }
 
-  toggleMenu(position) {
+  toggleMenu(position?) {
     if (position === 'left') {
       document.body.classList.toggle('sidebar-mini');
       if (this.btnMenuClass === 'hamRotate') {
@@ -44,6 +63,10 @@ export class HeaderComponent implements OnInit {
         document.querySelector('.navbar-toggle').classList.toggle('toggled');
       }, 300);
     }
+  }
+
+  getPicture() {
+    return 'url(https://www.kyros.com.br/portal-webplayer-images/Players/' + this.user.replace().replace(/\s+/g, '').toLowerCase() + '.png)';
   }
 
 }

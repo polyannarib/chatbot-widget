@@ -70,6 +70,7 @@ export class ReportEditNoteComponent implements OnInit {
   }
 
   saveNotes() {
+    this.loader = true;
     this.form.value.noteDate = (this.form.value.noteDate != null) ? new Date(this.form.value.noteDate).getTime() : null;
     this.form.value.noteStartDate = (this.form.value.noteStartDate != null) ? new Date(this.form.value.noteStartDate).getTime() : null;
     this.form.value.noteEndDate = (this.form.value.noteEndDate != null) ? new Date(this.form.value.noteEndDate).getTime() : null;
@@ -80,16 +81,20 @@ export class ReportEditNoteComponent implements OnInit {
           if(response.status == 0) {
             this._snackBar.openFromComponent(NotifyComponent, 
               { data: { type: 'success', message: 'Nota salva com sucesso!' }});
+              this.loader = false;
             this.dialogRef.close();
             return;
           }
+          this.loader = false;
           this._snackBar.openFromComponent(NotifyComponent, 
             { data: { type: 'error', message: 'Problemas ao salvar a nota' }});
         }, (err) => {
+          this.loader = false;
           this._snackBar.openFromComponent(NotifyComponent, 
             { data: { type: 'error', message: 'Problemas ao preencher o formulário, contate o administrador!' }});
       });
     } else {
+      this.loader = false;
       this._snackBar.openFromComponent(NotifyComponent, 
         { data: { type: 'error', message: 'Favor preencher todos os campos corretamente' }});
     }
