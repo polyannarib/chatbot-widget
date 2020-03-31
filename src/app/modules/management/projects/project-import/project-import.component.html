@@ -1,27 +1,27 @@
 <app-loading [loader]="loader"></app-loading>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col s12 m4">
-            <!-- <div class="input-field">
-                <input autocomplete="off" id="findProject" (keyup)="onSearchChangeProject($event.target.value)" matInput id="findProject" type="text" class="validate" value="">
-                <label for="findProject">Buscar projetos</label>
-            </div> -->
+<section *ngIf="projects">
 
-            <div class="input-field">
-                <input autocomplete="off" type="text" id="findProject" class="validate" [(ngModel)]="projectName">
-                <label for="findProject">Buscar projetos</label>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col s12 m4">
+                <!-- <div class="input-field">
+                    <input autocomplete="off" id="findProject" (keyup)="onSearchChangeProject($event.target.value)" matInput id="findProject" type="text" class="validate" value="">
+                    <label for="findProject">Buscar projetos</label>
+                </div> -->
+    
+                <div class="input-field">
+                    <input autocomplete="off" type="text" id="findProject" class="validate" [(ngModel)]="projectName">
+                    <label for="findProject">Buscar projetos</label>
+                </div>
+            </div>
+            <div class="col s12 m8">
+                <button (click)="getProjectsName()" class="button button-primary button-floating">
+                    <i class="material-icons">search</i>
+                </button>
             </div>
         </div>
-        <div class="col s12 m8">
-            <button (click)="getProjectsName()" class="button button-primary button-floating">
-                <i class="material-icons">search</i>
-            </button>
-        </div>
     </div>
-</div>
-
-<section *ngIf="projects">
     <!-- <div class="boxFilter">
         <div class="input-field">
             <input type="text" class="validate" [(ngModel)]="projectName">

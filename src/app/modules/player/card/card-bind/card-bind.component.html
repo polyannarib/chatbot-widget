@@ -7,7 +7,6 @@
       (click)="onShowTips()"> ? </button >
     <div id="black-filter"></div>
   </div>
-
   <div class="col s12" matTooltip="Use os filtros para buscar cartas específicas" matTooltipPosition="above">
     <div class="find">
       <div *ngFor="let levelElement of cardKnowledgeFilter; let i= index" [ngClass]="{'help' : status}">
@@ -26,27 +25,31 @@
   <div class="col s12 m5">
     <div class="style-custom" [ngClass]="{'help' : status}">
       <app-slick (identifySlick)="classSlick($event)" [options]="slick" [arrows]="arrows" class="trapezio" matTooltip="Use as setas para escolher os personagens que melhor representam você" matTooltipDisabled="{{ !status }}" matTooltipPosition="below">
-        <div class="characters" *ngFor="let attribute of characters.attributes; index as i;">
-          <img class="card-star" src="{{ getStar(attribute) }}">
-          <img class="card-img" width="100%" src="{{ getCard(characters, i) }}">
-          <img class="logo" src="{{ getLogo(characters, i) }}">
-          <button class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="addOrRemoveCard(characters.knowledge.knowledgeId, characters.attributes[indexSlick].id)"> <i class="material-icons">add</i> </button>
+        <div class="characters" *ngFor="let attribute of characters; index as i;">
+          <!-- <img class="card-star" src="{{ getStar(attribute) }}"> -->
+          <img class="card-img" *ngIf="attribute.attributes" width="100%" src="{{ attribute.url }}">
+          <!-- <img class="logo" src="{{ getLogo(characters, i) }}"> -->
+          <button class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="addOrRemoveCard(characters.knowledge.knowledgeId, characters[indexSlick].id)"> <i class="material-icons">add</i> </button>
         </div>
       </app-slick>
     </div>
   </div>
   <div class="col s12 m7">
-    <div class="boxAttributes">
-      <app-box-property [ngClass]="{'help' : status}" [title]="'Descrição'"> {{ characters.cardDescription }} </app-box-property>
-      <app-box-property [ngClass]="{'help' : status}" [title]="'Conhecimento'"> {{ characters.attributes[indexSlick].attribute.classification.classificationDescription }} </app-box-property>
-      <app-box-property [ngClass]="{'help' : status}" title="{{ metricList.metric.metricType.metricType + 'PROJECT' | translate }}" *ngFor="let metricList of characters.attributes[indexSlick].attribute.metricList" number="{{ metricList.metric.value }}"> {{ metricList.metric.metricType.description }} </app-box-property>
+    <app-count *ngIf="characters[indexSlick].attributes.length == 0">Esta carta não possui nenhum atributo cadastrado</app-count>
+    <div class="boxAttributes" *ngIf="characters[indexSlick].attributes.length > 0">
+      <app-box-property [ngClass]="{'help' : status}" [title]="'Descrição'"> {{ characters[indexSlick].description }} </app-box-property>
+      <!-- <app-box-property [ngClass]="{'help' : status}" [title]="'Conhecimento'"> {{ characters.attributes[indexSlick].attribute.classification.classificationDescription }} </app-box-property> -->
+      <ng-container *ngFor="let metricList of characters[indexSlick].attributes">
+        <app-box-property [ngClass]="{'help' : status}" title="{{ metricList.metric.metricType.metricType + 'PROJECT' | translate }}" *ngIf="metricList && metricList.metric && metricList.metric.metricType" number="{{ metricList.metric.value }}"> {{ metricList.metric.metricType.description }} </app-box-property>
+      </ng-container>
     </div>
   </div>
 </div>
-<app-loading [loader]="loaderDeck"></app-loading>
-<!-- <div class="row deck" *ngIf="playerDeck">
+<!-- <app-loading [loader]="loaderDeck"></app-loading>
+<div class="row deck" *ngIf="playerDeck">
   <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" matTooltip="Essas são as suas cartas" matTooltipDisabled="{{ !status }}" matTooltipPosition="above" [type]="refreshSlick">
     <div *ngFor="let card of playerDeck; index as i;" [ngClass]="{'help' : status}">
+      <img class="deck-img" width="100%" src="{{ card.url }}">
       <img class="deck-img" width="100%" src="{{ getCardDeck(card) }}">
     </div>
   </app-slick>

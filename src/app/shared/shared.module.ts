@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -72,6 +72,9 @@ import { MatNativeDateModule } from '@angular/material';
 
 //Serviços
 import { MenuItems } from './components/menu/menu.json';
+import { MainColorDirective } from './directives/main-color.directive';
+import { PrimaryColorDirective } from './directives/primary-color.directive';
+import { SecundaryColorDirective } from './directives/secundary-color.directive';
 
 @NgModule({
   imports: [
@@ -134,7 +137,10 @@ import { MenuItems } from './components/menu/menu.json';
     ProgressComponent,
     ConfirmComponent,
     PaginatorComponent,
-    CollapseComponent
+    CollapseComponent,
+    MainColorDirective,
+    PrimaryColorDirective,
+    SecundaryColorDirective
   ],
   exports: [
     MenuComponent,

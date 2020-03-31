@@ -7,7 +7,7 @@ export const environment = {
   URL_SSO: 'https://sso-dev.kyros.com.br/kyros-sso',
   URL_SSO_SERVICES: 'https://sso.kyros.com.br/kyros-sso',
   SYSTEM_NAME: 'WORKPLAYER',
-  WORKPLAYER_HOME: 'http://localhost:4200',
+  WORKPLAYER_HOME: 'http://192.168.1.235:8989',
   COMPANY: '1',
   URL_STATUS_REPORT: 'http://192.168.0.216:8080/pentaho/api/repos/%3Ahome%3Aworkplayer%3AStatus_Report.prpt/viewer?userid=workplayer&password=admin123&id_project=',
   production: false

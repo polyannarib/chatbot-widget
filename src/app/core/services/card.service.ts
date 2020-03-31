@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { isEmpty } from 'rxjs/operators';
@@ -14,6 +14,11 @@ export class CardService {
   ) { }
 
   private prefixService = "card";
+  private setHeaders: HttpHeaders
+
+  // createAuthorizationHeader(headers: Headers) {
+  //   headers.append('Authorization', 'Basic ' + 'YWRtaW46YWRtaW4=');
+  // }
 
   findAllTasks(): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/skill`);
@@ -36,8 +41,12 @@ export class CardService {
   }
 
   findCardById(id: number): Observable<any> {
-    return this.http.get(`${environment.back_end_url}/${this.prefixService}/byKnowledgeId/${id}`);
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/${id}/classification`);
   }
+  
+  // findCardById(id: number): Observable<any> {
+  //   return this.http.get(`${environment.back_end_url}/${this.prefixService}/byKnowledgeId/${id}`);
+  // }
 
   listCardsByUser(): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/listCardsByUser`);
@@ -86,6 +95,14 @@ export class CardService {
       return this.http.get(`${environment.back_end_url}/${this.prefixService}/workgroup`);
     }
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/workgroup?workgroupParentIds=${id}`);
+  }
+
+  getPhotoImg(url: string): Observable<any> {
+    // console.log('Entrou dentro do serviço');
+    // console.log(url);
+    // console.log(this.http.get(url, { headers: this.setHeaders }));
+    this.setHeaders = new HttpHeaders().append('Authorization', 'Basic ' + 'YWRtaW46YWRtaW4=');
+    return this.http.get(url, { headers: this.setHeaders });
   }
 
 }

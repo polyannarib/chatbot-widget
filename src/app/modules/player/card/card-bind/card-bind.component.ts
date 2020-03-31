@@ -178,9 +178,9 @@ export class CardBindComponent implements OnInit {
       (response) => {
         if (response.status == 0) {
           this.characters = response.object;
-          if (this.characters.cardName.indexOf("#") != -1) {
-            this.characters.cardName = this.characters.cardName.replace("#", "sharp");
-          }
+          // if (this.characters.cardName.indexOf("#") != -1) {
+          //   this.characters.cardName = this.characters.cardName.replace("#", "sharp");
+          // }
           this.loader = false;
           return;
         }
@@ -276,6 +276,15 @@ export class CardBindComponent implements OnInit {
         console.log(err);
       }
     )
+  }
+
+  getImg(url) {
+    // this.service.getPhotoImg(url).subscribe(
+    //   (response) => {
+    //     console.log('----- Entrou dentro do getImg -----');
+    //     console.log(response);
+    //   });
+    return this.service.getPhotoImg(url);
   }
 
 }

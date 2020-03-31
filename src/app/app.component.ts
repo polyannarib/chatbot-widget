@@ -1,23 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { company } from '../environments/environment'
 import { TranslateService } from '@ngx-translate/core';
+import { ProfileService } from './core/services/profile.service';
+
+export interface EventEmitted {
+  name: String;
+  data?: any;
+  error?: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit{
+  
   btnMenuClass: string;
   private themeWrapper = document.querySelector('body');
+  emitter = new EventEmitter();
 
   constructor(
-    private http: HttpClient, translate: TranslateService
+    private http: HttpClient, 
+    translate: TranslateService,
+    private profileService: ProfileService
   ) {
-    // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('pt');
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
     translate.use('pt');
+    // this.getProfile();
   }
 
   ngOnInit() {
@@ -30,7 +41,6 @@ export class AppComponent implements OnInit{
         }
       });
     })
-
     this.btnMenuClass = 'hamRotate';
     this.toggleMenu('left');
   }
@@ -51,4 +61,20 @@ export class AppComponent implements OnInit{
       }, 300);
     }
   }
+
+  // getProfile() {
+  //   this.profileService.getWhiteLabel().subscribe(
+  //     (response) => {
+  //       if(response.status == 0) {
+  //         let data: EventEmitted = {
+  //           name: 'PROFILE_COMPANY',
+  //           data: response.object
+  //         }
+  //         this.emitter.emit(data);
+  //         return;
+  //       }
+  //     }
+  //   );
+  // }
+
 }
