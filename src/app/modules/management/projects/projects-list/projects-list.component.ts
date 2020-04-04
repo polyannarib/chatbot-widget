@@ -9,8 +9,6 @@ import { NotifyComponent } from 'src/app/shared/components/notify/notify.compone
 import { ProjectDetailsTaskComponent } from '../project-details-task/project-details-task.component';
 import { environment } from 'src/environments/environment';
 
-declare var $: any;
-
 @Component({
   selector: 'app-projects-list',
   templateUrl: './projects-list.component.html',
@@ -29,8 +27,6 @@ export class ProjectsListComponent implements OnInit {
   numberOfDays: number = 4;
   startDate: any = new Date(Date.now());
   endDate: any = addDays(this.startDate, this.numberOfDays);
-
-  classSlideToggle = new Object();
 
   constructor(
     private projectService: ProjectService,
@@ -162,18 +158,5 @@ export class ProjectsListComponent implements OnInit {
         break;
     }
   }
-
-  openProject(project) {
-    if(this.classSlideToggle['project'+project] == false)
-      return this.classSlideToggle['project'+project] = true;
-    return this.classSlideToggle['project'+project] = false;
-  }
-
-  classSlideToggleFunction(project) {
-    if(!this.classSlideToggle['project'+project])
-      return false;
-    return true;
-  }
-
 
 }
