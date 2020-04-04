@@ -4,6 +4,8 @@ import { PlayerService } from 'src/app/core/services/player.service';
 import { CardService } from 'src/app/core/services/card.service';
 import { MatSnackBar, MatBottomSheet } from '@angular/material';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-card-bind',
@@ -29,7 +31,7 @@ export class CardBindComponent implements OnInit {
   slick = {
     lazyLoad: 'ondemand',
     dots: false,
-    infinite: true,
+    infinite: false,
     slidesToShow: 1,
     slidesToScroll: 1,
     responsive: [
@@ -59,6 +61,7 @@ export class CardBindComponent implements OnInit {
   };
   deck = {
     centerMode: true,
+    lazyLoad: 'progressive',
     centerPadding: '70px',
     dots: false,
     infinite: true,
@@ -104,6 +107,7 @@ export class CardBindComponent implements OnInit {
   constructor(
     private service: CardService,
     private _snackBar: MatSnackBar,
+    private httpClient: HttpClient
   ) { }
 
   ngOnInit() {
@@ -278,13 +282,19 @@ export class CardBindComponent implements OnInit {
     )
   }
 
-  getImg(url) {
+  // getImg(url) {
+    // console.log(this.service.getPhotoImg(url));
+    // console.log(url);
     // this.service.getPhotoImg(url).subscribe(
     //   (response) => {
     //     console.log('----- Entrou dentro do getImg -----');
     //     console.log(response);
-    //   });
-    return this.service.getPhotoImg(url);
-  }
+    //     return response;
+    // });
+    // return this.service.getPhotoImg(url);
+    // console.log(url)
+    // console.log(this.httpClient.get(url))
+    // return this.httpClient.get(url, { responseType: 'blob' }).pipe(map(e => URL.createObjectURL(e)));
+  // }
 
 }

@@ -14,7 +14,7 @@ export class CardService {
   ) { }
 
   private prefixService = "card";
-  private setHeaders: HttpHeaders
+  // private setHeaders: HttpHeaders
 
   // createAuthorizationHeader(headers: Headers) {
   //   headers.append('Authorization', 'Basic ' + 'YWRtaW46YWRtaW4=');
@@ -97,12 +97,20 @@ export class CardService {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/workgroup?workgroupParentIds=${id}`);
   }
 
-  getPhotoImg(url: string): Observable<any> {
-    // console.log('Entrou dentro do serviço');
-    // console.log(url);
-    // console.log(this.http.get(url, { headers: this.setHeaders }));
-    this.setHeaders = new HttpHeaders().append('Authorization', 'Basic ' + 'YWRtaW46YWRtaW4=');
-    return this.http.get(url, { headers: this.setHeaders });
+  getPhotoImg(url: string): Observable<Blob> {
+    // const src = 'https://api.mywebsite.com/profiles/123/avatar';
+    // const options = {
+    //   headers: {
+    //     'Some-Header': '...'
+    //   }
+    // };
+    // fetch(src, options).then(res => res.blob()).then(blob => {
+    //   imgElement.src = URL.createObjectURL(blob);
+    // });
+    // let setHeaders: HttpHeaders
+    // setHeaders = new HttpHeaders();
+    // return this.http.get(url, { headers: setHeaders.set('Authorization', 'Basic ' + 'YWRtaW46YWRtaW4=') });
+    return this.http.get(url, { responseType: 'blob' });
   }
 
 }
