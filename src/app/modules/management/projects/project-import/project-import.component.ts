@@ -42,7 +42,7 @@ export class ProjectImportComponent implements OnInit {
     this.pageSize = eventoPaginator.pageSize;
     this.page = eventoPaginator.pageIndex + 1;
     console.log(this.page);
-    this.getProjects({ page: this.page, pageSize: this.pageSize });
+    this.getProjects({ page: this.page, pageSize: 20 });
   }
 
   getProjects(data) {
@@ -110,7 +110,7 @@ export class ProjectImportComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if(result.confirm == true) {
-          this.getProjects({ page: this.page, pageSize: this.pageSize });
+          this.getProjects({ page: this.page, pageSize: 20 });
         }
     });
   }
