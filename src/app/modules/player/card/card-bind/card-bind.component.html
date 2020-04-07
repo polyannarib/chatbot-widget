@@ -49,7 +49,7 @@
 <div class="row deck" *ngIf="playerDeck">
   <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" matTooltip="Essas são as suas cartas" matTooltipDisabled="{{ !status }}" matTooltipPosition="above" [type]="refreshSlick">
     <div *ngFor="let card of playerDeck; index as i;" [ngClass]="{'help' : status}">
-      <img class="deck-img" width="100%" src="{{ card.classification.url }}">
+      <img class="deck-img" width="100%" [src]="card.classification.url | image | async">
       <!-- <img class="deck-img" width="100%" src="{{ getCardDeck(card) }}"> -->
     </div>
   </app-slick>
