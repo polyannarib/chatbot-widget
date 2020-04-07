@@ -28,7 +28,6 @@ export class AppComponent implements OnInit{
   ) {
     translate.setDefaultLang('pt');
     translate.use('pt');
-    // this.getProfile();
   }
 
   ngOnInit() {

@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 import { MatBottomSheet } from '@angular/material';
 import { CompanySelectComponent } from '../company-select/company-select.component';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
+    private profileService: ProfileService
   ) { }
 
   ngAfterViewInit() {
@@ -39,7 +41,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    console.log('------ Entrou dentro do response onLogin()');
+  }
 
   onLogin() {
     this.loader = true;
@@ -79,5 +83,24 @@ export class LoginComponent implements OnInit, AfterViewInit {
         { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
     }
   }
+
+  // getProfile() {
+  //   debugger;
+  //   this.profileService.getWhiteLabel().subscribe(
+  //     (response) => {
+  //       debugger;
+  //       if (response.status == 0) {
+  //         const color = response.object.styles.map(element => element.value);
+  //         this.profileService.setWhiteLabel(color);
+  //         debugger;
+  //         return;
+  //       }
+  //       return;
+  //     }, (err) => {
+  //       debugger;
+  //       return;
+  //     }
+  //   )
+  // }
 
 }

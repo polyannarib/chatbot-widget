@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-management',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManagementComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private profileService: ProfileService
+  ) {
+    // this.getProfile();
+  }
 
   ngOnInit() {
   }
+
+  // getProfile() {
+  //   this.profileService.getWhiteLabel().subscribe(
+  //     (response) => {
+  //       if (response.status == 0) {
+  //         this.profileService.setWhiteLabel(response.object);
+  //         return;
+  //       }
+  //       return;
+  //     }, (err) => {
+  //       return;
+  //   })
+  // }
 
 }

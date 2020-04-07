@@ -177,14 +177,14 @@ header{
     padding: 0px 0px 0px 10px;
 }
 
-.player #score{
+.player #score {
     margin-left: 8px;
     font-size: 15px;
     font-weight: 600;
     color: #9600b5;
 }
 
-.navbar-default{
+.navbar-default {
     background-color: transparent !important;
 }
 

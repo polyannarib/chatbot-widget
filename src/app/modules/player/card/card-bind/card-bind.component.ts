@@ -6,6 +6,7 @@ import { MatSnackBar, MatBottomSheet } from '@angular/material';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-card-bind',
@@ -14,6 +15,8 @@ import { map } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class CardBindComponent implements OnInit {
+
+  mainStyle = this.profileService.getAppMainColor();
 
   status: boolean = false;
   helpMessage: any = "Clique aqui para ver dicas sobre a tela";
@@ -98,7 +101,6 @@ export class CardBindComponent implements OnInit {
       }
     ]
   }
-
   showDivAtt = 'display-hide'
   showDivComp = 'display-hide'
   id: any;
@@ -107,7 +109,8 @@ export class CardBindComponent implements OnInit {
   constructor(
     private service: CardService,
     private _snackBar: MatSnackBar,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {
@@ -260,7 +263,7 @@ export class CardBindComponent implements OnInit {
 
   addOrRemoveCard(knowledgeId, attributesId) {
     var data = {
-      "knowledgeId": knowledgeId,
+      // "knowledgeId": knowledgeId,
       "attributeId": attributesId
     }
     this.service.addCard(data).subscribe(

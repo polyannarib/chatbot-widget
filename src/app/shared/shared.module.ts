@@ -75,6 +75,7 @@ import { MenuItems } from './components/menu/menu.json';
 import { MainColorDirective } from './directives/main-color.directive';
 import { PrimaryColorDirective } from './directives/primary-color.directive';
 import { SecundaryColorDirective } from './directives/secundary-color.directive';
+import { ImagePipe } from './pipe/image.pipe';
 
 @NgModule({
   imports: [
@@ -140,7 +141,8 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
     CollapseComponent,
     MainColorDirective,
     PrimaryColorDirective,
-    SecundaryColorDirective
+    SecundaryColorDirective,
+    ImagePipe
   ],
   exports: [
     MenuComponent,
@@ -190,7 +192,8 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
     EditableOnEnterDirective,
     FocusableDirective,
     PaginatorComponent,
-    CollapseComponent
+    CollapseComponent,
+    ImagePipe
   ],
   entryComponents: [
     FinalizeComponent,

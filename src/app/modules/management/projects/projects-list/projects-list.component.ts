@@ -8,6 +8,7 @@ import { ReportEditComponent } from '../../report/report-edit/report-edit.compon
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 import { ProjectDetailsTaskComponent } from '../project-details-task/project-details-task.component';
 import { environment } from 'src/environments/environment';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-projects-list',
@@ -27,11 +28,13 @@ export class ProjectsListComponent implements OnInit {
   numberOfDays: number = 4;
   startDate: any = new Date(Date.now());
   endDate: any = addDays(this.startDate, this.numberOfDays);
+  mainStyle = this.profileService.getAppMainColor();
 
   constructor(
     private projectService: ProjectService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {

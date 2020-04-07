@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { ProjectEditComponent } from '../project-edit/project-edit.component';
 import { ProjectService } from 'src/app/core/services/project.service';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-project-create',
@@ -29,13 +30,15 @@ export class ProjectCreateComponent implements OnInit {
     identify: [null],
   });
   loader: boolean = false;
+  mainStyle = this.profileService.getAppMainColor();
 
   constructor(
     public dialogRef: MatDialogRef<ProjectEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private projectService: ProjectService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {

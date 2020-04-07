@@ -3,6 +3,7 @@ import { CanActivate, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from
 import { AuthService } from '../services/auth.service';
 import { DOCUMENT } from '@angular/common';
 import { AppConstants } from '../../app.constants';
+import { ProfileService } from '../services/profile.service';
 
 @Injectable()
 export class AuthenticatedGuard implements CanActivate {
@@ -14,6 +15,7 @@ export class AuthenticatedGuard implements CanActivate {
     constructor(
         private router: Router,
         private authService: AuthService,
+        private profileService: ProfileService,
         @Inject(DOCUMENT) private document: Document ) { }
 
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise< boolean > {
@@ -21,6 +23,7 @@ export class AuthenticatedGuard implements CanActivate {
 
         return new Promise((resolve, reject) => {
             if( this.authService.isAuthenticated() ) {
+                this.getProfile();
                 this.router.navigate(['/management/dashboard']);
                 return;
             }
@@ -76,4 +79,18 @@ export class AuthenticatedGuard implements CanActivate {
             return error;
         });
     }
+
+    getProfile() {
+        this.profileService.getWhiteLabel().subscribe(
+            (response) => {
+            if (response.status == 0) {
+                this.profileService.setWhiteLabel(response.object);
+                return;
+            }
+            return;
+            }, (err) => {
+            return;
+        })
+    }
+
 }

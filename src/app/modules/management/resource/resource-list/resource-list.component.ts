@@ -4,6 +4,7 @@ import { format, eachDayOfInterval, addDays, subDays } from 'date-fns';
 import { PageEvent, MatDialog, MatSnackBar } from '@angular/material';
 import { ResourceDetailsComponent } from '../resource-details/resource-details.component';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-resource-list',
@@ -25,11 +26,13 @@ export class ResourceListComponent implements OnInit {
   numberOfDays = 8;
   startDate = new Date(Date.now());
   endDate = addDays(new Date(Date.now()), this.numberOfDays);
+  mainStyle = this.profileService.getAppMainColor();
 
   constructor(
     private playerService: PlayerService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {

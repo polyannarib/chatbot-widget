@@ -26,10 +26,10 @@
     <div class="style-custom" [ngClass]="{'help' : status}">
       <app-slick (identifySlick)="classSlick($event)" [options]="slick" [arrows]="arrows" class="trapezio" matTooltip="Use as setas para escolher os personagens que melhor representam você" matTooltipDisabled="{{ !status }}" matTooltipPosition="below">
         <div class="characters" *ngFor="let attribute of characters; index as i;">
-          <img class="card-star" src="{{ attribute.starUrl }}">
-          <img class="card-img" *ngIf="attribute.attributes" width="100%" src="{{ attribute.url }}">
-          <img class="logo" src="{{ attribute.logoUrl }}">
-          <button class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="addOrRemoveCard(characters.knowledge.knowledgeId, characters[indexSlick].id)"> <i class="material-icons">add</i> </button>
+          <img class="card-star" [src]="attribute.starUrl | image | async">
+          <img class="card-img" *ngIf="attribute.attributes" width="100%" [src]="attribute.url | image | async">
+          <img class="logo" [src]="attribute.logoUrl | image | async">
+          <button [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="addOrRemoveCard(attribute.id)"> <i class="material-icons">add</i> </button>
         </div>
       </app-slick>
     </div>
