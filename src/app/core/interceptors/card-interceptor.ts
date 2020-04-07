@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 )
 export class CardInterceptor implements HttpInterceptor {
 
-    constructor() {}
+    constructor() { }
 
     // intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     //     const newRequest = request.clone({

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 
 @Component({
@@ -9,7 +10,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  mainStyle = this.profileService.getAppMainColor();
+
+  constructor(
+    private profileService: ProfileService
+  ) { }
 
   ngOnInit() { }
 

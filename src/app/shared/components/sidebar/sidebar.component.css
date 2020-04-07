@@ -52,10 +52,10 @@ div.content {
     border-radius: 0
 }
 
-.sidebar:after{
+/* .sidebar:after{
     background: #650199 !important;
     opacity: 1 !important;
-}
+} */
 
 /* .sidebar .nav li>a {
     color: #6f237fe0 !important
@@ -10457,13 +10457,13 @@ h1 .subtitle {
     background: #000
 }
 
-.sidebar:after {
+/* .sidebar:after {
     background: rgb(93, 203, 208);
     background: linear-gradient(to bottom, rgb(0, 244, 255) 0, rgba(0, 241, 255, 0.7) 100%);
     background-size: 150% 150%;
     z-index: 3;
     opacity: 0.45;
-}
+} */
 
 .sidebar.has-image:after, .sidebar[data-image]:after {
     /* opacity: .95 */

@@ -6,6 +6,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AppConstants } from '../../app.constants';
+import { ProfileService } from './profile.service';
 
 export const SSOID_NAME: string = '_ssoId';
 export const COMPANY: string = "_company";
@@ -19,7 +20,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private profileService: ProfileService
   ) { }
 
   login(data): Observable<any> {
@@ -27,11 +29,14 @@ export class AuthService {
   }
   
   logout(): Observable<any> {
+    this.profileService.removeAppColors();
     return this.http.get(AppConstants.URL_SSO_SERVICES + '/user/logout' );
   }
 
   removeToken() {
     localStorage.removeItem('acessToken');
+    localStorage.removeItem('acessToken');
+    this.profileService.removeAppColors();
   }
 
   getUser() {
@@ -88,6 +93,7 @@ export class AuthService {
       if(!this.jwtHelper.isTokenExpired(localStorage.getItem('acessToken'))) {
         return true;
       } else {
+        localStorage.removeItem('appColor');
         return false;
       }
     }

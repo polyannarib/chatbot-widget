@@ -12,11 +12,9 @@ export class MainColorDirective {
     private profileService: ProfileService
   ) { }
 
-  getProfileColor() {
-    this.profileService.getWhiteLabel().subscribe(
-      (response) => {
-        
-      })
-  }
+  // getProfileColor() {
+  //   const colors = this.profileService.getColors();
+  //   this.background = colors[0];
+  // }
 
 }

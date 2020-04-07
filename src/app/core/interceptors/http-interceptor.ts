@@ -18,7 +18,6 @@ export class HttpInverceptor implements HttpInterceptor {
         if (request.headers.has('Content-Type')) {
             this.contentType = request.headers.get('Content-Type');
         }
-
         if(this.authService.isAuthenticated()) {
             const newRequest = request.clone({
                 setHeaders: {

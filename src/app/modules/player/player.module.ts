@@ -22,7 +22,7 @@ import { CardInterceptor } from 'src/app/core/interceptors/card-interceptor';
     CardBindComponent
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: CardInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: CardInterceptor, multi: true }
   ]
 })
 export class PlayerModule { }

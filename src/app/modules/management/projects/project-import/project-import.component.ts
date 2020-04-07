@@ -3,6 +3,7 @@ import { ProjectService } from 'src/app/core/services/project.service';
 import { ConfirmComponent } from 'src/app/shared/components/modal/confirm/confirm.component';
 import { MatDialog, PageEvent } from '@angular/material';
 import { ProjectEditComponent } from '../project-edit/project-edit.component';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-project-import',
@@ -10,6 +11,8 @@ import { ProjectEditComponent } from '../project-edit/project-edit.component';
   styleUrls: ['./project-import.component.css']
 })
 export class ProjectImportComponent implements OnInit {
+  
+  mainStyle = this.profileService.getAppMainColor();
 
   projects: any;
   projectDetails: any;
@@ -29,6 +32,7 @@ export class ProjectImportComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     public dialog: MatDialog,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {
