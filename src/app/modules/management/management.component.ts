@@ -15,19 +15,20 @@ export class ManagementComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getProfile();
   }
 
-  // getProfile() {
-  //   this.profileService.getWhiteLabel().subscribe(
-  //     (response) => {
-  //       if (response.status == 0) {
-  //         this.profileService.setWhiteLabel(response.object);
-  //         return;
-  //       }
-  //       return;
-  //     }, (err) => {
-  //       return;
-  //   })
-  // }
+  getProfile() {
+    this.profileService.getWhiteLabel().subscribe(
+      (response) => {
+        if (response.status == 0) {
+          this.profileService.setWhiteLabel(response.object);
+          return;
+        }
+        return;
+      }, (err) => {
+        return;
+    })
+  }
 
 }

@@ -1,12 +1,12 @@
 <div class="row" id="input-row">
-  <div id="help-div" [ngClass]="{'tips' : status}">
+  <!-- <div id="help-div" [ngClass]="{'tips' : status}">
     <button matTooltip="{{ helpMessage }}" 
       matTooltipPosition="after" 
       id="help"
       class="btn-floating btn-large waves-effect waves-light"
       (click)="onShowTips()"> ? </button >
     <div id="black-filter"></div>
-  </div>
+  </div> -->
   <div class="col s12" matTooltip="Use os filtros para buscar cartas específicas" matTooltipPosition="above">
     <div class="find">
       <div *ngFor="let levelElement of cardKnowledgeFilter; let i= index" [ngClass]="{'help' : status}">
@@ -40,7 +40,7 @@
       <app-box-property [ngClass]="{'help' : status}" [title]="'Descrição'"> {{ characters[indexSlick].description }} </app-box-property>
       <!-- <app-box-property [ngClass]="{'help' : status}" [title]="'Conhecimento'"> {{ characters.attributes[indexSlick].attribute.classification.classificationDescription }} </app-box-property> -->
       <ng-container *ngFor="let metricList of characters[indexSlick].attributes">
-        <app-box-property [ngClass]="{'help' : status}" title="{{ metricList.metric.metricType.metricType + 'PROJECT' | translate }}" *ngIf="metricList && metricList.metric && metricList.metric.metricType" number="{{ metricList.metric.value }}"> {{ metricList.metric.metricType.description }} </app-box-property>
+        <app-box-property [ngClass]="{'help' : status}" title="{{ metricList.metric.metricType.metricType + 'PROJECT' | translate }}" *ngIf="metricList && metricList.metric && metricList.metric.value && metricList.metric.metricType.description" number="{{ metricList.metric.value }}"> {{ metricList.metric.metricType.description }} </app-box-property>
       </ng-container>
     </div>
   </div>

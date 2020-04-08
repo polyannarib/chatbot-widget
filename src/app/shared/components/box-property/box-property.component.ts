@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, ViewEncapsulation, OnChanges } from '@angular/core';
 import * as $ from 'jquery';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-box-property',
@@ -14,9 +15,13 @@ export class BoxPropertyComponent implements OnInit {
   @Input() description: string;
   @Input() topics: any;
 
+  mainStyle = this.profileService.getAppMainColor();
+
   topicsParsed: any;
 
-  constructor() { }
+  constructor(
+    private profileService: ProfileService
+  ) { }
 
   ngOnInit() {
   }

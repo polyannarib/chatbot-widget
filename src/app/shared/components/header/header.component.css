@@ -145,7 +145,7 @@ header{
     top: -12px;
     transform: skewX(41deg);
     clip-path: polygon(0 0, 100% 0%, 81% 100%, 0% 100%);
-    border-top: 3px solid #650199;
+    border-top: 3px solid;
     z-index: -1;
 }
 

@@ -136,14 +136,14 @@ export class CardBindComponent implements OnInit {
   }
 
   FindParente(event, resource) {
-    if(resource.level === 4) {
+    if (resource.level === 4) {
       this.disabled = false;
       this.searchCards(event.knowledgeId);
       return;
     }
-    if(this.cardKnowledgeFilter) {
+    if (this.cardKnowledgeFilter) {
       this.cardKnowledgeFilter.forEach((element, position) => {
-        if(element.level > event.type.level) {
+        if (element.level > event.type.level) {
           var index = this.cardKnowledgeFilter.indexOf(position);
           this.cardKnowledgeFilter.splice(index, 1);
         }
