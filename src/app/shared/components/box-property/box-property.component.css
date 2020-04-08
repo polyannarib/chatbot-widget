@@ -6,12 +6,12 @@
     /* z-index: 1001; */
     width: 300px;
     box-shadow: none;
-    border-top: 3px solid #650199;
+    border-top: 3px solid;
 }
 .card .title {
     background: linear-gradient(180deg, #ffffffb8, #ffffff85);
     padding: 8px 15px;
-    color: #650199;
+    /* color: #650199; */
     box-shadow: inset 0 0 0 1px #ffffff70;
     font-size: 20px;
     font-weight: 600;
