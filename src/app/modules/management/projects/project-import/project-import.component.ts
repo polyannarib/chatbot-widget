@@ -40,12 +40,12 @@ export class ProjectImportComponent implements OnInit {
   }
 
   pageEvent(eventoPaginator) {
-    console.log('Entrou dentro do pageEvent');
-    console.log(eventoPaginator);
+    // console.log('Entrou dentro do pageEvent');
+    // console.log(eventoPaginator);
     this.length = eventoPaginator.length;
     this.pageSize = eventoPaginator.pageSize;
     this.page = eventoPaginator.pageIndex + 1;
-    console.log(this.page);
+    // console.log(this.page);
     this.getProjects({ page: this.page, pageSize: 20 });
   }
 
@@ -66,10 +66,10 @@ export class ProjectImportComponent implements OnInit {
           return;
         }
         this.loader = false;
-        console.log(response);
+        // console.log(response);
       }, (err) => {
         this.loader = false;
-        console.log(err);
+        // console.log(err);
       }
     )
   }
@@ -90,7 +90,7 @@ export class ProjectImportComponent implements OnInit {
     this.loader = true;
     this.projectService.importProjectWorkplayer(project).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         if(response.status == 0) {
           this.projectEditAndSave(project);
           this.loader = false;
@@ -99,7 +99,7 @@ export class ProjectImportComponent implements OnInit {
         this.loader = false;
       }, (err) => {
         this.loader = false;
-        console.log('Deu ruim');
+        // console.log('Deu ruim');
     })
   }
 
