@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() { 
-    console.log('------ Entrou dentro do response onLogin()');
+    // console.log('------ Entrou dentro do response onLogin()');
   }
 
   onLogin() {
@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             window.location.href = AppConstants.URL_SSO + '/cookie' 
                   + '?SSOID=' + response.object.ssoId
                   + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + '/management/dashboard';
+            this.getProfile();
             return;
           } if (response.status == 1) {
             this.loader = false;
@@ -84,23 +85,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // getProfile() {
-  //   debugger;
-  //   this.profileService.getWhiteLabel().subscribe(
-  //     (response) => {
-  //       debugger;
-  //       if (response.status == 0) {
-  //         const color = response.object.styles.map(element => element.value);
-  //         this.profileService.setWhiteLabel(color);
-  //         debugger;
-  //         return;
-  //       }
-  //       return;
-  //     }, (err) => {
-  //       debugger;
-  //       return;
-  //     }
-  //   )
-  // }
+  getProfile() {
+    this.profileService.getWhiteLabel().subscribe(
+        (response) => {
+        if (response.status == 0) {
+            this.profileService.setWhiteLabel(response.object);
+            return;
+        }
+        return;
+        }, (err) => {
+        return;
+    })
+  }
 
 }

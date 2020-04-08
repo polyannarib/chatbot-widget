@@ -17,11 +17,11 @@
     </nav>
     <div class="player">
         <div class="playerInfo">
-            <span>{{ user }}</span>
+            <span>{{ user.name }}</span>
             <br>
             <span id="scoreSpan">Score:</span>
-            <span id="score">2420</span>
+            <span id="score"> - </span>
         </div>
-        <div class="image" [ngStyle]="{'background-image': getPicture() }"></div>
+        <div class="image" [ngStyle]="{'background-image': user.url }"></div>
     </div>
 </header>
