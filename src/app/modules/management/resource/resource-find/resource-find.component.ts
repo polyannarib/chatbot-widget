@@ -122,6 +122,9 @@ export class ResourceFindComponent implements OnInit {
                 })
               });
             }
+            if(listLevelIds.includes(4)) { 
+              this.disabled = false;
+            }
           }
           this.filterList(this.listKnowledge);
           this.loaderFind = false;

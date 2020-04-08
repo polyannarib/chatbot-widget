@@ -28,6 +28,7 @@ body {
     font-family: 'Blogger' !important;
     display: inline-block;
     font-weight: 400;
+    color: #fff;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
@@ -47,10 +48,10 @@ body {
     opacity: 0.75;
     color: #fff;
 }
-.button-primary {
-    background-color: #650199 !important;
-    color: #fff;
-}
+// .button-primary {
+//     background-color: #650199 !important;
+//     color: #fff;
+// }
 .button-danger {
     background-color: #ff644a !important;
     color: #fff;
@@ -127,8 +128,6 @@ body {
     z-index: 15;
 }
 
-
-
 /* Codigos para padronizar o modal */
 #modal .modal-header {
     font-size: 1.64rem;
@@ -170,7 +169,7 @@ body {
 }
 .mat-dialog-container {
     overflow: visible !important;
-    border-top: #650199 3px solid;
+    // border-top: #650199 3px solid;
     border-radius: 3px !important;
 }
 

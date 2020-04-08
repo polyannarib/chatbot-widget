@@ -46,4 +46,5 @@ export class AuthGuardTeste implements CanActivate, CanActivateChild, CanLoad {
     }
     return canActivated;
   }
+  
 }

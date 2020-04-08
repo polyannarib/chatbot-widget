@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { isEmpty } from 'rxjs/operators';
@@ -14,6 +14,11 @@ export class CardService {
   ) { }
 
   private prefixService = "card";
+  // private setHeaders: HttpHeaders
+
+  // createAuthorizationHeader(headers: Headers) {
+  //   headers.append('Authorization', 'Basic ' + 'YWRtaW46YWRtaW4=');
+  // }
 
   findAllTasks(): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/skill`);
@@ -36,8 +41,12 @@ export class CardService {
   }
 
   findCardById(id: number): Observable<any> {
-    return this.http.get(`${environment.back_end_url}/${this.prefixService}/byKnowledgeId/${id}`);
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/${id}/classification`);
   }
+  
+  // findCardById(id: number): Observable<any> {
+  //   return this.http.get(`${environment.back_end_url}/${this.prefixService}/byKnowledgeId/${id}`);
+  // }
 
   listCardsByUser(): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/listCardsByUser`);
@@ -48,11 +57,13 @@ export class CardService {
   }
 
   addCard(data): Observable<any> {
-    return this.http.put(`${environment.back_end_url}/${this.prefixService}/active/knowledge/${data.knowledgeId}/attribute/${data.attributeId}`, data);
+    // return this.http.put(`${environment.back_end_url}/${this.prefixService}/active/knowledge/${data.knowledgeId}/attribute/${data.attributeId}`, data);
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/card/attribute/${data.attributeId}/giveToMe`);
   }
 
   removeCard(data): Observable<any> {
-    return this.http.put(`${environment.back_end_url}/${this.prefixService}/inactive/knowledge/${data.knowledgeId}/attribute/${data.attributeId}`, data);
+    // return this.http.put(`${environment.back_end_url}/${this.prefixService}/inactive/knowledge/${data.knowledgeId}/attribute/${data.attributeId}`, data);
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/card/attribute/${data.attributeId}/removeFromMe`);
   }
 
   searchComboCompetence(): Observable<any> {
@@ -86,6 +97,22 @@ export class CardService {
       return this.http.get(`${environment.back_end_url}/${this.prefixService}/workgroup`);
     }
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/workgroup?workgroupParentIds=${id}`);
+  }
+
+  getPhotoImg(url: string): Observable<Blob> {
+    // const src = 'https://api.mywebsite.com/profiles/123/avatar';
+    // const options = {
+    //   headers: {
+    //     'Some-Header': '...'
+    //   }
+    // };
+    // fetch(src, options).then(res => res.blob()).then(blob => {
+    //   imgElement.src = URL.createObjectURL(blob);
+    // });
+    // let setHeaders: HttpHeaders
+    // setHeaders = new HttpHeaders();
+    // return this.http.get(url, { headers: setHeaders.set('Authorization', 'Basic ' + 'YWRtaW46YWRtaW4=') });
+    return this.http.get(url, { responseType: 'blob' });
   }
 
 }

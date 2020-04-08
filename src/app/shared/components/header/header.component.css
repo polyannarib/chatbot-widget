@@ -145,7 +145,7 @@ header{
     top: -12px;
     transform: skewX(41deg);
     clip-path: polygon(0 0, 100% 0%, 81% 100%, 0% 100%);
-    border-top: 3px solid #650199;
+    border-top: 3px solid;
     z-index: -1;
 }
 
@@ -177,14 +177,14 @@ header{
     padding: 0px 0px 0px 10px;
 }
 
-.player #score{
+.player #score {
     margin-left: 8px;
     font-size: 15px;
     font-weight: 600;
     color: #9600b5;
 }
 
-.navbar-default{
+.navbar-default {
     background-color: transparent !important;
 }
 
