@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { AppConstants } from '../../../app.constants';
 import { Router } from '@angular/router';
 import { PlayerService } from 'src/app/core/services/player.service';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 declare var $: any;
 
@@ -15,11 +16,13 @@ export class HeaderComponent implements OnInit {
 
   btnMenuClass: string;
   user: any
+  mainStyle = this.profileService.getAppSecondaryColor();
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {

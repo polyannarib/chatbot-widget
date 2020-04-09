@@ -28,7 +28,7 @@
           </mat-form-field>
         </div>
         <div class="col">
-          <button type="submit" class="button button-primary">Buscar</button>
+          <button type="submit" [ngStyle]="{'background-color': mainStyle}" class="button button-primary">Buscar</button>
         </div>
       </form>
     </div>
@@ -63,7 +63,7 @@
                 <!-- [ngClass]="'color': activity.status == '1' ? 'green', 'color': activity.status == '2' ? 'yellow', 'color': activity.status == '3' ? 'red'" -->
                 <i class="material-icons">fiber_manual_record</i>
               </td>
-              <td class="action"><button matTooltip="Editar" (click)="modalEditNotesReport(note)" mat-mini-fab color="warn"><i class="material-icons">edit</i></button></td>
+              <td class="action"><button matTooltip="Editar" [ngStyle]="{'background-color': mainStyle}" (click)="modalEditNotesReport(note)" mat-mini-fab color="warn"><i class="material-icons">edit</i></button></td>
             </tr>
           </ng-container>
         </tbody>
@@ -72,7 +72,7 @@
   </div>
   <div class="modal-footer" *ngIf="formFind.valid">
     <!-- <button (click)="modalEditProject()" class="button button-primary">{{ 'EDITPROJECT' | translate }}</button> -->
-    <button (click)="modalCreateNotesReport()" class="button button-primary right">{{ 'ADDNOTES' | translate }}</button>
+    <button [ngStyle]="{'background-color': mainStyle}" (click)="modalCreateNotesReport()" class="button button-primary right">{{ 'ADDNOTES' | translate }}</button>
     <!-- <button (click)="generateReport()" target="_blank" class="button button-primary right">{{ 'GENERATEREPORT' | translate }}</button> -->
   </div>
 </div>

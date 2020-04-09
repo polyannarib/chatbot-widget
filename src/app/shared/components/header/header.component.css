@@ -1,9 +1,9 @@
 @font-face { font-family: Intro; src: url("../../../../assets/Intro.otf"); }
 
-header nav {
+/* header nav {
     background-color: rgba(99, 228, 234, 0.41);
-/*     background-color: rgba(126, 0, 152, 0.15) !important; */
-}
+    background-color: rgba(126, 0, 152, 0.15) !important;
+} */
 header nav img {
     height: var(--logo-height);
 }
@@ -122,9 +122,6 @@ header nav .brand-logo {
 
 header, nav{
     height: 30px;
-}
-
-nav{
     box-shadow: none;
 }
 
@@ -181,7 +178,7 @@ header{
     margin-left: 8px;
     font-size: 15px;
     font-weight: 600;
-    color: #9600b5;
+    /* color: #9600b5; */
 }
 
 .navbar-default {

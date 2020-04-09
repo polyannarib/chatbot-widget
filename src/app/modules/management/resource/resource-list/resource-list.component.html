@@ -42,7 +42,7 @@
             <td class="playerAllocated">{{ player.allocated }}%</td>
             <td>
               <div class="progress">
-                <div class="determinate" [ngStyle]="{'width': player.allocated+'%'}"></div>
+                <div class="determinate" [ngStyle]="{'background-color': secondarytyle}" [ngStyle]="{'width': player.allocated+'%'}"></div>
               </div>
             </td>
           </tr>

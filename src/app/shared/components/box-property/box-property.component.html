@@ -3,7 +3,7 @@
     {{ title }}
   </div>
   <div class="body">
-    <span *ngIf="number">{{ number }}</span>
+    <span [ngStyle]="{'color': mainStyle}" *ngIf="number">{{ number }}</span>
     <ng-content></ng-content>
   </div>
 </div>

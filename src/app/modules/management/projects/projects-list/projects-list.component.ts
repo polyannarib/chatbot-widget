@@ -28,7 +28,9 @@ export class ProjectsListComponent implements OnInit {
   numberOfDays: number = 4;
   startDate: any = new Date(Date.now());
   endDate: any = addDays(this.startDate, this.numberOfDays);
+  
   mainStyle = this.profileService.getAppMainColor();
+  secondarytyle = this.profileService.getAppSecondaryColor();
 
   constructor(
     private projectService: ProjectService,
