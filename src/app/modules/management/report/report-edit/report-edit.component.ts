@@ -7,6 +7,7 @@ import { empty, BehaviorSubject } from 'rxjs';
 import { ReportEditNoteComponent } from '../report-edit-note/report-edit-note.component';
 import { ProjectEditComponent } from '../../projects/project-edit/project-edit.component';
 import { environment } from 'src/environments/environment';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 declare var $: any;
 
@@ -39,6 +40,8 @@ export class ReportEditComponent implements OnInit {
   });
   controls: FormArray;
 
+  mainStyle = this.profileService.getAppMainColor();
+
   constructor(
     public dialogRef: MatDialogRef<ReportEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -46,6 +49,7 @@ export class ReportEditComponent implements OnInit {
     private noteService: NoteService,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {

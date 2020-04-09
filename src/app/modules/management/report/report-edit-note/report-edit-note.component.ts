@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NoteService } from 'src/app/core/services/note.service';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-report-edit-note',
@@ -14,12 +15,15 @@ export class ReportEditNoteComponent implements OnInit {
   form: FormGroup;
   loader: boolean = false;
 
+  mainStyle = this.profileService.getAppMainColor();
+
   constructor(
     public dialogRef: MatDialogRef<ReportEditNoteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private noteService: NoteService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {

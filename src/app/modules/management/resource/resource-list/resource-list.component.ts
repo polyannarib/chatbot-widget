@@ -26,7 +26,9 @@ export class ResourceListComponent implements OnInit {
   numberOfDays = 8;
   startDate = new Date(Date.now());
   endDate = addDays(new Date(Date.now()), this.numberOfDays);
+
   mainStyle = this.profileService.getAppMainColor();
+  secondarytyle = this.profileService.getAppSecondaryColor();
 
   constructor(
     private playerService: PlayerService,

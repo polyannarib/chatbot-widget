@@ -8,7 +8,7 @@
           <mat-option *ngFor="let knowledge of levelElement.knowledgeList" [value]="knowledge.knowledgeId">{{ knowledge.name }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <button (click)="findPerson()" [disabled]="disabled" matTooltip="Procurar" mat-mini-fab color="warn"><i class="material-icons">search</i></button>
+      <button (click)="findPerson()" [ngStyle]="{'background-color': mainStyle}" [disabled]="disabled" matTooltip="Procurar" mat-mini-fab color="warn"><i class="material-icons">search</i></button>
     </div>
   </div>
   <!-- <div class="row" *ngIf="!disabled">

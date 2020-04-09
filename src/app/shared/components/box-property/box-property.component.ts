@@ -15,7 +15,7 @@ export class BoxPropertyComponent implements OnInit {
   @Input() description: string;
   @Input() topics: any;
 
-  mainStyle = this.profileService.getAppMainColor();
+  mainStyle = this.profileService.getAppSecondaryColor();
 
   topicsParsed: any;
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CardService } from 'src/app/core/services/card.service';
 import { MatSnackBar } from '@angular/material';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-resource-find',
@@ -36,10 +37,13 @@ export class ResourceFindComponent implements OnInit {
   // ------- Workgroup ------- //
   levelWorkgroup: number = 1;
   idsWorkGroups: any;
+
+  mainStyle = this.profileService.getAppMainColor();
   
   constructor(
     private _cardService: CardService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {
@@ -60,7 +64,7 @@ export class ResourceFindComponent implements OnInit {
         this._snackBar.openFromComponent(NotifyComponent, 
           { data: { type: 'error', message: 'Nenhum resultado foi encontrado!' }});
       }, (err) => {
-        console.log('deu ruim');
+        // console.log('deu ruim');
         this.loader = false;
       })
   }
@@ -133,7 +137,7 @@ export class ResourceFindComponent implements OnInit {
         this.loaderFind = false;
       }, (err) => {
         this.loaderFind = false;
-        console.log('Deu ruim');
+        // console.log('Deu ruim');
     })
   }
 

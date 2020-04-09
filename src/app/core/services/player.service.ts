@@ -12,6 +12,8 @@ export class PlayerService {
     private http: HttpClient
   ) { }
 
+  private prefixService = "player";
+
   findPlayers(params: any): Observable< any > {
     return this.http.get(environment.back_end_url + '/dashboard/player', {params: params} );
   }
@@ -30,6 +32,10 @@ export class PlayerService {
 
   findPlayerDeck(): Observable<any> {
     return this.http.get(`${environment.back_end_url}/card/myDeck`);
+  }
+  
+  getPlayerProfile(): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}`);
   }
 
 }

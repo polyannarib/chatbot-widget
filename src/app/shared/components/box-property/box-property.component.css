@@ -23,7 +23,7 @@
 }
 .card .body span{
     padding: 5px 6px;
-    border: 4px solid #650199;
+    /* border: 4px solid #650199; */
     font-size: 18px;
     font-weight: 600;
     border-radius: 100%;

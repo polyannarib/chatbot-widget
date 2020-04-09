@@ -129,9 +129,9 @@ export class CardBindComponent implements OnInit {
           })
           return;
         }
-        console.log('deu ruim');
+        // console.log('deu ruim');
       }, (err) => {
-        console.log('deu ruim');
+        // console.log('deu ruim');
     })
   }
 
@@ -163,7 +163,7 @@ export class CardBindComponent implements OnInit {
           return;
         }
       }, (err) => {
-        console.log('Deu ruim');
+        // console.log('Deu ruim');
     })
   }
 
@@ -261,26 +261,25 @@ export class CardBindComponent implements OnInit {
     });
   }
 
-  addOrRemoveCard(knowledgeId, attributesId) {
-    var data = {
-      // "knowledgeId": knowledgeId,
-      "attributeId": attributesId
-    }
-    this.service.addCard(data).subscribe(
+  addOrRemoveCard(attributesId) {
+    // var data = {
+    //   "knowledgeId": knowledgeId,
+    //   "attributeId": attributesId
+    // }
+    this.service.addCard(attributesId).subscribe(
       (response) => {
         if(response.status == 0) {
-          this.myDeck();
+          // this.myDeck();
+          this.playerDeck.push(response.object);
           this._snackBar.openFromComponent(NotifyComponent, 
             { data: { type: 'success', message: 'Carta adicionada com sucesso!' }});
           return;
         }
         this._snackBar.openFromComponent(NotifyComponent, 
           { data: { type: 'error', message: 'Você já possui essa carta' }});
-        console.log('problemas');
       }, (err) => {
         this._snackBar.openFromComponent(NotifyComponent, 
           { data: { type: 'error', message: 'Problemas ao cadastrar a carta ao deck, contate o adminstrador' }});
-        console.log(err);
       }
     )
   }

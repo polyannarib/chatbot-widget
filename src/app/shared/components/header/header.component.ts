@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { AppConstants } from '../../../app.constants';
 import { Router } from '@angular/router';
+import { PlayerService } from 'src/app/core/services/player.service';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 declare var $: any;
 
@@ -14,39 +16,41 @@ export class HeaderComponent implements OnInit {
 
   btnMenuClass: string;
   user: any
+  mainStyle = this.profileService.getAppSecondaryColor();
 
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) {
-    this.user = this.authService.getUser();
-  }
+    private router: Router,
+    private playerService: PlayerService,
+    private profileService: ProfileService
+  ) { }
 
   ngOnInit() {
+    this.getPlayerProfile();
     $('.dropdown-trigger').dropdown();
     if(document.body.classList.contains('nav-open')){
       document.querySelector('.navbar-toggle').classList.add('toggled');
     }
   }
 
-  logout() {
-    debugger;
-    let params = {
-      "SYSTEM": AppConstants.SYSTEM_NAME
-    }
-    this.authService.temporaryToken(params).subscribe(
-      (response) => {
-          let tempToken = response["user-token"];
-          this.authService.setTemporaryToken(tempToken);
-          this.authService.logout().subscribe(
-            () => {
-              this.authService.removeToken();
-              this.router.navigate( ['/login'], { queryParams: { authenticated: false}} );
-            }
-          )  
-      }
-    )
-  }
+  // logout() {
+  //   debugger;
+  //   let params = {
+  //     "SYSTEM": AppConstants.SYSTEM_NAME
+  //   }
+  //   this.authService.temporaryToken(params).subscribe(
+  //     (response) => {
+  //         let tempToken = response["user-token"];
+  //         this.authService.setTemporaryToken(tempToken);
+  //         this.authService.logout().subscribe(
+  //           () => {
+  //             this.authService.removeToken();
+  //             this.router.navigate( ['/login'], { queryParams: { authenticated: false}} );
+  //           }
+  //         )  
+  //     }
+  //   )
+  // }
 
   toggleMenu(position?) {
     if (position === 'left') {
@@ -65,8 +69,14 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  getPicture() {
-    return 'url(https://www.kyros.com.br/portal-webplayer-images/Players/' + this.user.replace().replace(/\s+/g, '').toLowerCase() + '.png)';
+  // getPicture() {
+  //   return 'url(https://www.kyros.com.br/portal-webplayer-images/Players/' + this.user.replace().replace(/\s+/g, '').toLowerCase() + '.png)';
+  // }
+
+  getPlayerProfile() {
+    this.playerService.getPlayerProfile().subscribe(
+      (res) => { this.user = res.object }
+    )
   }
 
 }
