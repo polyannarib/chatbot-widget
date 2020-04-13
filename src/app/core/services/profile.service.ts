@@ -23,9 +23,9 @@ export class ProfileService {
   setWhiteLabel(color) {
     if(!localStorage.getItem('appMainColor') || localStorage.getItem('appMainColor') != color.styles[0].value)
       localStorage.setItem('appMainColor', color.styles[0].value);
-    if(!localStorage.getItem('appPrimaryColor') || localStorage.getItem('appPrimaryColor') != color.styles[1].value)
-      localStorage.setItem('appPrimaryColor', color.styles[1].value);
-    if(!localStorage.getItem('appSecondaryColor') || localStorage.getItem('appSecondaryColor') != color.styles[2].value)
+    // if(!localStorage.getItem('appPrimaryColor') || localStorage.getItem('appPrimaryColor') != color.styles[1].value)
+    //   localStorage.setItem('appPrimaryColor', color.styles[1].value);
+    if(!localStorage.getItem('appSecondaryColor') || localStorage.getItem('appSecondaryColor') != color.styles[1].value)
       localStorage.setItem('appSecondaryColor', color.styles[2].value);
     if(!localStorage.getItem('appLogo') || localStorage.getItem('appLogo') != color.images[0].value)
       localStorage.setItem('appLogo', color.images[0].value);
@@ -37,9 +37,9 @@ export class ProfileService {
     return localStorage.getItem('appMainColor');
   }
 
-  getAppPrimaryColor() {
-    return localStorage.getItem('appPrimaryColor');
-  }
+  // getAppPrimaryColor() {
+  //   return localStorage.getItem('appPrimaryColor');
+  // }
 
   getAppSecondaryColor() {
     return localStorage.getItem('appSecondaryColor');
@@ -55,7 +55,7 @@ export class ProfileService {
 
   removeAppColors() {
     localStorage.removeItem('appMainColor');
-    localStorage.removeItem('appPrimaryColor');
+    // localStorage.removeItem('appPrimaryColor');
     localStorage.removeItem('appSecondaryColor');
     localStorage.removeItem('appLogo');
     localStorage.removeItem('appIcon');
