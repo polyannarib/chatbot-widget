@@ -15,13 +15,14 @@
             </ul> -->
         </div>
     </nav>
-    <div class="player">
+    <div class="player" *ngIf="user">
         <div class="playerInfo">
             <span>{{ user.name }}</span>
             <br>
             <span id="scoreSpan">Score:</span>
             <span id="score"> - </span>
         </div>
-        <div class="image" [ngStyle]="{'background-image': user.url }"></div>
+        <!-- <div class="image" [ngStyle]="{'background-image': user.url }"></div> -->
+        <img class="image" [src]="user.url | image | async">
     </div>
 </header>
