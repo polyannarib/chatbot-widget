@@ -23,12 +23,14 @@ export class ProfileService {
   setWhiteLabel(color) {
     if(!localStorage.getItem('appMainColor') || localStorage.getItem('appMainColor') != color.styles[0].value)
       localStorage.setItem('appMainColor', color.styles[0].value);
-    if(!localStorage.getItem('appPrimaryColor') || localStorage.getItem('appMainColor') != color.styles[1].value)
+    if(!localStorage.getItem('appPrimaryColor') || localStorage.getItem('appPrimaryColor') != color.styles[1].value)
       localStorage.setItem('appPrimaryColor', color.styles[1].value);
-    if(!localStorage.getItem('appSecondaryColor') || localStorage.getItem('appMainColor') != color.styles[2].value)
+    if(!localStorage.getItem('appSecondaryColor') || localStorage.getItem('appSecondaryColor') != color.styles[2].value)
       localStorage.setItem('appSecondaryColor', color.styles[2].value);
-    if(!localStorage.getItem('appLogo') || localStorage.getItem('appMainColor') != color.images[0].value)
+    if(!localStorage.getItem('appLogo') || localStorage.getItem('appLogo') != color.images[0].value)
       localStorage.setItem('appLogo', color.images[0].value);
+    if(!localStorage.getItem('appIcon') || localStorage.getItem('appIcon') != color.images[1].value)
+      localStorage.setItem('appIcon', color.images[1].value);
   }
 
   getAppMainColor() {
@@ -47,11 +49,16 @@ export class ProfileService {
     return localStorage.getItem('appLogo');
   }
 
+  getAppIcon() {
+    return localStorage.getItem('appIcon');
+  }
+
   removeAppColors() {
     localStorage.removeItem('appMainColor');
     localStorage.removeItem('appPrimaryColor');
     localStorage.removeItem('appSecondaryColor');
     localStorage.removeItem('appLogo');
+    localStorage.removeItem('appIcon');
   }
 
 }

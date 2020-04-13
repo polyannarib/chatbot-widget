@@ -11,6 +11,8 @@ import { ProfileService } from 'src/app/core/services/profile.service';
 export class SidebarComponent implements OnInit {
 
   mainStyle = this.profileService.getAppMainColor();
+  logo = this.profileService.getAppLogo();
+  icon = this.profileService.getAppIcon();
 
   constructor(
     private profileService: ProfileService
