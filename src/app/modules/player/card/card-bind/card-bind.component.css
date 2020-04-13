@@ -116,12 +116,12 @@
     left: -7px;
     top: -25px;
 }
-.mat-tooltip {
+/* .mat-tooltip {
     border: 2px solid white;
     border-radius: 0;
     background: #67b3b6;
     z-index: 1002px;
-}
+} */
 .help {
     z-index: 1500;
 }
