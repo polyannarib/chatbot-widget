@@ -292,9 +292,10 @@ export class CardBindComponent implements OnInit {
     let lenghtArray = attribute.attributes.filter(element => {
       return element.attribute.manualDefiner == true;
     }).length;
-    if(lenghtArray > 0) 
-      return true;
-    return false;
+    if(lenghtArray > 0) {
+      return false;
+    }
+    return true;
   }
 
   // getImg(url) {
