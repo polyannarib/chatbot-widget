@@ -25,11 +25,11 @@
   <div class="col s12 m5">
     <div class="style-custom" [ngClass]="{'help' : status}">
       <app-slick (identifySlick)="classSlick($event)" [options]="slick" [arrows]="arrows" class="trapezio" matTooltip="Use as setas para escolher os personagens que melhor representam você" matTooltipDisabled="{{ !status }}" matTooltipPosition="below">
-        <div class="characters" *ngFor="let attribute of characters; index as i;">
+        <div class="characters" *ngFor="let attribute of characters">
           <img class="card-star" [src]="attribute.starUrl | image | async">
           <img class="card-img" *ngIf="attribute.attributes" width="100%" [src]="attribute.url | image | async">
           <img class="logo" [src]="attribute.logoUrl | image | async">
-          <!-- <button *ngIf="attribute.attributes" [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="addOrRemoveCard(attribute.attributes[0].id)"> <i class="material-icons">add</i> </button> -->
+          <button [disabled]="getDisabled(attribute)" [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="addCard(attribute.attributes)"> <i class="material-icons">add</i> </button>
         </div>
       </app-slick>
     </div>
