@@ -198,46 +198,46 @@ export class CardBindComponent implements OnInit {
     )
   }
 
-  getStar(card) {
-    var url = 'https://www.kyros.com.br/portal-webplayer-images/Estrelas/estrela';
-    url += card.attribute.name[0].toUpperCase();
-    url += card.attribute.name.slice(1).toLowerCase();
-    url += '.png';
-    return url;
-  }
+  // getStar(card) {
+  //   var url = 'https://www.kyros.com.br/portal-webplayer-images/Estrelas/estrela';
+  //   url += card.attribute.name[0].toUpperCase();
+  //   url += card.attribute.name.slice(1).toLowerCase();
+  //   url += '.png';
+  //   return url;
+  // }
   
-  getCard(card, index) {
-    if(!card.url || card.attributes.length == 0 || !card.attributes[index].attribute) {
-      return null;
-    }
-    var url = card.url;
-    url += 'persona';
-    url += card.attributes[index].attribute.name[0].toUpperCase();
-    url += card.attributes[index].attribute.name.slice(1).toLowerCase();
-    url += '.png';
-    return url;
-  }
+  // getCard(card, index) {
+  //   if(!card.url || card.attributes.length == 0 || !card.attributes[index].attribute) {
+  //     return null;
+  //   }
+  //   var url = card.url;
+  //   url += 'persona';
+  //   url += card.attributes[index].attribute.name[0].toUpperCase();
+  //   url += card.attributes[index].attribute.name.slice(1).toLowerCase();
+  //   url += '.png';
+  //   return url;
+  // }
 
-  getCardDeck(card) {
-    var url = card.url;
-    url += 'persona';
-    url += card.attributes[0].attribute.name[0].toUpperCase();
-    url += card.attributes[0].attribute.name.slice(1).toLowerCase();
-    url += '.png';
-    return url;
-  }
+  // getCardDeck(card) {
+  //   var url = card.url;
+  //   url += 'persona';
+  //   url += card.attributes[0].attribute.name[0].toUpperCase();
+  //   url += card.attributes[0].attribute.name.slice(1).toLowerCase();
+  //   url += '.png';
+  //   return url;
+  // }
 
-  getLogo(card, index) {
-    var cardName = card.cardName.toLowerCase();
-    var url = card.url;
-    if (cardName.indexOf("#") != -1) {
-      cardName = cardName.replace("#", "sharp");
-    }
-    cardName.replace(' ', '');
-    url += cardName;
-    url += '.png';
-    return url;
-  }
+  // getLogo(card, index) {
+  //   var cardName = card.cardName.toLowerCase();
+  //   var url = card.url;
+  //   if (cardName.indexOf("#") != -1) {
+  //     cardName = cardName.replace("#", "sharp");
+  //   }
+  //   cardName.replace(' ', '');
+  //   url += cardName;
+  //   url += '.png';
+  //   return url;
+  // }
 
   myDeck() {
     delete this.playerDeck;
@@ -261,27 +261,40 @@ export class CardBindComponent implements OnInit {
     });
   }
 
-  addOrRemoveCard(attributesId) {
+  addCard(attributes) {
     // var data = {
     //   "knowledgeId": knowledgeId,
     //   "attributeId": attributesId
     // }
-    this.service.addCard(attributesId).subscribe(
-      (response) => {
-        if(response.status == 0) {
-          // this.myDeck();
-          this.playerDeck.push(response.object);
-          this._snackBar.openFromComponent(NotifyComponent, 
-            { data: { type: 'success', message: 'Carta adicionada com sucesso!' }});
-          return;
-        }
-        this._snackBar.openFromComponent(NotifyComponent, 
-          { data: { type: 'error', message: 'Você já possui essa carta' }});
-      }, (err) => {
-        this._snackBar.openFromComponent(NotifyComponent, 
-          { data: { type: 'error', message: 'Problemas ao cadastrar a carta ao deck, contate o adminstrador' }});
+    attributes.forEach(element => {
+      if(element.attribute.manualDefiner == true) {
+        this.service.addCard(element.id).subscribe(
+          (response) => {
+            if(response.status == 0) {
+              // this.myDeck();
+              this.playerDeck.push(response.object);
+              this._snackBar.openFromComponent(NotifyComponent, 
+                { data: { type: 'success', message: 'Carta adicionada com sucesso!' }});
+              return;
+            }
+            this._snackBar.openFromComponent(NotifyComponent, 
+              { data: { type: 'error', message: 'Você já possui essa carta' }});
+          }, (err) => {
+            this._snackBar.openFromComponent(NotifyComponent, 
+              { data: { type: 'error', message: 'Problemas ao cadastrar a carta ao deck, contate o adminstrador' }});
+          }
+        )
       }
-    )
+    });
+  }
+
+  getDisabled(attribute) {
+    let lenghtArray = attribute.attributes.filter(element => {
+      return element.attribute.manualDefiner == true;
+    }).length;
+    if(lenghtArray > 0) 
+      return true;
+    return false;
   }
 
   // getImg(url) {
