@@ -4,13 +4,13 @@
 		<a [routerLink]="['/']" routerLinkActive="router-link-active"  class="simple-text logo-mini">
 			<div class="logo-img">
 				<!-- <img src="./assets/images/logo-white-icon-xs.png"> -->
-				<img [src]="icon">
+				<img [src]="icon | image | async">
 			</div>
 		</a>
 		<a [routerLink]="['/']" routerLinkActive="router-link-active"  class="simple-text logo-normal">
 			<div class="title-img">
 				<!-- <img src="./assets/images/logo-white-title-sm.png"> -->
-				<img [src]="logo">
+				<img [src]="logo | image | async">
 			</div>
 		</a>
 	</div>
