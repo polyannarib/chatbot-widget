@@ -45,12 +45,23 @@
     </div>
   </div>
 </div>
-<app-loading [loader]="loaderDeck"></app-loading>
-<div class="row deck" *ngIf="playerDeck">
+
+<!-- <app-loading [loader]="loaderDeck"></app-loading> -->
+
+<!-- <div class="row deck" *ngIf="playerDeck">
   <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" matTooltip="Essas são as suas cartas" matTooltipDisabled="{{ !status }}" matTooltipPosition="above" [type]="refreshSlick">
-    <div *ngFor="let card of playerDeck; index as i;" [ngClass]="{'help' : status}">
+    <div class="characters" *ngFor="let card of playerDeck; index as i;" [ngClass]="{'help' : status}">
       <img class="deck-img" width="100%" [src]="card.classification.url | image | async">
-      <!-- <img class="deck-img" width="100%" src="{{ getCardDeck(card) }}"> -->
+      <img class="deck-img" width="100%" src="{{ getCardDeck(card) }}">
     </div>
   </app-slick>
+</div> -->
+
+<div class="row boxCharactersDeck" *ngIf="playerDeck && !loaderDeck">
+  <div class="charactersDeck" *ngFor="let card of playerDeck" [ngClass]="{'help' : status}">
+    <img class="card-star" [src]="card.classification.starUrl | image | async">
+    <img class="card-img" width="100%" [src]="card.classification.url | image | async">
+    <img class="logo" [src]="card.classification.logoUrl | image | async">
+    <button [disabled]="getDisabled(card.classification.attributes)" [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="removeCard(card.classification.attributes)"> <i class="material-icons">remove</i> </button>
+  </div>
 </div>

@@ -288,6 +288,28 @@ export class CardBindComponent implements OnInit {
     });
   }
 
+  removeCard(atributtes) {
+    atributtes.forEach((element, index) => {
+      if(element.attribute.manualDefiner == true) {
+        this.service.removeCard(element.id).subscribe(
+          (response) => {
+            if(response.status == 0) {
+              this.playerDeck.splice(index, 1);
+              this._snackBar.openFromComponent(NotifyComponent, 
+                { data: { type: 'success', message: 'Carta removida com sucesso!' }});
+              return;
+            }
+            this._snackBar.openFromComponent(NotifyComponent, 
+              { data: { type: 'error', message: 'Essa carta não pode ser removida' }});
+          }, (err) => {
+            this._snackBar.openFromComponent(NotifyComponent, 
+              { data: { type: 'error', message: 'Problemas ao remover a carta ao deck, contate o adminstrador' }});
+          }
+        )
+      }
+    });
+  }
+
   getDisabled(attribute) {
     let lenghtArray = attribute.attributes.filter(element => {
       return element.attribute.manualDefiner == true;
