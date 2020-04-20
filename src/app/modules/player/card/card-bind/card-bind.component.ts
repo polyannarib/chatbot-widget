@@ -104,6 +104,7 @@ export class CardBindComponent implements OnInit {
   showDivAtt = 'display-hide'
   showDivComp = 'display-hide'
   id: any;
+  myCards: any;
   loaderDeck: boolean = false;
 
   constructor(
@@ -245,6 +246,7 @@ export class CardBindComponent implements OnInit {
     this.service.myDeck().subscribe(
       (response) => {
         if (response.status == 0) {
+          this.myCards = response.object.map(element => element.classification.id);
           this.playerDeck = response.object;
           this.loaderDeck = false;
           return;
@@ -261,7 +263,12 @@ export class CardBindComponent implements OnInit {
     });
   }
 
-  addCard(attributes) {
+  addCard(classification, attributes) {
+    if(this.myCards.includes(classification.id)) {
+      this._snackBar.openFromComponent(NotifyComponent, 
+        { data: { type: 'success', message: 'Você já possui essa carta!' }});
+      return;
+    }
     // var data = {
     //   "knowledgeId": knowledgeId,
     //   "attributeId": attributesId
@@ -271,7 +278,6 @@ export class CardBindComponent implements OnInit {
         this.service.addCard(element.id).subscribe(
           (response) => {
             if(response.status == 0) {
-              // this.myDeck();
               this.playerDeck.push(response.object);
               this._snackBar.openFromComponent(NotifyComponent, 
                 { data: { type: 'success', message: 'Carta adicionada com sucesso!' }});
