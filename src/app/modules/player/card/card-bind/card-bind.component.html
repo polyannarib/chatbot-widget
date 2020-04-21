@@ -40,7 +40,7 @@
       <!-- <app-box-property [ngClass]="{'help' : status}" [title]="'Conhecimento'"> {{ characters[indexSlick].description }} </app-box-property> -->
       <!-- <app-box-property [ngClass]="{'help' : status}" [title]="'Descrição'"> {{ characters.attributes[indexSlick].attribute.classification.classificationDescription }} </app-box-property> -->
       <ng-container *ngFor="let metric of characters[indexSlick].attributes">
-        <app-box-property [ngClass]="{'help' : status}" title="{{ metric.attribute.name }}" *ngIf="metric"> {{ metric.attribute.type }} </app-box-property>
+        <app-box-property [ngClass]="{'help' : status}" title="{{ metric.attribute.name }}" *ngIf="metric && !metric.attribute.manualDefiner"> {{ metric.attribute.type }} </app-box-property>
       </ng-container>
     </div>
   </div>
