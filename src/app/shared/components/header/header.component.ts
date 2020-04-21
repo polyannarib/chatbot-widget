@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { AppConstants } from '../../../app.constants';
 import { Router } from '@angular/router';
-import { PlayerService } from 'src/app/core/services/player.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
 
 declare var $: any;
@@ -21,12 +20,12 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private playerService: PlayerService,
     private profileService: ProfileService
-  ) { }
+  ) { 
+    this.getPlayerProfile();
+  }
 
   ngOnInit() {
-    this.getPlayerProfile();
     $('.dropdown-trigger').dropdown();
     if(document.body.classList.contains('nav-open')){
       document.querySelector('.navbar-toggle').classList.add('toggled');
@@ -74,8 +73,8 @@ export class HeaderComponent implements OnInit {
   // }
 
   getPlayerProfile() {
-    this.playerService.getPlayerProfile().subscribe(
-      (res) => { this.user = res.object }
+    this.profileService.getProfile().subscribe(
+      (response) => { this.user = response.object }
     )
   }
 

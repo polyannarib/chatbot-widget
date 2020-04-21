@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,10 @@ export class ProfileService {
   ) { }
 
   prefixService = "profile";
+
+  getProfile(): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}`);
+  }
 
   getWhiteLabel(): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/getWhiteLabeData`);
@@ -39,6 +43,19 @@ export class ProfileService {
 
     if(!localStorage.getItem('appIcon') || localStorage.getItem('appIcon') != this.logoFull)
       localStorage.setItem('appIcon', this.logoFull);
+  }
+
+  validateWhiteLabel() {
+    if(!localStorage.getItem('appMainColor') || !localStorage.getItem('appSecondaryColor') || !localStorage.getItem('appLogo') || !localStorage.getItem('appIcon')) {
+      this.getWhiteLabel().subscribe(
+        (response) => {
+          this.setWhiteLabel(response.object);
+        },
+        (err) => { 
+          // return false;
+        }
+      )
+    }
   }
 
   setColors(colors) {

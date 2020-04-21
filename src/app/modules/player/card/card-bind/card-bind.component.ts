@@ -317,6 +317,9 @@ export class CardBindComponent implements OnInit {
   }
 
   getDisabled(attribute) {
+    if(!attribute.attributes) {
+      return true;
+    }
     let lenghtArray = attribute.attributes.filter(element => {
       return element.attribute.manualDefiner == true;
     }).length;
@@ -325,20 +328,5 @@ export class CardBindComponent implements OnInit {
     }
     return true;
   }
-
-  // getImg(url) {
-    // console.log(this.service.getPhotoImg(url));
-    // console.log(url);
-    // this.service.getPhotoImg(url).subscribe(
-    //   (response) => {
-    //     console.log('----- Entrou dentro do getImg -----');
-    //     console.log(response);
-    //     return response;
-    // });
-    // return this.service.getPhotoImg(url);
-    // console.log(url)
-    // console.log(this.httpClient.get(url))
-    // return this.httpClient.get(url, { responseType: 'blob' }).pipe(map(e => URL.createObjectURL(e)));
-  // }
 
 }
