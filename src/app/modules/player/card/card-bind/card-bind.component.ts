@@ -104,6 +104,7 @@ export class CardBindComponent implements OnInit {
   showDivAtt = 'display-hide'
   showDivComp = 'display-hide'
   id: any;
+  myCards: any;
   loaderDeck: boolean = false;
 
   constructor(
@@ -245,6 +246,7 @@ export class CardBindComponent implements OnInit {
     this.service.myDeck().subscribe(
       (response) => {
         if (response.status == 0) {
+          this.myCards = response.object.map(element => element.classification.id);
           this.playerDeck = response.object;
           this.loaderDeck = false;
           return;
@@ -261,7 +263,12 @@ export class CardBindComponent implements OnInit {
     });
   }
 
-  addCard(attributes) {
+  addCard(classification, attributes) {
+    if(this.myCards.includes(classification.id)) {
+      this._snackBar.openFromComponent(NotifyComponent, 
+        { data: { type: 'success', message: 'Você já possui essa carta!' }});
+      return;
+    }
     // var data = {
     //   "knowledgeId": knowledgeId,
     //   "attributeId": attributesId
@@ -271,7 +278,6 @@ export class CardBindComponent implements OnInit {
         this.service.addCard(element.id).subscribe(
           (response) => {
             if(response.status == 0) {
-              // this.myDeck();
               this.playerDeck.push(response.object);
               this._snackBar.openFromComponent(NotifyComponent, 
                 { data: { type: 'success', message: 'Carta adicionada com sucesso!' }});
@@ -288,7 +294,32 @@ export class CardBindComponent implements OnInit {
     });
   }
 
+  removeCard(atributtes) {
+    atributtes.forEach((element, index) => {
+      if(element.attribute.manualDefiner == true) {
+        this.service.removeCard(element.id).subscribe(
+          (response) => {
+            if(response.status == 0) {
+              this.playerDeck.splice(index, 1);
+              this._snackBar.openFromComponent(NotifyComponent, 
+                { data: { type: 'success', message: 'Carta removida com sucesso!' }});
+              return;
+            }
+            this._snackBar.openFromComponent(NotifyComponent, 
+              { data: { type: 'error', message: 'Essa carta não pode ser removida' }});
+          }, (err) => {
+            this._snackBar.openFromComponent(NotifyComponent, 
+              { data: { type: 'error', message: 'Problemas ao remover a carta ao deck, contate o adminstrador' }});
+          }
+        )
+      }
+    });
+  }
+
   getDisabled(attribute) {
+    if(!attribute.attributes) {
+      return true;
+    }
     let lenghtArray = attribute.attributes.filter(element => {
       return element.attribute.manualDefiner == true;
     }).length;
@@ -297,20 +328,5 @@ export class CardBindComponent implements OnInit {
     }
     return true;
   }
-
-  // getImg(url) {
-    // console.log(this.service.getPhotoImg(url));
-    // console.log(url);
-    // this.service.getPhotoImg(url).subscribe(
-    //   (response) => {
-    //     console.log('----- Entrou dentro do getImg -----');
-    //     console.log(response);
-    //     return response;
-    // });
-    // return this.service.getPhotoImg(url);
-    // console.log(url)
-    // console.log(this.httpClient.get(url))
-    // return this.httpClient.get(url, { responseType: 'blob' }).pipe(map(e => URL.createObjectURL(e)));
-  // }
 
 }
