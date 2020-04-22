@@ -274,7 +274,6 @@ export class CardBindComponent implements OnInit {
 
   removeCard(atributtes) {
     atributtes.forEach((element, index) => {
-      console.log(element.id);
       if(element.attribute.manualDefiner == true) {
         this.service.removeCard(element.id).subscribe(
           (response) => {

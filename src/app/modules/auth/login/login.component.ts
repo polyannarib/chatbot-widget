@@ -54,10 +54,26 @@ export class LoginComponent implements OnInit, AfterViewInit {
           if (response.status == 0) {
             this.authService.setAppToken(response.object.appToken);
             this.authService.setSSOID(response.object.ssoId);
-            window.location.href = AppConstants.URL_SSO + '/cookie' 
-                  + '?SSOID=' + response.object.ssoId
-                  + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + '/management/dashboard';
-            this.getProfile();
+
+            // --- GET WHITELABEL
+            this.profileService.getWhiteLabel().subscribe(
+              (response) => {
+              if (response.status == 0) {
+                  this.profileService.setWhiteLabel(response.object);
+                    window.location.href = AppConstants.URL_SSO + '/cookie' 
+                    + '?SSOID=' + response.object.ssoId
+                    + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + '/management/dashboard';
+              }
+                this._snackBar.openFromComponent(NotifyComponent, 
+                  { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
+                return;
+              }, (err) => {
+                this._snackBar.openFromComponent(NotifyComponent, 
+                  { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
+                return;
+            })
+
+            // this.getProfile();
             return;
           } if (response.status == 1) {
             this.loader = false;
@@ -85,17 +101,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getProfile() {
-    this.profileService.getWhiteLabel().subscribe(
-        (response) => {
-        if (response.status == 0) {
-            this.profileService.setWhiteLabel(response.object);
-            return;
-        }
-        return;
-        }, (err) => {
-        return;
-    })
-  }
+  // getProfile() {
+  //   this.profileService.getWhiteLabel().subscribe(
+  //       (response) => {
+  //       if (response.status == 0) {
+  //           this.profileService.setWhiteLabel(response.object);
+  //           return;
+  //       }
+  //       return;
+  //       }, (err) => {
+  //       return;
+  //   })
+  // }
 
 }
