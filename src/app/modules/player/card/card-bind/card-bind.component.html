@@ -63,7 +63,7 @@
   <div class="charactersDeck" *ngFor="let card of playerDeck" [ngClass]="{'help' : status}">
     <img class="card-star" [src]="card.classification.starUrl | image | async">
     <img class="card-img" width="100%" [src]="card.classification.url | image | async">
-    <img class="logo" [src]="card.classification.logoUrl | image | async">
+    <img class="logo" [src]="card.url | image | async">
     <button [disabled]="getDisabled(card.classification.attributes)" [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="removeCard(card.classification.attributes)"> <i class="material-icons">remove</i> </button>
   </div>
 </div>
