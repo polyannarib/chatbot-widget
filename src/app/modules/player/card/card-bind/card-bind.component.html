@@ -1,4 +1,6 @@
-<div class="row" id="input-row">
+<!-- <app-loading [loader]="loaderDeck"></app-loading> -->
+
+<div class="row" id="input-row" *ngIf="playerDeck">
   <!-- <div id="help-div" [ngClass]="{'tips' : status}">
     <button matTooltip="{{ helpMessage }}" 
       matTooltipPosition="after" 
@@ -29,14 +31,14 @@
           <img class="card-star" [src]="attribute.starUrl | image | async">
           <img class="card-img" *ngIf="attribute.attributes" width="100%" [src]="attribute.url | image | async">
           <img class="logo" [src]="attribute.logoUrl | image | async">
-          <button [disabled]="getDisabled(attribute)" [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="addCard(attribute, attribute.attributes)"> <i class="material-icons">add</i> </button>
+          <button [disabled]="getDisabled(attribute)" [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="addCard(attribute.attributes)"> <i class="material-icons">add</i> </button>
         </div>
       </app-slick>
     </div>
   </div>
   <div class="col s12 m7">
-    <app-count *ngIf="characters[indexSlick].attributes.length == 0">Esta carta não possui nenhum atributo cadastrado</app-count>
-    <div class="boxAttributes" *ngIf="characters[indexSlick].attributes.length > 0">
+    <app-count *ngIf="!showErrorMessageAttributes(characters[indexSlick].attributes)">Esta carta não possui nenhum atributo cadastrado</app-count>
+    <div class="boxAttributes" *ngIf="showErrorMessageAttributes(characters[indexSlick].attributes)">
       <!-- <app-box-property [ngClass]="{'help' : status}" [title]="'Conhecimento'"> {{ characters[indexSlick].description }} </app-box-property> -->
       <!-- <app-box-property [ngClass]="{'help' : status}" [title]="'Descrição'"> {{ characters.attributes[indexSlick].attribute.classification.classificationDescription }} </app-box-property> -->
       <ng-container *ngFor="let metric of characters[indexSlick].attributes">

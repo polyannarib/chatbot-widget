@@ -104,7 +104,7 @@ export class CardBindComponent implements OnInit {
   showDivAtt = 'display-hide'
   showDivComp = 'display-hide'
   id: any;
-  myCards: any;
+  myCards = [];
   loaderDeck: boolean = false;
 
   constructor(
@@ -142,6 +142,7 @@ export class CardBindComponent implements OnInit {
       this.searchCards(event.knowledgeId);
       return;
     }
+    // debugger;
     if (this.cardKnowledgeFilter) {
       this.cardKnowledgeFilter.forEach((element, position) => {
         if (element.level > event.type.level) {
@@ -199,54 +200,23 @@ export class CardBindComponent implements OnInit {
     )
   }
 
-  // getStar(card) {
-  //   var url = 'https://www.kyros.com.br/portal-webplayer-images/Estrelas/estrela';
-  //   url += card.attribute.name[0].toUpperCase();
-  //   url += card.attribute.name.slice(1).toLowerCase();
-  //   url += '.png';
-  //   return url;
-  // }
-  
-  // getCard(card, index) {
-  //   if(!card.url || card.attributes.length == 0 || !card.attributes[index].attribute) {
-  //     return null;
-  //   }
-  //   var url = card.url;
-  //   url += 'persona';
-  //   url += card.attributes[index].attribute.name[0].toUpperCase();
-  //   url += card.attributes[index].attribute.name.slice(1).toLowerCase();
-  //   url += '.png';
-  //   return url;
-  // }
-
-  // getCardDeck(card) {
-  //   var url = card.url;
-  //   url += 'persona';
-  //   url += card.attributes[0].attribute.name[0].toUpperCase();
-  //   url += card.attributes[0].attribute.name.slice(1).toLowerCase();
-  //   url += '.png';
-  //   return url;
-  // }
-
-  // getLogo(card, index) {
-  //   var cardName = card.cardName.toLowerCase();
-  //   var url = card.url;
-  //   if (cardName.indexOf("#") != -1) {
-  //     cardName = cardName.replace("#", "sharp");
-  //   }
-  //   cardName.replace(' ', '');
-  //   url += cardName;
-  //   url += '.png';
-  //   return url;
-  // }
-
   myDeck() {
     delete this.playerDeck;
     this.loaderDeck = true;
     this.service.myDeck().subscribe(
       (response) => {
         if (response.status == 0) {
-          this.myCards = response.object.map(element => element.classification.id);
+          response.object.forEach((element) => {
+            let idAtributes;
+            element.classification.attributes.forEach((res) => {
+              if(res.attribute.manualDefiner == true) {
+                idAtributes = res.id;
+              }
+            });
+            if(idAtributes) {
+              this.myCards.push(idAtributes);
+            }
+          });
           this.playerDeck = response.object;
           this.loaderDeck = false;
           return;
@@ -263,8 +233,18 @@ export class CardBindComponent implements OnInit {
     });
   }
 
-  addCard(classification, attributes) {
-    if(this.myCards.includes(classification.id)) {
+  addCard(attributes) {
+    let idAtributes; 
+    attributes.forEach((res) => {
+      if(res.attribute.manualDefiner == true) {
+        idAtributes = res.id;
+      }
+    });
+    console.log(' ----------- idAtributes ----------- ');
+    console.log(idAtributes);
+    console.log(this.myCards);
+    if(this.myCards.includes(idAtributes)) {
+      console.log('Entrou dentro do includes');
       this._snackBar.openFromComponent(NotifyComponent, 
         { data: { type: 'success', message: 'Você já possui essa carta!' }});
       return;
@@ -317,16 +297,33 @@ export class CardBindComponent implements OnInit {
   }
 
   getDisabled(attribute) {
-    if(!attribute.attributes) {
+    if(attribute.attributes.length == 0) {
+      return true;
+    } else {
+      let lenghtArray = attribute.attributes.filter(element => {
+        return element.attribute.manualDefiner == true;
+      }).length;
+      if(lenghtArray > 0) {
+        return false;
+      }
       return true;
     }
-    let lenghtArray = attribute.attributes.filter(element => {
-      return element.attribute.manualDefiner == true;
-    }).length;
-    if(lenghtArray > 0) {
+  }
+
+  showErrorMessageAttributes(atributtes) {
+    if(atributtes.length == 0) {
+      return false;
+    } else {
+      const id = atributtes.map(element => {
+        if(element.attribute.manualDefiner == false) {
+          return element.id
+        }
+      });
+      if(id.length > 0) {
+        return true;
+      }
       return false;
     }
-    return true;
   }
 
 }
