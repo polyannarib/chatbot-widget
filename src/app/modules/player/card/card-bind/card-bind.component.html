@@ -31,7 +31,7 @@
           <img class="card-star" [src]="attribute.starUrl | image | async">
           <img class="card-img" *ngIf="attribute.attributes" width="100%" [src]="attribute.url | image | async">
           <img class="logo" [src]="attribute.logoUrl | image | async">
-          <button [disabled]="getDisabled(attribute)" [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="addCard(attribute.attributes)"> <i class="material-icons">add</i> </button>
+          <button [disabled]="getDisabled(attribute.attributes)" [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="addCard(attribute.attributes)"> <i class="material-icons">add</i> </button>
         </div>
       </app-slick>
     </div>
@@ -40,7 +40,7 @@
     <app-count *ngIf="!showErrorMessageAttributes(characters[indexSlick].attributes)">Esta carta não possui nenhum atributo cadastrado</app-count>
     <div class="boxAttributes" *ngIf="showErrorMessageAttributes(characters[indexSlick].attributes)">
       <!-- <app-box-property [ngClass]="{'help' : status}" [title]="'Conhecimento'"> {{ characters[indexSlick].description }} </app-box-property> -->
-      <!-- <app-box-property [ngClass]="{'help' : status}" [title]="'Descrição'"> {{ characters.attributes[indexSlick].attribute.classification.classificationDescription }} </app-box-property> -->
+      <app-box-property [ngClass]="{'help' : status}" [title]="'Descrição'"> {{ description }} </app-box-property>
       <ng-container *ngFor="let metric of characters[indexSlick].attributes">
         <app-box-property [ngClass]="{'help' : status}" title="{{ metric.attribute.name }}" *ngIf="metric && !metric.attribute.manualDefiner"> {{ metric.attribute.type }} </app-box-property>
       </ng-container>

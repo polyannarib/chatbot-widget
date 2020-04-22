@@ -105,6 +105,7 @@ export class CardBindComponent implements OnInit {
   showDivComp = 'display-hide'
   id: any;
   myCards = [];
+  description: string;
   loaderDeck: boolean = false;
 
   constructor(
@@ -140,6 +141,7 @@ export class CardBindComponent implements OnInit {
     if (resource.level === 4) {
       this.disabled = false;
       this.searchCards(event.knowledgeId);
+      this.description = event.description;
       return;
     }
     // debugger;
@@ -297,10 +299,10 @@ export class CardBindComponent implements OnInit {
   }
 
   getDisabled(attribute) {
-    if(attribute.attributes.length == 0) {
+    if(attribute.length == 0) {
       return true;
     } else {
-      let lenghtArray = attribute.attributes.filter(element => {
+      let lenghtArray = attribute.map(element => {
         return element.attribute.manualDefiner == true;
       }).length;
       if(lenghtArray > 0) {
