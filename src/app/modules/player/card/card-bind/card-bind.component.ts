@@ -242,11 +242,7 @@ export class CardBindComponent implements OnInit {
         idAtributes = res.id;
       }
     });
-    console.log(' ----------- idAtributes ----------- ');
-    console.log(idAtributes);
-    console.log(this.myCards);
     if(this.myCards.includes(idAtributes)) {
-      console.log('Entrou dentro do includes');
       this._snackBar.openFromComponent(NotifyComponent, 
         { data: { type: 'success', message: 'Você já possui essa carta!' }});
       return;
@@ -278,6 +274,7 @@ export class CardBindComponent implements OnInit {
 
   removeCard(atributtes) {
     atributtes.forEach((element, index) => {
+      console.log(element.id);
       if(element.attribute.manualDefiner == true) {
         this.service.removeCard(element.id).subscribe(
           (response) => {

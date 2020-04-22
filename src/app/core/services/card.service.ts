@@ -61,9 +61,9 @@ export class CardService {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/attribute/${attributeId}/giveToMe`);
   }
 
-  removeCard(data): Observable<any> {
+  removeCard(attributeId): Observable<any> {
     // return this.http.put(`${environment.back_end_url}/${this.prefixService}/inactive/knowledge/${data.knowledgeId}/attribute/${data.attributeId}`, data);
-    return this.http.get(`${environment.back_end_url}/${this.prefixService}/attribute/${data.attributeId}/removeFromMe`);
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/attribute/${attributeId}/removeFromMe`);
   }
 
   searchComboCompetence(): Observable<any> {

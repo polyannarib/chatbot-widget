@@ -8,7 +8,7 @@ import { CoreModule } from '../core/core.module';
 import { RouterModule } from '@angular/router';
 
 // Pipes do projeto
-import { FilterListPipe } from './pipe/filter.pipe';
+// import { FilterListPipe } from './pipe/filter.pipe';
 
 // Componentes criados no projeto
 import { HeaderComponent } from './components/header/header.component';
@@ -110,7 +110,6 @@ import { ImagePipe } from './pipe/image.pipe';
     SidebarComponent,
     MenuComponent,
     BoxPropertyComponent,
-    FilterListPipe,
     HeaderComponent,
     FooterComponent,
     LoadingComponent,
@@ -147,7 +146,6 @@ import { ImagePipe } from './pipe/image.pipe';
   exports: [
     MenuComponent,
     BoxPropertyComponent,
-    FilterListPipe,
     FooterComponent,
     TranslateModule,
     MatPaginatorModule,

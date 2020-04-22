@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+// import { Pipe, PipeTransform } from '@angular/core';
 
 /*
  * Filtra listas por string buscada, retornando uma nova array
@@ -18,20 +18,20 @@ import { Pipe, PipeTransform } from '@angular/core';
  *   </option>
  *   formats to: [{id: 2, name:'b'}]
 */
-@Pipe({
-  name: 'filterList'
-})
-export class FilterListPipe implements PipeTransform {
-  transform(items: any[], searchText: string, key?: string): any[] {
-    if (!items) { return []; }
-    if (!searchText) { return items; }
-    searchText = searchText.toLowerCase();
-    return items.filter( it => {
-      if (!key) {
-        return it.toLowerCase().includes(searchText);
-      } else {
-        return it[key].toLowerCase().includes(searchText);
-      }
-    });
-   }
-}
+// @Pipe({
+//   name: 'filterList'
+// })
+// export class FilterListPipe implements PipeTransform {
+//   transform(items: any[], searchText: string, key?: string): any[] {
+//     if (!items) { return []; }
+//     if (!searchText) { return items; }
+//     searchText = searchText.toLowerCase();
+//     return items.filter( it => {
+//       if (!key) {
+//         return it.toLowerCase().includes(searchText);
+//       } else {
+//         return it[key].toLowerCase().includes(searchText);
+//       }
+//     });
+//    }
+// }
