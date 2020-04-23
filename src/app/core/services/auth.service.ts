@@ -100,4 +100,29 @@ export class AuthService {
     return false;
   }
 
+  getScopes() {
+    let token = this.getAppToken();
+    let scopesArray = [];
+    if(token) {
+      if(token.scopes) {
+        token.scopes.forEach(element => {
+          scopesArray[element] = true;
+        });
+      }
+    }
+    return scopesArray;    
+  }
+
+  getAppToken() {
+    const token = localStorage.getItem('acessToken');
+    if(token) {
+      try {
+        return this.jwtHelper.decodeToken(token);
+      }
+      catch(error){
+        return null;
+      }      
+    }
+  }
+
 }

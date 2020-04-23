@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 // Todos os serviços
 import { AuthService } from './services/auth.service';
-import { AuthGuard } from './guards/auth-guard';
 import { ProjectService } from './services/project.service';
 import { LoadingService } from './services/loading.service';
 import { TaskService } from './services/task.service';
@@ -14,6 +13,7 @@ import { HttpInverceptor } from './interceptors/http-interceptor';
 import { ErrorInterceptor } from './interceptors/error-interceptor';
 import { ProfileService } from './services/profile.service';
 import { AuthenticatedGuard } from './guards/authenticated.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [],
@@ -23,7 +23,6 @@ import { AuthenticatedGuard } from './guards/authenticated.guard';
     FormsModule
   ],
   providers: [
-    AuthGuard,
     AuthService,
     ProjectService,
     LoadingService, 
@@ -31,9 +30,10 @@ import { AuthenticatedGuard } from './guards/authenticated.guard';
     NoteService,
     ProfileService,
     AuthService,
-    AuthenticatedGuard,
     ProjectService,
     LoadingService,
+    AuthenticatedGuard,
+    AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: HttpInverceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ]

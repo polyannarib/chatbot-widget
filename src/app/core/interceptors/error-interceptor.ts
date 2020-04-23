@@ -22,7 +22,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         catchError((err: HttpErrorResponse) => {
             if (err.status == 401 || err.status == 402 || err.status == 403) {
                 this.authService.logout();
-                this.router.navigate(['/auth/login']);
+                this.router.navigate(['/auth/login'], {replaceUrl: true});
                 this._snackBar.openFromComponent(NotifyComponent, 
                     { data: { type: 'error', message: 'Ops, sua sessão expirou!' }});
                 // document.location.reload(true);

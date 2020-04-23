@@ -71,7 +71,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material';
 
 //Serviços
-import { MenuItems } from './components/menu/menu.json';
 import { MainColorDirective } from './directives/main-color.directive';
 import { PrimaryColorDirective } from './directives/primary-color.directive';
 import { SecundaryColorDirective } from './directives/secundary-color.directive';
@@ -209,8 +208,7 @@ import { ImagePipe } from './pipe/image.pipe';
         horizontalPosition: 'center',
         verticalPosition: 'top'
       }
-    },
-    MenuItems
+    }
   ]
 })
 export class SharedModule { }
