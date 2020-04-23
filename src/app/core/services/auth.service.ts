@@ -120,9 +120,19 @@ export class AuthService {
       try {
         return this.jwtHelper.decodeToken(token);
       }
-      catch(error){
+      catch(error) {
         return null;
       }      
+    }
+  }
+
+  redirectPageByScopes(): string {
+    let scopes = this.getScopes();
+    if(scopes.includes('wpplayer')) {
+      return 'player';
+    }
+    if(scopes.includes('wpleader')) {
+      return 'management';
     }
   }
 

@@ -23,8 +23,8 @@ export class AuthenticatedGuard implements CanActivate {
 
         return new Promise((resolve, reject) => {
             if( this.authService.isAuthenticated() ) {
-                this.getProfile();
-                this.router.navigate(['/management/dashboard']);
+                this.profileService.validateWhiteLabel();
+                this.router.navigate([`/${this.authService.redirectPageByScopes()}`]);
                 return;
             }
             if( authenticated == 'false' ) {
@@ -80,17 +80,17 @@ export class AuthenticatedGuard implements CanActivate {
         });
     }
 
-    getProfile() {
-        this.profileService.getWhiteLabel().subscribe(
-            (response) => {
-            if (response.status == 0) {
-                this.profileService.setWhiteLabel(response.object);
-                return;
-            }
-            return;
-            }, (err) => {
-            return;
-        })
-    }
+    // getProfile() {
+    //     this.profileService.getWhiteLabel().subscribe(
+    //         (response) => {
+    //         if (response.status == 0) {
+    //             this.profileService.setWhiteLabel(response.object);
+    //             return;
+    //         }
+    //         return;
+    //         }, (err) => {
+    //         return;
+    //     })
+    // }
 
 }

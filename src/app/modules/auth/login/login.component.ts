@@ -60,9 +60,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
               (response) => {
               if (response.status == 0) {
                   this.profileService.setWhiteLabel(response.object);
+
+                    let scopes = this.authService.getScopes();
+
                     window.location.href = AppConstants.URL_SSO + '/cookie' 
                     + '?SSOID=' + response.object.ssoId
-                    + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + '/management/dashboard';
+                    + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/${this.authService.redirectPageByScopes()}`;
               }
                 this._snackBar.openFromComponent(NotifyComponent, 
                   { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
@@ -100,6 +103,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
         { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
     }
   }
+
+  // redirectByScopes(): string {
+  //   let scopes = this.authService.getScopes();
+  //   if(scopes.includes('wpplayer')) {
+  //     return 'player'
+  //   }
+  //   if(scopes.includes('wpleader')) {
+  //     return 'management'
+  //   }
+  // }
 
   // getProfile() {
   //   this.profileService.getWhiteLabel().subscribe(
