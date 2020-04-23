@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
               if (response.status == 0) {
                   this.profileService.setWhiteLabel(response.object);
 
-                    let scopes = this.authService.getScopes();
+                    let scopes = this.authService.redirectPageByScopes();
 
                     window.location.href = AppConstants.URL_SSO + '/cookie' 
                     + '?SSOID=' + response.object.ssoId
