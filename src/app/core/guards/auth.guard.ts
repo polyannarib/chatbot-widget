@@ -48,7 +48,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     if (route.data) {
       if (route.data.scopes) {
         if (route.data.scopes.length < 1) {
-          canActivated = false;
+          return false;
         }
         if (route.data.scopes.length > 1) {
           route.data.scopes.forEach(scope => {
@@ -59,8 +59,11 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
             }
           });
         }
+        if(permissions.indexOf(TEM) < 0) {
+          return false;
+        }
       } else {
-        canActivated = false;
+        return false;
       }
     }
     return canActivated;
