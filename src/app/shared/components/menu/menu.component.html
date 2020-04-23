@@ -1,12 +1,12 @@
 <ul class="nav">
     
-    <li routerLinkActive="active" *ngIf="scopes.wpadmin">
+    <li routerLinkActive="active" *ngIf="scopes.wpleader">
         <a [routerLink]="['/management/dashboard']">
             <span><i class="material-icons-outlined">dashboard</i></span>
             <p>{{ 'COCKPIT' | translate }}</p>
         </a>
     </li>
-    <li routerLinkActive="active" *ngIf="scopes.wpadmin">
+    <li routerLinkActive="active" *ngIf="scopes.wpleader">
         <a [routerLink]="['/management/resource/find']">
             <span><i class="material-icons-outlined">people_alt</i></span>
             <p>Recursos</p>
