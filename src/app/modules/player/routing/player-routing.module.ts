@@ -9,7 +9,7 @@ const APP_ROUTES: Routes = [
     path: '', component: PlayerComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
       { path: '', redirectTo: 'bind/cards', pathMatch: 'full' },
       { path: 'bind/cards', component: CardBindComponent },
-    ], data: { scopes: ['WP.PLAYER'] }
+    ], data: { scopes: ['wpplayer'] }
   }
 ];
 

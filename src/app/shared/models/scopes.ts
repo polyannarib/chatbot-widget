@@ -1,5 +1,5 @@
 export interface Scopes {
-    'WP.PLAYER' ?: boolean;
-    'WP.Admin' ?: boolean;
-    'WP.LEADER' ?: boolean;
+    'wpplayer' ?: boolean;
+    'wpadmin' ?: boolean;
+    'wpleader' ?: boolean;
 }

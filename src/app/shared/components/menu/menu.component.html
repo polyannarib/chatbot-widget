@@ -1,24 +1,24 @@
 <ul class="nav">
     
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" *ngIf="scopes.wpadmin">
         <a [routerLink]="['/management/dashboard']">
             <span><i class="material-icons-outlined">dashboard</i></span>
             <p>{{ 'COCKPIT' | translate }}</p>
         </a>
     </li>
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" *ngIf="scopes.wpadmin">
         <a [routerLink]="['/management/resource/find']">
             <span><i class="material-icons-outlined">people_alt</i></span>
             <p>Recursos</p>
         </a>
     </li>
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" *ngIf="scopes.wpplayer">
         <a [routerLink]="['/player/bind/cards']">
             <span><i class="material-icons-outlined">build</i></span>
             <p>Competências</p>
         </a>
     </li>
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" *ngIf="scopes.wpleader">
         <a [routerLink]="['/management/import/project']">
             <span><i class="material-icons-outlined">assignment_returned</i></span>
             <p>Importar projeto</p>

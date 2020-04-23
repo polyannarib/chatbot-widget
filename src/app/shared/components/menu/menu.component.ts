@@ -25,6 +25,9 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.scopes = Object.assign({}, this.authService.getScopes());
+
+    console.log('----------- this.scopes --------------');
+    console.log(this.scopes);
   }
 
   logout() {

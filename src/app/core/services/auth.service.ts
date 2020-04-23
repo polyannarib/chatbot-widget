@@ -106,7 +106,8 @@ export class AuthService {
     if(token) {
       if(token.scopes) {
         token.scopes.forEach(element => {
-          scopesArray[element] = true;
+          let scopoReplace = element.replace('.', '').toLowerCase();
+          scopesArray[scopoReplace] = true;
         });
       }
     }
