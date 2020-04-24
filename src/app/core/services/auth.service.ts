@@ -128,7 +128,6 @@ export class AuthService {
 
   redirectPageByScopes(): string {
     let scopes = this.getScopes();
-    debugger;
     if(scopes.hasOwnProperty('wpplayer')) {
       return 'player';
     }
