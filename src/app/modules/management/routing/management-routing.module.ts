@@ -11,10 +11,10 @@ const APP_ROUTES: Routes = [
   {
     path: '', component: ManagementComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, data: { scopes: ['wpadmin', 'wpleader'] } },
-      { path: 'resource/find', component: ResourceFindComponent, data: { scopes: ['wpadmin', 'wpleader'] } },
-      { path: 'import/project', component: ProjectImportComponent, data: { scopes: ['wpadmin', 'wpleader'] } }
-    ], data: { scopes: ['wpadmin', 'wpleader'] }
+      { path: 'dashboard', component: DashboardComponent, data: { scopes: ['wpplayer', 'wpleader', 'wpboss', 'wprule', 'wpmaster'] } },
+      { path: 'resource/find', component: ResourceFindComponent, data: { scopes: ['wpleader', 'wpboss', 'wprule', 'wpmaster'] } },
+      { path: 'import/project', component: ProjectImportComponent, data: { scopes: ['wpleader', 'wpboss', 'wprule', 'wpmaster'] } }
+    ], data: { scopes: ['wpplayer', 'wpleader', 'wpboss', 'wprule', 'wpmaster'] }
   }
 ];
 

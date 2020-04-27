@@ -16,11 +16,11 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
     return this.validateSession(route);
   }
-
+  
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.validateSession(route);
   }
-
+  
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.validateSession(route);
   }
@@ -29,8 +29,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     if(this.authService.isAuthenticated) {
       const scopes = this.authService.getScopes();
       const scopesObject = Object.assign({}, scopes);
-      if (this.canActivatedByScope(route, scopesObject) === false) {
-          this.router.navigate(['/auth/login'], {replaceUrl: true})
+      if (this.canActivatedByScope(route, scopesObject) == false) {
+          this.router.navigate(['/auth/login'], {replaceUrl: true});
           return false;
       }
       return true;
@@ -47,10 +47,9 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     const TEM = 1;
     if (route.data) {
       if (route.data.scopes) {
-        if (route.data.scopes.length < 1) {
+        if (route.data.scopes.length <= 0) {
           return false;
-        }
-        if (route.data.scopes.length > 1) {
+        } else {
           route.data.scopes.forEach(scope => {
             if (scopes.hasOwnProperty(scope)) {
               permissions.push(TEM);
@@ -58,10 +57,22 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
               permissions.push(NAO_TEM);
             }
           });
+          if(permissions.indexOf(TEM) < 0) {
+            return false;
+          }
         }
-        if(permissions.indexOf(TEM) < 0) {
-          return false;
-        }
+        // if (route.data.scopes.length > 0) {
+        //   route.data.scopes.forEach(scope => {
+        //     if (scopes.hasOwnProperty(scope)) {
+        //       permissions.push(TEM);
+        //     } else {
+        //       permissions.push(NAO_TEM);
+        //     }
+        //   });
+        // }
+        // if(permissions.indexOf(TEM) < 0) {
+        //   return false;
+        // }
       } else {
         return false;
       }

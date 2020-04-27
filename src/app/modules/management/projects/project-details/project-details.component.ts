@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { TaskService } from 'src/app/core/services/task.service';
 import { format } from 'date-fns';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-project-details',
@@ -23,13 +24,15 @@ export class ProjectDetailsComponent implements OnInit {
   designate: boolean = false;
   taskHeader = ['PROJECT', 'ACTIVITY', 'DUEDATE', 'EFFORT'];
   taskList: any;
-  updateDesignate: boolean
+  updateDesignate: boolean;
+  scopes = Object.assign({}, this.authService.getScopes());
 
   constructor(
     public dialogRef: MatDialogRef<ProjectDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private taskService: TaskService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {

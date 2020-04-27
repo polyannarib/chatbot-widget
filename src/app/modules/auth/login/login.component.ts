@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
                     window.location.href = AppConstants.URL_SSO + '/cookie' 
                     + '?SSOID=' + response.object.ssoId
-                    + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/${this.authService.redirectPageByScopes()}`;
+                    + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/management/dashboard`;
               }
                 this._snackBar.openFromComponent(NotifyComponent, 
                   { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});

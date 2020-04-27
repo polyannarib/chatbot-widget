@@ -24,7 +24,7 @@ export class AuthenticatedGuard implements CanActivate {
         return new Promise((resolve, reject) => {
             if( this.authService.isAuthenticated() ) {
                 this.profileService.validateWhiteLabel();
-                this.router.navigate([`/${this.authService.redirectPageByScopes()}`]);
+                this.router.navigate([`/management/dashboard`]);
                 return;
             }
             if( authenticated == 'false' ) {
