@@ -138,6 +138,7 @@ export class CardBindComponent implements OnInit {
   }
 
   FindParente(event, resource) {
+    // debugger;
     if (resource.level === 4) {
       this.disabled = false;
       this.searchCards(event.knowledgeId);
@@ -146,12 +147,17 @@ export class CardBindComponent implements OnInit {
     }
     // debugger;
     if (this.cardKnowledgeFilter) {
+      let auxListFilter = [];
       this.cardKnowledgeFilter.forEach((element, position) => {
-        if (element.level > event.type.level) {
-          var index = this.cardKnowledgeFilter.indexOf(position);
-          this.cardKnowledgeFilter.splice(index, 1);
+        // if (element.level > event.type.level) {
+        //   var index = this.cardKnowledgeFilter.indexOf(position);
+        //   this.cardKnowledgeFilter.splice(position, 1);
+        // }
+        if (element.level <= event.type.level) {
+          auxListFilter.push(element);
         }
       });
+      this.cardKnowledgeFilter = auxListFilter;
     }
     this.getKnowledgeIn(event.knowledgeId);
   }
