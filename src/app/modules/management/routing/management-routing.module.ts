@@ -13,7 +13,7 @@ const APP_ROUTES: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent, data: { scopes: ['wpplayer', 'wpleader', 'wpboss', 'wprule', 'wpmaster'] } },
       { path: 'resource/find', component: ResourceFindComponent, data: { scopes: ['wpleader', 'wpboss', 'wprule', 'wpmaster'] } },
-      { path: 'import/project', component: ProjectImportComponent, data: { scopes: ['wpleader', 'wpboss', 'wprule', 'wpmaster'] } }
+      { path: 'import/project', component: ProjectImportComponent, data: { scopes: ['wpleader', 'wpmaster'] } }
     ], data: { scopes: ['wpplayer', 'wpleader', 'wpboss', 'wprule', 'wpmaster'] }
   }
 ];
