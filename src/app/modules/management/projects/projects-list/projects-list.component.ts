@@ -9,6 +9,7 @@ import { NotifyComponent } from 'src/app/shared/components/notify/notify.compone
 import { ProjectDetailsTaskComponent } from '../project-details-task/project-details-task.component';
 import { environment } from 'src/environments/environment';
 import { ProfileService } from 'src/app/core/services/profile.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-projects-list',
@@ -28,6 +29,7 @@ export class ProjectsListComponent implements OnInit {
   numberOfDays: number = 4;
   startDate: any = new Date(Date.now());
   endDate: any = addDays(this.startDate, this.numberOfDays);
+  scopes = Object.assign({}, this.authService.getScopes());
   
   mainStyle = this.profileService.getAppMainColor();
   secondarytyle = this.profileService.getAppSecondaryColor();
@@ -36,7 +38,8 @@ export class ProjectsListComponent implements OnInit {
     private projectService: ProjectService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {

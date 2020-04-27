@@ -37,8 +37,8 @@
           <th>{{ 'EXP' | translate }}</th>
           <th>{{ 'EFF' | translate }}</th>
           <!-- <th>{{ 'EDIT' | translate }}</th> -->
-          <th><!-- {{ 'STATUSREPORT' | translate }} --></th>
-          <th><!-- {{ 'GENERATEREPORT' | translate }} --></th>
+          <th *ngIf="!scopes.wpplayer"><!-- {{ 'STATUSREPORT' | translate }} --></th>
+          <th *ngIf="!scopes.wpplayer"><!-- {{ 'GENERATEREPORT' | translate }} --></th>
         </tr>
       </thead>
       <tbody>
@@ -65,10 +65,10 @@
             <!-- <td>
               <button matTooltip="{{ 'EDIT' | translate }}" mat-icon-button (click)="openProjectEdit(project)"><i class="material-icons">more_vert</i></button>
             </td> -->
-            <td>
+            <td *ngIf="!scopes.wpplayer">
               <button matTooltip="{{ 'STATUSREPORT' | translate }}" mat-icon-button (click)="openReport(project)"><i class="material-icons">report</i></button>
             </td>
-            <td>
+            <td *ngIf="!scopes.wpplayer">
               <button matTooltip="{{ 'GENERATEREPORT' | translate }}" mat-icon-button (click)="generateReport(project)"><i class="material-icons">send</i></button>
             </td>
           </tr>
