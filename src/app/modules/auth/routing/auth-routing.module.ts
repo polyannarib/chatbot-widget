@@ -6,9 +6,9 @@ import { AuthComponent } from '../auth.component';
 
 const routes: Routes = [
   {
-    path: '', component: AuthComponent, children: [
+    path: '', component: AuthComponent, canActivate:[AuthenticatedGuard], children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'login', canActivate:[AuthenticatedGuard], component: LoginComponent },
+      { path: 'login', component: LoginComponent },
       // { path: 'user', component: AdminUserComponent, data: { scopes: ['ROLE_INVESTOR'] }, children: [
       //   { path: '', redirectTo: 'perfil', pathMatch: 'full' },
       //   { path: 'perfil', component: AdminUserComponent, data: { scopes: ['ROLE_INVESTOR'] } }

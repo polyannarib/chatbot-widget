@@ -156,6 +156,18 @@ export class ResourceFindComponent implements OnInit {
     });
   }
 
+  getWorkgroups(workgroup) {
+    let name: string;
+    workgroup.forEach((element, position) => {
+      if(position == 0) {
+        name = `${element.name}`;
+      } else {
+        name += ` / ${element.name}`;
+      }
+    });
+    return name;
+  }
+
   // findWorkgroup(event) {
   //   this.parentIdsWorkGroups = [];
   //   if(event.value.length > 0) {

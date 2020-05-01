@@ -52,6 +52,7 @@ export class AuthService {
   }
 
   setAppToken(token: string): void {
+    localStorage.removeItem('acessToken');
     localStorage.setItem('acessToken', token);
   }
 

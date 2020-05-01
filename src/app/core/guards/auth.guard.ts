@@ -30,7 +30,11 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
       const scopes = this.authService.getScopes();
       const scopesObject = Object.assign({}, scopes);
       if (this.canActivatedByScope(route, scopesObject) == false) {
-          this.router.navigate(['/auth/login'], {replaceUrl: true});
+          this.authService.logout().subscribe(
+            () => {
+              this.authService.removeToken();
+              this.router.navigate( ['/auth/login'], { replaceUrl: true, queryParams: { authenticated: false}} )
+          })
           return false;
       }
       return true;

@@ -36,8 +36,8 @@
           <tr>
             <th></th>
             <th>Recursos</th>
-            <th>Departamento</th>
-            <th>Equipe</th>
+            <!-- <th>Departamento</th> -->
+            <th>Grupos</th>
             <th>Função</th>
             <th>Projetos entregues</th>
           </tr>
@@ -48,8 +48,8 @@
               <img src="https://image.freepik.com/vetores-gratis/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg">
             </td>
             <td>{{ person.name }}</td>
-            <td>{{ person.workgroups.DEPARTAMENTO ? person.workgroups.DEPARTAMENTO[0].name : '-' }}</td>
-            <td>{{ person.workgroups.TEAM ? person.workgroups.TEAM[0].name : '-' }}</td>
+            <!-- <td>{{ person.workgroups.DEPARTAMENTO ? person.workgroups.DEPARTAMENTO[0].name : '-' }}</td> -->
+            <td>{{ getWorkgroups(person.workgroupList) }}</td>
             <td>{{ person.function.description }}</td>
             <td>{{ person.taskFinished }} horas</td>
           </tr>
