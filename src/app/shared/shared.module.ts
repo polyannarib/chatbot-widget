@@ -69,6 +69,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
+
 
 //Serviços
 import { MainColorDirective } from './directives/main-color.directive';
@@ -103,6 +106,8 @@ import { ImagePipe } from './pipe/image.pipe';
     MatChipsModule,
     MatInputModule,
     MatNativeDateModule,
+    MatTreeModule,
+    MatIconModule,
     RouterModule
   ],
   declarations: [
@@ -172,6 +177,8 @@ import { ImagePipe } from './pipe/image.pipe';
     MatChipsModule,
     MatInputModule,
     MatNativeDateModule,
+    MatTreeModule,
+    MatIconModule,
     ButtonFinalizeComponent,
     ButtonRemoveComponent,
     ButtonSuspendComponent,

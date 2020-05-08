@@ -1,3 +1,27 @@
 .row {
     margin: 0;
 }
+.line {
+    width: 100%;
+    border-bottom: 1px solid #808080;
+    /* bottom: 0px; */
+    /* position: relative; */
+    padding: 10px;
+}
+span {
+    float: right;
+    width: 100px;
+    text-align: center;
+}
+ul.matTreeHeader {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 10px;
+    overflow: hidden;
+} 
+ul.matTreeHeader li {
+    float: right;
+    width: 100px;
+    text-align: center;
+    font-weight: 600;
+}

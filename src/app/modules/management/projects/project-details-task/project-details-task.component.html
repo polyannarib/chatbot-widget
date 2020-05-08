@@ -8,7 +8,7 @@
   </div>
   <div class="modal-body">
 
-    <div class="row dateProgress">
+    <!-- <div class="row dateProgress">
         <div class="col s12 m4 dateActivity center-align">  
 
         </div>
@@ -16,7 +16,65 @@
             <div class="title">{{ 'PROGRESS' | translate }}</div>
             <app-progress [width]="projectTasks?.progress ? projectTasks?.progress : 0"></app-progress>
         </div>
-    </div>
+    </div> -->
+
+
+    <ul class="matTreeHeader">
+      <li>Data Final</li>
+      <li>Data Inicio</li>
+      <li>Cartas</li>
+      <li>Responsável</li>
+      <li>Esforço</li>
+    </ul>
+    
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <!-- This is the tree node template for leaf nodes -->
+
+      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        <!-- use a disabled button to provide padding for tree leaf -->
+        <button mat-icon-button disabled></button>
+        <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
+          <i class="material-icons" style="color:black">edit</i>
+        </button>
+        <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
+          <i class="material-icons" style="color:black">remove</i>
+        </button>
+        <div class="line"> 
+          {{ node.name }} 
+          <span class="dateEnd">20/03/2020</span>
+          <span class="dateInit">15/03/2020</span>
+          <span class="dateInit"></span>
+          <span class="dateInit"></span>
+          <span class="dateInit"></span>
+        </div>
+      </mat-tree-node>
+
+      <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
+          <i class="material-icons">
+            {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+          </i>
+        </button>
+        <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
+          <i class="material-icons" style="color:black">edit</i>
+        </button>
+        <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'ADD' | translate }}">
+          <i class="material-icons" style="color:black">add</i>
+        </button>
+        <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
+          <i class="material-icons" style="color:black">remove</i>
+        </button>
+        <div class="line"> 
+          {{ node.name }} 
+          <span class="dateEnd">20/03/2020</span>
+          <span class="dateInit">15/03/2020</span>
+          <span class="dateInit"></span>
+          <span class="dateInit"></span>
+          <span class="dateInit"></span>
+        </div>
+      </mat-tree-node>
+
+    </mat-tree>
 
     <!-- <app-collapse>
         <div header class="row headerTextCollapse hide-on-small-only text-header">
@@ -52,9 +110,9 @@
 
     <button matTooltip="{{ 'EDITPROJECT' | translate }}" mat-icon-button><i class="material-icons">edit</i></button>
     <button (click)="openReport(data.project)" matTooltip="{{ 'STATUSREPORT' | translate }}" mat-icon-button><i class="material-icons">report</i></button>
-    <button matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button>
-    <button matTooltip="Baixar relátorio" mat-icon-button><i class="material-icons">assignment_returned</i></button>
-    <button matTooltip="Calcular" mat-icon-button><i class="material-icons">grid_on</i></button>
+    <!-- <button matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button> -->
+    <!-- <button matTooltip="Baixar relátorio" mat-icon-button><i class="material-icons">assignment_returned</i></button> -->
+    <!-- <button matTooltip="Calcular" mat-icon-button><i class="material-icons">grid_on</i></button> -->
 
     <button [mat-dialog-close]="true" target="_blank" class="button button-primary right">{{ 'OK' | translate }}</button>
     
