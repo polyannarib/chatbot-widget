@@ -1,9 +1,10 @@
 import { Injectable, Inject } from '@angular/core';
-import { CanActivate, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { CanActivate, RouterStateSnapshot, ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { DOCUMENT } from '@angular/common';
 import { AppConstants } from '../../app.constants';
 import { ProfileService } from '../services/profile.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthenticatedGuard implements CanActivate {
@@ -18,20 +19,27 @@ export class AuthenticatedGuard implements CanActivate {
         private profileService: ProfileService,
         @Inject(DOCUMENT) private document: Document ) { }
 
-    async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise< boolean > {
-        let authenticated = route.queryParams.authenticated;
+        canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-        return new Promise((resolve, reject) => {
-            if( this.authService.isAuthenticated() ) {
-                this.getProfile();
-                this.router.navigate(['/management/dashboard']);
-                return;
+            console.log('Entrou dentro do AuthenticatedGuard');
+            
+            let authenticated = route.queryParams.authenticated;
+
+            // return new Promise((resolve, reject) => {
+            if(this.authService.isAuthenticated()) {
+                this.profileService.validateWhiteLabel();
+                this.router.navigate([`/management/dashboard`]);
+                return true;
             }
-            if( authenticated == 'false' ) {
-                resolve(true);
-                return;
+            if(authenticated == 'false') {
+                console.log('Entrou dentro do if authenticated == false');
+                return true;
+                // this.router.navigate(['/auth/login']);
+                // resolve(true);
+                // return this.router.navigate(['/auth/login']);
             }
-            if( route.queryParams.SSOID != undefined ) {
+            if (route.queryParams.SSOID) {
+                console.log('Entrou dentro do route.queryParams.SSOID != undefined');
                 let ssoId = route.queryParams.SSOID;
                 let company = route.queryParams.company;
                 let params = {
@@ -39,30 +47,31 @@ export class AuthenticatedGuard implements CanActivate {
                 }
                 this.authService.setSSOID(ssoId);
                 this.authService.temporaryToken(params).subscribe(
-                (response) => {
-                    let tempToken = response["user-token"];
-                    this.authService.setTemporaryToken(tempToken);
-        
-                    this.authService.findAppToken(AppConstants.SYSTEM_NAME, company).subscribe(
                     (response) => {
-                        const token = response['app-token'];
-                        if( response["code"] == 1 ) {
-                            let params = {
-                                "app-token": token
-                            }
-                            this.authService.findWorkplayerToken(params).subscribe(
-                                (response) => {
-                                    this.authService.setToken(response["message"]);
+                        let tempToken = response["user-token"];
+                        this.authService.setTemporaryToken(tempToken);
+                        this.authService.findAppToken(AppConstants.SYSTEM_NAME, company).subscribe(
+                            (response) => {
+                                const token = response['app-token'];
+                                if( response["code"] == 1 ) {
+                                    let params = {
+                                        "app-token": token
+                                    }
+                                    this.authService.findWorkplayerToken(params).subscribe(
+                                        (response) => {
+                                            this.authService.setToken(response["message"]);
+                                            return true;
+                                        }
+                                    )
+                                } else {
+                                    return false;
                                 }
-                            )
-                        } else {
-                            resolve(true);
-                        }
+                            })
+                            return false;
                     })
-                })
             } else {
                 let company: any;
-                if(this.authService.getCompany() == undefined ) {
+                if(!this.authService.getCompany()) {
                     company = AppConstants.COMPANY;
                 } else {
                     company = this.authService.getCompany();
@@ -73,24 +82,11 @@ export class AuthenticatedGuard implements CanActivate {
                                             + "&goTo=%2F&company=" + company
                                             + "&authenticateMe=0"
             }
-        }).then(function(result) {
-            return result;
-        }, function(error) {
-            return error;
-        });
-    }
-
-    getProfile() {
-        this.profileService.getWhiteLabel().subscribe(
-            (response) => {
-            if (response.status == 0) {
-                this.profileService.setWhiteLabel(response.object);
-                return;
-            }
-            return;
-            }, (err) => {
-            return;
-        })
+        // }).then(function(result) {
+        //     return result;
+        // }, function(error) {
+        //     return error;
+        // });
     }
 
 }

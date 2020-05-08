@@ -6,19 +6,19 @@
             <p>{{ 'COCKPIT' | translate }}</p>
         </a>
     </li>
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
         <a [routerLink]="['/management/resource/find']">
             <span><i class="material-icons-outlined">people_alt</i></span>
             <p>Recursos</p>
         </a>
     </li>
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" *ngIf="scopes.wpplayer">
         <a [routerLink]="['/player/bind/cards']">
             <span><i class="material-icons-outlined">build</i></span>
             <p>Competências</p>
         </a>
     </li>
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" *ngIf="scopes.wpleader || scopes.wpmaster">
         <a [routerLink]="['/management/import/project']">
             <span><i class="material-icons-outlined">assignment_returned</i></span>
             <p>Importar projeto</p>

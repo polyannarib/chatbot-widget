@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class ProfileService {
   private logoFull;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   prefixService = "profile";
@@ -46,15 +48,24 @@ export class ProfileService {
   }
 
   validateWhiteLabel() {
+    console.log('Entrou dentro do validateWhiteLabel() TIAGAO');
     if(!localStorage.getItem('appMainColor') || !localStorage.getItem('appSecondaryColor') || !localStorage.getItem('appLogo') || !localStorage.getItem('appIcon')) {
       this.getWhiteLabel().subscribe(
         (response) => {
           this.setWhiteLabel(response.object);
         },
         (err) => { 
+          console.log(err);
           // return false;
         }
       )
+    } else {
+      console.log(' ----- Entrou dentro do ELSE ----- ');
+      console.log(localStorage.getItem('appMainColor'));
+      console.log(localStorage.getItem('appSecondaryColor'));
+      console.log(localStorage.getItem('appLogo'));
+      console.log(localStorage.getItem('appIcon'));
+      this.router.navigate(['/auth/login']);
     }
   }
 

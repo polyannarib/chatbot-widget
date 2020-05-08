@@ -52,6 +52,7 @@ export class AuthService {
   }
 
   setAppToken(token: string): void {
+    localStorage.removeItem('acessToken');
     localStorage.setItem('acessToken', token);
   }
 
@@ -98,6 +99,42 @@ export class AuthService {
       }
     }
     return false;
+  }
+
+  getScopes() {
+    let token = this.getAppToken();
+    let scopesArray = [];
+    if(token) {
+      if(token.scopes) {
+        token.scopes.forEach(element => {
+          let scopoReplace = element.replace('.', '').toLowerCase();
+          scopesArray[scopoReplace] = true;
+        });
+      }
+    }
+    return scopesArray;    
+  }
+
+  getAppToken() {
+    const token = localStorage.getItem('acessToken');
+    if(token) {
+      try {
+        return this.jwtHelper.decodeToken(token);
+      }
+      catch(error) {
+        return null;
+      }      
+    }
+  }
+
+  redirectPageByScopes(): string {
+    let scopes = this.getScopes();
+    if(scopes.hasOwnProperty('wpplayer')) {
+      return 'player';
+    }
+    if(scopes.hasOwnProperty('wpleader')) {
+      return 'management';
+    }
   }
 
 }

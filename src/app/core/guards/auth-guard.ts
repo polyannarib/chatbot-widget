@@ -8,7 +8,7 @@ import { ProfileService } from '../services/profile.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuardDesatualizado implements CanActivate {
 
   constructor(
     private authService: AuthService,
@@ -36,6 +36,6 @@ export class AuthGuard implements CanActivate {
         }, (err) => {
         return;
     })
-}
+  }
   
 }

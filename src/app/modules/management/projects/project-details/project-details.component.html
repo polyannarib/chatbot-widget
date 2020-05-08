@@ -55,7 +55,7 @@
                 <li><span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration }}h</li>
                 <li><span>{{ 'EFFORT' | translate }} </span> {{ activity.effort }}h</li>
               </ul>
-              <div class="containerButtons center-align">
+              <div class="containerButtons center-align" *ngIf="!scopes.wpplayer">
                 <app-button-finalize *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-finalize>
                 <app-button-remove [activityId]="activity.id"></app-button-remove>
                 <app-button-suspend *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-suspend>

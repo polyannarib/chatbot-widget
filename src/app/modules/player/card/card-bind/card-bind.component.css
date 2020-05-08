@@ -82,9 +82,10 @@
     left: calc(50% - 25px);
 }
 .charactersDeck .logo {
-    width: 40%;
+    width: 50px;
     position: absolute;
-    bottom: 0px;
+    bottom: 25px;
+    left: 3px;
 }
 
 
