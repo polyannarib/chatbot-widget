@@ -58,7 +58,8 @@ import { ProjectDetailsTaskComponent } from './projects/project-details-task/pro
     ReportEditComponent,
     ReportEditNoteComponent,
     ProjectEditComponent,
-    ProjectDetailsTaskComponent
+    ProjectDetailsTaskComponent,
+    ProjectCreateComponent
   ]
 })
 export class ManagementModule { }

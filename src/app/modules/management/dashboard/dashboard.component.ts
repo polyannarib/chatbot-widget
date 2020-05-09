@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {ProjectCreateComponent} from "../projects/project-create/project-create.component";
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +16,7 @@ export class DashboardComponent implements OnInit {
     graph: true
   }
 
-  constructor() { }
+  constructor(public dialog: MatDialog,) {}
 
   ngOnInit() { }
 
@@ -53,6 +55,20 @@ export class DashboardComponent implements OnInit {
       this.loader = true;
     }
     this.loader = false;
+  }
+
+  modalAddProject() {
+    const dataSend = {
+      projectId: 0,
+      projectDate: 10
+    }
+    const dialogRef = this.dialog.open(ProjectCreateComponent, {
+      width: '90vw',
+      data: dataSend
+    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   this.findProjects();
+    // });
   }
 
 }
