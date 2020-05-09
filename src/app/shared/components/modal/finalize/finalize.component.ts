@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { TaskService } from 'src/app/core/services/task.service';
 import { MzToastService } from 'ngx-materialize';
 import { NotifyComponent } from '../../notify/notify.component';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-finalize',
@@ -14,12 +15,14 @@ export class FinalizeComponent implements OnInit {
   loader: boolean = false;
   errMessage: string;
   statusErr: any;
+  mainStyle = this.profileService.getAppMainColor();
 
   constructor(
     public dialogRef: MatDialogRef<FinalizeComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private taskService: TaskService,
     private _snackBar: MatSnackBar,
+    private profileService: ProfileService
   ) { }
 
   @Input() service: string;

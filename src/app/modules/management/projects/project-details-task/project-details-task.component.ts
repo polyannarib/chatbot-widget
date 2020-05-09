@@ -4,6 +4,8 @@ import { ReportEditNoteComponent } from '../../report/report-edit-note/report-ed
 import { ReportEditComponent } from '../../report/report-edit/report-edit.component';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { TaskCreateComponent } from '../../task/task-create/task-create.component';
+import { RemoveTaskComponent } from 'src/app/shared/components/modal/remove-task/remove-task.component';
 
 
 /**
@@ -69,18 +71,8 @@ export class ProjectDetailsTaskComponent implements OnInit {
 
   ngOnInit() { }
 
-  openReport(project) {
-    const dataSend = {
-      project: project
-    }
-    const dialogRef = this.dialog.open(ReportEditComponent, {
-      width: '90vw',
-      data: dataSend
-    });
-    // dialogRef.afterClosed().subscribe(
-    // (result) => {
-    //   this.findProjects();
-    // });
+  getTasks() {
+    return;
   }
 
   /* ----------------------------------------------------------------- */
@@ -99,5 +91,61 @@ export class ProjectDetailsTaskComponent implements OnInit {
   dataSource = new MatTreeFlatDataSource( this.treeControl, this.treeFlattener );
   
   hasChild = ( _: number, node: ExampleFlatNode ) => node.expandable;
+
+  addTask() {
+    const dataSend = {
+      project: this.data.project
+    }
+    const dialogRef = this.dialog.open(TaskCreateComponent, {
+      width: '600px',
+      data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(
+    (result) => {
+      this.getTasks();
+    });
+  }
+
+  editTask() {
+    const dataSend = {
+      project: this.data.project
+    }
+    const dialogRef = this.dialog.open(TaskCreateComponent, {
+      width: '600px',
+      data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(
+    (result) => {
+      this.getTasks();
+    });
+  }
+
+  removeTask() {
+    const dataSend = {
+      project: this.data.project
+    }
+    const dialogRef = this.dialog.open(RemoveTaskComponent, {
+      width: '500px',
+      data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(
+    (result) => {
+      this.getTasks();
+    });
+  }
+
+  openReport() {
+    const dataSend = {
+      project: this.data.project
+    }
+    const dialogRef = this.dialog.open(ReportEditComponent, {
+      width: '90vw',
+      data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(
+    (result) => {
+      this.getTasks();
+    });
+  }
 
 }

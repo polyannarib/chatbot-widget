@@ -62,7 +62,9 @@ import { TaskDetailsComponent } from './task/task-details/task-details.component
     ReportEditComponent,
     ReportEditNoteComponent,
     ProjectEditComponent,
-    ProjectDetailsTaskComponent
+    ProjectDetailsTaskComponent,
+    TaskCreateComponent,
+    TaskDetailsComponent
   ]
 })
 export class ManagementModule { }

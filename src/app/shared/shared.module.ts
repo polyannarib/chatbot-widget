@@ -37,6 +37,7 @@ import { BoxPropertyComponent } from './components/box-property/box-property.com
 import { ConfirmComponent } from './components/modal/confirm/confirm.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { CollapseComponent } from './components/collapse/collapse.component';
+import { RemoveTaskComponent } from './components/modal/remove-task/remove-task.component';
 
 
 // Diretivas
@@ -120,6 +121,7 @@ import { ImagePipe } from './pipe/image.pipe';
     CountComponent,
     FinalizeComponent,
     RemoveComponent,
+    RemoveTaskComponent,
     SuspendComponent,
     BaseModalComponent,
     ButtonFinalizeComponent,
@@ -145,7 +147,8 @@ import { ImagePipe } from './pipe/image.pipe';
     MainColorDirective,
     PrimaryColorDirective,
     SecundaryColorDirective,
-    ImagePipe
+    ImagePipe,
+    RemoveTaskComponent
   ],
   exports: [
     MenuComponent,
@@ -161,6 +164,7 @@ import { ImagePipe } from './pipe/image.pipe';
     MatTooltipModule,
     FinalizeComponent,
     RemoveComponent,
+    RemoveTaskComponent,
     SuspendComponent,
     BaseModalComponent,
     MatRadioModule,
@@ -206,7 +210,8 @@ import { ImagePipe } from './pipe/image.pipe';
     NotifyComponent,
     SucessComponent,
     ErrorComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    RemoveTaskComponent
   ],
   providers: [
     {

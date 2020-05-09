@@ -1,1 +1,65 @@
-<p>task-details works!</p>
+<app-loading [loader]="loader"></app-loading>
+
+<div id="modal" *ngIf="!loader">
+  <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+  <div class="modal-header"> {{ data.project.name }} </div>
+  <form [formGroup]="form" (ngSubmit)="editTask()">
+    <div class="modal-body">
+      <div class="input-field">
+        <input id="name" type="text" class="validate" formControlName="name" required>
+        <label for="name">name</label>
+      </div>
+      <div class="input-field">
+        <input id="description" type="text" class="validate" formControlName="description">
+        <label for="description">description</label>
+      </div>
+      <div class="input-field">
+        <input id="duration" type="text" class="validate" formControlName="duration">
+        <label for="duration">duration</label>
+      </div>
+      <div class="input-field">
+        <input id="style" type="text" class="validate" formControlName="style">
+        <label for="style">style</label>
+      </div>
+      <div class="input-field">
+        <input id="previewedAt" type="text" class="validate" formControlName="previewedAt">
+        <label for="previewedAt">previewedAt</label>
+      </div>
+      <div class="input-field">
+        <input id="card" type="text" class="validate" formControlName="card">
+        <label for="card">card</label>
+      </div>
+      <div class="input-field">
+        <input id="player" type="text" class="validate" formControlName="player">
+        <label for="player">player</label>
+      </div>
+      <div class="input-field">
+        <input id="effort" type="text" class="validate" formControlName="effort">
+        <label for="effort">effort</label>
+      </div>
+      <div class="input-field">
+        <input id="dailyEffort" type="text" class="validate" formControlName="dailyEffort">
+        <label for="dailyEffort">dailyEffort</label>
+      </div>
+      <div class="input-field">
+        <input id="validDay" type="text" class="validate" formControlName="validDay">
+        <label for="validDay">validDay</label>
+      </div>
+      <div class="input-field">
+        <input id="warning" type="text" class="validate" formControlName="warning">
+        <label for="warning">warning</label>
+      </div>
+      <div class="input-field">
+        <input id="allocated" type="text" class="validate" formControlName="allocated">
+        <label for="allocated">allocated</label>
+      </div>
+      <div class="input-field">
+        <input id="referenceDate" type="text" class="validate" formControlName="referenceDate">
+        <label for="referenceDate">referenceDate</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'Criar' | translate }}</button>
+    </div>
+  </form>
+</div>

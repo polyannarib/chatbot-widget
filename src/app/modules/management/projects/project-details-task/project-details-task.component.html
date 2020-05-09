@@ -18,7 +18,6 @@
         </div>
     </div> -->
 
-
     <ul class="matTreeHeader">
       <li>Data Final</li>
       <li>Data Inicio</li>
@@ -33,10 +32,10 @@
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
         <!-- use a disabled button to provide padding for tree leaf -->
         <button mat-icon-button disabled></button>
-        <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
+        <button (click)="editTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
           <i class="material-icons" style="color:black">edit</i>
         </button>
-        <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
+        <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
           <i class="material-icons" style="color:black">remove</i>
         </button>
         <div class="line"> 
@@ -55,13 +54,13 @@
             {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
           </i>
         </button>
-        <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
+        <button (click)="editTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
           <i class="material-icons" style="color:black">edit</i>
         </button>
-        <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'ADD' | translate }}">
+        <button (click)="addTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
           <i class="material-icons" style="color:black">add</i>
         </button>
-        <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'REMOVE' | translate }}">
+        <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
           <i class="material-icons" style="color:black">remove</i>
         </button>
         <div class="line"> 
@@ -109,7 +108,7 @@
   <div class="modal-footer">
 
     <button matTooltip="{{ 'EDITPROJECT' | translate }}" mat-icon-button><i class="material-icons">edit</i></button>
-    <button (click)="openReport(data.project)" matTooltip="{{ 'STATUSREPORT' | translate }}" mat-icon-button><i class="material-icons">report</i></button>
+    <button (click)="openReport()" matTooltip="{{ 'STATUSREPORT' | translate }}" mat-icon-button><i class="material-icons">report</i></button>
     <!-- <button matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button> -->
     <!-- <button matTooltip="Baixar relátorio" mat-icon-button><i class="material-icons">assignment_returned</i></button> -->
     <!-- <button matTooltip="Calcular" mat-icon-button><i class="material-icons">grid_on</i></button> -->
