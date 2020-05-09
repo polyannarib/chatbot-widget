@@ -12,7 +12,7 @@
     </mat-form-field>
   </div>
   <div class="modal-footer">
-    <button class="button button-primary right" (click)="confirmSuspend()">{{ 'CONFIRM' | translate }}</button>
+    <button [ngStyle]="{'background-color': mainStyle}" class="button button-primary right" (click)="confirmSuspend()">{{ 'CONFIRM' | translate }}</button>
   </div>
 </div>
 

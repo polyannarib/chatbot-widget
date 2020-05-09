@@ -7,6 +7,6 @@
       <p>{{ 'MESSAGECONFIRM' | translate }}</p>
     </div>
     <div class="modal-footer">
-      <button class="button button-primary right" (click)="confirm()">{{ 'CONFIRM' | translate }}</button>
+      <button class="button button-primary right" [ngStyle]="{'background-color': mainStyle}" (click)="confirm()">{{ 'CONFIRM' | translate }}</button>
     </div>
 </div>
