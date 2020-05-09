@@ -26,6 +26,7 @@ export class TaskCreateComponent implements OnInit {
     referenceDate: [null],
     style: [null],
     player: [null],
+    projectId: [this.data.projectId]
   });
   loader: boolean = false;
   mainStyle = this.profileService.getAppMainColor();

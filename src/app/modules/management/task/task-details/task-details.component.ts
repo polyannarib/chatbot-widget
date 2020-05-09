@@ -26,7 +26,14 @@ export class TaskDetailsComponent implements OnInit {
     allocated: [this.data.allocated],
     referenceDate: [this.data.referenceDate],
     style: [this.data.style],
-    player: [this.data.player]
+    player: [this.data.player],
+    projectId: [this.data.projectId],
+    type: this.formBuilder.group({
+      name: [this.data.task.type.name, [Validators.required]],
+      description: [this.data.task.type.description, [Validators.required]],
+      duration: [this.data.task.type.duration, [Validators.required]],
+      card: [this.data.task.type.card, [Validators.required]],
+    })
   });
   loader: boolean = false;
   mainStyle = this.profileService.getAppMainColor();
