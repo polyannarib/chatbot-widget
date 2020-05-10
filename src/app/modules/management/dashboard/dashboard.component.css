@@ -6,6 +6,7 @@
 }
 
 .add-project-button {
-  float: right;
+  right: 0;
+  position: fixed;
   margin: 20px;
 }

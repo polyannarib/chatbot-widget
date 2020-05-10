@@ -16,7 +16,7 @@ export class ProjectCreateComponent implements OnInit {
 
   workgroups: Workgroup[] = [{value: -1, viewValue: 'Escolher'}];
   managers: Manager[] = [{value: -1, viewValue: 'Escolher'}];
-  form: FormGroup = this.formBuilder.group({
+  formCreateProject: FormGroup = this.formBuilder.group({
     name: [null, [Validators.required]],
     projectManager: [null, [Validators.required]],
     customerOwner: [null, [Validators.required]],
@@ -62,6 +62,9 @@ export class ProjectCreateComponent implements OnInit {
               this.profile.workgroupList.map(workgroup => {
                 this.workgroups.push({value: workgroup.id, viewValue: workgroup.name});
               });
+              if (this.scopes.wpmaster) {
+                this.managers.push({value: this.profile.personId, viewValue: this.profile.name});
+              }
             }
           }
           return;
@@ -128,11 +131,11 @@ export class ProjectCreateComponent implements OnInit {
   }
 
   createProject() {
-    const projectName = this.form.controls.name.value;
-    const workgroup = this.form.controls.workgroup.value;
-    const description = this.form.controls.description.value;
-    const identify = this.form.controls.identify.value;
-    const manager = this.form.controls.projectManager.value;
+    const projectName = this.formCreateProject.controls.name.value;
+    const workgroup = this.formCreateProject.controls.workgroup.value;
+    const description = this.formCreateProject.controls.description.value;
+    const identify = this.formCreateProject.controls.identify.value;
+    const manager = this.formCreateProject.controls.projectManager.value;
 
     const data = {
       name: projectName,

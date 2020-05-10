@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {ProjectCreateComponent} from "../projects/project-create/project-create.component";
 import { MatDialog } from '@angular/material';
+import {ProfileService} from "../../../core/services/profile.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -9,14 +10,16 @@ import { MatDialog } from '@angular/material';
 })
 export class DashboardComponent implements OnInit {
 
-  loader: boolean = false
+  loader: boolean = false;
   loaderDash: any = {
     resource: true,
     project: true,
     graph: true
-  }
+  };
+  mainStyle = this.profileService.getAppMainColor();
+  secondarytyle = this.profileService.getAppSecondaryColor();
 
-  constructor(public dialog: MatDialog,) {}
+  constructor(public dialog: MatDialog, private profileService: ProfileService) {}
 
   ngOnInit() { }
 
