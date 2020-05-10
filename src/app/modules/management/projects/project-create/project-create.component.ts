@@ -4,7 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { ProjectService } from 'src/app/core/services/project.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import {AuthService} from '../../../../core/services/auth.service';
-import {format} from "date-fns";
 import {NotifyComponent} from "../../../../shared/components/notify/notify.component";
 
 @Component({
@@ -38,16 +37,10 @@ export class ProjectCreateComponent implements OnInit {
     private profileService: ProfileService,
     private authService: AuthService,
   ) { }
-  // wpleader
-  // wpmaster
 
   ngOnInit() {
     this.scopes = Object.assign({}, this.authService.getScopes());
     this.findFromProfile();
-    if (this.scopes.wpleader) { this.findAllMasters(); }
-    else if (this.scopes.wpmaster) {
-      this.workgroups.map(workgroup => this.findManagersFromWorkgroup(workgroup.value));
-    }
   }
 
   findFromProfile() {
@@ -58,12 +51,15 @@ export class ProjectCreateComponent implements OnInit {
           this.loader = false;
           if (response.object != null) {
             this.profile = response.object.person;
+            console.log(this.profile);
             if (this.profile.workgroupList != null) {
               this.profile.workgroupList.map(workgroup => {
                 this.workgroups.push({value: workgroup.id, viewValue: workgroup.name});
               });
-              if (this.scopes.wpmaster) {
-                this.managers.push({value: this.profile.personId, viewValue: this.profile.name});
+              if (this.scopes.wpleader) {
+                this.findAllMasters();
+              } else if (this.scopes.wpmaster) {
+                this.workgroups.map(workgroup => this.findManagersFromWorkgroup(workgroup.value));
               }
             }
           }
@@ -106,28 +102,30 @@ export class ProjectCreateComponent implements OnInit {
 
   findManagersFromWorkgroup(id) {
     this.loader = true;
-    this.projectService.getAllMastersByWorkgroup(id).subscribe(
-      (response) => {
-        if (response.status === 0) {
-          this.loader = false;
-          if (response.object != null) {
-            const objects = response.object;
-            objects.map(object => {
-              this.managers.push({value: object.personId, viewValue: object.name});
-              if (object.workgroupList != null) {
-                object.workgroupList.map(workgroup => this.workgroups.push({value: workgroup.id, viewValue: workgroup.name}));
-              }
-            });
+    if (id !== -1) {
+      this.projectService.getAllMastersByWorkgroup(id).subscribe(
+        (response) => {
+          if (response.status === 0) {
+            this.loader = false;
+            if (response.object != null) {
+              const objects = response.object;
+              objects.map(object => {
+                this.managers.push({value: object.personId, viewValue: object.name});
+                if (object.workgroupList != null) {
+                  object.workgroupList.map(workgroup => this.workgroups.push({value: workgroup.id, viewValue: workgroup.name}));
+                }
+              });
+            }
+            return;
           }
-          return;
+          this.httpError(response.message);
+          this.loader = false;
+        }, (err) => {
+          this.httpError(null);
+          this.loader = false;
         }
-        this.httpError(response.message);
-        this.loader = false;
-      }, (err) => {
-        this.httpError(null);
-        this.loader = false;
-      }
-    );
+      );
+    }
   }
 
   createProject() {
