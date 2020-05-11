@@ -2,7 +2,7 @@
 
 <div id="modal" *ngIf="!loader">
   <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
-  <form [formGroup]="formCreateProject">
+  <form [formGroup]="formCreateProject" (ngSubmit)="createProject()">
     <div class="modal-body">
 
       <!-- NOME DO PROJETO -->
@@ -49,7 +49,7 @@
 
     </div>
     <div class="modal-footer">
-      <button type="submit" class="button right" [disabled]="!formCreateProject.valid" [ngStyle]="{'background-color': mainStyle}" (click)="createProject()">{{ 'CREATE_PROJECT_CONFIRM' | translate }}</button>
+      <button type="submit" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'CREATE_PROJECT_CONFIRM' | translate }}</button>
     </div>
   </form>
 </div>
