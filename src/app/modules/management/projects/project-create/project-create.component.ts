@@ -51,7 +51,6 @@ export class ProjectCreateComponent implements OnInit {
           this.loader = false;
           if (response.object != null) {
             this.profile = response.object.person;
-            console.log(this.profile);
             if (this.profile.workgroupList != null) {
               this.profile.workgroupList.map(workgroup => {
                 this.workgroups.push({value: workgroup.id, viewValue: workgroup.name});
@@ -146,9 +145,11 @@ export class ProjectCreateComponent implements OnInit {
         id: workgroup
       }
     };
+    console.log(data);
     this.loader = true;
     this.projectService.createProject(data).subscribe(
       (response) => {
+        console.log(response);
         if (response.status === 0) {
           this.loader = false;
           console.log(response);
@@ -158,6 +159,7 @@ export class ProjectCreateComponent implements OnInit {
         this.httpError(response.message);
         this.loader = false;
       }, (err) => {
+        console.log(err);
         this.httpError(null);
         this.loader = false;
       }
@@ -166,9 +168,9 @@ export class ProjectCreateComponent implements OnInit {
 
   httpError(value) {
     switch (value) {
-      case 'FAIL_TO_LIST_TASK':
+      case 'TEAM_INVALID_OR_INACTIVE':
         this._snackBar.openFromComponent(NotifyComponent,
-          { data: { type: 'error', message: 'Problemas, contate o administrador' }});
+          { data: { type: 'error', message: 'Workgroup inválido ou inativo.' }});
         break;
       default:
         this._snackBar.openFromComponent(NotifyComponent,
