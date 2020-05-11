@@ -14,16 +14,24 @@ export class TaskService {
   
   constructor(private http: HttpClient) { }
 
-  createTask(data): Observable< any > {
+  getTasksByProject(projectId: number): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/byProject/${projectId}`);
+  }
+
+  createTask(data): Observable<any> {
     return this.http.post(`${environment.back_end_url}/${this.prefixService}`, data );
   }
 
-  editTask(data): Observable< any > {
+  editTask(data): Observable<any> {
     return this.http.post(`${environment.back_end_url}/${this.prefixService}`, data );
   }
 
-  removeTask(id: Number, reason: String ): Observable< any > {
+  removeTask(id: Number, reason: String ): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/${id}/remove?reason=${reason}`);
+  }
+
+  getTypesTask(): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/type/all`);
   }
 
   findTasks(playerId: Number, date: String): Observable< any > {

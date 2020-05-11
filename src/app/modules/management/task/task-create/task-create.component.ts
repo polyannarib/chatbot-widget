@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from 'src/app/core/services/task.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
+import { CardFindComponent } from '../../card/card-find/card-find.component';
 
 @Component({
   selector: 'app-task-create',
@@ -12,24 +13,28 @@ import { NotifyComponent } from 'src/app/shared/components/notify/notify.compone
 })
 export class TaskCreateComponent implements OnInit {
 
+  loader: boolean = false;
+  mainStyle = this.profileService.getAppMainColor();
+  secoundStyle = this.profileService.getAppSecondaryColor();
+  card: any;
+  type: any;
   form: FormGroup = this.formBuilder.group({
     name: [null, [Validators.required]],
     description: [null, [Validators.required]],
-    duration: [null, [Validators.required]],
-    card: [null, [Validators.required]],
-    previewedAt: [null],
-    effort: [null],
-    dailyEffort: [null],
-    validDay: [null],
-    warning: [null],
-    allocated: [null],
-    referenceDate: [null],
-    style: [null],
-    player: [null],
-    projectId: [this.data.projectId]
+    card: [this.card ? this.card.id : null, [Validators.required]],
+    previewedAt: [null, [Validators.required]],
+    effort: [null, [Validators.required]],
+    type: [this.getTypes(this.data.nodeType)],
+    // duration: [null, [Validators.required]],
+    // dailyEffort: [null],
+    // validDay: [null],
+    // warning: [null],
+    // allocated: [null],
+    // referenceDate: [null],
+    // style: [null],
+    // player: [null],
+    projectId: [this.data.project.id]
   });
-  loader: boolean = false;
-  mainStyle = this.profileService.getAppMainColor();
 
   constructor(
     public dialogRef: MatDialogRef<TaskCreateComponent>,
@@ -37,14 +42,17 @@ export class TaskCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private taskService: TaskService,
     private _snackBar: MatSnackBar,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    public dialog: MatDialog
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   createTask() {
     this.loader = true;
+    console.log(' ---- this.form.valid ---- ');
+    console.log(this.form.valid);
+    console.log(this.form.value);
     if (this.form.valid) {
       this.taskService.createTask(this.form.value).subscribe(
         (response) => {
@@ -64,6 +72,41 @@ export class TaskCreateComponent implements OnInit {
       this.loader = false;
       this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
     }
+  }
+
+  addCard() {
+    // const dataSend = {
+    //   project: this.data.project
+    // }
+    const dialogRef = this.dialog.open(CardFindComponent, {
+      width: '400px',
+      // data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(
+    (result) => {
+      if(result) {
+        this.card = result;
+        this.form.value.card = this.card.id;
+      }
+    });
+  }
+
+  removeCard() {
+    if(this.card) {
+      this.card = null;
+    }
+  }
+
+  getTypes(createType) {
+    const levelTaskCreate = createType.level + 1;
+    this.taskService.getTypesTask().subscribe(
+      (response) => {
+        response.object.forEach(element => {
+          if(element.level == levelTaskCreate) {
+            this.type = element;
+          }
+        });        
+    })
   }
 
 }

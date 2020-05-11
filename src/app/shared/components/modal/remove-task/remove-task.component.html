@@ -1,18 +1,18 @@
 <div id="modal">
-<div class="modal-header">
-    {{ 'CONFIRMACTION' | translate }}
-    <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
-</div>
-<div class="modal-body">
-    <p *ngIf="statusErr != 0">{{ errMessage | translate }}</p>
-    <p *ngIf="statusErr === 0 || !statusErr">Tem certeza que deseja excluir?</p>
-    <div class="input-field">
-    <input id="reason" type="text" class="validate" [(ngModel)]="reason">
-    <label for="reason">{{ 'REASON' | translate }}</label>
+    <div class="modal-header">
+        {{ 'CONFIRMACTION' | translate }}
+        <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
     </div>
-</div>
-<div class="modal-footer">
-    <button class="button button-primary right" [ngStyle]="{'background-color': mainStyle}" (click)="confirmRemove()">{{ 'CONFIRM' | translate }}</button>
-</div>
+    <div class="modal-body">
+        <p *ngIf="statusErr != 0">{{ errMessage | translate }}</p>
+        <p *ngIf="statusErr === 0 || !statusErr">Tem certeza que deseja excluir?</p>
+        <div class="input-field">
+        <input id="reason" type="text" class="validate" [(ngModel)]="reason">
+        <label for="reason">{{ 'REASON' | translate }}</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="button button-primary right" [ngStyle]="{'background-color': mainStyle}" (click)="confirmRemove()">{{ 'CONFIRM' | translate }}</button>
+    </div>
 </div>
   
