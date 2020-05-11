@@ -47,4 +47,8 @@ export class ProjectService {
   createProject(data): Observable<any> {
     return this.http.post(`${environment.back_end_url}/project`, data);
   }
+
+  getAllWorkgroups(): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/team/my/allAndAbove`);
+  }
 }

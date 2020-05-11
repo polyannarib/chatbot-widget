@@ -51,16 +51,7 @@ export class ProjectCreateComponent implements OnInit {
           this.loader = false;
           if (response.object != null) {
             this.profile = response.object.person;
-            if (this.profile.workgroupList != null) {
-              this.profile.workgroupList.map(workgroup => {
-                this.workgroups.push({value: workgroup.id, viewValue: workgroup.name});
-              });
-              if (this.scopes.wpleader) {
-                this.findAllMasters();
-              } else if (this.scopes.wpmaster) {
-                this.workgroups.map(workgroup => this.findManagersFromWorkgroup(workgroup.value));
-              }
-            }
+            this.findAllWorkgroups();
           }
           return;
         }
@@ -87,6 +78,34 @@ export class ProjectCreateComponent implements OnInit {
                 object.workgroupList.map(workgroup => this.workgroups.push({value: workgroup.id, viewValue: workgroup.name}));
               }
             });
+          }
+          return;
+        }
+        this.httpError(response.message);
+        this.loader = false;
+      }, (err) => {
+        this.httpError(null);
+        this.loader = false;
+      }
+    );
+  }
+
+  findAllWorkgroups() {
+    this.loader = true;
+    this.projectService.getAllWorkgroups().subscribe(
+      (response) => {
+        if (response.status === 0) {
+          this.loader = false;
+          if (response.object != null) {
+            const list = response.object;
+            list.map(workgroup => {
+              this.workgroups.push({value: workgroup.id, viewValue: workgroup.name});
+            });
+            if (this.scopes.wpleader) {
+              this.findAllMasters();
+            } else if (this.scopes.wpmaster) {
+              this.workgroups.map(workgroup => this.findManagersFromWorkgroup(workgroup.value));
+            }
           }
           return;
         }
