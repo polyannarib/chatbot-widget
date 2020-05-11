@@ -100,6 +100,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
     return {
       expandable: !!node.tasksSons && node.tasksSons.length > 0,
       name: node.name,
+      id: node.id,
       allocated: node.allocated ? node.allocated : '',
       effort: node.effort ? node.effort : '',
       card: node.card ? node.card.name : '',
@@ -117,7 +118,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
   }
   
   treeControl = new FlatTreeControl<any>( node => node.level, node => node.expandable );
-  treeFlattener = new MatTreeFlattener( this._transformer, node => node.level, node => node.expandable, node => node.children );
+  treeFlattener = new MatTreeFlattener( this._transformer, node => node.level, node => node.expandable, node => node.tasksSons );
   dataSource = new MatTreeFlatDataSource( this.treeControl, this.treeFlattener );
   hasChild = ( _: number, node: any ) => node.expandable;
 

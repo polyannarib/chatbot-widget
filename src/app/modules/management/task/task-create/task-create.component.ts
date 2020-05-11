@@ -18,21 +18,14 @@ export class TaskCreateComponent implements OnInit {
   secoundStyle = this.profileService.getAppSecondaryColor();
   card: any;
   type: any;
+  types: any;
   form: FormGroup = this.formBuilder.group({
     name: [null, [Validators.required]],
     description: [null, [Validators.required]],
-    card: [this.card ? this.card.id : null, [Validators.required]],
-    previewedAt: [null, [Validators.required]],
+    card: [this.card],
+    previewedAt: [null],
     effort: [null, [Validators.required]],
-    type: [this.getTypes(this.data.nodeType)],
-    // duration: [null, [Validators.required]],
-    // dailyEffort: [null],
-    // validDay: [null],
-    // warning: [null],
-    // allocated: [null],
-    // referenceDate: [null],
-    // style: [null],
-    // player: [null],
+    type: [this.getTypeCreate(this.data.nodeType.level + 1, this.types)],
     projectId: [this.data.project.id]
   });
 
@@ -46,14 +39,23 @@ export class TaskCreateComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    
+  }
+
+  getTypeCreate(level, types) {
+    types.forEach(element => {
+      if(element.level == level) {
+        return element;
+      }
+    });
+  }
 
   createTask() {
     this.loader = true;
-    console.log(' ---- this.form.valid ---- ');
-    console.log(this.form.valid);
-    console.log(this.form.value);
     if (this.form.valid) {
+      const previewedAt = new Date(this.form.value.previewedAt).getTime();
+      this.form.value.previewedAt = previewedAt;
       this.taskService.createTask(this.form.value).subscribe(
         (response) => {
           if (response.status == 0) {
@@ -86,7 +88,7 @@ export class TaskCreateComponent implements OnInit {
     (result) => {
       if(result) {
         this.card = result;
-        this.form.value.card = this.card.id;
+        this.form.value.card = { cardId: this.card.knowledgeId };
       }
     });
   }
@@ -98,14 +100,17 @@ export class TaskCreateComponent implements OnInit {
   }
 
   getTypes(createType) {
-    const levelTaskCreate = createType.level + 1;
+    const levelTaskCreate = createType.level + 1;    
     this.taskService.getTypesTask().subscribe(
       (response) => {
         response.object.forEach(element => {
           if(element.level == levelTaskCreate) {
             this.type = element;
+            return;
           }
         });        
+        this.type = response.object[0];
+        return;
     })
   }
 
