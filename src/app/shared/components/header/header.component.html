@@ -5,7 +5,7 @@
         <span class="icon-bar"></span>
     </button>
     <div id="black-filter"></div>
-    <nav [ngStyle]="{'background': mainStyle}">
+    <nav [ngStyle]="{'background': secondStyle}">
         <div class="nav-wrapper container-fluid">
             <!-- <ul class="right hide-on-med-and-down">
                 <li><a class="dropdown-trigger" href="" data-target="dropdown1"><i class="material-icons">perm_identity</i></a></li>
@@ -16,11 +16,11 @@
         </div>
     </nav>
     <div class="player" *ngIf="user">
-        <div class="playerInfo">
-            <span>{{ user.name }}</span>
+        <div class="playerInfo" [ngStyle]="{'color': mainStyle}">
+            <span [ngStyle]="{'color': '#696969e8'}">{{ user.name }}</span>
             <br>
-            <span id="scoreSpan">Score:</span>
-            <span id="score"> {{score}} Pts </span>
+            <span id="scoreSpan" [ngStyle]="{'color': '#696969e8'}">Score:</span>
+            <span id="score" [ngStyle]="{'color': mainStyle}" >{{score}} Pts</span>
         </div>
         <!-- <div class="image" [ngStyle]="{'background-image': user.url }"></div> -->
         <img class="image" [src]="user.url | image | async">

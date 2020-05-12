@@ -25,7 +25,7 @@ header nav .brand-logo {
     margin: 0px 10px 0 0 !important;
     width: 24px;
 }
-@media (max-width: 604px) 
+@media (max-width: 604px)
 {
     header nav .brand-logo {
         font-size: 15px;

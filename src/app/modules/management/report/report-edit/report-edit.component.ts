@@ -99,8 +99,8 @@ export class ReportEditComponent implements OnInit {
           this.loaderNotes = false;
           return;
         } else {
-          this._snackBar.openFromComponent(NotifyComponent,
-            { data: { type: 'error', message: 'Não foi encontrado nenhuma tarefa' }});
+          // this._snackBar.openFromComponent(NotifyComponent,
+          //   { data: { type: 'error', message: 'Não foi encontrado nenhuma nota' }});
           this.notes = null;
           this.loaderNotes = false;
           this.messageNotes = true;
@@ -108,7 +108,7 @@ export class ReportEditComponent implements OnInit {
       }, (err) => {
         this.loaderNotes = false;
         this._snackBar.openFromComponent(NotifyComponent,
-          { data: { type: 'error', message: 'Problemas para procurar as tarefas' }});
+          { data: { type: 'error', message: 'Problemas para procurar as notas' }});
     })
   }
 
@@ -134,9 +134,9 @@ export class ReportEditComponent implements OnInit {
       const dataSend = {
         type: 'create',
         projectId: this.formFind.value.projectId,
-        statusId: this.formFind.value.statusId,
-        typeId: this.formFind.value.typeId
-      }
+        statusId: {id: this.formFind.value.statusId, value: this.statusNotes.find(x => x.id === this.formFind.value.statusId).description},
+        typeId: {id: this.formFind.value.typeId, value: this.typeNotes.find(x => x.id === this.formFind.value.typeId).description}
+      };
       const dialogRef = this.dialog.open(ReportEditNoteComponent, {
         width: '40vw',
         data: dataSend

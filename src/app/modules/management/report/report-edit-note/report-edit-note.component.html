@@ -13,13 +13,13 @@
       <mat-form-field class="example-full-width">
         <textarea matInput placeholder="{{ 'OBSERVATION' | translate }}" type="text" formControlName="observation"></textarea>
       </mat-form-field>
-    
+
       <mat-form-field class="example-full-width">
         <input matInput [matDatepicker]="noteDate" formControlName="noteDate" placeholder="{{ 'NOTEDATE' | translate }}">
         <mat-datepicker-toggle matSuffix [for]="noteDate"></mat-datepicker-toggle>
         <mat-datepicker #noteDate></mat-datepicker>
       </mat-form-field>
-    
+
       <mat-form-field class="example-full-width">
         <input matInput [matDatepicker]="noteEndDate" formControlName="noteEndDate" placeholder="{{ 'NOTEENDDATE' | translate }}">
         <mat-datepicker-toggle matSuffix [for]="noteEndDate"></mat-datepicker-toggle>
@@ -29,7 +29,7 @@
       <mat-form-field class="example-full-width">
         <input matInput placeholder="{{ 'NOTENUM' | translate }}" formControlName="noteNum">
       </mat-form-field>
-      
+
       <mat-form-field class="example-full-width">
         <mat-label>{{ 'CRITICALLYLEVEL' | translate }}</mat-label>
         <mat-select formControlName="criticallyLevel">
@@ -38,7 +38,25 @@
           <mat-option [value]="3"> Vermelho </mat-option>
         </mat-select>
       </mat-form-field>
-      
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Selecione o tipo</mat-label>
+        <mat-select formControlName="type.id">
+          <mat-option *ngFor="let typ of typeDesc" [value]="typ.key">
+            {{ typ.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Selecione o status</mat-label>
+        <mat-select formControlName="status.id">
+          <mat-option *ngFor="let stats of statusDesc" [value]="stats.key">
+            {{ stats.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
     </div>
     <div class="modal-footer">
       <button [ngStyle]="{'background-color': mainStyle}" type="submit" class="button button-primary right">{{ 'UPDATE' | translate }}</button>

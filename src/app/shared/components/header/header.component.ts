@@ -15,7 +15,8 @@ export class HeaderComponent implements OnInit {
 
   btnMenuClass: string;
   user: any;
-  mainStyle = this.profileService.getAppSecondaryColor();
+  mainStyle = this.profileService.getAppMainColor();
+  secondStyle = this.profileService.getAppSecondaryColor();
   score: number = 0;
 
   constructor(
@@ -78,8 +79,9 @@ export class HeaderComponent implements OnInit {
       (response) => {
         this.user = response.object;
         const today = new Date();
-        const mes = String(today.getMonth() + 1).padStart(2, '0');
+        const mes = today.getMonth() + 1;
         const ano = today.getFullYear();
+        console.log({ano, mes});
         this.profileService.getScore({ano, mes}).subscribe(
           (res) => {
             console.log(res);
