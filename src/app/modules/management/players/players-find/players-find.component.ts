@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { TaskService } from 'src/app/core/services/task.service';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 import { MatSnackBar } from '@angular/material';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-players-find',
@@ -18,6 +19,7 @@ export class PlayersFindComponent implements OnInit {
   @Input() dataFim: any;
 
   loader: boolean = false;
+  mainStyle = this.profileService.getAppMainColor();
 
   playerRated: any;
   playerRatedFilter: any;
@@ -31,7 +33,8 @@ export class PlayersFindComponent implements OnInit {
   constructor(
     private playerService: PlayerService,
     private taskService: TaskService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {

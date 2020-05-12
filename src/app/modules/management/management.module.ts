@@ -28,6 +28,7 @@ import { ProjectCreateComponent } from './projects/project-create/project-create
 import { ProjectDetailsTaskComponent } from './projects/project-details-task/project-details-task.component';
 import { TaskCreateComponent } from './task/task-create/task-create.component';
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
+import { CardFindComponent } from './card/card-find/card-find.component';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import { TaskDetailsComponent } from './task/task-details/task-details.component
     ProjectCreateComponent,
     ProjectDetailsTaskComponent,
     TaskCreateComponent,
-    TaskDetailsComponent
+    TaskDetailsComponent,
+    CardFindComponent
   ],
   entryComponents: [
     ProjectDetailsComponent,
@@ -65,7 +67,8 @@ import { TaskDetailsComponent } from './task/task-details/task-details.component
     ProjectDetailsTaskComponent,
     ProjectCreateComponent,
     TaskCreateComponent,
-    TaskDetailsComponent
+    TaskDetailsComponent,
+    CardFindComponent
   ]
 })
 export class ManagementModule { }

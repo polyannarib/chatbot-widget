@@ -18,62 +18,81 @@
         </div>
     </div> -->
 
-    <ul class="matTreeHeader">
-      <li>Data Final</li>
-      <li>Data Inicio</li>
-      <li>Cartas</li>
-      <li>Responsável</li>
-      <li>Esforço</li>
-    </ul>
-    
-    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-      <!-- This is the tree node template for leaf nodes -->
+    <app-loading [loader]="loader"></app-loading>
+    <app-count *ngIf="tasks && tasks.length < 1 && !loader">Esse projeto está sem task cadastrada no momento!</app-count>
 
-      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <!-- use a disabled button to provide padding for tree leaf -->
-        <button mat-icon-button disabled></button>
-        <button (click)="editTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
-          <i class="material-icons" style="color:black">edit</i>
-        </button>
-        <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
-          <i class="material-icons" style="color:black">remove</i>
-        </button>
-        <div class="line"> 
-          {{ node.name }} 
-          <span class="dateEnd">20/03/2020</span>
-          <span class="dateInit">15/03/2020</span>
-          <span class="dateInit"></span>
-          <span class="dateInit"></span>
-          <span class="dateInit"></span>
-        </div>
-      </mat-tree-node>
+    <div *ngIf="tasks && !loader && tasks.length > 0">
+      <ul class="matTreeHeader">
+        <li>Data Final</li>
+        <li>Data Inicio</li>
+        <li>Cartas</li>
+        <li>Responsável</li>
+        <li>Esforço</li>
+      </ul>
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <!-- use a disabled button to provide padding for tree leaf -->
+          <button mat-icon-button disabled></button>
 
-      <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
-          <i class="material-icons">
-            {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
-          </i>
-        </button>
-        <button (click)="editTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
-          <i class="material-icons" style="color:black">edit</i>
-        </button>
-        <button (click)="addTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
-          <i class="material-icons" style="color:black">add</i>
-        </button>
-        <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
-          <i class="material-icons" style="color:black">remove</i>
-        </button>
-        <div class="line"> 
-          {{ node.name }} 
-          <span class="dateEnd">20/03/2020</span>
-          <span class="dateInit">15/03/2020</span>
-          <span class="dateInit"></span>
-          <span class="dateInit"></span>
-          <span class="dateInit"></span>
-        </div>
-      </mat-tree-node>
+          <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
+            <i class="material-icons" style="color:black">edit</i>
+          </button>
+          <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
+            <i class="material-icons" style="color:black">add</i>
+          </button>
+          <!-- <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
+            <i class="material-icons" style="color:black">remove</i>
+          </button> -->
 
-    </mat-tree>
+          <div class="line"> 
+            {{ node.name }}
+            <!-- 
+             <span class="dateEnd">{{ node.expectedAt | date:'dd/MM/yyyy' }}</span>
+            <span class="dateInit">{{ node.previewedAt | date:'dd/MM/yyyy' }}</span>
+            <span class="dateInit">{{ getCardName(node.card) }}</span>
+            <span class="dateInit">{{ node.allocated }}</span>
+            <span class="dateInit">{{ node.effort }}</span> 
+            -->
+            <span>
+              <ul class="matTreeBody">
+                <li>{{ node.expectedAt | date:'dd/MM/yyyy' }}</li>
+                <li>{{ node.previewedAt | date:'dd/MM/yyyy' }}</li>
+                <li>{{ getCardName(node.card) }}</li>
+                <li>{{ node.allocated }}</li>
+                <li>{{ node.effort }}</li>
+              </ul>
+            </span>
+          </div>
+        </mat-tree-node>
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle' + node.id">
+            <i class="material-icons">
+              {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+            </i>
+          </button>
+
+          <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
+            <i class="material-icons" style="color:black">edit</i>
+          </button>
+          <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
+            <i class="material-icons" style="color:black">add</i>
+          </button>
+          <!-- <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
+            <i class="material-icons" style="color:black">remove</i>
+          </button> -->
+
+          <div class="line"> 
+            {{ node.name }} 
+            <span class="dateEnd">{{ node.expectedAt | date:'dd/MM/yyyy' }}</span>
+            <span class="dateInit">{{ node.previewedAt | date:'dd/MM/yyyy' }}</span>
+            <span class="dateInit">{{ getCardName(node.card) }}</span>
+            <span class="dateInit">{{ node.allocated }}</span>
+            <span class="dateInit">{{ node.effort }}</span>
+          </div>
+        </mat-tree-node>
+      </mat-tree>
+    </div>
 
     <!-- <app-collapse>
         <div header class="row headerTextCollapse hide-on-small-only text-header">

@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from 'src/app/core/services/task.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
+import { CardFindComponent } from '../../card/card-find/card-find.component';
 
 @Component({
   selector: 'app-task-create',
@@ -12,23 +13,22 @@ import { NotifyComponent } from 'src/app/shared/components/notify/notify.compone
 })
 export class TaskCreateComponent implements OnInit {
 
+  loader: boolean = false;
+  mainStyle = this.profileService.getAppMainColor();
+  secoundStyle = this.profileService.getAppSecondaryColor();
+  card: any;
+  type: any;
+  types: any;
   form: FormGroup = this.formBuilder.group({
     name: [null, [Validators.required]],
     description: [null, [Validators.required]],
-    duration: [null, [Validators.required]],
-    card: [null, [Validators.required]],
+    card: [this.card],
     previewedAt: [null],
-    effort: [null],
-    dailyEffort: [null],
-    validDay: [null],
-    warning: [null],
-    allocated: [null],
-    referenceDate: [null],
-    style: [null],
-    player: [null],
+    effort: [null, [Validators.required]],
+    type: [null],
+    parentId: [this.data.parentId],
+    projectId: [this.data.project.id]
   });
-  loader: boolean = false;
-  mainStyle = this.profileService.getAppMainColor();
 
   constructor(
     public dialogRef: MatDialogRef<TaskCreateComponent>,
@@ -36,15 +36,29 @@ export class TaskCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private taskService: TaskService,
     private _snackBar: MatSnackBar,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    public dialog: MatDialog
   ) { }
 
-  ngOnInit() {
+  ngOnInit() { 
+    this.getTypes();
+  }
+
+  getTypeCreate(level, types) {
+    types.forEach(element => {
+      if(element.level == level) {
+        return element;
+      }
+    });
   }
 
   createTask() {
     this.loader = true;
     if (this.form.valid) {
+      const previewedAt = new Date(this.form.value.previewedAt).getTime();
+      this.form.value.previewedAt = previewedAt;
+      // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
+      this.form.value.type = this.types.find( element => element.level == this.data.nodeType.level + 1 )
       this.taskService.createTask(this.form.value).subscribe(
         (response) => {
           if (response.status == 0) {
@@ -65,4 +79,33 @@ export class TaskCreateComponent implements OnInit {
     }
   }
 
+  addCard() {
+    // const dataSend = {
+    //   project: this.data.project
+    // }
+    const dialogRef = this.dialog.open(CardFindComponent, {
+      width: '400px',
+      // data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(
+    (result) => {
+      if(result) {
+        this.card = result;
+        this.form.value.card = { cardId: this.card.knowledgeId };
+      }
+    });
+  }
+
+  removeCard() {
+    if(this.card) {
+      this.card = null;
+    }
+  }
+
+  getTypes() {
+    this.taskService.getTypesTask().subscribe(
+      (response) => { this.types = response.object }
+    );
+  }
+  
 }
