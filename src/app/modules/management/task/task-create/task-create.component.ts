@@ -19,12 +19,13 @@ export class TaskCreateComponent implements OnInit {
   card: any;
   type: any;
   types: any;
+  createNewType: any = (this.data.nodeType) ? (this.data.nodeType.level + 1) : 1;
   form: FormGroup = this.formBuilder.group({
     name: [null, [Validators.required]],
     description: [null, [Validators.required]],
     card: [this.card],
     previewedAt: [null],
-    effort: [null, [Validators.required]],
+    effort: [null],
     type: [null],
     parentId: [this.data.parentId],
     projectId: [this.data.project.id]
@@ -44,7 +45,7 @@ export class TaskCreateComponent implements OnInit {
     this.getTypes();
   }
 
-  getTypeCreate(level, types) {
+  getTypeCreate(level, types?) {
     types.forEach(element => {
       if(element.level == level) {
         return element;
@@ -58,7 +59,7 @@ export class TaskCreateComponent implements OnInit {
       const previewedAt = new Date(this.form.value.previewedAt).getTime();
       this.form.value.previewedAt = previewedAt;
       // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
-      this.form.value.type = this.types.find( element => element.level == this.data.nodeType.level + 1 )
+      this.form.value.type = this.types.find( element => element.level == this.createNewType )
       this.taskService.createTask(this.form.value).subscribe(
         (response) => {
           if (response.status == 0) {
@@ -104,8 +105,25 @@ export class TaskCreateComponent implements OnInit {
 
   getTypes() {
     this.taskService.getTypesTask().subscribe(
-      (response) => { this.types = response.object }
+      (response) => { 
+        this.types = response.object
+        this.type = this.types.find( element => element.level == this.createNewType );
+      }
     );
   }
+
+  // inputHidden() {
+  //   const type = this.types.find( element => element.level == this.createNewType );
+
+  //   console.log('-------------------')
+  //   console.log('----- type -----')
+  //   console.log(type)
+
+  //   if(type.definition == "EXECUTAVEL") {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
   
 }

@@ -18,7 +18,7 @@ export class TaskDetailsComponent implements OnInit {
   secoundStyle = this.profileService.getAppSecondaryColor();
   card: any = (this.data.task.card != null) ? this.isCardSelect(this.data.task.card.cardId) : null;
   cardSelect: any = this.data.task.card;
-  type: any;
+  type: any = this.data.task.type
   types: any;
   form: FormGroup = this.formBuilder.group({
     id: [this.data.task.id],
@@ -36,6 +36,7 @@ export class TaskDetailsComponent implements OnInit {
     style: [this.data.task.style],
     player: [this.data.task.player],
     type: [this.data.task.type],
+    parentId: [this.data.task.parentId],
     projectId: [this.data.project.id]
   });
 
@@ -49,15 +50,11 @@ export class TaskDetailsComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() {
-    console.log('----------------------')
-    console.log(this.cardSelect)
-    console.log(this.data)
-  }
+  ngOnInit() { }
 
-  isCardSelect(cardId) {
-    if(!!cardId || cardId != null || cardId != undefined) {
-      return cardId;
+  isCardSelect(id) {
+    if(!!id || id != null || id != undefined) {
+      return { cardId: id };
     } else {
       return null
     }
@@ -132,11 +129,5 @@ export class TaskDetailsComponent implements OnInit {
     }
     return true;
   }
-
-  // getTypes() {
-  //   this.taskService.getTypesTask().subscribe(
-  //     (response) => { this.types = response.object }
-  //   );
-  // }
 
 }

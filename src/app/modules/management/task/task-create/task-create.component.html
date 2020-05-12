@@ -1,6 +1,6 @@
 <app-loading [loader]="loader"></app-loading>
 
-<div id="modal" *ngIf="!loader">
+<div id="modal" *ngIf="!loader && type">
   <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
   <div class="modal-header"> {{ data.project.name }} </div>
   <form [formGroup]="form">
@@ -16,28 +16,20 @@
         <label for="description">Descrição</label>
       </div>
 
-      <!-- <div class="input-field">
-        <input id="duration" type="number" class="validate" formControlName="duration">
-        <label for="duration">Duração</label>
-      </div> -->
-
-      <!-- <div class="input-field">
-        <input id="previewedAt" type="text" class="validate" formControlName="previewedAt">
-        <label for="previewedAt">Data Iniciada</label>
-      </div> -->
-
-      <div class="input-field">
+      <div class="input-field" *ngIf="type.definition == 'EXECUTAVEL'">
         <input id="effort" type="number" class="validate" formControlName="effort">
         <label for="effort">Esforço</label>
       </div>
 
-      <mat-form-field>
-        <input matInput [matDatepicker]="previewedAt" formControlName="previewedAt" placeholder="Data Iniciada">
-        <mat-datepicker-toggle matSuffix [for]="previewedAt"></mat-datepicker-toggle>
-        <mat-datepicker #previewedAt></mat-datepicker>
-      </mat-form-field>
+      <div *ngIf="type.definition == 'EXECUTAVEL'">
+        <mat-form-field>
+          <input matInput [matDatepicker]="previewedAt" formControlName="previewedAt" placeholder="Data Iniciada">
+          <mat-datepicker-toggle matSuffix [for]="previewedAt"></mat-datepicker-toggle>
+          <mat-datepicker #previewedAt></mat-datepicker>
+        </mat-form-field>
+      </div>
 
-      <ul class="collection">
+      <ul class="collection" *ngIf="type.definition == 'EXECUTAVEL'">
         <li *ngIf="card" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
           <div>
             {{ card.name }}
@@ -100,7 +92,7 @@
 
     </div>
     <div class="modal-footer">
-      <button [disabled]="card" (click)="addCard()" class="button left" [ngStyle]="{'background-color': mainStyle}">{{ 'Adicionar carta' | translate }}</button>
+      <button *ngIf="type.definition == 'EXECUTAVEL'" [disabled]="card" (click)="addCard()" class="button left" [ngStyle]="{'background-color': mainStyle}">{{ 'Adicionar carta' | translate }}</button>
       <button (click)="createTask()" type="submit" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'Criar' | translate }}</button>
     </div>
   </form>
