@@ -5,12 +5,14 @@
     width: 100%;
     border-bottom: 1px solid #808080;
     /* bottom: 0px; */
-    /* position: relative; */
+    position: relative;
     padding: 10px;
 }
 span {
-    float: right;
-    width: 100px;
+    position: absolute;
+    right: 0px;
+    /* float: right; */
+    width: 500px;
     text-align: center;
 }
 ul.matTreeHeader {
@@ -24,4 +26,17 @@ ul.matTreeHeader li {
     width: 100px;
     text-align: center;
     font-weight: 600;
+}
+
+ul.matTreeBody {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+} 
+ul.matTreeBody li {
+    /* float: right; */
+    /* width: 100px; */
+    text-align: center;
+    /* font-weight: 600; */
 }

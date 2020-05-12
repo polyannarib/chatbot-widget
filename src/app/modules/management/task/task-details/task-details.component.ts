@@ -16,7 +16,7 @@ export class TaskDetailsComponent implements OnInit {
   loader: boolean = false;
   mainStyle = this.profileService.getAppMainColor();
   secoundStyle = this.profileService.getAppSecondaryColor();
-  card: any = { cardId: this.data.task.card.cardId };
+  card: any = (this.data.task.card != null) ? this.isCardSelect(this.data.task.card.cardId) : null;
   cardSelect: any = this.data.task.card;
   type: any;
   types: any;
@@ -49,7 +49,19 @@ export class TaskDetailsComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    console.log('----------------------')
+    console.log(this.cardSelect)
+    console.log(this.data)
+  }
+
+  isCardSelect(cardId) {
+    if(!!cardId || cardId != null || cardId != undefined) {
+      return cardId;
+    } else {
+      return null
+    }
+  }
 
   // getTypeCreate(level, types) {
   //   types.forEach(element => {
@@ -97,10 +109,13 @@ export class TaskDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(
     (result) => {
-      if(result) {
+      if(result && result.knowledgeId) {
         this.card = { cardId: result.knowledgeId };
         this.cardSelect = result;
         // this.form.value.card = { cardId: this.card.knowledgeId };
+      } else {
+        this.card = null
+        this.cardSelect = null;
       }
     });
   }
