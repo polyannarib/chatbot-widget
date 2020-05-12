@@ -65,6 +65,7 @@ import { CardFindComponent } from './card/card-find/card-find.component';
     ReportEditNoteComponent,
     ProjectEditComponent,
     ProjectDetailsTaskComponent,
+    ProjectCreateComponent,
     TaskCreateComponent,
     TaskDetailsComponent,
     CardFindComponent

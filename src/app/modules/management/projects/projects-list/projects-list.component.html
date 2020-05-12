@@ -1,7 +1,7 @@
 <app-loading [loader]="loader"></app-loading>
 
 <div *ngIf="projectsList && !loader">
-  
+
   <div class="row">
     <div class="col s12 m6">
       <div class="input-field">
@@ -23,7 +23,7 @@
   </div>
 
   <app-loading [loader]="loaderDays && !daysOfWeek10"></app-loading>
-  
+
   <div class="tableOverflow">
     <table class="responsive-table" *ngIf="!loaderDays && daysOfWeek10">
       <thead>

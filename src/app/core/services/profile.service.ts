@@ -29,6 +29,10 @@ export class ProfileService {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/getWhiteLabeData`);
   }
 
+  getScore(params): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/job/extract/${params.ano}/${params.mes}`);
+  }
+
   setWhiteLabel(color) {
 
     this.setColors(color.styles);
@@ -54,7 +58,7 @@ export class ProfileService {
         (response) => {
           this.setWhiteLabel(response.object);
         },
-        (err) => { 
+        (err) => {
           console.log(err);
           // return false;
         }

@@ -1,4 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {ProjectCreateComponent} from "../projects/project-create/project-create.component";
+import { MatDialog } from '@angular/material';
+import {ProfileService} from "../../../core/services/profile.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -7,14 +10,16 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  loader: boolean = false
+  loader: boolean = false;
   loaderDash: any = {
     resource: true,
     project: true,
     graph: true
-  }
+  };
+  mainStyle = this.profileService.getAppMainColor();
+  secondarytyle = this.profileService.getAppSecondaryColor();
 
-  constructor() { }
+  constructor(public dialog: MatDialog, private profileService: ProfileService) {}
 
   ngOnInit() { }
 
@@ -53,6 +58,20 @@ export class DashboardComponent implements OnInit {
       this.loader = true;
     }
     this.loader = false;
+  }
+
+  modalAddProject() {
+    const dataSend = {
+      projectId: 0,
+      projectDate: 10
+    }
+    const dialogRef = this.dialog.open(ProjectCreateComponent, {
+      width: '90vw',
+      data: dataSend
+    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   this.findProjects();
+    // });
   }
 
 }

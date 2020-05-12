@@ -9,7 +9,7 @@ import { RouterStateSnapshot } from '@angular/router';
 export class HttpInverceptor implements HttpInterceptor {
 
     contentType: any;
-    
+
     constructor(
         private authService: AuthService
     ) { }
