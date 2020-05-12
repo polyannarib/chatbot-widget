@@ -104,7 +104,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
       id: node.id,
       allocated: node.allocated ? node.allocated : '',
       effort: node.effort ? node.effort : '',
-      card: node.card ? node.card : '',
+      card: node.card ? node.card : null,
       previewedAt: node.previewedAt ? node.previewedAt : '',
       expectedAt: node.expectedAt ? node.expectedAt : '',
       status: this.getColor(node.status),
@@ -228,6 +228,13 @@ export class ProjectDetailsTaskComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  getCardName(card?) {
+    if(card && card != null) {
+      return card.skillName;
+    }
+    return '';
   }
 
 }

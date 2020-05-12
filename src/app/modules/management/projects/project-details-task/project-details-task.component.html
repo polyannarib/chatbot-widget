@@ -41,17 +41,28 @@
           <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
             <i class="material-icons" style="color:black">add</i>
           </button>
-          <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
+          <!-- <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
             <i class="material-icons" style="color:black">remove</i>
-          </button>
+          </button> -->
 
           <div class="line"> 
-            {{ node.name }} 
-            <span class="dateEnd">{{ node.expectedAt }}</span>
-            <span class="dateInit">{{ node.previewedAt }}</span>
-            <span class="dateInit">{{ node.card }}</span>
+            {{ node.name }}
+            <!-- 
+             <span class="dateEnd">{{ node.expectedAt | date:'dd/MM/yyyy' }}</span>
+            <span class="dateInit">{{ node.previewedAt | date:'dd/MM/yyyy' }}</span>
+            <span class="dateInit">{{ getCardName(node.card) }}</span>
             <span class="dateInit">{{ node.allocated }}</span>
-            <span class="dateInit">{{ node.effort }}</span>
+            <span class="dateInit">{{ node.effort }}</span> 
+            -->
+            <span>
+              <ul class="matTreeBody">
+                <li>{{ node.expectedAt | date:'dd/MM/yyyy' }}</li>
+                <li>{{ node.previewedAt | date:'dd/MM/yyyy' }}</li>
+                <li>{{ getCardName(node.card) }}</li>
+                <li>{{ node.allocated }}</li>
+                <li>{{ node.effort }}</li>
+              </ul>
+            </span>
           </div>
         </mat-tree-node>
         <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
@@ -67,15 +78,15 @@
           <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
             <i class="material-icons" style="color:black">add</i>
           </button>
-          <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
+          <!-- <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
             <i class="material-icons" style="color:black">remove</i>
-          </button>
+          </button> -->
 
           <div class="line"> 
             {{ node.name }} 
-            <span class="dateEnd">{{ node.expectedAt }}</span>
-            <span class="dateInit">{{ node.previewedAt }}</span>
-            <span class="dateInit">{{ node.card }}</span>
+            <span class="dateEnd">{{ node.expectedAt | date:'dd/MM/yyyy' }}</span>
+            <span class="dateInit">{{ node.previewedAt | date:'dd/MM/yyyy' }}</span>
+            <span class="dateInit">{{ getCardName(node.card) }}</span>
             <span class="dateInit">{{ node.allocated }}</span>
             <span class="dateInit">{{ node.effort }}</span>
           </div>
