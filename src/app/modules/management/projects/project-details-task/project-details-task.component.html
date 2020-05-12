@@ -35,10 +35,10 @@
           <!-- use a disabled button to provide padding for tree leaf -->
           <button mat-icon-button disabled></button>
 
-          <button (click)="editTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
+          <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
             <i class="material-icons" style="color:black">edit</i>
           </button>
-          <button *ngIf="typeSon(node.type)" (click)="addTask(node.type)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
+          <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
             <i class="material-icons" style="color:black">add</i>
           </button>
           <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
@@ -61,10 +61,10 @@
             </i>
           </button>
 
-          <button (click)="editTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
+          <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
             <i class="material-icons" style="color:black">edit</i>
           </button>
-          <button *ngIf="typeSon(node.type)" (click)="addTask(node.type)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
+          <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
             <i class="material-icons" style="color:black">add</i>
           </button>
           <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">

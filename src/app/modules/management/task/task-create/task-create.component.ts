@@ -25,7 +25,8 @@ export class TaskCreateComponent implements OnInit {
     card: [this.card],
     previewedAt: [null],
     effort: [null, [Validators.required]],
-    type: [this.getTypeCreate(this.data.nodeType.level + 1, this.types)],
+    type: [null],
+    parentId: [this.data.parentId],
     projectId: [this.data.project.id]
   });
 
@@ -40,7 +41,7 @@ export class TaskCreateComponent implements OnInit {
   ) { }
 
   ngOnInit() { 
-    
+    this.getTypes();
   }
 
   getTypeCreate(level, types) {
@@ -56,6 +57,8 @@ export class TaskCreateComponent implements OnInit {
     if (this.form.valid) {
       const previewedAt = new Date(this.form.value.previewedAt).getTime();
       this.form.value.previewedAt = previewedAt;
+      // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
+      this.form.value.type = this.types.find( element => element.level == this.data.nodeType.level + 1 )
       this.taskService.createTask(this.form.value).subscribe(
         (response) => {
           if (response.status == 0) {
@@ -99,19 +102,10 @@ export class TaskCreateComponent implements OnInit {
     }
   }
 
-  getTypes(createType) {
-    const levelTaskCreate = createType.level + 1;    
+  getTypes() {
     this.taskService.getTypesTask().subscribe(
-      (response) => {
-        response.object.forEach(element => {
-          if(element.level == levelTaskCreate) {
-            this.type = element;
-            return;
-          }
-        });        
-        this.type = response.object[0];
-        return;
-    })
+      (response) => { this.types = response.object }
+    );
   }
-
+  
 }

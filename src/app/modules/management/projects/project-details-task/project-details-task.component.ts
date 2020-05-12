@@ -7,6 +7,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { TaskCreateComponent } from '../../task/task-create/task-create.component';
 import { RemoveTaskComponent } from 'src/app/shared/components/modal/remove-task/remove-task.component';
 import { TaskService } from 'src/app/core/services/task.service';
+import { TaskDetailsComponent } from '../../task/task-details/task-details.component';
 
 
 /**
@@ -103,11 +104,19 @@ export class ProjectDetailsTaskComponent implements OnInit {
       id: node.id,
       allocated: node.allocated ? node.allocated : '',
       effort: node.effort ? node.effort : '',
-      card: node.card ? node.card.name : '',
+      card: node.card ? node.card : '',
       previewedAt: node.previewedAt ? node.previewedAt : '',
       expectedAt: node.expectedAt ? node.expectedAt : '',
       status: this.getColor(node.status),
       type: node.type,
+      description: node.description ? node.description : '',
+      duration: node.duration ? node.duration : '',
+      dailyEffort: node.dailyEffort ? node.dailyEffort : '',
+      validDay: node.validDay ? node.validDay : '',
+      warning: node.warning ? node.warning : '',
+      referenceDate: node.referenceDate ? node.referenceDate : '',
+      style: node.style ? node.style : '',
+      player: node.player ? node.player : null,
       level: level,
     };
     // return {
@@ -122,34 +131,38 @@ export class ProjectDetailsTaskComponent implements OnInit {
   dataSource = new MatTreeFlatDataSource( this.treeControl, this.treeFlattener );
   hasChild = ( _: number, node: any ) => node.expandable;
 
-  addTask(type) {
+  addTask(type, id) {
     let nodeType;
+    // let idParent;
     if(type) nodeType = type
+    // if(id) idParent = id
     const dataSend = {
       project: this.data.project,
-      nodeType
+      nodeType,
+      parentId: id
     }
     const dialogRef = this.dialog.open(TaskCreateComponent, {
       width: '600px',
       data: dataSend
     });
     dialogRef.afterClosed().subscribe(
-    (result) => {
-      this.getTasks(this.data.project.id);
+      (result) => {
+        this.getTasks(this.data.project.id);
     });
   }
 
-  editTask() {
+  editTask(node) {
     const dataSend = {
-      project: this.data.project
+      project: this.data.project,
+      task: node
     }
-    const dialogRef = this.dialog.open(TaskCreateComponent, {
+    const dialogRef = this.dialog.open(TaskDetailsComponent, {
       width: '600px',
       data: dataSend
     });
     dialogRef.afterClosed().subscribe(
-    (result) => {
-      this.getTasks(this.data.project.id);
+      (result) => {
+        this.getTasks(this.data.project.id);
     });
   }
 
