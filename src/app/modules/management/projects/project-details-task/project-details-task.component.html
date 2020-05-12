@@ -1,7 +1,10 @@
 <!-- <app-loading [loader]="loader"></app-loading> -->
 
 <div id="modal">
-  <div class="modal-header">{{ data.project.name }}
+  <div class="modal-header">{{ data.project.name }} 
+  <button [ngStyle]="{'background-color': mainStyle}" (click)="addTask(0, 0)" class="button btnAddProject button-floating" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
+    <i class="material-icons" style="color:black">add</i>
+  </button>
     <button type="button" class="close btn" [mat-dialog-close]="true">
       <i class="material-icons">close</i>
     </button>
@@ -22,13 +25,23 @@
     <app-count *ngIf="tasks && tasks.length < 1 && !loader">Esse projeto está sem task cadastrada no momento!</app-count>
 
     <div *ngIf="tasks && !loader && tasks.length > 0">
-      <ul class="matTreeHeader">
+      <!-- <ul class="matTreeHeader">
         <li>Data Final</li>
         <li>Data Inicio</li>
         <li>Cartas</li>
         <li>Responsável</li>
         <li>Esforço</li>
-      </ul>
+      </ul> -->
+      <table class="TreeHeader">
+        <tr>
+          <td></td>
+          <td class="maxWidth">Data Final</td>
+          <td class="maxWidth">Data Inicio</td>
+          <td class="maxWidth">Cartas</td>
+          <td class="maxWidth">Responsável</td>
+          <td class="maxWidth">Esforço</td>
+        </tr>
+      </table>
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
@@ -45,25 +58,28 @@
             <i class="material-icons" style="color:black">remove</i>
           </button> -->
 
-          <div class="line"> 
-            {{ node.name }}
+          <!-- <div class="line">  -->
+            <!-- {{ node.name }} -->
             <!-- 
-             <span class="dateEnd">{{ node.expectedAt | date:'dd/MM/yyyy' }}</span>
+            <span class="dateEnd">{{ node.expectedAt | date:'dd/MM/yyyy' }}</span>
             <span class="dateInit">{{ node.previewedAt | date:'dd/MM/yyyy' }}</span>
             <span class="dateInit">{{ getCardName(node.card) }}</span>
             <span class="dateInit">{{ node.allocated }}</span>
             <span class="dateInit">{{ node.effort }}</span> 
             -->
-            <span>
-              <ul class="matTreeBody">
-                <li>{{ node.expectedAt | date:'dd/MM/yyyy' }}</li>
-                <li>{{ node.previewedAt | date:'dd/MM/yyyy' }}</li>
-                <li>{{ getCardName(node.card) }}</li>
-                <li>{{ node.allocated }}</li>
-                <li>{{ node.effort }}</li>
-              </ul>
-            </span>
-          </div>
+            <!-- <span> -->
+            <table>
+              <tr>
+                <td>{{ node.name }}</td>
+                <td class="maxWidth">{{ node.expectedAt | date:'dd/MM/yyyy' }}</td>
+                <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
+                <td class="maxWidth">{{ getCardName(node.card) }}</td>
+                <td class="maxWidth">{{ node.allocated }}</td>
+                <td class="maxWidth">{{ node.effort }}</td>
+              </tr>
+            </table>
+            <!-- </span> -->
+          <!-- </div> -->
         </mat-tree-node>
         <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
           <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle' + node.id">
@@ -82,14 +98,24 @@
             <i class="material-icons" style="color:black">remove</i>
           </button> -->
 
-          <div class="line"> 
+          <!-- <div class="line"> 
             {{ node.name }} 
-            <span class="dateEnd">{{ node.expectedAt | date:'dd/MM/yyyy' }}</span>
+            <span class="dateEnd"> {{ node.expectedAt | date:'dd/MM/yyyy' }}</span>
             <span class="dateInit">{{ node.previewedAt | date:'dd/MM/yyyy' }}</span>
             <span class="dateInit">{{ getCardName(node.card) }}</span>
             <span class="dateInit">{{ node.allocated }}</span>
             <span class="dateInit">{{ node.effort }}</span>
-          </div>
+          </div> -->
+          <table>
+            <tr>
+              <td>{{ node.name }}</td>
+              <td class="maxWidth">{{ node.expectedAt | date:'dd/MM/yyyy' }}</td>
+              <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
+              <td class="maxWidth">{{ getCardName(node.card) }}</td>
+              <td class="maxWidth">{{ node.allocated }}</td>
+              <td class="maxWidth">{{ node.effort }}</td>
+            </tr>
+          </table>
         </mat-tree-node>
       </mat-tree>
     </div>
@@ -126,7 +152,7 @@
   </div>
   <div class="modal-footer">
 
-    <button matTooltip="{{ 'EDITPROJECT' | translate }}" mat-icon-button><i class="material-icons">edit</i></button>
+    <!-- <button matTooltip="{{ 'EDITPROJECT' | translate }}" mat-icon-button><i class="material-icons">edit</i></button> -->
     <button (click)="openReport()" matTooltip="{{ 'STATUSREPORT' | translate }}" mat-icon-button><i class="material-icons">report</i></button>
     <!-- <button matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button> -->
     <!-- <button matTooltip="Baixar relátorio" mat-icon-button><i class="material-icons">assignment_returned</i></button> -->

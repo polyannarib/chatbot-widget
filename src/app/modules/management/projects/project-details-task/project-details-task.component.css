@@ -40,3 +40,18 @@ ul.matTreeBody li {
     text-align: center;
     /* font-weight: 600; */
 }
+
+.btnAddProject {
+    /* position: absolute; */
+    margin-left: 5px;
+    top: -4px;
+}
+
+table tr td.maxWidth {
+    width: 100px;
+    text-align: center;
+}
+
+table.TreeHeader tr td {
+    font-weight: 600;
+}

@@ -8,6 +8,7 @@ import { TaskCreateComponent } from '../../task/task-create/task-create.componen
 import { RemoveTaskComponent } from 'src/app/shared/components/modal/remove-task/remove-task.component';
 import { TaskService } from 'src/app/core/services/task.service';
 import { TaskDetailsComponent } from '../../task/task-details/task-details.component';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 
 /**
@@ -65,12 +66,14 @@ export class ProjectDetailsTaskComponent implements OnInit {
   loader: boolean = false;
   tasks: any;
   types: any;
+  mainStyle = this.profileService.getAppMainColor();
 
   constructor(
     public dialogRef: MatDialogRef<ProjectDetailsTaskComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {
@@ -131,15 +134,18 @@ export class ProjectDetailsTaskComponent implements OnInit {
   dataSource = new MatTreeFlatDataSource( this.treeControl, this.treeFlattener );
   hasChild = ( _: number, node: any ) => node.expandable;
 
-  addTask(type, id) {
-    let nodeType;
-    // let idParent;
-    if(type) nodeType = type
-    // if(id) idParent = id
-    const dataSend = {
-      project: this.data.project,
-      nodeType,
-      parentId: id
+  addTask(type?, id?) {
+    let dataSend: any;
+    if(type && id) {
+      dataSend = {
+        project: this.data.project,
+        type,
+        parentId: id
+      }
+    } else {
+      dataSend = {
+        project: this.data.project
+      }
     }
     const dialogRef = this.dialog.open(TaskCreateComponent, {
       width: '600px',
@@ -232,7 +238,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
 
   getCardName(card?) {
     if(card && card != null) {
-      return card.skillName;
+      return card.cardName;
     }
     return '';
   }
