@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {ProjectCreateComponent} from "../projects/project-create/project-create.component";
 import { MatDialog } from '@angular/material';
 import {ProfileService} from "../../../core/services/profile.service";
+import {ProjectsListComponent} from "../projects/projects-list/projects-list.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -39,7 +40,7 @@ export class DashboardComponent implements OnInit {
     //   this.loaderProjectStatus = true;
     // }
     // this.loaderProjectStatus = false;
-    this.loaderDash.project = estado
+    this.loaderDash.project = estado;
     this.loaderPage();
   }
 
@@ -49,7 +50,7 @@ export class DashboardComponent implements OnInit {
     //   this.loaderGraphStatus = true;
     // }
     // this.loaderGraphStatus = false;
-    this.loaderDash.graph = estado
+    this.loaderDash.graph = estado;
     this.loaderPage();
   }
 
@@ -64,14 +65,15 @@ export class DashboardComponent implements OnInit {
     const dataSend = {
       projectId: 0,
       projectDate: 10
-    }
+    };
     const dialogRef = this.dialog.open(ProjectCreateComponent, {
       width: '90vw',
       data: dataSend
     });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.findProjects();
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      this.loader = true;
+      window.location.reload();
+    });
   }
 
 }

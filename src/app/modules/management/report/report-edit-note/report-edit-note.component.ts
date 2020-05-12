@@ -14,6 +14,8 @@ export class ReportEditNoteComponent implements OnInit {
 
   form: FormGroup;
   loader: boolean = false;
+  typeDesc: Type[] = [{key: -1, value: 'Escolher'}];
+  statusDesc: Status[] = [{key: -1, value: 'Escolher'}];
 
   mainStyle = this.profileService.getAppMainColor();
 
@@ -32,6 +34,9 @@ export class ReportEditNoteComponent implements OnInit {
 
   getType() {
     if(this.data.type == 'edit') {
+      this.data.note.noteDate = new Date();
+      this.data.note.noteEndDate = new Date();
+      console.log(this.data);
       this.form = this.formBuilder.group({
         noteId: [this.data.note.noteId, [Validators.required]],
         noteNum: [this.data.note.noteNum, [Validators.required]],
@@ -42,15 +47,19 @@ export class ReportEditNoteComponent implements OnInit {
         noteEndDate: [new Date(this.data.note.noteEndDate)],
         criticallyLevel: [this.data.note.criticallyLevel],
         status: this.formBuilder.group({
-          id: [this.data.statusId]
+          id: [this.data.statusId.id]
         }),
         type: this.formBuilder.group({
-          id: [this.data.typeId]
+          id: [this.data.typeId.id]
         }),
         project: this.formBuilder.group({
           id: [this.data.projectId]
         })
       });
+      console.log(this.data.typeId.id);
+      console.log(this.data.statusId.id);
+      this.typeDesc.push({key: this.data.typeId.id, value: this.data.typeId.value});
+      this.statusDesc.push({key: this.data.statusId.id, value: this.data.statusId.value});
     } if(this.data.type == 'create') {
       this.form = this.formBuilder.group({
         noteNum: [null, [Validators.required]],
@@ -61,15 +70,19 @@ export class ReportEditNoteComponent implements OnInit {
         noteEndDate: [null],
         criticallyLevel: [null],
         status: this.formBuilder.group({
-          id: [this.data.statusId]
+          id: [this.data.statusId.id]
         }),
         type: this.formBuilder.group({
-          id: [this.data.typeId]
+          id: [this.data.typeId.id]
         }),
         project: this.formBuilder.group({
           id: [this.data.projectId]
         })
       });
+      console.log(this.data.typeId.id);
+      console.log(this.data.statusId.id);
+      this.typeDesc.push({key: this.data.typeId.id, value: this.data.typeId.value});
+      this.statusDesc.push({key: this.data.statusId.id, value: this.data.statusId.value});
     }
   }
 
@@ -83,25 +96,35 @@ export class ReportEditNoteComponent implements OnInit {
       this.noteService.saveNotes(noteSave).subscribe(
         (response) => {
           if(response.status == 0) {
-            this._snackBar.openFromComponent(NotifyComponent, 
+            this._snackBar.openFromComponent(NotifyComponent,
               { data: { type: 'success', message: 'Nota salva com sucesso!' }});
               this.loader = false;
             this.dialogRef.close();
             return;
           }
           this.loader = false;
-          this._snackBar.openFromComponent(NotifyComponent, 
+          this._snackBar.openFromComponent(NotifyComponent,
             { data: { type: 'error', message: 'Problemas ao salvar a nota' }});
         }, (err) => {
           this.loader = false;
-          this._snackBar.openFromComponent(NotifyComponent, 
+          this._snackBar.openFromComponent(NotifyComponent,
             { data: { type: 'error', message: 'Problemas ao preencher o formulário, contate o administrador!' }});
       });
     } else {
       this.loader = false;
-      this._snackBar.openFromComponent(NotifyComponent, 
+      this._snackBar.openFromComponent(NotifyComponent,
         { data: { type: 'error', message: 'Favor preencher todos os campos corretamente' }});
     }
   }
 
+}
+
+interface Type {
+  key: number;
+  value: string;
+}
+
+interface Status {
+  key: number;
+  value: string;
 }

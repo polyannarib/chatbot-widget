@@ -14,6 +14,7 @@
     "PROJECT": "Project",
     "PROJECTS": "Projects",
     "ACTIVITY": "Activity",
+    "RESPONSIBLE": "Responsible",
     "EFFORT": "Effort",
     "STATUS": "Status",
     "DUEDATE": "Due date",
@@ -58,5 +59,11 @@
     "SUCCESSTITLE": "Success!",
     "SUCCESSMESSAGE": "Register updated successful!",
     "REASON": "Reason",
-    "EXPEFFORT": "Expected Effort"
+    "EXPEFFORT": "Expected Effort",
+
+    "CREATE_PROJECT_MANAGER": "Project Manager",
+    "CREATE_PROJECT_WORKGROUP": "Workgroup",
+    "CREATE_PROJECT_DESCRIPTION": "Project Description",
+    "CREATE_PROJECT_IDENTIFY": "Project Identification",
+    "CREATE_PROJECT_CONFIRM": "Create Project"
 }
