@@ -72,6 +72,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 //Serviços
@@ -109,6 +110,7 @@ import { ImagePipe } from './pipe/image.pipe';
     MatNativeDateModule,
     MatTreeModule,
     MatIconModule,
+    MatBadgeModule,
     RouterModule
   ],
   declarations: [
@@ -183,6 +185,7 @@ import { ImagePipe } from './pipe/image.pipe';
     MatNativeDateModule,
     MatTreeModule,
     MatIconModule,
+    MatBadgeModule,
     ButtonFinalizeComponent,
     ButtonRemoveComponent,
     ButtonSuspendComponent,

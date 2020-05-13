@@ -120,6 +120,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
       referenceDate: node.referenceDate ? node.referenceDate : '',
       style: node.style ? node.style : '',
       player: node.player ? node.player : null,
+      parentId: node.parentId ? node.parentId : null,
       level: level,
     };
     // return {

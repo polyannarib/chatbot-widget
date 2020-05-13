@@ -32,7 +32,7 @@
       <ul class="collection" *ngIf="type.definition == 'EXECUTAVEL'">
         <li *ngIf="cardSelect" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
           <div>
-            {{ cardSelect.skillName }}
+            {{ cardSelect.cardName }}
             <a (click)="removeCard()" class="secondary-content"><i class="material-icons">close</i></a>
           </div>
         </li>
