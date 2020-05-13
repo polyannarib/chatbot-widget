@@ -5,6 +5,7 @@ import { TaskService } from 'src/app/core/services/task.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 import { CardFindComponent } from '../../card/card-find/card-find.component';
+import { AttachmentComponent } from 'src/app/shared/components/modal/attachment/attachment.component';
 
 @Component({
   selector: 'app-task-details',
@@ -37,6 +38,7 @@ export class TaskDetailsComponent implements OnInit {
     player: [this.data.task.player],
     type: [this.data.task.type],
     parentId: [this.data.task.parentId],
+    links: [this.data.task.links],
     projectId: [this.data.project.id]
   });
 
@@ -125,10 +127,31 @@ export class TaskDetailsComponent implements OnInit {
     });
   }
 
+  setAttachment() {
+    const dataSend = {
+      task: this.data.task.id,
+      nameComponent: 'task'
+    }
+    const dialogRef = this.dialog.open(AttachmentComponent, {
+      width: '400px',
+      data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(
+    (result) => {
+      if(result) {
+        this.form.value.links.push(result);
+      }
+    });
+  }
+
   removeCard() {
     if(this.cardSelect) {
       this.cardSelect = null;
     }
+  }
+
+  removeAttachment(attachment) {
+    this.form.value.links = this.form.value.links.map(element => element.description != attachment.description );
   }
 
   isCard() {
