@@ -23,7 +23,7 @@ export class TaskDetailsComponent implements OnInit {
   form: FormGroup = this.formBuilder.group({
     id: [this.data.task.id],
     name: [this.data.task.name, [Validators.required]],
-    description: [this.data.task.description, [Validators.required]],
+    description: [this.data.task.description],
     duration: [this.data.task.duration],
     card: [this.card],
     previewedAt: [this.data.task.previewedAt],
@@ -73,7 +73,12 @@ export class TaskDetailsComponent implements OnInit {
     if (this.form.valid) {
       const previewedAt = new Date(this.form.value.previewedAt).getTime();
       this.form.value.previewedAt = previewedAt;
-      this.form.value.card = this.card;
+      
+      if(this.cardSelect == null) {
+        this.form.value.card = null
+      } else {
+        this.form.value.card = this.card;
+      }
       // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
       // this.form.value.type = this.types.find( element => element.level == this.data.nodeType.level + 1 )
       this.taskService.createTask(this.form.value).subscribe(
@@ -106,9 +111,12 @@ export class TaskDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(
     (result) => {
-      if(result && result.knowledgeId) {
+      if(result && result.knowledgeId) {        
         this.card = { cardId: result.knowledgeId };
-        this.cardSelect = result;
+        this.cardSelect = {
+          cardName: result.name,
+          id: result.knowledgeId
+        };
         // this.form.value.card = { cardId: this.card.knowledgeId };
       } else {
         this.card = null

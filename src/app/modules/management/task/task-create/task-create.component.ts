@@ -19,10 +19,10 @@ export class TaskCreateComponent implements OnInit {
   card: any;
   type: any;
   types: any;
-  createNewType: any = (this.data.nodeType) ? (this.data.nodeType.level + 1) : 1;
+  createNewType: any = this.data.type ? (this.data.type.level + 1) : 1;
   form: FormGroup = this.formBuilder.group({
     name: [null, [Validators.required]],
-    description: [null, [Validators.required]],
+    description: [null],
     card: [this.card],
     previewedAt: [null],
     effort: [null],
@@ -41,7 +41,7 @@ export class TaskCreateComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.getTypes();
   }
 
