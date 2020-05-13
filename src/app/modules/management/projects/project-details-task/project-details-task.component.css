@@ -8,13 +8,13 @@
     position: relative;
     padding: 10px;
 }
-span {
+/* span {
     position: absolute;
     right: 0px;
-    /* float: right; */
+    float: right;
     width: 500px;
     text-align: center;
-}
+} */
 ul.matTreeHeader {
     list-style-type: none;
     margin: 0;
