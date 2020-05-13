@@ -29,6 +29,7 @@ import { ProjectDetailsTaskComponent } from './projects/project-details-task/pro
 import { TaskCreateComponent } from './task/task-create/task-create.component';
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
 import { CardFindComponent } from './card/card-find/card-find.component';
+import {ModalKysmartComponent} from './task/modal-kysmart/modal-kysmart.component';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { CardFindComponent } from './card/card-find/card-find.component';
     ProjectDetailsTaskComponent,
     TaskCreateComponent,
     TaskDetailsComponent,
-    CardFindComponent
+    CardFindComponent,
+    ModalKysmartComponent
   ],
   entryComponents: [
     ProjectDetailsComponent,
@@ -68,7 +70,8 @@ import { CardFindComponent } from './card/card-find/card-find.component';
     ProjectCreateComponent,
     TaskCreateComponent,
     TaskDetailsComponent,
-    CardFindComponent
+    CardFindComponent,
+    ModalKysmartComponent
   ]
 })
 export class ManagementModule { }

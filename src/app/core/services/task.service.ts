@@ -11,7 +11,7 @@ export class TaskService {
 
   private url: string = environment.back_end_url;
   private prefixService: string = 'task';
-  
+
   constructor(private http: HttpClient) { }
 
   getTasksByProject(projectId: number): Observable<any> {
@@ -65,5 +65,8 @@ export class TaskService {
   rescheduleTask(taskId: Number, dateTo: String): Observable< any > {
     return this.http.get( this.url + '/task/' + taskId + '/reschedule?previewedAt=' + dateTo );
   }
-  
+
+  callRegisterItemKySmart(): Observable<any> {
+    return this.http.post(`${environment.back_end_kysmart}/kyrograma/kyrogramaRegister?registerId=3894`, null);
+  }
 }
