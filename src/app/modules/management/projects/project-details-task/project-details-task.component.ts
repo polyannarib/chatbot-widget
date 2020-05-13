@@ -121,6 +121,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
       style: node.style ? node.style : '',
       player: node.player ? node.player : null,
       parentId: node.parentId ? node.parentId : null,
+      links: node.links ? node.links : null,
       level: level,
     };
     // return {

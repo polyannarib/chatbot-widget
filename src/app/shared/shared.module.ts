@@ -38,7 +38,7 @@ import { ConfirmComponent } from './components/modal/confirm/confirm.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { CollapseComponent } from './components/collapse/collapse.component';
 import { RemoveTaskComponent } from './components/modal/remove-task/remove-task.component';
-
+import { AttachmentComponent } from './components/modal/attachment/attachment.component';
 
 // Diretivas
 import { EditModeDirective } from './directives/edit-mode.directive';
@@ -80,6 +80,7 @@ import { MainColorDirective } from './directives/main-color.directive';
 import { PrimaryColorDirective } from './directives/primary-color.directive';
 import { SecundaryColorDirective } from './directives/secundary-color.directive';
 import { ImagePipe } from './pipe/image.pipe';
+
 
 @NgModule({
   imports: [
@@ -150,7 +151,8 @@ import { ImagePipe } from './pipe/image.pipe';
     PrimaryColorDirective,
     SecundaryColorDirective,
     ImagePipe,
-    RemoveTaskComponent
+    RemoveTaskComponent,
+    AttachmentComponent
   ],
   exports: [
     MenuComponent,
@@ -167,6 +169,7 @@ import { ImagePipe } from './pipe/image.pipe';
     FinalizeComponent,
     RemoveComponent,
     RemoveTaskComponent,
+    AttachmentComponent,
     SuspendComponent,
     BaseModalComponent,
     MatRadioModule,
@@ -214,7 +217,8 @@ import { ImagePipe } from './pipe/image.pipe';
     SucessComponent,
     ErrorComponent,
     ConfirmComponent,
-    RemoveTaskComponent
+    RemoveTaskComponent,
+    AttachmentComponent
   ],
   providers: [
     {

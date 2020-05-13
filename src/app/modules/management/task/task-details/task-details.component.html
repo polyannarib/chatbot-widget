@@ -30,10 +30,29 @@
       </div>
 
       <ul class="collection" *ngIf="type.definition == 'EXECUTAVEL'">
+        <label>Cartas</label>
         <li *ngIf="cardSelect" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
           <div>
             {{ cardSelect.cardName }}
             <a (click)="removeCard()" class="secondary-content"><i class="material-icons">close</i></a>
+          </div>
+        </li>
+      </ul>
+
+      <!-- <div class="attachment" *ngIf="form.value.links && type.definition == 'EXECUTAVEL'">
+        <label>Anexos</label>
+        <mat-chip *ngFor="let item of form.value.links">
+          <a target="_blank" href="{{ item.url }}"><i class="material-icons">attach_file</i></a>
+          <a (click)="removeCard()" class="secondary-content"><i class="material-icons">close</i></a>
+        </mat-chip>
+      </div> -->
+
+      <ul class="collection" *ngIf="form.value.links && type.definition == 'EXECUTAVEL'">
+        <label>Anexos</label>
+        <li *ngFor="let item of form.value.links" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
+          <div>
+            <a target="_blank" href="{{ item.url }}">{{ item.description }}</a>
+            <!-- <a (click)="removeAttachment(item)" class="secondary-content"><i class="material-icons">close</i></a> -->
           </div>
         </li>
       </ul>
@@ -93,6 +112,7 @@
     </div>
     <div class="modal-footer">
       <button *ngIf="type.definition == 'EXECUTAVEL'" [disabled]="isCard()" (click)="addCard()" class="button left" [ngStyle]="{'background-color': mainStyle}">{{ 'Adicionar carta' | translate }}</button>
+      <button *ngIf="type.definition == 'EXECUTAVEL'" (click)="setAttachment()" matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button>
       <button (click)="createTask()" type="submit" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'Atualizar' | translate }}</button>
     </div>
   </form>

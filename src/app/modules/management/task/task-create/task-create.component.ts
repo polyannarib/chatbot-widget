@@ -5,6 +5,7 @@ import { TaskService } from 'src/app/core/services/task.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 import { CardFindComponent } from '../../card/card-find/card-find.component';
+import { AttachmentComponent } from 'src/app/shared/components/modal/attachment/attachment.component';
 
 @Component({
   selector: 'app-task-create',
@@ -20,6 +21,7 @@ export class TaskCreateComponent implements OnInit {
   type: any;
   types: any;
   createNewType: any = this.data.type ? (this.data.type.level + 1) : 1;
+  attachment = [];
   form: FormGroup = this.formBuilder.group({
     name: [null, [Validators.required]],
     description: [null],
@@ -27,6 +29,7 @@ export class TaskCreateComponent implements OnInit {
     previewedAt: [null],
     effort: [null],
     type: [null],
+    links: [null],
     parentId: [this.data.parentId],
     projectId: [this.data.project.id]
   });
@@ -110,6 +113,22 @@ export class TaskCreateComponent implements OnInit {
         this.type = this.types.find( element => element.level == this.createNewType );
       }
     );
+  }
+
+  setAttachment() {
+    const dataSend = {
+      nameComponent: 'taskCreate'
+    }
+    const dialogRef = this.dialog.open(AttachmentComponent, {
+      width: '400px',
+      data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(
+    (result) => {
+      if(result) {
+        this.attachment.push(result);
+      }
+    });
   }
 
   // inputHidden() {

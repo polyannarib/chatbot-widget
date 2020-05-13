@@ -24,14 +24,28 @@
     <app-loading [loader]="loader"></app-loading>
     <app-count *ngIf="tasks && tasks.length < 1 && !loader">Esse projeto está sem task cadastrada no momento!</app-count>
 
+
+    <!-- <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        <button mat-icon-button disabled></button>
+        {{node.item}}
+      </mat-tree-node>
+      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+        <button mat-icon-button
+                [attr.aria-label]="'toggle ' + node.filename" matTreeNodeToggle>
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </button>
+        {{node.item}}
+        <mat-progress-bar *ngIf="node.isLoading"
+                          mode="indeterminate"
+                          class="example-tree-progress-bar"></mat-progress-bar>
+      </mat-tree-node>
+    </mat-tree> -->
+
+
     <div *ngIf="tasks && !loader && tasks.length > 0">
-      <!-- <ul class="matTreeHeader">
-        <li>Data Final</li>
-        <li>Data Inicio</li>
-        <li>Cartas</li>
-        <li>Responsável</li>
-        <li>Esforço</li>
-      </ul> -->
       <table class="TreeHeader">
         <tr>
           <td></td>
@@ -43,9 +57,7 @@
         </tr>
       </table>
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-        <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-          <!-- use a disabled button to provide padding for tree leaf -->
           <button mat-icon-button disabled></button>
 
           <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
@@ -54,20 +66,6 @@
           <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
             <i class="material-icons" style="color:black">add</i>
           </button>
-          <!-- <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
-            <i class="material-icons" style="color:black">remove</i>
-          </button> -->
-
-          <!-- <div class="line">  -->
-            <!-- {{ node.name }} -->
-            <!-- 
-            <span class="dateEnd">{{ node.expectedAt | date:'dd/MM/yyyy' }}</span>
-            <span class="dateInit">{{ node.previewedAt | date:'dd/MM/yyyy' }}</span>
-            <span class="dateInit">{{ getCardName(node.card) }}</span>
-            <span class="dateInit">{{ node.allocated }}</span>
-            <span class="dateInit">{{ node.effort }}</span> 
-            -->
-            <!-- <span> -->
             <table>
               <tr>
                 <td>{{ node.name }}</td>
@@ -78,8 +76,6 @@
                 <td class="maxWidth">{{ node.effort }}</td>
               </tr>
             </table>
-            <!-- </span> -->
-          <!-- </div> -->
         </mat-tree-node>
         <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
           <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle' + node.id">
@@ -94,18 +90,6 @@
           <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
             <i class="material-icons" style="color:black">add</i>
           </button>
-          <!-- <button (click)="removeTask()" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
-            <i class="material-icons" style="color:black">remove</i>
-          </button> -->
-
-          <!-- <div class="line"> 
-            {{ node.name }} 
-            <span class="dateEnd"> {{ node.expectedAt | date:'dd/MM/yyyy' }}</span>
-            <span class="dateInit">{{ node.previewedAt | date:'dd/MM/yyyy' }}</span>
-            <span class="dateInit">{{ getCardName(node.card) }}</span>
-            <span class="dateInit">{{ node.allocated }}</span>
-            <span class="dateInit">{{ node.effort }}</span>
-          </div> -->
           <table>
             <tr>
               <td>{{ node.name }}</td>
@@ -119,35 +103,6 @@
         </mat-tree-node>
       </mat-tree>
     </div>
-
-    <!-- <app-collapse>
-        <div header class="row headerTextCollapse hide-on-small-only text-header">
-            <div class="col s12 m6"><span>{{ 'PROJECT' | translate }}</span></div>
-            <div class="col s12 m2"><span>{{ 'ACTIVITY' | translate }}</span></div>
-            <div class="col s12 m2"><span>{{ 'DUEDATE' | translate }}</span></div>
-            <div class="col s12 m1"><span>{{ 'EFFORT' | translate }}</span></div>
-        </div>
-        
-        <div body class="row">
-            <div class="col m6 s12 left-align">name</div>
-            <div class="col m2 s12 left-align">player</div>
-            <div class="col m2 s12 left-align">previewedAt</div>
-            <div class="col m1 s12 left-align">dailyEffort</div>
-            <div class="col m1 s12 valign-wrapper"> <i class="material-icons" matTooltip="status" [ngStyle]="{'color': '#000000'}">fiber_manual_record</i></div>
-        </div>
-        
-        <div collapsible>
-            <ul>
-                <li><span>{{ 'CARD' | translate }}</span> CARD</li>
-                <li><span>{{ 'PREVIEWSTARTDATE' | translate}}</span> PREVIEWSTARTDATE</li>
-                <li><span>{{ 'PREVIEWENDDATE' | translate}}</span> PREVIEWENDDATE</li>
-                <li><span>{{ 'STARTDATE' | translate}}</span> STARTDATE</li>
-                <li><span>{{ 'ENDDATE' | translate}}</span> ENDDATE</li>
-                <li><span>{{ 'EXPEFFORT' | translate }}</span> EXPEFFORT</li>
-                <li><span>{{ 'EFFORT' | translate }} </span> EFFORT</li>
-            </ul>
-        </div>
-    </app-collapse> -->
     
   </div>
   <div class="modal-footer">

@@ -38,61 +38,19 @@
         </li>
       </ul>
 
-      <!-- <div class="find">
-        <div *ngFor="let levelElement of cardKnowledgeFilter; let i= index" [ngClass]="{'help' : status}">
-          <mat-form-field>
-            <mat-label>{{ levelElement.knowledgeList[0].type.name }}</mat-label>
-            <mat-select (selectionChange)="FindParente($event.value, levelElement)">
-              <mat-option *ngFor="let knowledge of levelElement.knowledgeList; let i= index" [value]="knowledge">{{ knowledge.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div> -->
-
-      <!-- <div class="input-field">
-        <input id="card" type="text" class="validate" formControlName="card">
-        <label for="card">Carta</label>
-      </div> -->
-      <!-- <div class="input-field">
-        <input id="style" type="text" class="validate" formControlName="style">
-        <label for="style">style</label>
-      </div> -->
-      <!-- <div class="input-field">
-        <input id="previewedAt" type="text" class="validate" formControlName="previewedAt">
-        <label for="previewedAt">previewedAt</label>
-      </div> -->
-      <!-- <div class="input-field">
-        <input id="player" type="text" class="validate" formControlName="player">
-        <label for="player">player</label>
-      </div> -->
-      <!-- <div class="input-field">
-        <input id="effort" type="text" class="validate" formControlName="effort">
-        <label for="effort">Esforço</label>
-      </div> -->
-      <!-- <div class="input-field">
-        <input id="dailyEffort" type="text" class="validate" formControlName="dailyEffort">
-        <label for="dailyEffort">Esforço diario</label>
-      </div> -->
-      <!-- <div class="input-field">
-        <input id="validDay" type="text" class="validate" formControlName="validDay">
-        <label for="validDay">validDay</label>
-      </div> -->
-      <!-- <div class="input-field">
-        <input id="warning" type="text" class="validate" formControlName="warning">
-        <label for="warning">warning</label>
-      </div> -->
-      <!-- <div class="input-field">
-        <input id="allocated" type="text" class="validate" formControlName="allocated">
-        <label for="allocated">allocated</label>
-      </div> -->
-      <!-- <div class="input-field">
-        <input id="referenceDate" type="text" class="validate" formControlName="referenceDate">
-        <label for="referenceDate">referenceDate</label>
-      </div> -->
+      <!-- <ul class="collection" *ngIf="attachment.length > 0 && type.definition == 'EXECUTAVEL'">
+        <label>Anexos</label>
+        <li *ngFor="let item of attachment" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
+          <div>
+            <a target="_blank" href="{{ item.url }}">{{ item.description }}</a>
+          </div>
+        </li>
+      </ul> -->
 
     </div>
     <div class="modal-footer">
       <button *ngIf="type.definition == 'EXECUTAVEL'" [disabled]="card" (click)="addCard()" class="button left" [ngStyle]="{'background-color': mainStyle}">{{ 'Adicionar carta' | translate }}</button>
+      <!-- <button *ngIf="type.definition == 'EXECUTAVEL'" (click)="setAttachment()" matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button> -->
       <button (click)="createTask()" type="submit" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'Criar' | translate }}</button>
     </div>
   </form>

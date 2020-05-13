@@ -1,0 +1,26 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div id="modal">
+  <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+  <div class="modal-header"> Anexar </div>
+  <form [formGroup]="form">
+    <div class="modal-body">
+
+        <form [formGroup]="form">
+            <div class="input-field">
+                <input id="description" type="text" class="validate" formControlName="description">
+                <label for="description">Descrição</label>
+            </div>
+
+            <div class="input-field">
+                <input id="url" type="url" class="validate" formControlName="url">
+                <label for="url">Url</label>
+            </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button (click)="sendAttachment()" class="button button-primary right" [ngStyle]="{'background-color': mainStyle}">{{ 'CONFIRM' | translate }}</button>
+    </div>
+  </form>
+</div>
