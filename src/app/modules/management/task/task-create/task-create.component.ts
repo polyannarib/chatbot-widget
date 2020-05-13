@@ -5,6 +5,7 @@ import { TaskService } from 'src/app/core/services/task.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 import { CardFindComponent } from '../../card/card-find/card-find.component';
+import {ModalKysmartComponent} from '../modal-kysmart/modal-kysmart.component';
 
 @Component({
   selector: 'app-task-create',
@@ -41,7 +42,7 @@ export class TaskCreateComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.getTypes();
   }
 
@@ -85,7 +86,7 @@ export class TaskCreateComponent implements OnInit {
     //   project: this.data.project
     // }
     const dialogRef = this.dialog.open(CardFindComponent, {
-      width: '400px',
+      width: '600px',
       // data: dataSend
     });
     dialogRef.afterClosed().subscribe(
@@ -105,11 +106,18 @@ export class TaskCreateComponent implements OnInit {
 
   getTypes() {
     this.taskService.getTypesTask().subscribe(
-      (response) => { 
+      (response) => {
         this.types = response.object
         this.type = this.types.find( element => element.level == this.createNewType );
       }
     );
+  }
+
+  openCalculator() {
+    const dialogRef = this.dialog.open(ModalKysmartComponent, {
+      width: '1200px',
+      // data: dataSend
+    });
   }
 
   // inputHidden() {
@@ -125,5 +133,5 @@ export class TaskCreateComponent implements OnInit {
   //     return true;
   //   }
   // }
-  
+
 }
