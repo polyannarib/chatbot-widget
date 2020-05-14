@@ -62,7 +62,7 @@
             <td>
               <i class="material-icons" [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i>
             </td>
-            <td>
+            <td *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
               <button matTooltip="{{ 'EDIT' | translate }}" mat-icon-button (click)="openProjectEdit(project)"><i class="material-icons">more_vert</i></button>
             </td>
             <td *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
