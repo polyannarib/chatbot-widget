@@ -32,6 +32,15 @@
         </mat-form-field>
       </div>
 
+      <!-- <mat-form-field class="example-full-width" *ngIf="type.definition == 'EXECUTAVEL'">
+        <mat-label>{{ 'CRITICALLYLEVEL' | translate }}</mat-label>
+        <mat-select formControlName="criticallyLevel">
+          <mat-option [value]="1"> Verde </mat-option>
+          <mat-option [value]="2"> Amarelo </mat-option>
+          <mat-option [value]="3"> Vermelho </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
       <ul class="collection" *ngIf="type.definition == 'EXECUTAVEL'">
         <li *ngIf="card" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
           <div>
@@ -41,19 +50,20 @@
         </li>
       </ul>
 
-      <!-- <ul class="collection" *ngIf="attachment.length > 0 && type.definition == 'EXECUTAVEL'">
+      <ul class="collection" *ngIf="attachment.length > 0 && type.definition == 'EXECUTAVEL'">
         <label>Anexos</label>
         <li *ngFor="let item of attachment" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
           <div>
             <a target="_blank" href="{{ item.url }}">{{ item.description }}</a>
+            <!-- <a (click)="removeAttachment(item)" class="secondary-content"><i class="material-icons">close</i></a> -->
           </div>
         </li>
-      </ul> -->
+      </ul>
 
     </div>
     <div class="modal-footer">
       <button *ngIf="type.definition == 'EXECUTAVEL'" [disabled]="card" (click)="addCard()" class="button left" [ngStyle]="{'background-color': mainStyle}">{{ 'Adicionar carta' | translate }}</button>
-      <!-- <button *ngIf="type.definition == 'EXECUTAVEL'" (click)="setAttachment()" matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button> -->
+      <button *ngIf="type.definition == 'EXECUTAVEL'" (click)="setAttachment()" matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button>
       <button (click)="createTask()" type="submit" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'Criar' | translate }}</button>
     </div>
   </form>
