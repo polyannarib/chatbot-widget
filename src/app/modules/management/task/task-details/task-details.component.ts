@@ -27,7 +27,7 @@ export class TaskDetailsComponent implements OnInit {
     description: [this.data.task.description],
     duration: [this.data.task.duration],
     card: [this.card],
-    previewedAt: [this.data.task.previewedAt],
+    expectedAt: [new Date(this.data.task.expectedAt)],
     effort: [this.data.task.effort],
     dailyEffort: [this.data.task.dailyEffort],
     validDay: [this.data.task.validDay],
@@ -52,7 +52,11 @@ export class TaskDetailsComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    console.log('--------------------------')
+    console.log(' this.data.task.expectedAt')
+    console.log(this.data.task.expectedAt)
+  }
 
   isCardSelect(id) {
     if(!!id || id != null || id != undefined) {
@@ -73,8 +77,8 @@ export class TaskDetailsComponent implements OnInit {
   createTask() {
     this.loader = true;
     if (this.form.valid) {
-      const previewedAt = new Date(this.form.value.previewedAt).getTime();
-      this.form.value.previewedAt = previewedAt;
+      const expectedAt = new Date(this.form.value.expectedAt).getTime();
+      this.form.value.expectedAt = expectedAt;
       
       if(this.cardSelect == null) {
         this.form.value.card = null
@@ -138,9 +142,10 @@ export class TaskDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(
     (result) => {
-      if(result) {
+      if(result || result != null || result != undefined) {
         this.form.value.links.push(result);
       }
+      return;
     });
   }
 

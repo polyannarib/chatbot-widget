@@ -27,7 +27,7 @@ export class TaskCreateComponent implements OnInit {
     name: [null, [Validators.required]],
     description: [null],
     card: [this.card],
-    previewedAt: [null],
+    expectedAt: [null],
     effort: [null],
     type: [null],
     links: [null],
@@ -60,8 +60,8 @@ export class TaskCreateComponent implements OnInit {
   createTask() {
     this.loader = true;
     if (this.form.valid) {
-      const previewedAt = new Date(this.form.value.previewedAt).getTime();
-      this.form.value.previewedAt = previewedAt;
+      const expectedAt = new Date(this.form.value.expectedAt).getTime();
+      this.form.value.expectedAt = expectedAt;
       // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
       this.form.value.type = this.types.find( element => element.level == this.createNewType )
       this.taskService.createTask(this.form.value).subscribe(
