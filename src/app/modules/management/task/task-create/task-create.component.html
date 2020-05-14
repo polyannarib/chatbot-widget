@@ -20,15 +20,15 @@
       </div>
 
       <div class="input-field" *ngIf="type.definition == 'EXECUTAVEL'">
-        <input id="effort" type="number" class="validate" formControlName="effort">
-        <label for="effort">Esforço</label>
+        <input id="duration" type="number" class="validate" formControlName="duration">
+        <label for="duration">Esforço</label>
       </div>
 
       <div *ngIf="type.definition == 'EXECUTAVEL'">
         <mat-form-field>
-          <input matInput [matDatepicker]="previewedAt" formControlName="previewedAt" placeholder="Data Iniciada">
-          <mat-datepicker-toggle matSuffix [for]="previewedAt"></mat-datepicker-toggle>
-          <mat-datepicker #previewedAt></mat-datepicker>
+          <input matInput [matDatepicker]="expectedAt" formControlName="expectedAt" placeholder="Data prevista inicio">
+          <mat-datepicker-toggle matSuffix [for]="expectedAt"></mat-datepicker-toggle>
+          <mat-datepicker #expectedAt></mat-datepicker>
         </mat-form-field>
       </div>
 
