@@ -23,14 +23,14 @@ export class ProjectsListComponent implements OnInit {
   daysOfWeek10: any;
   projectsList: any;
   filteredProjectsList: any;
-  loader: boolean = false;
-  loaderDays: boolean = false;
+  loader = false;
+  loaderDays = false;
   project: any;
-  numberOfDays: number = 4;
+  numberOfDays = 4;
   startDate: any = new Date(Date.now());
   endDate: any = addDays(this.startDate, this.numberOfDays);
   scopes = Object.assign({}, this.authService.getScopes());
-  
+
   mainStyle = this.profileService.getAppMainColor();
   secondarytyle = this.profileService.getAppSecondaryColor();
 
@@ -48,24 +48,21 @@ export class ProjectsListComponent implements OnInit {
   }
 
   daysOfWeek(start, end) {
-    this.daysOfWeek10 = eachDayOfInterval({
-      start: start,
-      end: end
-    })
+    this.daysOfWeek10 = eachDayOfInterval({start, end});
   }
 
   findProjects() {
     this.loader = true;
     this.loaderProject.emit(true);
-    let params = {
-      "startDate": format(this.startDate, 'dd-MM-yyyy'),
-      "endDate": format(this.endDate, 'dd-MM-yyyy'),
-      "page": 1,
-      "pageSize": 10
+    const params = {
+      startDate: format(this.startDate, 'dd-MM-yyyy'),
+      endDate: format(this.endDate, 'dd-MM-yyyy'),
+      page: 1,
+      pageSize: 10
     };
     this.projectService.listProjects(params).subscribe(
       (response) => {
-        if(response.status == 0) {
+        if (response.status == 0) {
           this.loader = false;
           this.projectsList = response.object.list;
           this.filteredProjectsList = this.projectsList;
@@ -82,9 +79,9 @@ export class ProjectsListComponent implements OnInit {
 
   modalProjectDetails(projectId, activity) {
     const dataSend = {
-      projectId: projectId,
+      projectId,
       projectDate: new Date(activity.referenceDate)
-    }
+    };
     const dialogRef = this.dialog.open(ProjectDetailsComponent, {
       width: '90vw',
       data: dataSend
@@ -96,8 +93,8 @@ export class ProjectsListComponent implements OnInit {
 
   openProjectEdit(project) {
     const dataSend = {
-      project: project
-    }
+      project
+    };
     const dialogRef = this.dialog.open(ProjectDetailsTaskComponent, {
       width: '90vw',
       data: dataSend
@@ -110,8 +107,8 @@ export class ProjectsListComponent implements OnInit {
 
   openReport(project) {
     const dataSend = {
-      project: project
-    }
+      project
+    };
     const dialogRef = this.dialog.open(ReportEditComponent, {
       width: '90vw',
       data: dataSend
@@ -157,11 +154,11 @@ export class ProjectsListComponent implements OnInit {
   httpError(value) {
     switch (value) {
       case 'FAIL_TO_LIST_TASK':
-        this._snackBar.openFromComponent(NotifyComponent, 
+        this._snackBar.openFromComponent(NotifyComponent,
           { data: { type: 'error', message: 'Problemas, contate o administrador' }});
         break;
       default:
-        this._snackBar.openFromComponent(NotifyComponent, 
+        this._snackBar.openFromComponent(NotifyComponent,
           { data: { type: 'error', message: 'Problemas, contate o administrador' }});
         break;
     }

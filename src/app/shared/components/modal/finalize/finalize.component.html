@@ -8,6 +8,6 @@
     <p *ngIf="statusErr === 0 || !statusErr">{{ 'MESSAGECONFIRMFINALIZE' | translate }}</p>
   </div>
   <div class="modal-footer">
-    <button class="button button-primary right" (click)="confirmFinalize()">{{ 'CONFIRM' | translate }}</button>
+    <button class="button button-primary right" [ngStyle]="{'background-color': mainStyle}" (click)="confirmFinalize()">{{ 'CONFIRM' | translate }}</button>
   </div>
 </div>

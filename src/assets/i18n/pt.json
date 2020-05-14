@@ -14,6 +14,7 @@
     "PROJECT": "Projeto",
     "PROJECTS": "Projetos",
     "ACTIVITY": "Atividade",
+    "RESPONSIBLE": "Responsável",
     "EFFORT": "Esforço",
     "STATUS": "Status",
     "DUEDATE": "Vencimento",
@@ -91,5 +92,11 @@
     "MESSAGECONFIRM": "Você deseja realmente fazer essa ação?",
     "INVALID_PROJECT": "Projeto inválido",
     "PROJECT_IN_WORKPLAYER": "Projeto já existente",
-    "RSC": "Rsc"
+    "RSC": "Rsc",
+
+    "CREATE_PROJECT_MANAGER": "Gestor do Projeto",
+    "CREATE_PROJECT_WORKGROUP": "Workgroup",
+    "CREATE_PROJECT_DESCRIPTION": "Descrição do Projeto",
+    "CREATE_PROJECT_IDENTIFY": "Identificador do Projeto",
+    "CREATE_PROJECT_CONFIRM": "Criar Projeto"
 }

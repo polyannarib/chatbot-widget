@@ -37,7 +37,8 @@ import { BoxPropertyComponent } from './components/box-property/box-property.com
 import { ConfirmComponent } from './components/modal/confirm/confirm.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { CollapseComponent } from './components/collapse/collapse.component';
-
+import { RemoveTaskComponent } from './components/modal/remove-task/remove-task.component';
+import { AttachmentComponent } from './components/modal/attachment/attachment.component';
 
 // Diretivas
 import { EditModeDirective } from './directives/edit-mode.directive';
@@ -69,12 +70,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
+
 
 //Serviços
 import { MainColorDirective } from './directives/main-color.directive';
 import { PrimaryColorDirective } from './directives/primary-color.directive';
 import { SecundaryColorDirective } from './directives/secundary-color.directive';
 import { ImagePipe } from './pipe/image.pipe';
+
 
 @NgModule({
   imports: [
@@ -103,6 +109,9 @@ import { ImagePipe } from './pipe/image.pipe';
     MatChipsModule,
     MatInputModule,
     MatNativeDateModule,
+    MatTreeModule,
+    MatIconModule,
+    MatBadgeModule,
     RouterModule
   ],
   declarations: [
@@ -115,6 +124,7 @@ import { ImagePipe } from './pipe/image.pipe';
     CountComponent,
     FinalizeComponent,
     RemoveComponent,
+    RemoveTaskComponent,
     SuspendComponent,
     BaseModalComponent,
     ButtonFinalizeComponent,
@@ -140,7 +150,9 @@ import { ImagePipe } from './pipe/image.pipe';
     MainColorDirective,
     PrimaryColorDirective,
     SecundaryColorDirective,
-    ImagePipe
+    ImagePipe,
+    RemoveTaskComponent,
+    AttachmentComponent
   ],
   exports: [
     MenuComponent,
@@ -156,6 +168,8 @@ import { ImagePipe } from './pipe/image.pipe';
     MatTooltipModule,
     FinalizeComponent,
     RemoveComponent,
+    RemoveTaskComponent,
+    AttachmentComponent,
     SuspendComponent,
     BaseModalComponent,
     MatRadioModule,
@@ -172,6 +186,9 @@ import { ImagePipe } from './pipe/image.pipe';
     MatChipsModule,
     MatInputModule,
     MatNativeDateModule,
+    MatTreeModule,
+    MatIconModule,
+    MatBadgeModule,
     ButtonFinalizeComponent,
     ButtonRemoveComponent,
     ButtonSuspendComponent,
@@ -199,7 +216,9 @@ import { ImagePipe } from './pipe/image.pipe';
     NotifyComponent,
     SucessComponent,
     ErrorComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    RemoveTaskComponent,
+    AttachmentComponent
   ],
   providers: [
     {

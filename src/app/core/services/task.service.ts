@@ -11,10 +11,34 @@ export class TaskService {
 
   private url: string = environment.back_end_url;
   private prefixService: string = 'task';
-  
+
   constructor(private http: HttpClient) { }
 
-  findTasks(playerId: Number, date: String) : Observable< any > {
+  getTasksByProject(projectId: number): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/byProject/${projectId}`);
+  }
+
+  createTask(data): Observable<any> {
+    return this.http.post(`${environment.back_end_url}/${this.prefixService}`, data );
+  }
+
+  editTask(data): Observable<any> {
+    return this.http.post(`${environment.back_end_url}/${this.prefixService}`, data );
+  }
+
+  removeTask(id: Number, reason: String ): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/${id}/remove?reason=${reason}`);
+  }
+
+  setAttachment(id, data): Observable<any> {
+    return this.http.post(`${environment.back_end_url}/link/${this.prefixService}/${id}`, data);
+  }
+
+  getTypesTask(): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/type/all`);
+  }
+
+  findTasks(playerId: Number, date: String): Observable< any > {
     return this.http.get( this.url + '/dashboard/player/' + playerId + '/task/date/' + date );
   }
 
@@ -41,5 +65,8 @@ export class TaskService {
   rescheduleTask(taskId: Number, dateTo: String): Observable< any > {
     return this.http.get( this.url + '/task/' + taskId + '/reschedule?previewedAt=' + dateTo );
   }
-  
+
+  callRegisterItemKySmart(): Observable<any> {
+    return this.http.post(`${environment.back_end_kysmart}/kyrograma/kyrogramaRegister?registerId=3894`, null);
+  }
 }

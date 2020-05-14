@@ -20,7 +20,7 @@ export class ReportEditComponent implements OnInit {
 
   loaderNotes: boolean = false;
   messageNotes: boolean = false;
-  
+
   typeNotes: any;
   statusNotes: any;
   notes: any;
@@ -32,8 +32,8 @@ export class ReportEditComponent implements OnInit {
   columnsToDisplay: string[] = this.displayedColumns.slice();
 
   formFind: FormGroup = this.formBuilder.group({
-    typeId: [null, [Validators.required]],
-    statusId: [null, [Validators.required]],
+    typeId: [1, [Validators.required]],
+    statusId: [1, [Validators.required]],
     projectId: [this.data.project.id],
     page: [1],
     pageSize: [50]
@@ -55,6 +55,7 @@ export class ReportEditComponent implements OnInit {
   ngOnInit() {
     this.getTypes();
     this.getStatus();
+    this.findNotes();
   }
 
   getTypes() {
@@ -84,7 +85,7 @@ export class ReportEditComponent implements OnInit {
       this.notesLoader();
     } else {
       this.loaderNotes = false;
-      this._snackBar.openFromComponent(NotifyComponent, 
+      this._snackBar.openFromComponent(NotifyComponent,
         { data: { type: 'error', message: 'Ops, os campos de tipo e status devem estar selecionados' }});
     }
   }
@@ -98,16 +99,16 @@ export class ReportEditComponent implements OnInit {
           this.loaderNotes = false;
           return;
         } else {
-          this._snackBar.openFromComponent(NotifyComponent, 
-            { data: { type: 'error', message: 'Não foi encontrado nenhuma tarefa' }});
+          // this._snackBar.openFromComponent(NotifyComponent,
+          //   { data: { type: 'error', message: 'Não foi encontrado nenhuma nota' }});
           this.notes = null;
           this.loaderNotes = false;
           this.messageNotes = true;
         }
       }, (err) => {
         this.loaderNotes = false;
-        this._snackBar.openFromComponent(NotifyComponent, 
-          { data: { type: 'error', message: 'Problemas para procurar as tarefas' }});
+        this._snackBar.openFromComponent(NotifyComponent,
+          { data: { type: 'error', message: 'Problemas para procurar as notas' }});
     })
   }
 
@@ -127,15 +128,15 @@ export class ReportEditComponent implements OnInit {
       this.notesLoader();
     });
   }
-  
+
   modalCreateNotesReport() {
     if(this.formFind.valid) {
       const dataSend = {
         type: 'create',
         projectId: this.formFind.value.projectId,
-        statusId: this.formFind.value.statusId,
-        typeId: this.formFind.value.typeId
-      }
+        statusId: {id: this.formFind.value.statusId, value: this.statusNotes.find(x => x.id === this.formFind.value.statusId).description},
+        typeId: {id: this.formFind.value.typeId, value: this.typeNotes.find(x => x.id === this.formFind.value.typeId).description}
+      };
       const dialogRef = this.dialog.open(ReportEditNoteComponent, {
         width: '40vw',
         data: dataSend
@@ -144,7 +145,7 @@ export class ReportEditComponent implements OnInit {
         this.notesLoader();
       });
     } else {
-      this._snackBar.openFromComponent(NotifyComponent, 
+      this._snackBar.openFromComponent(NotifyComponent,
         { data: { type: 'error', message: 'Favor selecionar acima o tipo e o status da nota' }});
     }
   }

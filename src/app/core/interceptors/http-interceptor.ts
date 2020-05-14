@@ -9,7 +9,7 @@ import { RouterStateSnapshot } from '@angular/router';
 export class HttpInverceptor implements HttpInterceptor {
 
     contentType: any;
-    
+
     constructor(
         private authService: AuthService
     ) { }
@@ -18,6 +18,7 @@ export class HttpInverceptor implements HttpInterceptor {
         if (request.headers.has('Content-Type')) {
             this.contentType = request.headers.get('Content-Type');
         }
+        if (request.url.toLowerCase().includes('kysmart')) return next.handle(request);
         if(this.authService.isAuthenticated()) {
             const newRequest = request.clone({
                 setHeaders: {

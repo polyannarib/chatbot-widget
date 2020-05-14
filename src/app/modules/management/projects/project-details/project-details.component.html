@@ -9,7 +9,7 @@
   <div class="modal-body">
 
     <div class="row dateProgress">
-      <div class="col s12 m4 dateActivity center-align">  
+      <div class="col s12 m4 dateActivity center-align">
         <div class="title">{{ data.projectDate | date:'EEEE' }}</div>
         <span class="activityDay">{{ data.projectDate | date:'dd/MM/yyyy'}}</span>
       </div>
@@ -21,13 +21,13 @@
         </div> -->
       </div>
     </div>
-    
+
     <app-count *ngIf="projectTasks?.tasks == null">Esse projeto está sem task no momento!</app-count>
 
     <section *ngIf="projectTasks?.tasks != null">
       <div class="row headerTextCollapse hide-on-small-only text-header">
-        <div class="col s12 m6"><span>{{ 'PROJECT' | translate }}</span></div>
-        <div class="col s12 m2"><span>{{ 'ACTIVITY' | translate }}</span></div>
+        <div class="col s12 m6"><span>{{ 'ACTIVITY' | translate }}</span></div>
+        <div class="col s12 m2"><span>{{ 'RESPONSIBLE' | translate }}</span></div>
         <div class="col s12 m2"><span>{{ 'DUEDATE' | translate }}</span></div>
         <div class="col s12 m1"><span>{{ 'EFFORT' | translate }}</span></div>
       </div>
@@ -40,7 +40,7 @@
                 <div class="col m2 s12 left-align">{{ activity.player != null ? activity.player.name : '' }}</div>
                 <div class="col m2 s12 left-align">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</div>
                 <div class="col m1 s12 left-align">{{ activity.dailyEffort }}h</div>
-                <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}" 
+                <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}"
                     [ngStyle]="{'color': getColor(activity.status)}">fiber_manual_record</i></div>
               </div>
             </mz-collapsible-item-header>
@@ -55,7 +55,7 @@
                 <li><span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration }}h</li>
                 <li><span>{{ 'EFFORT' | translate }} </span> {{ activity.effort }}h</li>
               </ul>
-              <div class="containerButtons center-align" *ngIf="!scopes.wpplayer">
+              <div class="containerButtons center-align" *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
                 <app-button-finalize *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-finalize>
                 <app-button-remove [activityId]="activity.id"></app-button-remove>
                 <app-button-suspend *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-suspend>

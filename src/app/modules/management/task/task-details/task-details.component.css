@@ -1,0 +1,28 @@
+.collection {
+    margin-bottom: 0px;
+    border: none !important;
+    margin: 0px important;
+}
+.collection .collection-item {
+    background-color: #fff;
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: none;
+}
+.collection .secondary-content {
+    float: right;
+    color: #000000;
+    cursor: pointer;
+}
+
+/* If you put this css in your component then you would be able to use angular material inputs through out that component and if you put this in your style.css or style.scss then you would be able to use it through out your application */
+mat-form-field input {
+    border: none;
+    height: initial !important;
+}
+mat-form-field input:focus {
+    border: none;
+    box-shadow: none;
+    height: initial !important;
+}

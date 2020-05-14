@@ -1,0 +1,70 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div id="modal" *ngIf="!loader && type">
+  <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+  <!-- <div class="calculadora" *ngIf="type.definition == 'EXECUTAVEL'">
+    <button (click)="openCalculator()" mat-icon-button><i class="material-icons">post_add</i></button>
+  </div> -->
+  <div class="modal-header"> {{ data.project.name }} </div>
+  <form [formGroup]="form">
+    <div class="modal-body">
+
+      <div class="input-field">
+        <input id="name" type="text" class="validate" formControlName="name">
+        <label for="name">Nome</label>
+      </div>
+
+      <div class="input-field">
+        <input id="description" type="text" class="validate" formControlName="description">
+        <label for="description">Descrição</label>
+      </div>
+
+      <div class="input-field" *ngIf="type.definition == 'EXECUTAVEL'">
+        <input id="duration" type="number" class="validate" formControlName="duration">
+        <label for="duration">Esforço</label>
+      </div>
+
+      <div *ngIf="type.definition == 'EXECUTAVEL'">
+        <mat-form-field>
+          <input matInput [matDatepicker]="expectedAt" formControlName="expectedAt" placeholder="Data prevista inicio">
+          <mat-datepicker-toggle matSuffix [for]="expectedAt"></mat-datepicker-toggle>
+          <mat-datepicker #expectedAt></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <!-- <mat-form-field class="example-full-width" *ngIf="type.definition == 'EXECUTAVEL'">
+        <mat-label>{{ 'CRITICALLYLEVEL' | translate }}</mat-label>
+        <mat-select formControlName="criticallyLevel">
+          <mat-option [value]="1"> Verde </mat-option>
+          <mat-option [value]="2"> Amarelo </mat-option>
+          <mat-option [value]="3"> Vermelho </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
+      <ul class="collection" *ngIf="type.definition == 'EXECUTAVEL'">
+        <li *ngIf="card" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
+          <div>
+            {{ card.name }}
+            <a (click)="removeCard()" class="secondary-content"><i class="material-icons">close</i></a>
+          </div>
+        </li>
+      </ul>
+
+      <ul class="collection" *ngIf="attachment.length > 0 && type.definition == 'EXECUTAVEL'">
+        <label>Anexos</label>
+        <li *ngFor="let item of attachment" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
+          <div>
+            <a target="_blank" href="{{ item.url }}">{{ item.description }}</a>
+            <!-- <a (click)="removeAttachment(item)" class="secondary-content"><i class="material-icons">close</i></a> -->
+          </div>
+        </li>
+      </ul>
+
+    </div>
+    <div class="modal-footer">
+      <button *ngIf="type.definition == 'EXECUTAVEL'" [disabled]="card" (click)="addCard()" class="button left" [ngStyle]="{'background-color': mainStyle}">{{ 'Adicionar carta' | translate }}</button>
+      <button *ngIf="type.definition == 'EXECUTAVEL'" (click)="setAttachment()" matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button>
+      <button (click)="createTask()" type="submit" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'Criar' | translate }}</button>
+    </div>
+  </form>
+</div>

@@ -14,14 +14,16 @@ declare var $: any;
 export class HeaderComponent implements OnInit {
 
   btnMenuClass: string;
-  user: any
-  mainStyle = this.profileService.getAppSecondaryColor();
+  user: any;
+  mainStyle = this.profileService.getAppMainColor();
+  secondStyle = this.profileService.getAppSecondaryColor();
+  score: number = 0;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private profileService: ProfileService
-  ) { 
+  ) {
     this.getPlayerProfile();
   }
 
@@ -46,7 +48,7 @@ export class HeaderComponent implements OnInit {
   //             this.authService.removeToken();
   //             this.router.navigate( ['/login'], { queryParams: { authenticated: false}} );
   //           }
-  //         )  
+  //         )
   //     }
   //   )
   // }
@@ -74,8 +76,23 @@ export class HeaderComponent implements OnInit {
 
   getPlayerProfile() {
     this.profileService.getProfile().subscribe(
-      (response) => { this.user = response.object }
-    )
+      (response) => {
+        this.user = response.object;
+        const today = new Date();
+        const mes = today.getMonth() + 1;
+        const ano = today.getFullYear();
+        console.log({ano, mes});
+        this.profileService.getScore({ano, mes}).subscribe(
+          (res) => {
+            console.log(res);
+            if (res.object != null) {
+              const objects = res.object;
+              objects.map(object => this.score += object.experiencePoints);
+            }
+          }
+        );
+      }
+    );
   }
 
 }

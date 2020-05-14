@@ -1,0 +1,12 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div id="modal" *ngIf="!loader">
+  <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+
+  <iframe width="100%" height="600" [src]="iframe"></iframe>
+
+  <div class="buttons-bottom">
+    <button mat-flat-button [ngStyle]="{'background': mainStyle}">Cancelar</button>
+    <button mat-flat-button [ngStyle]="{'background': secoundStyle}">Confirmar</button>
+  </div>
+</div>
