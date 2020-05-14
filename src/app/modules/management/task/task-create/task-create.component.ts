@@ -29,7 +29,7 @@ export class TaskCreateComponent implements OnInit {
     description: [null],
     card: [this.card],
     expectedAt: [null],
-    effort: [null],
+    duration: [null],
     type: [null],
     links: [null],
     parentId: [this.data.parentId],
