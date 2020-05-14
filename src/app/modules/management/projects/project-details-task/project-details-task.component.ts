@@ -9,6 +9,7 @@ import { RemoveTaskComponent } from 'src/app/shared/components/modal/remove-task
 import { TaskService } from 'src/app/core/services/task.service';
 import { TaskDetailsComponent } from '../../task/task-details/task-details.component';
 import { ProfileService } from 'src/app/core/services/profile.service';
+import { ProjectCreateComponent } from '../project-create/project-create.component';
 
 
 /**
@@ -243,6 +244,20 @@ export class ProjectDetailsTaskComponent implements OnInit {
       return card.cardName;
     }
     return '';
+  }
+
+  openEditProject() {
+    const dataSend = {
+      projectId: this.data.project.id,
+      project: this.data.project
+    };
+    const dialogRef = this.dialog.open(ProjectCreateComponent, {
+      width: '90vw',
+      data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getTasks(this.data.project.id);     
+    });
   }
 
 }

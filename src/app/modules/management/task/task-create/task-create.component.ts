@@ -23,6 +23,7 @@ export class TaskCreateComponent implements OnInit {
   types: any;
   createNewType: any = this.data.type ? (this.data.type.level + 1) : 1;
   attachment = [];
+  taskCreate = this.data.type ? this.data.type.name : this.data.project.name;
   form: FormGroup = this.formBuilder.group({
     name: [null, [Validators.required]],
     description: [null],
