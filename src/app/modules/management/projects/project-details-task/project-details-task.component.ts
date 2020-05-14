@@ -175,9 +175,10 @@ export class ProjectDetailsTaskComponent implements OnInit {
     });
   }
 
-  removeTask() {
+  removeTask(task) {
     const dataSend = {
-      project: this.data.project
+      project: this.data.project,
+      task
     }
     const dialogRef = this.dialog.open(RemoveTaskComponent, {
       width: '500px',
@@ -258,6 +259,13 @@ export class ProjectDetailsTaskComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getTasks(this.data.project.id);     
     });
+  }
+
+  isStatus(status) {
+    if(status == 'BUILDING' || status == 'WAITING') {
+      return false;
+    }
+    return true;
   }
 
 }

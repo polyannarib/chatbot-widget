@@ -164,21 +164,17 @@ export class ProjectCreateComponent implements OnInit {
         id: workgroup
       }
     };
-    console.log(data);
     this.loader = true;
     this.projectService.createProject(data).subscribe(
       (response) => {
-        console.log(response);
         if (response.status === 0) {
           this.loader = false;
-          console.log(response);
           this.dialogRef.close({confirm: true});
           return;
         }
         this.httpError(response.message);
         this.loader = false;
       }, (err) => {
-        console.log(err);
         this.httpError(null);
         this.loader = false;
       }

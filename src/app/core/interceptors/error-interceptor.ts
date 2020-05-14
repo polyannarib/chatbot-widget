@@ -20,11 +20,14 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
             // tap((event) => {
-            //     if (event instanceof HttpResponse) {
-            //         if(event.headers.get('X-Token') != this.authService.getAppToken()) {
-            //             this.authService.setAppToken(event.headers.get('X-Token'));
-            //         } 
-            //     }
+                // if (event instanceof HttpResponse) {
+                //     this.authService.setAppToken(event.headers.get('X-Token'));
+                //     if(event.headers.get('X-Token') != this.authService.getToken()) {
+                //         console.log('-------------------')
+                //         console.log('entrou dentro do if')
+                //         this.authService.setAppToken(event.headers.get('X-Token'));
+                //     } 
+                // }
             // }), 
             catchError((err: HttpErrorResponse) => {
                 if (err.status == 401 || err.status == 402 || err.status == 403) {
