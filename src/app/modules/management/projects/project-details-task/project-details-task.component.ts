@@ -113,7 +113,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
       type: node.type,
       description: node.description ? node.description : '',
       previewedAt: node.previewedAt ? node.previewedAt : '',
-      expectedAt: node.expectedAt,
+      expectedAt: node.expectedAt ? node.expectedAt : null,
       duration: node.duration,
       dailyEffort: node.dailyEffort ? node.dailyEffort : '',
       validDay: node.validDay ? node.validDay : '',

@@ -61,9 +61,11 @@ export class TaskCreateComponent implements OnInit {
   createTask() {
     this.loader = true;
     if (this.form.valid) {
-      const expectedAt = new Date(this.form.value.expectedAt).getTime();
-      this.form.value.expectedAt = expectedAt;
-      this.form.value.links = this.attachment;
+      if(this.type.definition == 'EXECUTAVEL') {
+        const expectedAt = new Date(this.form.value.expectedAt).getTime();
+        this.form.value.expectedAt = expectedAt;
+        this.form.value.links = this.attachment;
+      }
       // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
       this.form.value.type = this.types.find( element => element.level == this.createNewType )
       this.taskService.createTask(this.form.value).subscribe(
@@ -129,7 +131,9 @@ export class TaskCreateComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
     (result) => {
       if(result) {
-        this.attachment.push(result);
+        if(result.attachmentValid == true) {
+          this.form.value.links.push(result.attachment);
+        }
       }
     })
   }

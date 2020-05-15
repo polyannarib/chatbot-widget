@@ -139,8 +139,8 @@ export class TaskDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(
     (result) => {
-      if(result || result != null || result != undefined) {
-        this.form.value.links.push(result);
+      if(result.attachmentValid == true) {
+        this.form.value.links.push(result.attachment);
       }
       return;
     });

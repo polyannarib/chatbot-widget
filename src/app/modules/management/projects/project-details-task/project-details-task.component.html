@@ -44,7 +44,6 @@
       </mat-tree-node>
     </mat-tree> -->
 
-
     <div *ngIf="tasks && !loader && tasks.length > 0">
       <table class="TreeHeader">
         <tr>
@@ -60,7 +59,6 @@
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <ng-container *ngIf="note?.status != 'REMOVED'">
             <button mat-icon-button disabled></button>
-
             <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
               <i class="material-icons" style="color:black">edit</i>
             </button>
@@ -77,7 +75,7 @@
                   <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
                   <td class="maxWidth">{{ getCardName(node.card) }}</td>
                   <td class="maxWidth">{{ node.allocated }}</td>
-                  <td class="maxWidth">{{ node.effort }}</td>
+                  <td class="maxWidth">{{ node.duration }}</td>
                 </tr>
               </table>
            </ng-container>
@@ -90,7 +88,6 @@
                 {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
               </i>
             </button>
-  
             <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
               <i class="material-icons" style="color:black">edit</i>
             </button>
@@ -107,11 +104,10 @@
                 <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
                 <td class="maxWidth">{{ getCardName(node.card) }}</td>
                 <td class="maxWidth">{{ node.allocated }}</td>
-                <td class="maxWidth">{{ node.effort }}</td>
+                <td class="maxWidth">{{ node.duration }}</td>
               </tr>
             </table>
           </ng-container>
-
         </mat-tree-node>
       </mat-tree>
     </div>
