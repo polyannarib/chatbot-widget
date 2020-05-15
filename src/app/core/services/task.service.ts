@@ -67,6 +67,6 @@ export class TaskService {
   }
 
   callRegisterItemKySmart(): Observable<any> {
-    return this.http.post(`${environment.back_end_kysmart}/kyrograma/kyrogramaRegister?registerId=3894`, null);
+    return this.http.post(`${environment.back_end_kysmart}/kyrograma/kyrogramaRegister?registerId=3965`, null);
   }
 }
