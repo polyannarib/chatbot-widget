@@ -6,7 +6,7 @@
   <iframe width="100%" height="600" [src]="iframe"></iframe>
 
   <div class="buttons-bottom">
-    <button mat-flat-button [ngStyle]="{'background': mainStyle}">Cancelar</button>
-    <button mat-flat-button [ngStyle]="{'background': secoundStyle}">Confirmar</button>
+    <button mat-flat-button [ngStyle]="{'background': mainStyle}" [mat-dialog-close]="true">Cancelar</button>
+    <button mat-flat-button [ngStyle]="{'background': secoundStyle}" (click)="registerItem()">Confirmar</button>
   </div>
 </div>

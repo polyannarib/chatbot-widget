@@ -47,7 +47,24 @@ export class ModalKysmartComponent implements OnInit {
       },
       (err) => {
         this.loader = false;
-        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao chamar calculadora, favor tentar novamente!' }});
+        this._snackBar.
+        openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao chamar calculadora, favor tentar novamente!' }});
+      }
+    );
+  }
+
+  registerItem() {
+    this.loader = true;
+    console.log('Confirmar..');
+    this.taskService.callRegisterItemIdKySmart(this.registerItemId).subscribe(
+      (response) => {
+        this.loader = false;
+        console.log(response);
+      },
+      (err) => {
+        this.loader = false;
+        console.log(err);
+        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro no KySmart!' }});
       }
     );
   }
