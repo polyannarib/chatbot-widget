@@ -44,7 +44,6 @@ export class ModalKysmartComponent implements OnInit {
         this.registerItemId = object.registerItemId;
         this.urlIframe = this.urlIframe + this.registerItemId.toString();
         this.iframe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlIframe);
-        console.log(response);
       },
       (err) => {
         this.loader = false;

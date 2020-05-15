@@ -53,11 +53,7 @@ export class TaskDetailsComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() {
-    console.log('--------------------------')
-    console.log(' this.data.task.expectedAt')
-    console.log(this.data.task.expectedAt)
-  }
+  ngOnInit() { }
 
   isCardSelect(id) {
     if(!!id || id != null || id != undefined) {

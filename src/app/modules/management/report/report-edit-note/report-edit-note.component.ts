@@ -36,7 +36,6 @@ export class ReportEditNoteComponent implements OnInit {
     if(this.data.type == 'edit') {
       this.data.note.noteDate = new Date();
       this.data.note.noteEndDate = new Date();
-      console.log(this.data);
       this.form = this.formBuilder.group({
         noteId: [this.data.note.noteId, [Validators.required]],
         noteNum: [this.data.note.noteNum, [Validators.required]],
@@ -56,8 +55,6 @@ export class ReportEditNoteComponent implements OnInit {
           id: [this.data.projectId]
         })
       });
-      console.log(this.data.typeId.id);
-      console.log(this.data.statusId.id);
       this.typeDesc.push({key: this.data.typeId.id, value: this.data.typeId.value});
       this.statusDesc.push({key: this.data.statusId.id, value: this.data.statusId.value});
     } if(this.data.type == 'create') {
@@ -79,8 +76,6 @@ export class ReportEditNoteComponent implements OnInit {
           id: [this.data.projectId]
         })
       });
-      console.log(this.data.typeId.id);
-      console.log(this.data.statusId.id);
       this.typeDesc.push({key: this.data.typeId.id, value: this.data.typeId.value});
       this.statusDesc.push({key: this.data.statusId.id, value: this.data.statusId.value});
     }
