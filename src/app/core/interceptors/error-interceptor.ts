@@ -33,10 +33,8 @@ export class ErrorInterceptor implements HttpInterceptor {
                 if (event instanceof HttpResponse && event.status === 200) {
                     const token = event.headers.get('X-Token');
                     if(token && token != null) {
-                        // console.log('Entrou dentro do if do erro interceptor');
                         localStorage.setItem('acessToken', token);
                     }
-                    // this.authService.setAppToken(event.headers.get('X-Token'));
                 }
             }),
             catchError((err: HttpErrorResponse) => {

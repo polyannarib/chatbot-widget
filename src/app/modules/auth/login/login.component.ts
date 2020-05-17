@@ -47,63 +47,73 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   onLogin() {
     this.loader = true;
-    if (this.form.valid) {
-      this.form.value.password = btoa(this.form.value.password);
-      this.authService.login(this.form.value).subscribe(
-        (responseAuth) => {
-          if (responseAuth.status == 0) {
-            this.authService.setAppToken(responseAuth.object.appToken);
-            // this.authService.setSSOID(response.object.ssoId);
+    new Promise((resolve, reject) => {
 
-            // --- GET WHITELABEL
-            this.profileService.getWhiteLabel().subscribe(
-              (response) => {
-              if (response.status == 0) {
-                  this.profileService.setWhiteLabel(response.object);
-
-                    this.router.navigate[('/management/dashboard')];
-
-                    // let scopes = this.authService.redirectPageByScopes();
-
-                    // window.location.href = AppConstants.URL_SSO + '/cookie' 
-                    // + '?SSOID=' + response.object.ssoId
-                    // + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/management/dashboard`;
-              }
-                this._snackBar.openFromComponent(NotifyComponent, 
-                  { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
-                return;
-              }, (err) => {
-                this._snackBar.openFromComponent(NotifyComponent, 
-                  { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
-                return;
-            })
-
-            // this.getProfile();
-            return;
-          } if (responseAuth.status == 1) {
-            this.loader = false;
-            this._snackBar.openFromComponent(NotifyComponent, 
-              { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
-            return;
-          } if (responseAuth.status == 2) {
-            this.loader = false;
-            this._bottomSheet.open(CompanySelectComponent, 
-              { data: {
-                form: this.form.value,
-                companys: responseAuth.object
+      if (this.form.valid) {
+        this.form.value.password = btoa(this.form.value.password);
+        this.authService.login(this.form.value).subscribe(
+          (responseAuth) => {
+            if (responseAuth.status == 0) {
+              this.authService.setAppToken(responseAuth.object.appToken);
+              resolve();
+            } if (responseAuth.status == 1) {
+              throw new Error('Por favor, digite os campos corretamente!');
+              // this.loader = false;
+              // this._snackBar.openFromComponent(NotifyComponent, 
+              //   { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
+              // return;
+            } if (responseAuth.status == 2) {
+              // reject('Por favor, digite os campos corretamente!');
+              // this.loader = false;
+              this._bottomSheet.open(CompanySelectComponent, 
+                { data: {
+                  form: this.form.value,
+                  companys: responseAuth.object
               }});
+              return;
+            }
+          }, (err) => {
+            throw new Error('Problemas ao fazer o login, favor tentar novamente!');
+            // this.loader = false;
+            // this._snackBar.openFromComponent(NotifyComponent, 
+            //   { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
+        })
+      } else {
+        throw new Error('Por favor, digite os campos corretamente!');
+        // this.loader = false;
+        // this._snackBar.openFromComponent(NotifyComponent, 
+        //   { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
+      }
+    }).then((value) => {
+      this.profileService.getWhiteLabel().subscribe(
+        (response) => {
+        if (response.status == 0) {
+            this.profileService.setWhiteLabel(response.object);
+            this.router.navigate(['/management/dashboard']);
             return;
-          }
+  
+              // let scopes = this.authService.redirectPageByScopes();
+              // window.location.href = AppConstants.URL_SSO + '/cookie' 
+              // + '?SSOID=' + response.object.ssoId
+              // + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/management/dashboard`;
+        }
+        throw new Error('Problemas ao fazer o login, favor tentar novamente!');
+        // this._snackBar.openFromComponent(NotifyComponent, 
+        //   { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
+        // return;
         }, (err) => {
-          this.loader = false;
-          this._snackBar.openFromComponent(NotifyComponent, 
-            { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
+          throw new Error('Problemas ao fazer o login, favor tentar novamente!');
+          // this._snackBar.openFromComponent(NotifyComponent, 
+          //   { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
+          // return;
       })
-    } else {
-      this.loader = false;
+    }).catch((value) => {
       this._snackBar.openFromComponent(NotifyComponent, 
-        { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
-    }
+        { data: { type: 'error', message: value }});
+      return;
+    }).finally(() => {
+      this.loader = false;
+    });
   }
 
   // redirectByScopes(): string {

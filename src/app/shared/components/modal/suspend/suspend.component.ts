@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { TaskService } from '../../../../core/services/task.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { NotifyComponent } from '../../notify/notify.component';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-suspend',
@@ -14,12 +15,14 @@ export class SuspendComponent implements OnInit {
   statusErr: any;
   errMessage: any;
   reason: string;
+  mainStyle = this.profileService.getAppMainColor();
 
   constructor(
     public dialogRef: MatDialogRef<SuspendComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private taskService: TaskService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {

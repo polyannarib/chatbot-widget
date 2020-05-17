@@ -5,8 +5,8 @@
     <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
   </div>
   <div class="modal-body">
-    <div *ngIf="statusErr != 0">{{ errMessage | translate }}</div>
-    <div *ngIf="statusErr === 0 || !statusErr">{{ 'MESSAGECONFIRMSUSPEND' | translate }}</div>
+    <!-- <div *ngIf="statusErr != 0">{{ errMessage | translate }}</div> -->
+    <div>{{ 'MESSAGECONFIRMSUSPEND' | translate }}</div>
     <mat-form-field class="example-full-width">
       <textarea matInput placeholder="{{ 'REASON' | translate }}" [(ngModel)]="reason"></textarea>
     </mat-form-field>

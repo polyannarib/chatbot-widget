@@ -74,9 +74,13 @@ export class TaskDetailsComponent implements OnInit {
   createTask() {
     this.loader = true;
     if (this.form.valid) {
-      const expectedAt = new Date(this.form.value.expectedAt).getTime();
-      this.form.value.expectedAt = expectedAt;
-      
+      if(this.form.value.expectedAt != null) {
+        const expectedAt = new Date(this.form.value.expectedAt).getTime();
+        this.form.value.expectedAt = expectedAt;
+        // this.form.value.links = this.attachment;
+      }
+      // const expectedAt = new Date(this.form.value.expectedAt).getTime();
+      // this.form.value.expectedAt = expectedAt;
       if(this.cardSelect == null) {
         this.form.value.card = null
       } else {
