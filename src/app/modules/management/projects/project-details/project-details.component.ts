@@ -88,4 +88,10 @@ export class ProjectDetailsComponent implements OnInit {
     }
   }
 
+  updateTasks(event) {
+    if(event === true) {
+      this.findProjectTasks();
+    }
+  }
+
 }

@@ -50,10 +50,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
     if (this.form.valid) {
       this.form.value.password = btoa(this.form.value.password);
       this.authService.login(this.form.value).subscribe(
-        (response) => {
-          if (response.status == 0) {
-            this.authService.setAppToken(response.object.appToken);
-            this.authService.setSSOID(response.object.ssoId);
+        (responseAuth) => {
+          if (responseAuth.status == 0) {
+            this.authService.setAppToken(responseAuth.object.appToken);
+            // this.authService.setSSOID(response.object.ssoId);
 
             // --- GET WHITELABEL
             this.profileService.getWhiteLabel().subscribe(
@@ -61,11 +61,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
               if (response.status == 0) {
                   this.profileService.setWhiteLabel(response.object);
 
-                    let scopes = this.authService.redirectPageByScopes();
+                    this.router.navigate[('/management/dashboard')];
 
-                    window.location.href = AppConstants.URL_SSO + '/cookie' 
-                    + '?SSOID=' + response.object.ssoId
-                    + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/management/dashboard`;
+                    // let scopes = this.authService.redirectPageByScopes();
+
+                    // window.location.href = AppConstants.URL_SSO + '/cookie' 
+                    // + '?SSOID=' + response.object.ssoId
+                    // + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/management/dashboard`;
               }
                 this._snackBar.openFromComponent(NotifyComponent, 
                   { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
@@ -78,17 +80,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
             // this.getProfile();
             return;
-          } if (response.status == 1) {
+          } if (responseAuth.status == 1) {
             this.loader = false;
             this._snackBar.openFromComponent(NotifyComponent, 
               { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
             return;
-          } if (response.status == 2) {
+          } if (responseAuth.status == 2) {
             this.loader = false;
             this._bottomSheet.open(CompanySelectComponent, 
               { data: {
                 form: this.form.value,
-                companys: response.object
+                companys: responseAuth.object
               }});
             return;
           }
