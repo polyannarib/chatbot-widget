@@ -28,13 +28,24 @@ export class AuthService {
     return this.http.post<any>(`${environment.back_end_url}/login`, data);
   }
   
-  logout(): Observable<any> {
-    this.profileService.removeAppColors();
-    return this.http.get(AppConstants.URL_SSO_SERVICES + '/user/logout' );
+  // logout(): Observable<any> {
+  //   this.profileService.removeAppColors();
+  //   return this.http.get(AppConstants.URL_SSO_SERVICES + '/user/logout' );
+  // }
+
+  logout() {
+    new Promise((resolve, reject) => {
+      localStorage.removeItem('acessToken');
+      resolve()
+    }).then(value => {
+      this.profileService.removeAppColors();
+      return
+    }).finally(() => {
+      this.router.navigate(['/auth/login']);
+    })
   }
 
   removeToken() {
-    localStorage.removeItem('acessToken');
     localStorage.removeItem('acessToken');
     this.profileService.removeAppColors();
   }
@@ -116,14 +127,15 @@ export class AuthService {
   }
 
   getAppToken() {
+    const jwt = new JwtHelperService();
     const token = localStorage.getItem('acessToken');
     if(token) {
-      try {
-        return this.jwtHelper.decodeToken(token);
-      }
-      catch(error) {
-        return null;
-      }      
+      // try {
+      return jwt.decodeToken(token);
+      // }
+      // catch(error) {
+      //   return null;
+      // }      
     }
   }
 

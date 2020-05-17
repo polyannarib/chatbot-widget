@@ -28,7 +28,7 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
-    this.authService.removeToken();
+    this.authService.logout();
     // let params = {
     //   "SYSTEM": AppConstants.SYSTEM_NAME
     // }

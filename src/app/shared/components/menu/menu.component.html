@@ -1,4 +1,4 @@
-<ul class="nav">
+<ul class="nav" *ngIf="scopes">
     
     <li routerLinkActive="active">
         <a [routerLink]="['/management/dashboard']">
@@ -27,7 +27,7 @@
 
     <!-- Logout -->
     <li routerLinkActive="active" id="logout">
-        <a [routerLink]="['/login/auth']" (click)="logout()">
+        <a (click)="logout()">
             <span><i class="material-icons-outlined">exit_to_app</i></span>
             <p>Sair</p>
         </a>
