@@ -18,15 +18,18 @@ export class DashboardComponent implements OnInit {
     project: true,
     graph: true
   };
+  getScopes;
   mainStyle = this.profileService.getAppMainColor();
   secondarytyle = this.profileService.getAppSecondaryColor();
-  scopes = Object.assign({}, this.authService.getScopes());
+  scopes = Object.assign({}, this.getScopes);
 
   constructor(
     public dialog: MatDialog, 
     private profileService: ProfileService,
     private authService: AuthService  
-  ) { }
+  ) {
+    this.getScopes = this.authService.getScopes();
+  }
 
   ngOnInit() { }
 

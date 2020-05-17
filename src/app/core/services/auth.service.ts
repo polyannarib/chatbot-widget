@@ -39,13 +39,13 @@ export class AuthService {
     this.profileService.removeAppColors();
   }
 
-  getUser() {
-    var token;
-    if(localStorage.getItem('acessToken') && this.isAuthenticated()) {
-      token = this.jwtHelper.decodeToken(localStorage.getItem('acessToken'))
-      return token.displayName;
-    }
-  }
+  // getUser() {
+  //   var token;
+  //   if(localStorage.getItem('acessToken') && this.isAuthenticated()) {
+  //     token = this.jwtHelper.decodeToken(localStorage.getItem('acessToken'))
+  //     return token.displayName;
+  //   }
+  // }
 
   setTemporaryToken(token: string): void {
     localStorage.setItem('tempToken', token);

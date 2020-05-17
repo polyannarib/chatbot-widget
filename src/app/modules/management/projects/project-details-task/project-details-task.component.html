@@ -74,7 +74,7 @@
                   <td class="maxWidth">{{ node.expectedAt | date:'dd/MM/yyyy' }}</td>
                   <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
                   <td class="maxWidth">{{ getCardName(node.card) }}</td>
-                  <td class="maxWidth">{{ node.allocated }}</td>
+                  <td class="maxWidth">{{ node.player?.name }}</td>
                   <td class="maxWidth">{{ node.duration }}</td>
                 </tr>
               </table>
@@ -103,7 +103,7 @@
                 <td class="maxWidth">{{ node.expectedAt | date:'dd/MM/yyyy' }}</td>
                 <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
                 <td class="maxWidth">{{ getCardName(node.card) }}</td>
-                <td class="maxWidth">{{ node.allocated }}</td>
+                <td class="maxWidth">{{ node.player?.name }}</td>
                 <td class="maxWidth">{{ node.duration }}</td>
               </tr>
             </table>

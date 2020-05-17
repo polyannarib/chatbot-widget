@@ -28,21 +28,22 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
-    let params = {
-      "SYSTEM": AppConstants.SYSTEM_NAME
-    }
-    this.authService.temporaryToken(params).subscribe(
-      (response) => {
-          let tempToken = response["user-token"];
-          this.authService.setTemporaryToken(tempToken);
-          this.authService.logout().subscribe(
-            () => {
-              this.authService.removeToken();
-              this.router.navigate( ['/auth/login'], { queryParams: { authenticated: false}} )
-            }
-          )  
-      }
-    )
+    this.authService.removeToken();
+    // let params = {
+    //   "SYSTEM": AppConstants.SYSTEM_NAME
+    // }
+    // this.authService.temporaryToken(params).subscribe(
+    //   (response) => {
+    //       let tempToken = response["user-token"];
+    //       this.authService.setTemporaryToken(tempToken);
+    //       this.authService.logout().subscribe(
+    //         () => {
+    //           this.authService.removeToken();
+    //           this.router.navigate( ['/auth/login'], { queryParams: { authenticated: false}} )
+    //         }
+    //       )  
+    //   }
+    // )
   }
 
 }

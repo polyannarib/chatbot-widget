@@ -5,7 +5,10 @@
   <div class="calculadora" *ngIf="type.name.toLowerCase() == 'tarefa'">
     <button (click)="openCalculator()" mat-icon-button><i class="material-icons">post_add</i></button>
   </div>
-  <div class="modal-header"> {{ data.project.name }} </div>
+  <div class="modal-header"> 
+    <!-- {{ type.name }}  -->
+    <span [ngStyle]="{'background-color': mainStyle}"> {{ type.name }} </span> 
+  </div>
   <form [formGroup]="form">
     <div class="modal-body">
 
