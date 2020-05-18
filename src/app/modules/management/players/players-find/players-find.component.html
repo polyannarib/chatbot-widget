@@ -7,7 +7,7 @@
         <div *ngIf="playerRated">
           <div class="input-field">
             <input matInput (input)="onSearchChange($event.target.value)" id="findPlayerRated" value="" class="validate">
-            <label for="findPlayerRated">Recursos disponivel com carta</label>
+            <label for="findPlayerRated">Recursos disponíveis com carta</label>
           </div>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="playerSelect">
             <mat-radio-button class="example-radio-button" *ngFor="let player of playerRatedFilter" [value]="player.id">
@@ -22,7 +22,7 @@
         <app-count *ngIf="!playerAvailable">Sem recursos no momento</app-count>
         <div *ngIf="playerAvailable">
           <div class="input-field">
-            <input matInput (input)="onSearchChange($event.target.value)" id="find" class="validate" placeholder="Recursos disponivel">
+            <input matInput (input)="onSearchChange($event.target.value)" id="find" class="validate" placeholder="Recursos disponíveis">
           </div>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="playerSelect">
             <mat-radio-button class="example-radio-button" *ngFor="let player of playerAvailableFilter" [value]="player.id">
