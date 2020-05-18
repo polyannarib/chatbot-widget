@@ -29,8 +29,7 @@ export class ProjectsListComponent implements OnInit {
   numberOfDays = 4;
   startDate: any = new Date(Date.now());
   endDate: any = addDays(this.startDate, this.numberOfDays);
-  scopes = Object.assign({}, this.authService.getScopes());
-
+  scopes: any;
   mainStyle = this.profileService.getAppMainColor();
   secondarytyle = this.profileService.getAppSecondaryColor();
 
@@ -43,6 +42,7 @@ export class ProjectsListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.scopes = Object.assign({}, this.authService.getScopes());
     this.daysOfWeek(this.startDate, this.endDate);
     this.findProjects();
   }

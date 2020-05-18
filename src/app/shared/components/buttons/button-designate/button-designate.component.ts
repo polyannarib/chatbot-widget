@@ -8,6 +8,7 @@ import { PlayerService } from 'src/app/core/services/player.service';
 })
 export class ButtonDesignateComponent implements OnInit {
 
+  @Input() taskId: number;
   @Output() isDesign = new EventEmitter();
   status: boolean = false;
 
@@ -20,10 +21,16 @@ export class ButtonDesignateComponent implements OnInit {
 
   feedback() {
     if (!this.status) {
-      this.isDesign.emit(this.status = true);
+      this.isDesign.emit({ 
+        status: true,
+        task: this.taskId
+      });
     } else {
-      this.isDesign.emit(this.status = false);
+      this.isDesign.emit({ 
+        status: false
+      });
     }
+    this.status = !this.status;
   }
 
 }

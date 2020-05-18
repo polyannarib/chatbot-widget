@@ -3,6 +3,7 @@ import {ProjectCreateComponent} from "../projects/project-create/project-create.
 import { MatDialog } from '@angular/material';
 import {ProfileService} from "../../../core/services/profile.service";
 import {ProjectsListComponent} from "../projects/projects-list/projects-list.component";
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,10 +20,17 @@ export class DashboardComponent implements OnInit {
   };
   mainStyle = this.profileService.getAppMainColor();
   secondarytyle = this.profileService.getAppSecondaryColor();
+  scopes: any;
 
-  constructor(public dialog: MatDialog, private profileService: ProfileService) {}
+  constructor(
+    public dialog: MatDialog, 
+    private profileService: ProfileService,
+    private authService: AuthService  
+  ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.scopes = Object.assign({}, this.authService.getScopes());
+  }
 
   loaderResource(estado) {
     // console.log('entrou dentro do loaderResource'+ estado);

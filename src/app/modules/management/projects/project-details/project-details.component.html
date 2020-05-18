@@ -57,11 +57,11 @@
               </ul>
               <div class="containerButtons center-align" *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
                 <app-button-finalize *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-finalize>
-                <app-button-remove [activityId]="activity.id"></app-button-remove>
+                <app-button-remove (update)="updateTasks($event)" [activityId]="activity.id"></app-button-remove>
                 <app-button-suspend *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-suspend>
-                <app-button-designate *ngIf="!activity.player" (isDesign)="reciverDesignate($event)"></app-button-designate>
+                <app-button-designate *ngIf="!activity.player" [taskId]="activity.id" (isDesign)="reciverDesignate($event)"></app-button-designate>
               </div>
-              <app-players-find (taskDesignatedSucess)="updateDesignated($event)" [taskId]="activity.id" [dataInicial]="activity.expectedAt" [dataFim]="activity.previewedAt" *ngIf="designate"></app-players-find>
+              <app-players-find (taskDesignatedSucess)="updateDesignated($event)" [taskId]="activity.id" [dataInicial]="activity.expectedAt" [dataFim]="activity.previewedAt" *ngIf="designate && (taskId == activity.id)"></app-players-find>
             </mz-collapsible-item-body>
           </mz-collapsible-item>
         </ng-container>

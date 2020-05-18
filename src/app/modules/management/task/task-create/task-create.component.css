@@ -33,3 +33,15 @@ mat-form-field input:focus {
   right: 0;
   margin: 20px;
 }
+
+.modal-header span {
+    font-size: 10px;
+    position: relative;
+    top: -12px;
+    margin: 0px;
+    padding: 5px;
+    /* background: #808080; */
+    border-radius: 4px;
+    color: white;
+    text-transform: uppercase;
+}

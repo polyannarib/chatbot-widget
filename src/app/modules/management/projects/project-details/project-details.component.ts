@@ -25,6 +25,7 @@ export class ProjectDetailsComponent implements OnInit {
   taskHeader = ['PROJECT', 'ACTIVITY', 'DUEDATE', 'EFFORT'];
   taskList: any;
   updateDesignate: boolean;
+  taskId: any;
   scopes = Object.assign({}, this.authService.getScopes());
 
   constructor(
@@ -60,7 +61,10 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   reciverDesignate(value) {
-    this.designate = value;
+    if(value.task) {
+      this.taskId = value.task;
+    }
+    this.designate = value.status;
   }
 
   getColor(color) {
@@ -81,6 +85,12 @@ export class ProjectDetailsComponent implements OnInit {
         return '#A50104';
       default:
         return '#000';
+    }
+  }
+
+  updateTasks(event) {
+    if(event === true) {
+      this.findProjectTasks();
     }
   }
 

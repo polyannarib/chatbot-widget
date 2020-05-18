@@ -53,11 +53,7 @@ export class TaskDetailsComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() {
-    console.log('--------------------------')
-    console.log(' this.data.task.expectedAt')
-    console.log(this.data.task.expectedAt)
-  }
+  ngOnInit() { }
 
   isCardSelect(id) {
     if(!!id || id != null || id != undefined) {
@@ -78,9 +74,13 @@ export class TaskDetailsComponent implements OnInit {
   createTask() {
     this.loader = true;
     if (this.form.valid) {
-      const expectedAt = new Date(this.form.value.expectedAt).getTime();
-      this.form.value.expectedAt = expectedAt;
-      
+      if(this.form.value.expectedAt != null) {
+        const expectedAt = new Date(this.form.value.expectedAt).getTime();
+        this.form.value.expectedAt = expectedAt;
+        // this.form.value.links = this.attachment;
+      }
+      // const expectedAt = new Date(this.form.value.expectedAt).getTime();
+      // this.form.value.expectedAt = expectedAt;
       if(this.cardSelect == null) {
         this.form.value.card = null
       } else {
@@ -143,8 +143,8 @@ export class TaskDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(
     (result) => {
-      if(result || result != null || result != undefined) {
-        this.form.value.links.push(result);
+      if(result.attachmentValid == true) {
+        this.form.value.links.push(result.attachment);
       }
       return;
     });

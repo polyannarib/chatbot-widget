@@ -42,7 +42,10 @@ export class AttachmentComponent implements OnInit {
           (response) => {
             if (response.status == 0) {
               this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Anexo adicionado com sucesso!' }});
-              this.dialogRef.close(response.object);
+              this.dialogRef.close({
+                attachmentValid: true,
+                attachment: response.object
+              });
               this.loader = false;
               return;
             }
@@ -56,7 +59,10 @@ export class AttachmentComponent implements OnInit {
       if(this.data.nameComponent == 'taskCreate') {
         this.loader = false;
         this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Anexo adicionado!' }});
-        this.dialogRef.close(this.form.value);
+        this.dialogRef.close({
+          attachmentValid: true,
+          attachment: this.form.value
+        });
         return;
       }
     } else {

@@ -21,11 +21,22 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(req).pipe(
             // tap((event) => {
             //     if (event instanceof HttpResponse) {
-            //         if(event.headers.get('X-Token') != this.authService.getAppToken()) {
+            //         this.authService.setAppToken(event.headers.get('X-Token'));
+            //         if(event.headers.get('X-Token') != this.authService.getToken()) {
+            //             console.log('-------------------')
+            //             console.log('entrou dentro do if')
             //             this.authService.setAppToken(event.headers.get('X-Token'));
             //         } 
             //     }
             // }), 
+            tap((event: HttpEvent<any>) => {
+                if (event instanceof HttpResponse && event.status === 200) {
+                    const token = event.headers.get('X-Token');
+                    if(token && token != null) {
+                        localStorage.setItem('acessToken', token);
+                    }
+                }
+            }),
             catchError((err: HttpErrorResponse) => {
                 if (err.status == 401 || err.status == 402 || err.status == 403) {
                     this.authService.logout();
