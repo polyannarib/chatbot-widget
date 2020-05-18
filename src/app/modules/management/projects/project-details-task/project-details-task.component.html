@@ -68,9 +68,12 @@
             <button (click)="removeTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
               <i class="material-icons" style="color:black">remove</i>
             </button>
+            <!-- <button disabled="true" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ node.status }}"> -->
+              <i class="material-icons" matTooltip="{{ node.status | translate }}" [ngStyle]="{'color': getColor(node.status)}">fiber_manual_record</i>
+            <!-- </button> -->
               <table>
                 <tr>
-                  <td>{{ node.name }}</td>
+                  <td> <span [ngStyle]="{'background-color': secoundStyle}"> {{ node.type.name }} </span> {{ node.name }}</td>
                   <td class="maxWidth">{{ node.expectedAt | date:'dd/MM/yyyy' }}</td>
                   <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
                   <td class="maxWidth">{{ getCardName(node.card) }}</td>
@@ -97,9 +100,12 @@
             <button [disabled]="isStatus(node.status)" (click)="removeTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
               <i class="material-icons" style="color:black">remove</i>
             </button>
+            <!-- <button disabled="true" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ node.status }}"> -->
+              <i class="material-icons" matTooltip="{{ node.status | translate }}" [ngStyle]="{'color': getColor(node.status)}">fiber_manual_record</i>
+            <!-- </button> -->
             <table>
               <tr>
-                <td>{{ node.name }}</td>
+                <td> <span [ngStyle]="{'background-color': secoundStyle}"> {{ node.type.name }} </span> {{ node.name }}</td>
                 <td class="maxWidth">{{ node.expectedAt | date:'dd/MM/yyyy' }}</td>
                 <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
                 <td class="maxWidth">{{ getCardName(node.card) }}</td>

@@ -55,3 +55,16 @@ table tr td.maxWidth {
 table.TreeHeader tr td {
     font-weight: 600;
 }
+
+table tr td span {
+    position: relative;
+    top: -2px;
+    font-weight: 600;
+    font-size: 9px;
+    /* margin: 0px; */
+    padding: 5px;
+    /* background: #808080; */
+    border-radius: 4px;
+    color: #000;
+    text-transform: uppercase;
+}
