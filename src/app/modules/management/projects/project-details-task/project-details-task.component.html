@@ -71,7 +71,7 @@
               <i class="material-icons" style="color:black">remove</i>
             </button>
             <!-- <button disabled="true" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ node.status }}"> -->
-              <i class="material-icons" matTooltip="{{ node.status | translate }}" [ngStyle]="{'color': getColor(node.status)}">fiber_manual_record</i>
+              <i *ngIf="node.type.definition == 'EXECUTAVEL'" class="material-icons" matTooltip="{{ node.status | translate }}" [ngStyle]="{'color': getColor(node.status)}">fiber_manual_record</i>
             <!-- </button> -->
               <table>
                 <tr>
@@ -103,7 +103,7 @@
               <i class="material-icons" style="color:black">remove</i>
             </button>
             <!-- <button disabled="true" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ node.status }}"> -->
-              <i class="material-icons" matTooltip="{{ node.status | translate }}" [ngStyle]="{'color': getColor(node.status)}">fiber_manual_record</i>
+              <i *ngIf="node.type.definition == 'EXECUTAVEL'" class="material-icons" matTooltip="{{ node.status | translate }}" [ngStyle]="{'color': getColor(node.status)}">fiber_manual_record</i>
             <!-- </button> -->
             <table>
               <tr>
