@@ -68,3 +68,16 @@ table tr td span {
     color: #000;
     text-transform: uppercase;
 }
+.modal-header span {
+    /* position: relative;
+    top: -2px; */
+    /* display: block; */
+    font-weight: 600;
+    font-size: 9px;
+    /* margin: 0px; */
+    padding: 5px;
+    /* background: #808080; */
+    border-radius: 4px;
+    color: #fff;
+    text-transform: uppercase;
+}

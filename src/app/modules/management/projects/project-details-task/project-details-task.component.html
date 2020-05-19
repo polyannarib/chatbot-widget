@@ -1,7 +1,9 @@
 <!-- <app-loading [loader]="loader"></app-loading> -->
 
 <div id="modal">
-  <div class="modal-header">{{ data.project.name }} 
+  <div class="modal-header">
+    <span [ngStyle]="{'background-color': mainStyle}" *ngIf="data.project.parentProject"> {{ data.project.parentProject }} </span> <br *ngIf="data.project.parentProject">
+    {{ data.project.name }} 
   <button [ngStyle]="{'background-color': mainStyle}" (click)="addTask(0, 0)" class="button btnAddProject button-floating" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
     <i class="material-icons" style="color:black">add</i>
   </button>
