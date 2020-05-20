@@ -4,6 +4,9 @@ table tr.mat-row {
     padding: 10px;
     margin: 10px;
 } */
+.modal-header .row, .modal-footer .row {
+    margin-bottom: 0px;
+}
 tbody td {
     padding: 4px 0px;
     display: table-cell;

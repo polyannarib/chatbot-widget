@@ -2,8 +2,51 @@
 
 <div id="modal" *ngIf="typeNotes || statusNotes">
   <button type="button" class="close btn" [mat-dialog-close]="true"> <i class="material-icons">close</i> </button>
-  <!-- <div class="modal-header"> Edit Report </div> -->
+  <div class="modal-header">
+    <div class="row">
+      <button [ngStyle]="{'background-color': mainStyle}" (click)="modalCreateNotesReport()" class="button button-primary left">{{ 'ADDNOTES' | translate }}</button>
+    </div>
+  </div>
   <div class="modal-body">
+    <app-loading [loader]="loaderNotes"></app-loading>
+    <div *ngIf="!loaderNotes">
+
+      <app-count *ngIf="messageNotes && !notes">Esse projeto não tem nota cadastrada no momento!</app-count>
+
+      <table *ngIf="notes">
+        <thead>
+          <tr>
+            <!-- <th>{{ 'NOTENUM' | translate }}</th> -->
+            <th>{{ 'NOTEDESCRIPTION' | translate }}</th>
+            <th>{{ 'OBSERVATION' | translate }}</th>
+            <th>{{ 'NOTEDATE' | translate }}</th>
+            <th>{{ 'NOTESTARTDATE' | translate }}</th>
+            <th>{{ 'NOTEENDDATE' | translate }}</th>
+            <th>{{ 'CRITICALLYLEVEL' | translate }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let note of notes">
+            <tr>
+              <!-- <td>{{ note.noteNum }}</td> -->
+              <td>{{ note.noteDescription }}</td>
+              <td>{{ note.observation }}</td>
+              <td>{{ note.noteDate | date:'dd/MM/yyyy' }}</td>
+              <td>{{ note?.noteStartDate | date:'dd/MM/yyyy' }}</td>
+              <td>{{ note?.noteEndDate | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <!-- [ngClass]="'color': activity.status == '1' ? 'green', 'color': activity.status == '2' ? 'yellow', 'color': activity.status == '3' ? 'red'" -->
+                <i class="material-icons">fiber_manual_record</i>
+              </td>
+              <td class="action"><button matTooltip="Editar" [ngStyle]="{'background-color': mainStyle}" (click)="modalEditNotesReport(note)" mat-mini-fab color="warn"><i class="material-icons">edit</i></button></td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
 
     <div class="row">
       <form [formGroup]="formFind" (ngSubmit)="findNotes()">
@@ -28,51 +71,13 @@
           </mat-form-field>
         </div>
         <div class="col">
-          <button type="submit" [ngStyle]="{'background-color': mainStyle}" class="button button-primary">Buscar</button>
+          <button type="submit" [ngStyle]="{'background-color': mainStyle}" class="button button-primary">Filtrar</button>
         </div>
       </form>
     </div>
-    <app-loading [loader]="loaderNotes"></app-loading>
-    <div *ngIf="!loaderNotes">
 
-      <app-count *ngIf="messageNotes && !notes">Esse projeto não tem nota cadastrada no momento!</app-count>
-
-      <table *ngIf="notes">
-        <thead>
-          <tr>
-            <!-- <th>{{ 'NOTENUM' | translate }}</th> -->
-            <th>{{ 'NOTEDESCRIPTION' | translate }}</th>
-            <th>{{ 'OBSERVATION' | translate }}</th>
-            <th>{{ 'NOTEDATE' | translate }}</th>
-            <th *ngIf="this.formFind.value.noteType != SITUATION">{{ 'NOTESTARTDATE' | translate }}</th>
-            <th *ngIf="this.formFind.value.noteType != SITUATION">{{ 'NOTEENDDATE' | translate }}</th>
-            <th *ngIf="this.formFind.value.noteType != SITUATION">{{ 'CRITICALLYLEVEL' | translate }}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let note of notes">
-            <tr>
-              <!-- <td>{{ note.noteNum }}</td> -->
-              <td>{{ note.noteDescription }}</td>
-              <td>{{ note.observation }}</td>
-              <td>{{ note.noteDate | date:'dd/MM/yyyy' }}</td>
-              <td *ngIf="this.formFind.value.noteType != SITUATION">{{ note.noteStartDate | date:'dd/MM/yyyy' }}</td>
-              <td *ngIf="this.formFind.value.noteType != SITUATION">{{ note.noteEndDate | date:'dd/MM/yyyy' }}</td>
-              <td *ngIf="this.formFind.value.noteType != SITUATION">
-                <!-- [ngClass]="'color': activity.status == '1' ? 'green', 'color': activity.status == '2' ? 'yellow', 'color': activity.status == '3' ? 'red'" -->
-                <i class="material-icons">fiber_manual_record</i>
-              </td>
-              <td class="action"><button matTooltip="Editar" [ngStyle]="{'background-color': mainStyle}" (click)="modalEditNotesReport(note)" mat-mini-fab color="warn"><i class="material-icons">edit</i></button></td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="modal-footer" *ngIf="formFind.valid">
     <!-- <button (click)="modalEditProject()" class="button button-primary">{{ 'EDITPROJECT' | translate }}</button> -->
-    <button [ngStyle]="{'background-color': mainStyle}" (click)="modalCreateNotesReport()" class="button button-primary right">{{ 'ADDNOTES' | translate }}</button>
+    <!-- <button [ngStyle]="{'background-color': mainStyle}" (click)="modalCreateNotesReport()" class="button button-primary right">{{ 'ADDNOTES' | translate }}</button> -->
     <!-- <button (click)="generateReport()" target="_blank" class="button button-primary right">{{ 'GENERATEREPORT' | translate }}</button> -->
   </div>
 </div>

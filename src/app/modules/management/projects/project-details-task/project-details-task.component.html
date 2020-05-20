@@ -1,7 +1,9 @@
 <!-- <app-loading [loader]="loader"></app-loading> -->
 
 <div id="modal">
-  <div class="modal-header">{{ data.project.name }} 
+  <div class="modal-header">
+    <span [ngStyle]="{'background-color': mainStyle}" *ngIf="data.project.parentProject"> {{ data.project.parentProject }} </span> <br *ngIf="data.project.parentProject">
+    {{ data.project.name }} 
   <button [ngStyle]="{'background-color': mainStyle}" (click)="addTask(0, 0)" class="button btnAddProject button-floating" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
     <i class="material-icons" style="color:black">add</i>
   </button>
@@ -68,9 +70,12 @@
             <button (click)="removeTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
               <i class="material-icons" style="color:black">remove</i>
             </button>
+            <!-- <button disabled="true" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ node.status }}"> -->
+              <i *ngIf="node.type.definition == 'EXECUTAVEL'" class="material-icons" matTooltip="{{ node.status | translate }}" [ngStyle]="{'color': getColor(node.status)}">fiber_manual_record</i>
+            <!-- </button> -->
               <table>
                 <tr>
-                  <td>{{ node.name }}</td>
+                  <td> <span [ngStyle]="{'background-color': secoundStyle}"> {{ node.type.name }} </span> {{ node.name }}</td>
                   <td class="maxWidth">{{ node.expectedAt | date:'dd/MM/yyyy' }}</td>
                   <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
                   <td class="maxWidth">{{ getCardName(node.card) }}</td>
@@ -97,9 +102,12 @@
             <button [disabled]="isStatus(node.status)" (click)="removeTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
               <i class="material-icons" style="color:black">remove</i>
             </button>
+            <!-- <button disabled="true" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ node.status }}"> -->
+              <i *ngIf="node.type.definition == 'EXECUTAVEL'" class="material-icons" matTooltip="{{ node.status | translate }}" [ngStyle]="{'color': getColor(node.status)}">fiber_manual_record</i>
+            <!-- </button> -->
             <table>
               <tr>
-                <td>{{ node.name }}</td>
+                <td> <span [ngStyle]="{'background-color': secoundStyle}"> {{ node.type.name }} </span> {{ node.name }}</td>
                 <td class="maxWidth">{{ node.expectedAt | date:'dd/MM/yyyy' }}</td>
                 <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
                 <td class="maxWidth">{{ getCardName(node.card) }}</td>
