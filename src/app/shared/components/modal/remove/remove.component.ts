@@ -34,16 +34,16 @@ export class RemoveComponent implements OnInit {
       (response) => {
         if(response.status === 0) {
           // this.toastService.show('Tarefa removida com sucesso!', 4000, 'toastrSucess');
-          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefa removida com sucesso!' }});
+          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Removido com sucesso!' }});
           this.dialogRef.close(response);
           return;
         }
         this.statusErr = response.status;
         this.errMessage = response.message;
-        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Essa tarefa não pode ser removida!' }});
+        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Não pode ser removido!' }});
         this.loader = false;
       }, (err) => {
-        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Essa tarefa não pode ser removida!' }});
+        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Não pode ser removido!' }});
         this.statusErr = err.status;
         this.errMessage = err.message;
         this.loader = false;

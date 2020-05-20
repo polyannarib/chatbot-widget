@@ -29,8 +29,7 @@ export class ProjectsListComponent implements OnInit {
   numberOfDays = 4;
   startDate: any = new Date(Date.now());
   endDate: any = addDays(this.startDate, this.numberOfDays);
-  scopes = Object.assign({}, this.authService.getScopes());
-
+  scopes: any;
   mainStyle = this.profileService.getAppMainColor();
   secondarytyle = this.profileService.getAppSecondaryColor();
 
@@ -43,6 +42,7 @@ export class ProjectsListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.scopes = Object.assign({}, this.authService.getScopes());
     this.daysOfWeek(this.startDate, this.endDate);
     this.findProjects();
   }
@@ -120,7 +120,8 @@ export class ProjectsListComponent implements OnInit {
   }
 
   generateReport(project) {
-    window.open( environment.URL_STATUS_REPORT + project.id, '_blank');
+    // window.open( environment.URL_STATUS_REPORT + project.id, '_blank');
+    window.open( `http://andersonm:Kyros@123@192.168.0.116/ReportServer/Pages/ReportViewer.aspx?%2fSTATUS_REPORT%2fStatusReport&ID_PROJETO=${project.id}&rs:Command=Render&rs:Format=pdf`, '_blank');
   }
 
   changeDays(date) {

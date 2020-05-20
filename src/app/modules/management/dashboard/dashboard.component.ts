@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
   };
   mainStyle = this.profileService.getAppMainColor();
   secondarytyle = this.profileService.getAppSecondaryColor();
-  scopes = Object.assign({}, this.authService.getScopes());
+  scopes: any;
 
   constructor(
     public dialog: MatDialog,
@@ -28,7 +28,9 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.scopes = Object.assign({}, this.authService.getScopes());
+  }
 
   loaderResource(estado) {
     // console.log('entrou dentro do loaderResource'+ estado);

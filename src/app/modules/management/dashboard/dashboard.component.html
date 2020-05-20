@@ -1,8 +1,8 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="scopes">
 
   <app-loading [loader]="loader"></app-loading>
 
-  <div class="add-project-button" *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
+  <div class="add-project-button" *ngIf="scopes.wpleader || scopes.wpmaster">
     <a class="waves-effect waves-light btn-small" (click)="modalAddProject()" [ngStyle]="{'background-color': mainStyle}">
       <i class="material-icons right">add</i>Adicionar projeto
     </a>

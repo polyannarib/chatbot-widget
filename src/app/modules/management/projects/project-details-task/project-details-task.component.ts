@@ -69,6 +69,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
   tasks: any;
   types: any;
   mainStyle = this.profileService.getAppMainColor();
+  secoundStyle = this.profileService.getAppSecondaryColor();
 
   constructor(
     public dialogRef: MatDialogRef<ProjectDetailsTaskComponent>,
@@ -110,7 +111,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
       allocated: node.allocated ? node.allocated : '',
       effort: node.effort ? node.effort : '',
       card: node.card ? node.card : null,
-      status: this.getColor(node.status),
+      status: node.status,
       type: node.type,
       description: node.description ? node.description : '',
       previewedAt: node.previewedAt ? node.previewedAt : '',
@@ -228,6 +229,11 @@ export class ProjectDetailsTaskComponent implements OnInit {
   }
 
   getColor(color) {
+
+    console.log('----------------------')
+    console.log('----- getColor() -----')
+    console.log(color)
+
     switch (color) {
       case 'BUILDING':
         return '#494947';
