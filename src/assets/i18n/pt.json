@@ -98,5 +98,8 @@
     "CREATE_PROJECT_WORKGROUP": "Workgroup",
     "CREATE_PROJECT_DESCRIPTION": "Descrição do Projeto",
     "CREATE_PROJECT_IDENTIFY": "Identificador do Projeto",
-    "CREATE_PROJECT_CONFIRM": "Criar Projeto"
+    "CREATE_PROJECT_CONFIRM": "Criar Projeto",
+    "EDIT_PROJECT_CONFIRM": "Editar Projeto",
+    "EDIT_PROJECT": "Editar Projeto",
+    "CREATE_EPIC": "Criar Épico"
 }

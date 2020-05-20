@@ -51,4 +51,8 @@ export class ProjectService {
   getAllWorkgroups(): Observable<any> {
     return this.http.get(`${environment.back_end_url}/team/my/allAndAbove`);
   }
+
+  getProjectInfo(id): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/project?id=${id}`);
+  }
 }
