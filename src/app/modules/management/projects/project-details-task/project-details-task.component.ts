@@ -206,11 +206,6 @@ export class ProjectDetailsTaskComponent implements OnInit {
   }
 
   getColor(color) {
-
-    console.log('----------------------')
-    console.log('----- getColor() -----')
-    console.log(color)
-
     switch (color) {
       case 'BUILDING':
         return '#494947';
