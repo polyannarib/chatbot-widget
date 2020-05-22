@@ -74,13 +74,11 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 
-
 //Serviços
 import { MainColorDirective } from './directives/main-color.directive';
 import { PrimaryColorDirective } from './directives/primary-color.directive';
 import { SecundaryColorDirective } from './directives/secundary-color.directive';
 import { ImagePipe } from './pipe/image.pipe';
-
 
 @NgModule({
   imports: [

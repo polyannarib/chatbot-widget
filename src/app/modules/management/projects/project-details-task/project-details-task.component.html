@@ -2,8 +2,8 @@
 
 <div id="modal">
   <div class="modal-header">
-    <span [ngStyle]="{'background-color': mainStyle}" *ngIf="data.project.parentProject"> {{ data.project.parentProject }} </span> <br *ngIf="data.project.parentProject">
-    {{ data.project.name }}
+    <span [ngStyle]="{'background-color': mainStyle}" *ngIf="data.project.parent"> {{ data.project.parent.name }} </span> <br *ngIf="data.project.parent">
+    {{ data.project.name }} 
   <button [ngStyle]="{'background-color': mainStyle}" (click)="addTask(0, 0)" class="button btnAddProject button-floating" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
     <i class="material-icons" style="color:black">add</i>
   </button>
@@ -25,7 +25,6 @@
 
     <app-loading [loader]="loader"></app-loading>
     <app-count *ngIf="tasks && tasks.length < 1 && !loader">Esse projeto está sem task cadastrada no momento!</app-count>
-
 
     <!-- <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
@@ -130,7 +129,6 @@
     <!-- <button matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button> -->
     <!-- <button matTooltip="Baixar relátorio" mat-icon-button><i class="material-icons">assignment_returned</i></button> -->
     <!-- <button matTooltip="Calcular" mat-icon-button><i class="material-icons">grid_on</i></button> -->
-
     <button [mat-dialog-close]="true" target="_blank" class="button button-primary right">{{ 'OK' | translate }}</button>
 
   </div>

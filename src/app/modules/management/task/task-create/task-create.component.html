@@ -35,6 +35,23 @@
         </mat-form-field>
       </div>
 
+      <mat-form-field *ngIf="type.definition == 'EXECUTAVEL'">
+        <mat-label>Selecione o horário</mat-label>
+        <mat-select formControlName="times">
+          <mat-option [value]="8"> 08:00 </mat-option>
+          <mat-option [value]="9"> 09:00 </mat-option>
+          <mat-option [value]="10"> 10:00 </mat-option>
+          <mat-option [value]="11"> 11:00 </mat-option>
+          <mat-option [value]="12"> 12:00 </mat-option>
+          <mat-option [value]="13"> 13:00 </mat-option>
+          <mat-option [value]="14"> 14:00 </mat-option>
+          <mat-option [value]="15"> 15:00 </mat-option>
+          <mat-option [value]="16"> 16:00 </mat-option>
+          <mat-option [value]="17"> 17:00 </mat-option>
+          <mat-option [value]="18"> 18:00 </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- <mat-form-field class="example-full-width" *ngIf="type.definition == 'EXECUTAVEL'">
         <mat-label>{{ 'CRITICALLYLEVEL' | translate }}</mat-label>
         <mat-select formControlName="criticallyLevel">
@@ -45,6 +62,7 @@
       </mat-form-field> -->
 
       <ul class="collection" *ngIf="type.definition == 'EXECUTAVEL'">
+        <label *ngIf="card">Anexos</label>
         <li *ngIf="card" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
           <div>
             {{ card.name }}
@@ -54,7 +72,7 @@
       </ul>
 
       <ul class="collection" *ngIf="attachment.length > 0 && type.definition == 'EXECUTAVEL'">
-        <label>Anexos</label>
+        <label *ngIf="attachment.length > 0">Anexos</label>
         <li *ngFor="let item of attachment" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
           <div>
             <a target="_blank" href="{{ item.url }}">{{ item.description }}</a>
