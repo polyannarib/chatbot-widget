@@ -55,13 +55,7 @@ export class TaskDetailsComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() {
-    console.log('---------------------')
-    console.log('---- ngOnInit() -----')
-    console.log(new Date(this.form.value.expectedAt, this.form.value.time).getTime())
-    console.log(this.form.value.expectedAt)
-    console.log(this.form.value.time)
-  }
+  ngOnInit() { }
 
   isCardSelect(id) {
     if(!!id || id != null || id != undefined) {
