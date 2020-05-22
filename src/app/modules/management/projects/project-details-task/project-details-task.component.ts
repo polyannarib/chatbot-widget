@@ -10,6 +10,7 @@ import { TaskService } from 'src/app/core/services/task.service';
 import { TaskDetailsComponent } from '../../task/task-details/task-details.component';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { ProjectCreateComponent } from '../project-create/project-create.component';
+import {Validators} from "@angular/forms";
 
 
 /**
@@ -132,7 +133,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
     //   level: level,
     // };
   }
-  
+
   treeControl = new FlatTreeControl<any>( node => node.level, node => node.expandable );
   treeFlattener = new MatTreeFlattener( this._transformer, node => node.level, node => node.expandable, node => node.tasksSons );
   dataSource = new MatTreeFlatDataSource( this.treeControl, this.treeFlattener );
@@ -205,6 +206,28 @@ export class ProjectDetailsTaskComponent implements OnInit {
     });
   }
 
+  editProject() {
+    const dataSend = {
+      type: 'edit',
+      project: this.data.project
+    };
+    const dialogRef = this.dialog.open(ProjectCreateComponent, {
+      width: '90vw',
+      data: dataSend
+    });
+  }
+
+  createEpic() {
+    const dataSend = {
+      type: 'epic',
+      project: this.data.project
+    };
+    const dialogRef = this.dialog.open(ProjectCreateComponent, {
+      width: '90vw',
+      data: dataSend
+    });
+  }
+
   getColor(color) {
     switch (color) {
       case 'BUILDING':
@@ -229,7 +252,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
   getTypes() {
     this.taskService.getTypesTask().subscribe(
       (response) => {
-        this.types = response.object.map(element => element.level);        
+        this.types = response.object.map(element => element.level);
     })
   }
 
@@ -258,7 +281,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
       data: dataSend
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getTasks(this.data.project.id);     
+      this.getTasks(this.data.project.id);
     });
   }
 
