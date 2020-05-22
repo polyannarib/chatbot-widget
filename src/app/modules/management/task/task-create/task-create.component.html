@@ -2,12 +2,12 @@
 
 <div id="modal" *ngIf="!loader && type">
   <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
-  <!-- <div class="calculadora" *ngIf="type.name.toLowerCase() == 'tarefa'">
+  <div class="calculadora" *ngIf="type.name.toLowerCase() == 'tarefa'">
     <button (click)="openCalculator()" mat-icon-button><i class="material-icons">post_add</i></button>
-  </div> -->
-  <div class="modal-header"> 
+  </div>
+  <div class="modal-header">
     <!-- {{ type.name }}  -->
-    <span [ngStyle]="{'background-color': mainStyle}"> {{ type.name }} </span> 
+    <span [ngStyle]="{'background-color': mainStyle}"> {{ type.name }} </span>
   </div>
   <form [formGroup]="form">
     <div class="modal-body">
@@ -22,12 +22,12 @@
         <label for="description">Descrição</label>
       </div>
 
-      <div class="input-field" *ngIf="type.definition == 'EXECUTAVEL'">
+      <div class="input-field" *ngIf="type.definition == 'EXECUTAVEL' || kysmart == true">
         <input id="duration" type="number" class="validate" formControlName="duration">
         <label for="duration">Esforço</label>
       </div>
 
-      <div *ngIf="type.definition == 'EXECUTAVEL'">
+      <div *ngIf="type.definition == 'EXECUTAVEL'  || kysmart == true">
         <mat-form-field>
           <input matInput [matDatepicker]="expectedAt" formControlName="expectedAt" placeholder="Data prevista inicio">
           <mat-datepicker-toggle matSuffix [for]="expectedAt"></mat-datepicker-toggle>

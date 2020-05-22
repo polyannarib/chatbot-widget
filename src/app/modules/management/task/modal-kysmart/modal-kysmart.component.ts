@@ -60,6 +60,7 @@ export class ModalKysmartComponent implements OnInit {
       (response) => {
         this.loader = false;
         console.log(response);
+        this.dialogRef.close({confirm: true, data: response});
       },
       (err) => {
         this.loader = false;

@@ -16,6 +16,8 @@ import { ModalKysmartComponent } from '../modal-kysmart/modal-kysmart.component'
 export class TaskCreateComponent implements OnInit {
 
   loader: boolean = false;
+  kysmart: boolean = false;
+  kysmartChildrenTasks: any = [];
   mainStyle = this.profileService.getAppMainColor();
   secoundStyle = this.profileService.getAppSecondaryColor();
   card: any;
@@ -88,6 +90,62 @@ export class TaskCreateComponent implements OnInit {
     }
   }
 
+  createFromKySmart() {
+    this.loader = true;
+    const data = {
+      name: this.form.controls.name.value,
+      description: this.form.controls.description.value,
+    };
+
+    this.taskService.createTask(data).subscribe(
+      (responseCreateMother) => {
+        if (responseCreateMother.status === 0) {
+          this.taskService.getTasksByProject(this.form.controls.projectId.value).subscribe(
+            (responseTaskMother) => {
+              if (responseTaskMother.status === 0) {
+                const tasks = responseTaskMother.object;
+                tasks.map(task => {
+                  if (task.name === this.form.controls.name.value) {
+                    this.kysmartChildrenTasks.map(taskToCreate => {
+                      if (taskToCreate.attributeId === 25 ||
+                          taskToCreate.attributeId === 27 ||
+                          taskToCreate.attributeId === 29 ||
+                          taskToCreate.attributeId === 32) {
+                        const dataChildren = {
+                          name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
+                          duration: taskToCreate.attributeHourValue,
+                          expectedAt: this.form.value.expectedAt + taskToCreate.attributeHourValue
+                        };
+                        this.taskService.createTask(dataChildren).subscribe(
+                          (responseCreateChildren) => {
+                            if (responseCreateChildren.status === 0) {
+                              console.log(responseCreateChildren);
+                            }
+                          }
+                        );
+                      }
+                    });
+                    this.loader = false;
+                    console.log('tasks filhas criadas');
+                    return;
+                  } else {
+                    this.loader = false;
+                    this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao pesquisar tarefa mãe!' }});
+                  }
+                });
+              }
+            }, (err) => {
+              this.loader = false;
+            }
+          );
+        }
+      }, (err) => {
+        this.loader = false;
+        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao criar tarefa mãe!' }});
+      }
+    );
+  }
+
   addCard() {
     // const dataSend = {
     //   project: this.data.project
@@ -137,12 +195,23 @@ export class TaskCreateComponent implements OnInit {
       }
     })
   }
-  
+
   openCalculator() {
     const dialogRef = this.dialog.open(ModalKysmartComponent, {
       width: '1200px',
       // data: dataSend
     });
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          console.log(result.data);
+          this.kysmart = true;
+          this.kysmartChildrenTasks = result.data.childRegisters;
+
+          // Esforço
+          this.form.value.duration = result.data.attributeHourValue;
+        }
+     });
   }
 
   // inputHidden() {
