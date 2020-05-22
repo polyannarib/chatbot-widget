@@ -19,9 +19,10 @@ export class TaskDetailsComponent implements OnInit {
   secoundStyle = this.profileService.getAppSecondaryColor();
   card: any = (this.data.task.card != null) ? this.isCardSelect(this.data.task.card.cardId) : null;
   cardSelect: any = this.data.task.card;
-  type: any = this.data.task.type
+  type: any = this.data.task.type;
   nameTaskParent = this.data.task.name;
   types: any;
+  times = new Date(this.data.task.expectedAt).getHours();
   form: FormGroup = this.formBuilder.group({
     id: [this.data.task.id],
     name: [this.data.task.name, [Validators.required]],
@@ -29,6 +30,7 @@ export class TaskDetailsComponent implements OnInit {
     duration: [this.data.task.duration],
     card: [this.card],
     expectedAt: [new Date(this.data.task.expectedAt)],
+    time: [new Date(this.data.task.expectedAt).getHours()],
     effort: [this.data.task.effort],
     dailyEffort: [this.data.task.dailyEffort],
     validDay: [this.data.task.validDay],
@@ -75,8 +77,9 @@ export class TaskDetailsComponent implements OnInit {
     this.loader = true;
     if (this.form.valid) {
       if(this.form.value.expectedAt != null) {
-        const expectedAt = new Date(this.form.value.expectedAt).getTime();
-        this.form.value.expectedAt = expectedAt;
+        const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
+        const setTimesStamp = new Date(expectedAt).getTime();
+        this.form.value.expectedAt = setTimesStamp;
         // this.form.value.links = this.attachment;
       }
       // const expectedAt = new Date(this.form.value.expectedAt).getTime();
@@ -88,6 +91,7 @@ export class TaskDetailsComponent implements OnInit {
       }
       // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
       // this.form.value.type = this.types.find( element => element.level == this.data.nodeType.level + 1 )
+      this.form.value.time = undefined;
       this.taskService.createTask(this.form.value).subscribe(
         (response) => {
           if (response.status == 0) {

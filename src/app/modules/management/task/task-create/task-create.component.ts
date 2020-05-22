@@ -26,6 +26,7 @@ export class TaskCreateComponent implements OnInit {
   createNewType: any = this.data.type ? (this.data.type.level + 1) : 1;
   attachment = [];
   taskCreate = this.data.type ? this.data.type.name : this.data.project.name;
+  times: any;
   form: FormGroup = this.formBuilder.group({
     name: [null, [Validators.required]],
     description: [null],
@@ -34,6 +35,7 @@ export class TaskCreateComponent implements OnInit {
     duration: [null],
     type: [null],
     links: [null],
+    time: [null],
     parentId: [this.data.parentId],
     projectId: [this.data.project.id]
   });
@@ -64,10 +66,12 @@ export class TaskCreateComponent implements OnInit {
     this.loader = true;
     if (this.form.valid) {
       if(this.type.definition == 'EXECUTAVEL') {
-        const expectedAt = new Date(this.form.value.expectedAt).getTime();
-        this.form.value.expectedAt = expectedAt;
+        const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
+        const setTimesStamp = new Date(expectedAt).getTime();
+        this.form.value.expectedAt = setTimesStamp;
         this.form.value.links = this.attachment;
       }
+      this.form.value.time = undefined;
       // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
       this.form.value.type = this.types.find( element => element.level == this.createNewType )
       this.taskService.createTask(this.form.value).subscribe(

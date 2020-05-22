@@ -52,23 +52,16 @@ export class ProfileService {
   }
 
   validateWhiteLabel() {
-    console.log('Entrou dentro do validateWhiteLabel() TIAGAO');
     if(!localStorage.getItem('appMainColor') || !localStorage.getItem('appSecondaryColor') || !localStorage.getItem('appLogo') || !localStorage.getItem('appIcon')) {
       this.getWhiteLabel().subscribe(
         (response) => {
           this.setWhiteLabel(response.object);
         },
         (err) => {
-          console.log(err);
           // return false;
         }
       )
     } else {
-      console.log(' ----- Entrou dentro do ELSE ----- ');
-      console.log(localStorage.getItem('appMainColor'));
-      console.log(localStorage.getItem('appSecondaryColor'));
-      console.log(localStorage.getItem('appLogo'));
-      console.log(localStorage.getItem('appIcon'));
       this.router.navigate(['/auth/login']);
     }
   }

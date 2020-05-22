@@ -55,7 +55,6 @@ export class ModalKysmartComponent implements OnInit {
 
   registerItem() {
     this.loader = true;
-    console.log('Confirmar..');
     this.taskService.callRegisterItemIdKySmart(this.registerItemId).subscribe(
       (response) => {
         this.loader = false;
@@ -64,7 +63,6 @@ export class ModalKysmartComponent implements OnInit {
       },
       (err) => {
         this.loader = false;
-        console.log(err);
         this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro no KySmart!' }});
       }
     );
