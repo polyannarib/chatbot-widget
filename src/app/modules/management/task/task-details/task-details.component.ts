@@ -19,7 +19,7 @@ export class TaskDetailsComponent implements OnInit {
   secoundStyle = this.profileService.getAppSecondaryColor();
   card: any = (this.data.task.card != null) ? this.isCardSelect(this.data.task.card.cardId) : null;
   cardSelect: any = this.data.task.card;
-  type: any = this.data.task.type
+  type: any = this.data.task.type;
   nameTaskParent = this.data.task.name;
   types: any;
   times = new Date(this.data.task.expectedAt).getHours();
