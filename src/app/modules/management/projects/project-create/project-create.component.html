@@ -12,7 +12,7 @@
       </div>
 
       <!-- WORKGOUP DO PROJETO -->
-      <div>
+      <div *ngIf="!this.data.type === 'edit'">
         <mat-form-field>
           <mat-label>{{ 'CREATE_PROJECT_WORKGROUP' | translate }}</mat-label>
           <mat-select formControlName="workgroup">
@@ -24,7 +24,7 @@
       </div>
 
       <!-- GESTOR DO PROJETO -->
-      <div>
+      <div *ngIf="!this.data.type === 'edit'">
         <mat-form-field>
           <mat-label>{{ 'CREATE_PROJECT_MANAGER' | translate }}</mat-label>
           <mat-select formControlName="projectManager">
@@ -49,7 +49,8 @@
 
     </div>
     <div class="modal-footer">
-      <button type="submit" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'CREATE_PROJECT_CONFIRM' | translate }}</button>
+      <button type="submit" *ngIf="data.type === 'create'" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'CREATE_PROJECT_CONFIRM' | translate }}</button>
+      <button type="submit" *ngIf="data.type === 'edit'" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'EDIT_PROJECT_CONFIRM' | translate }}</button>
     </div>
   </form>
 </div>
