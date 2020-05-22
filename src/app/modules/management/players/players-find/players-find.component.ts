@@ -22,15 +22,15 @@ export class PlayersFindComponent implements OnInit {
   mainStyle = this.profileService.getAppMainColor();
 
   searchPlayers: any;
+  searchPlayersFilter: any;
+
   playerSelect: any;
 
-  // playerRated: any;
-  // playerRatedFilter: any;
-
-  // playerAvailable: any;
-  // playerAvailableFilter: any;
-
-  // playerAllocated: any;
+  playerRated: any;
+  playerRatedFilter: any;
+  playerAvailable: any;
+  playerAvailableFilter: any;
+  playerAllocated: any;
 
   constructor(
     private playerService: PlayerService,
@@ -48,16 +48,21 @@ export class PlayersFindComponent implements OnInit {
     // this.playerService.findDesignatePlayers(taskId, format(dataInicial, 'dd-MM-yyyy'), format(dataFim, 'dd-MM-yyyy')).subscribe(
     this.playerService.findDesignatePlayers(taskId).subscribe(
       (response) => {
-
-        console.log('----------------------')
-        console.log('---- designated ------')
-        console.log(response.object)
-
-        this.searchPlayers = response.object;
+        // this.searchPlayers = response.object;
+        // this.searchPlayersFilter = response.object;
         // this.playerRatedFilter = this.playerRated;
         // this.playerAvailable = response.object.available;
         // this.playerAvailableFilter = this.playerAvailable;
         // this.onSearchChange('');
+
+        this.playerRated = response.object.rated;
+        this.playerRatedFilter = this.playerRated;
+
+        this.playerAvailable = response.object.available;
+        this.playerAvailableFilter = this.playerAvailable;
+
+        this.onSearchChange('');
+
         this.loader = false;
       }, (err) => {
         this.loader = false;
@@ -87,23 +92,36 @@ export class PlayersFindComponent implements OnInit {
     )
   }
 
+  onSearchChange(searchValue: string): void {
+    if(this.playerRated != null){
+      this.playerRatedFilter = this.playerRated.filter(
+        (curr) => {
+          return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+        }
+      )
+      this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
+    }
+    if(this.playerAvailable != null){
+      this.playerAvailableFilter = this.playerAvailable.filter(
+        (curr) => {
+          return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+        }
+      )
+      this.playerAvailableFilter.splice(5,this.playerAvailableFilter.length);
+    }
+  }
+
+  // -----------------------------------------------
   // onSearchChange(searchValue: string): void {
-  //   if(this.playerRated != null){
-  //     this.playerRatedFilter = this.playerRated.filter(
-  //       (curr) => {
-  //         return curr.name.toUpperCase().includes(searchValue.toUpperCase());
-  //       }
-  //     )
-  //     this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
-  //   }
-  //   if(this.playerAvailable != null){
-  //     this.playerAvailableFilter = this.playerAvailable.filter(
-  //       (curr) => {
-  //         return curr.name.toUpperCase().includes(searchValue.toUpperCase());
-  //       }
-  //     )
-  //     this.playerAvailableFilter.splice(5,this.playerAvailableFilter.length);
-  //   }
+  //   this.searchPlayersFilter = this.searchPlayers.filter((element, index) => element.list.map((curr) => { 
+  //     if(curr.name.toUpperCase().includes(searchValue.toUpperCase())) {
+  //       console.log('Entrou dentro do IF')
+  //       console.log(curr)
+  //       return curr
+  //     }
+  //   }).splice(5, this.searchPlayers[index].list.length) )
+  //   console.log('--------------')
+  //   console.log(this.searchPlayersFilter)
   // }
 
 

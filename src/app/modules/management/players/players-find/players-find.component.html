@@ -4,21 +4,60 @@
     <div class="row">
       
       <!-- <div class="input-field">
-        <input matInput (input)="onSearchChange($event.target.value)" id="findPlayerRated" value="" class="validate">
+        <input (input)="onSearchChange($event.target.value)" id="findPlayerRated" value="" class="validate">
         <label for="findPlayerRated">Recursos disponíveis com carta</label>
-      </div> -->
+      </div>
       
-      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="playerSelect">
-        <ng-container *ngFor="let playerTypes of searchPlayers">
-          <ng-container *ngIf="playerTypes && playerTypes.length > 0">
-            <mat-radio-button class="example-radio-button" [value]="player.id" *ngFor="let player of playerTypes">
+      <div class="find">
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="playerSelect">
+          <ng-container *ngFor="let playerTypes of searchPlayersFilter; let i = index">
+            <ng-container *ngIf="playerTypes.list.length > 0">
+  
+              <mat-radio-button class="example-radio-button" [value]="player.id" *ngFor="let player of searchPlayersFilter[i].list">
+                <span class="radio-text valign-wrapper">{{ player.name }}
+                  <i class="material-icons tiny green-text ml-5">event_available</i>
+                </span>
+              </mat-radio-button>
+              
+            </ng-container>
+          </ng-container>
+        </mat-radio-group>
+      </div> -->
+
+      
+      
+      <div class="col m4 offset-m2 s12">
+        <app-count *ngIf="!playerRated">Sem recursos no momento</app-count>
+        <div *ngIf="playerRated">
+          <div class="input-field">
+            <input matInput (input)="onSearchChange($event.target.value)" id="findPlayerRated" value="" class="validate">
+            <label for="findPlayerRated">Recursos disponíveis com carta</label>
+          </div>
+          <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="playerSelect">
+            <mat-radio-button class="example-radio-button" *ngFor="let player of playerRatedFilter" [value]="player.id">
               <span class="radio-text valign-wrapper">{{ player.name }}
                 <i class="material-icons tiny green-text ml-5">event_available</i>
               </span>
             </mat-radio-button>
-          </ng-container>
-        </ng-container>
-      </mat-radio-group>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="col s12 m4">
+        <app-count *ngIf="!playerAvailable">Sem recursos no momento</app-count>
+        <div *ngIf="playerAvailable">
+          <div class="input-field">
+            <input matInput (input)="onSearchChange($event.target.value)" id="find" class="validate" placeholder="Recursos disponíveis">
+          </div>
+          <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="playerSelect">
+            <mat-radio-button class="example-radio-button" *ngFor="let player of playerAvailableFilter" [value]="player.id">
+              <span class="radio-text valign-wrapper">{{ player.name }}
+                <i class="material-icons tiny green-text ml-5">event_available</i>
+              </span>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
 
       <!-- <div class="col s12 m4">
         <app-count *ngIf="!playerAvailable">Sem recursos no momento</app-count>
@@ -35,6 +74,8 @@
           </mat-radio-group>
         </div>
       </div> -->
+
+
     </div>
     <div class="row">
       <div class="col-xs-12">
