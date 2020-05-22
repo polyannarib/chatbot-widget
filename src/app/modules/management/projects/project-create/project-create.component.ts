@@ -15,14 +15,7 @@ export class ProjectCreateComponent implements OnInit {
 
   workgroups: Workgroup[] = [{value: -1, viewValue: 'Escolher'}];
   managers: Manager[] = [{value: -1, viewValue: 'Escolher'}];
-  formCreateProject: FormGroup = this.formBuilder.group({
-    name: [null, [Validators.required]],
-    projectManager: [null, [Validators.required]],
-    customerOwner: [null, [Validators.required]],
-    description: [null, [Validators.required]],
-    identify: [null, [Validators.required]],
-    workgroup: [null, [Validators.required]]
-  });
+  formCreateProject: FormGroup;
   loader = false;
   mainStyle = this.profileService.getAppMainColor();
   scopes: any;
@@ -40,7 +33,51 @@ export class ProjectCreateComponent implements OnInit {
 
   ngOnInit() {
     this.scopes = Object.assign({}, this.authService.getScopes());
-    this.findFromProfile();
+    this.loader = true;
+    this.projectService.getProjectInfo(this.data.project.id).subscribe(
+      (response) => {
+        if (response.status === 0) {
+          this.loader = false;
+          console.log(response);
+          this.data.project = response.object[0];
+          this.getType();
+          return;
+        }
+        this.httpError(response.message);
+        this.loader = false;
+        this.dialogRef.close({confirm: true});
+      }, (err) => {
+        this.httpError(null);
+        this.loader = false;
+        this.dialogRef.close({confirm: true});
+      }
+    );
+  }
+
+  getType() {
+    if (this.data.type === 'edit') {
+      this.formCreateProject = this.formBuilder.group({
+        name: [this.data.project.name, [Validators.required]],
+        projectManager: [this.data.project.projectManager.name, [Validators.required]],
+        customerOwner: [this.data.project.customerOwner, [Validators.required]],
+        description: [this.data.project.description, [Validators.required]],
+        identify: [this.data.project.identify, [Validators.required]],
+        workgroup: [this.data.project.workgroup, [Validators.required]]
+      });
+      this.formCreateProject.controls.workgroup.disable();
+      this.formCreateProject.controls.customerOwner.disable();
+      this.formCreateProject.controls.projectManager.disable();
+    } else if (this.data.type === 'create' || this.data.type === 'epic') {
+      this.formCreateProject = this.formBuilder.group({
+        name: [null, [Validators.required]],
+        projectManager: [null, [Validators.required]],
+        customerOwner: [null, [Validators.required]],
+        description: [null, [Validators.required]],
+        identify: [null, [Validators.required]],
+        workgroup: [null, [Validators.required]]
+      });
+      this.findFromProfile();
+    }
   }
 
   findFromProfile() {
@@ -147,23 +184,48 @@ export class ProjectCreateComponent implements OnInit {
   }
 
   createProject() {
-    const projectName = this.formCreateProject.controls.name.value;
-    const workgroup = this.formCreateProject.controls.workgroup.value;
-    const description = this.formCreateProject.controls.description.value;
-    const identify = this.formCreateProject.controls.identify.value;
-    const manager = this.formCreateProject.controls.projectManager.value;
-
-    const data = {
-      name: projectName,
-      description,
-      identify,
-      projectManager: {
-        personId: manager
-      },
-      team: {
-        id: workgroup
-      }
-    };
+    let data;
+    if (this.data.type === 'create') {
+      data = {
+        name: this.formCreateProject.controls.name.value,
+        description: this.formCreateProject.controls.description.value,
+        identify: this.formCreateProject.controls.identify.value,
+        projectManager: {
+          personId: this.formCreateProject.controls.projectManager.value
+        },
+        team: {
+          id: this.formCreateProject.controls.workgroup.value
+        }
+      };
+    } else if (this.data.type === 'edit') {
+      data = {
+        id: this.data.project.id,
+        name: this.formCreateProject.controls.name.value,
+        description: this.formCreateProject.controls.description.value,
+        identify: this.formCreateProject.controls.identify.value,
+        projectManager: {
+          personId: this.data.project.projectManager.personId
+        },
+        team: {
+          id: this.data.project.team.id
+        }
+      };
+    } else if (this.data.type === 'epic') {
+      data = {
+        parent: {
+          id: this.data.project.id
+        },
+        name: this.formCreateProject.controls.name.value,
+        description: this.formCreateProject.controls.description.value,
+        identify: this.formCreateProject.controls.identify.value,
+        projectManager: {
+          personId: this.formCreateProject.controls.projectManager.value
+        },
+        team: {
+          id: this.formCreateProject.controls.workgroup.value
+        }
+      };
+    }
     this.loader = true;
     this.projectService.createProject(data).subscribe(
       (response) => {

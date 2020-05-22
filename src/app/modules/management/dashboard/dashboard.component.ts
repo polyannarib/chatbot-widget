@@ -23,9 +23,9 @@ export class DashboardComponent implements OnInit {
   scopes: any;
 
   constructor(
-    public dialog: MatDialog, 
+    public dialog: MatDialog,
     private profileService: ProfileService,
-    private authService: AuthService  
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -71,8 +71,7 @@ export class DashboardComponent implements OnInit {
 
   modalAddProject() {
     const dataSend = {
-      projectId: 0,
-      projectDate: 10
+      type: 'create'
     };
     const dialogRef = this.dialog.open(ProjectCreateComponent, {
       width: '90vw',

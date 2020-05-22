@@ -65,5 +65,8 @@
     "CREATE_PROJECT_WORKGROUP": "Workgroup",
     "CREATE_PROJECT_DESCRIPTION": "Project Description",
     "CREATE_PROJECT_IDENTIFY": "Project Identification",
-    "CREATE_PROJECT_CONFIRM": "Create Project"
+    "CREATE_PROJECT_CONFIRM": "Create Project",
+    "EDIT_PROJECT_CONFIRM": "Edit Project",
+    "EDIT_PROJECT": "Edit Project",
+    "CREATE_EPIC": "Create Epic"
 }

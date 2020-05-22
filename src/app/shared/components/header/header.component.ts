@@ -81,10 +81,8 @@ export class HeaderComponent implements OnInit {
         const today = new Date();
         const mes = today.getMonth() + 1;
         const ano = today.getFullYear();
-        console.log({ano, mes});
         this.profileService.getScore({ano, mes}).subscribe(
           (res) => {
-            console.log(res);
             if (res.object != null) {
               const objects = res.object;
               objects.map(object => this.score += object.experiencePoints);
