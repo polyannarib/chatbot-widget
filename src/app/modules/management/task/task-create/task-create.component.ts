@@ -213,7 +213,7 @@ export class TaskCreateComponent implements OnInit {
           this.kysmartChildrenTasks = result.data.childRegisters;
 
           // Esforço
-          this.form.value.duration = result.data.attributeHourValue;
+          this.form.controls.duration.setValue(result.data.attributeHourValue);
         }
      });
   }
