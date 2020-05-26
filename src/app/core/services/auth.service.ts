@@ -69,7 +69,7 @@ export class AuthService {
 
   setToken(token: string): void {
     localStorage.setItem('acessToken', token);
-    this.router.navigate(['/management/dashboard']);
+    this.router.navigate(['/management/cockpit']);
   }
 
   getSSOID(): string {

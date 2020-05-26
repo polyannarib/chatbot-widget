@@ -22,4 +22,8 @@ export class DashboardService {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/chart`);
   }
 
+  getDashboards(): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/link/all`);
+  }
+
 }

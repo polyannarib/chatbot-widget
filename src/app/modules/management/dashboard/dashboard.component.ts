@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material';
 import {ProfileService} from "../../../core/services/profile.service";
 import {ProjectsListComponent} from "../projects/projects-list/projects-list.component";
 import { AuthService } from 'src/app/core/services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DashboardService } from 'src/app/core/services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,75 +14,44 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
-  loader: boolean = false;
-  loaderDash: any = {
-    resource: true,
-    project: true,
-    graph: true
-  };
   mainStyle = this.profileService.getAppMainColor();
-  secondarytyle = this.profileService.getAppSecondaryColor();
-  scopes: any;
+  form: FormGroup = this.formBuilder.group({
+    selectedDash: [null, [Validators.required]],
+  });
+  dashboardList: any;
+  dashboard: any;
 
   constructor(
-    public dialog: MatDialog,
-    private profileService: ProfileService,
-    private authService: AuthService
+    private formBuilder: FormBuilder,
+    private dashboardService: DashboardService,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {
-    this.scopes = Object.assign({}, this.authService.getScopes());
+    this.getDash();
   }
 
-  loaderResource(estado) {
-    // console.log('entrou dentro do loaderResource'+ estado);
-    // if(estado == true) {
-    //   this.loaderResourceStatus = true;
-    // }
-    // this.loaderResourceStatus = false;
-    this.loaderDash.resource = estado
-    this.loaderPage();
+  getDash() {
+    this.dashboardService.getDashboards().subscribe(
+      (response) => {
+        if(response.status == 0) {
+          this.dashboardList = response.object
+          return;
+        }
+      }
+    )
   }
 
-  loaderProject(estado) {
-    // console.log('entrou dentro do loaderProject'+ estado);
-    // if(estado == true) {
-    //   this.loaderProjectStatus = true;
-    // }
-    // this.loaderProjectStatus = false;
-    this.loaderDash.project = estado;
-    this.loaderPage();
-  }
-
-  loaderGraph(estado) {
-    // console.log('entrou dentro do loaderGraph'+ estado);
-    // if(estado == true) {
-    //   this.loaderGraphStatus = true;
-    // }
-    // this.loaderGraphStatus = false;
-    this.loaderDash.graph = estado;
-    this.loaderPage();
-  }
-
-  loaderPage() {
-    if(this.loaderDash.resource == true || this.loaderDash.project == true || this.loaderDash.graph == true) {
-      this.loader = true;
+  ngSubmit() {
+    if(this.form.valid) {
+      this.dashboard = this.form.value.selectedDash;
+    } else {
+      this.dashboard = null
     }
-    this.loader = false;
   }
 
-  modalAddProject() {
-    const dataSend = {
-      type: 'create'
-    };
-    const dialogRef = this.dialog.open(ProjectCreateComponent, {
-      width: '90vw',
-      data: dataSend
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.loader = true;
-      window.location.reload();
-    });
+  getUrl(dash) {
+    return dash.link
   }
 
 }

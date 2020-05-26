@@ -2,13 +2,16 @@
 
 <div id="modal" *ngIf="!loader && type">
   <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
-  <!-- <div class="calculadora" *ngIf="type.name.toLowerCase() == 'tarefa'">
-    <button (click)="openCalculator()" mat-icon-button><i class="material-icons">post_add</i></button>
-  </div> -->
-  <div class="modal-header"> 
+<!--  <div class="calculadora" *ngIf="type.name.toLowerCase() == 'tarefa'">-->
+<!--    <button (click)="openCalculator()" matTooltip="{{ 'OPEN_CALCULATOR' | translate }}" mat-icon-button><i class="material-icons">post_add</i></button>-->
+<!--  </div>-->
+  <div class="modal-header">
     <!-- {{ type.name }}  -->
-    <span [ngStyle]="{'background-color': mainStyle}"> {{ type.name }} </span> 
+    <span [ngStyle]="{'background-color': mainStyle}"> {{ type.name }} </span>
   </div>
+  <button (click)="openCalculator()" matTooltip="{{ 'OPEN_CALCULATOR' | translate }}" mat-icon-button>
+    <i class="material-icons">post_add</i>
+  </button>
   <form [formGroup]="form">
     <div class="modal-body">
 
@@ -22,12 +25,12 @@
         <label for="description">Descrição</label>
       </div>
 
-      <div class="input-field" *ngIf="type.definition == 'EXECUTAVEL'">
+      <div class="input-field" *ngIf="type.definition == 'EXECUTAVEL' || kysmart == true">
         <input id="duration" type="number" class="validate" formControlName="duration">
         <label for="duration">Esforço</label>
       </div>
 
-      <div *ngIf="type.definition == 'EXECUTAVEL'">
+      <div *ngIf="type.definition == 'EXECUTAVEL'  || kysmart == true">
         <mat-form-field>
           <input matInput [matDatepicker]="expectedAt" formControlName="expectedAt" placeholder="Data prevista inicio">
           <mat-datepicker-toggle matSuffix [for]="expectedAt"></mat-datepicker-toggle>
@@ -42,13 +45,10 @@
           <mat-option [value]="9"> 09:00 </mat-option>
           <mat-option [value]="10"> 10:00 </mat-option>
           <mat-option [value]="11"> 11:00 </mat-option>
-          <mat-option [value]="12"> 12:00 </mat-option>
-          <mat-option [value]="13"> 13:00 </mat-option>
           <mat-option [value]="14"> 14:00 </mat-option>
           <mat-option [value]="15"> 15:00 </mat-option>
           <mat-option [value]="16"> 16:00 </mat-option>
           <mat-option [value]="17"> 17:00 </mat-option>
-          <mat-option [value]="18"> 18:00 </mat-option>
         </mat-select>
       </mat-form-field>
 
