@@ -16,7 +16,7 @@
 
   <div class="row" *ngIf="dashboard">
     <div class="col s12 m12 l12">
-      <iframe width="100%" height="500px" [src]="dashboard.link" frameBorder="0"></iframe>
+      <iframe *ngIf="dashboard.link" width="100%" height="500px" [src]="dashboard.link | safe" frameBorder="0"></iframe>
     </div>
   </div>
 </div>

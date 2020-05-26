@@ -44,8 +44,14 @@ export class DashboardComponent implements OnInit {
 
   ngSubmit() {
     if(this.form.valid) {
-      this.dashboard = this.form.value;
+      this.dashboard = this.form.value.selectedDash;
+    } else {
+      this.dashboard = null
     }
+  }
+
+  getUrl(dash) {
+    return dash.link
   }
 
 }

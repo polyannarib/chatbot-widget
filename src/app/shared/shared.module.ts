@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 
 // Pipes do projeto
 // import { FilterListPipe } from './pipe/filter.pipe';
+import { ImagePipe } from './pipe/image.pipe';
+import { SafePipe } from './pipe/safe.pipe';
 
 // Componentes criados no projeto
 import { HeaderComponent } from './components/header/header.component';
@@ -78,7 +80,6 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MainColorDirective } from './directives/main-color.directive';
 import { PrimaryColorDirective } from './directives/primary-color.directive';
 import { SecundaryColorDirective } from './directives/secundary-color.directive';
-import { ImagePipe } from './pipe/image.pipe';
 
 @NgModule({
   imports: [
@@ -149,6 +150,7 @@ import { ImagePipe } from './pipe/image.pipe';
     PrimaryColorDirective,
     SecundaryColorDirective,
     ImagePipe,
+    SafePipe,
     RemoveTaskComponent,
     AttachmentComponent
   ],
@@ -205,7 +207,8 @@ import { ImagePipe } from './pipe/image.pipe';
     FocusableDirective,
     PaginatorComponent,
     CollapseComponent,
-    ImagePipe
+    ImagePipe,
+    SafePipe
   ],
   entryComponents: [
     FinalizeComponent,
