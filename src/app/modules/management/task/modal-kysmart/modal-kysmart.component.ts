@@ -58,6 +58,8 @@ export class ModalKysmartComponent implements OnInit {
     this.taskService.callRegisterItemIdKySmart(this.registerItemId).subscribe(
       (response) => {
         this.loader = false;
+        console.log(response);
+        this.dialogRef.close({confirm: true, data: response});
       },
       (err) => {
         this.loader = false;

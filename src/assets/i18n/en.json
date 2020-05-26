@@ -67,6 +67,8 @@
     "CREATE_PROJECT_IDENTIFY": "Project Identification",
     "CREATE_PROJECT_CONFIRM": "Create Project",
     "EDIT_PROJECT_CONFIRM": "Edit Project",
+    "CREATE_EPIC_CONFIRM": "Create Epic",
     "EDIT_PROJECT": "Edit Project",
-    "CREATE_EPIC": "Create Epic"
+    "CREATE_EPIC": "Create Epic",
+    "OPEN_CALCULATOR": "Open Calculator"
 }
