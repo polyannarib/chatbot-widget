@@ -3,7 +3,7 @@
 <div id="modal" *ngIf="!loader && type">
   <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
   <div class="calculadora" *ngIf="type.name.toLowerCase() == 'tarefa'">
-    <button (click)="openCalculator()" mat-icon-button><i class="material-icons">post_add</i></button>
+    <button (click)="openCalculator()" matTooltip="{{ 'OPEN_CALCULATOR' | translate }}" mat-icon-button><i class="material-icons">post_add</i></button>
   </div>
   <div class="modal-header">
     <!-- {{ type.name }}  -->

@@ -100,6 +100,8 @@
     "CREATE_PROJECT_IDENTIFY": "Identificador do Projeto",
     "CREATE_PROJECT_CONFIRM": "Criar Projeto",
     "EDIT_PROJECT_CONFIRM": "Editar Projeto",
+    "CREATE_EPIC_CONFIRM": "Criar Épico",
     "EDIT_PROJECT": "Editar Projeto",
-    "CREATE_EPIC": "Criar Épico"
+    "CREATE_EPIC": "Criar Épico",
+    "OPEN_CALCULATOR": "Abrir Calculadora"
 }

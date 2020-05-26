@@ -2,6 +2,9 @@
 
 <div id="modal" *ngIf="!loader">
   <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+  <div class="modal-header" *ngIf="this.data.type === 'epic'">
+    <span [ngStyle]="{'background-color': mainStyle}"> Épico </span>
+  </div>
   <form [formGroup]="formCreateProject" (ngSubmit)="createProject()">
     <div class="modal-body">
 
@@ -51,6 +54,7 @@
     <div class="modal-footer">
       <button type="submit" *ngIf="data.type === 'create'" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'CREATE_PROJECT_CONFIRM' | translate }}</button>
       <button type="submit" *ngIf="data.type === 'edit'" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'EDIT_PROJECT_CONFIRM' | translate }}</button>
+      <button type="submit" *ngIf="data.type === 'epic'" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'CREATE_EPIC_CONFIRM' | translate }}</button>
     </div>
   </form>
 </div>
