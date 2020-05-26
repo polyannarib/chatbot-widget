@@ -37,7 +37,7 @@ export class CompanySelectComponent implements OnInit {
           this.authService.setSSOID(response.object.ssoId);
           window.location.href = AppConstants.URL_SSO + '/cookie' 
                   + '?SSOID=' + response.object.ssoId
-                  + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + '/management/dashboard';
+                  + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + '/management/cockpit';
           this.close();
           return;
         }

@@ -6,14 +6,16 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { ResourceFindComponent } from '../resource/resource-find/resource-find.component';
 import { ProjectImportComponent } from '../projects/project-import/project-import.component';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { CockpitComponent } from '../cockpit/cockpit.component';
 
 const APP_ROUTES: Routes = [
   {
     path: '', component: ManagementComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, data: { scopes: ['wpplayer', 'wpleader', 'wpboss', 'wprule', 'wpmaster'] } },
+      { path: '', redirectTo: 'cockpit', pathMatch: 'full' },
+      { path: 'cockpit', component: CockpitComponent, data: { scopes: ['wpplayer', 'wpleader', 'wpboss', 'wprule', 'wpmaster'] } },
       { path: 'resource/find', component: ResourceFindComponent, data: { scopes: ['wpleader', 'wpboss', 'wprule', 'wpmaster'] } },
-      { path: 'import/project', component: ProjectImportComponent, data: { scopes: ['wpleader', 'wpmaster'] } }
+      { path: 'import/project', component: ProjectImportComponent, data: { scopes: ['wpleader', 'wpmaster'] } },
+      { path: 'dashboard', component: DashboardComponent, data: { scopes: ['wpleader', 'wpmaster'] } }
     ], data: { scopes: ['wpplayer', 'wpleader', 'wpboss', 'wprule', 'wpmaster'] }
   }
 ];

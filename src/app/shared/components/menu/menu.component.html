@@ -1,7 +1,7 @@
 <ul class="nav" *ngIf="scopes">
     
     <li routerLinkActive="active">
-        <a [routerLink]="['/management/dashboard']">
+        <a [routerLink]="['/management/cockpit']">
             <span><i class="material-icons-outlined">dashboard</i></span>
             <p>{{ 'COCKPIT' | translate }}</p>
         </a>
@@ -24,6 +24,13 @@
             <p>Importar projeto</p>
         </a>
     </li>
+    <li routerLinkActive="active" *ngIf="scopes.wpleader || scopes.wpmaster">
+        <a [routerLink]="['/management/dashboard']">
+            <span><i class="material-icons-outlined">pie_chart</i></span>
+            <p>Dashboards</p>
+        </a>
+    </li>
+    
 
     <!-- Logout -->
     <li routerLinkActive="active" id="logout">

@@ -1,0 +1,12 @@
+.graph {
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+
+.add-project-button {
+  right: 0;
+  position: fixed;
+  margin: 20px;
+}
