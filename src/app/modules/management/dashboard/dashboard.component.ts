@@ -50,4 +50,8 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  getUrl(dash) {
+    return dash.link
+  }
+
 }
