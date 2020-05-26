@@ -34,24 +34,28 @@ export class ProjectCreateComponent implements OnInit {
   ngOnInit() {
     this.scopes = Object.assign({}, this.authService.getScopes());
     this.loader = true;
-    this.projectService.getProjectInfo(this.data.project.id).subscribe(
-      (response) => {
-        if (response.status === 0) {
+    if (this.data.type === 'create') {
+      this.getType();
+    } else {
+      this.projectService.getProjectInfo(this.data.project.id).subscribe(
+        (response) => {
+          if (response.status === 0) {
+            this.loader = false;
+            console.log(response);
+            this.data.project = response.object[0];
+            this.getType();
+            return;
+          }
+          this.httpError(response.message);
           this.loader = false;
-          console.log(response);
-          this.data.project = response.object[0];
-          this.getType();
-          return;
+          this.dialogRef.close({confirm: true});
+        }, (err) => {
+          this.httpError(null);
+          this.loader = false;
+          this.dialogRef.close({confirm: true});
         }
-        this.httpError(response.message);
-        this.loader = false;
-        this.dialogRef.close({confirm: true});
-      }, (err) => {
-        this.httpError(null);
-        this.loader = false;
-        this.dialogRef.close({confirm: true});
-      }
-    );
+      );
+    }
   }
 
   getType() {
