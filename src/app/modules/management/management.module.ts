@@ -30,6 +30,7 @@ import { TaskCreateComponent } from './task/task-create/task-create.component';
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
 import { CardFindComponent } from './card/card-find/card-find.component';
 import {ModalKysmartComponent} from './task/modal-kysmart/modal-kysmart.component';
+import { CockpitComponent } from './cockpit/cockpit.component';
 
 @NgModule({
   imports: [
@@ -58,7 +59,8 @@ import {ModalKysmartComponent} from './task/modal-kysmart/modal-kysmart.componen
     TaskCreateComponent,
     TaskDetailsComponent,
     CardFindComponent,
-    ModalKysmartComponent
+    ModalKysmartComponent,
+    CockpitComponent
   ],
   entryComponents: [
     ProjectDetailsComponent,

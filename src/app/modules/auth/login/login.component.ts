@@ -89,13 +89,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
         (response) => {
         if (response.status == 0) {
             this.profileService.setWhiteLabel(response.object);
-            this.router.navigate(['/management/dashboard']);
+            this.router.navigate(['/management/cockpit']);
             return;
   
               // let scopes = this.authService.redirectPageByScopes();
               // window.location.href = AppConstants.URL_SSO + '/cookie' 
               // + '?SSOID=' + response.object.ssoId
-              // + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/management/dashboard`;
+              // + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/management/cockpit`;
         }
         throw new Error('Problemas ao fazer o login, favor tentar novamente!');
         // this._snackBar.openFromComponent(NotifyComponent, 
