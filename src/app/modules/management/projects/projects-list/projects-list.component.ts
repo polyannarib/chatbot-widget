@@ -120,8 +120,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   generateReport(project) {
-    // window.open( environment.URL_STATUS_REPORT + project.id, '_blank');
-    window.open( `http://andersonm:Kyros@123@192.168.0.116/ReportServer/Pages/ReportViewer.aspx?%2fSTATUS_REPORT%2fStatusReport&ID_PROJETO=${project.id}&rs:Command=Render&rs:Format=pdf`, '_blank');
+    window.open( `${environment.URL_STATUS_REPORT}${project.id}&rs:Command=Render&rs:Format=pdf`, '_blank'); 
   }
 
   changeDays(date) {
