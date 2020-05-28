@@ -40,10 +40,11 @@ export class ModalKysmartComponent implements OnInit {
     this.taskService.callRegisterItemKySmart().subscribe(
       (response) => {
         this.loader = false;
-        const object = response.object;
-        this.registerItemId = object.registerItemId;
-        this.urlIframe = this.urlIframe + this.registerItemId.toString();
-        this.iframe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlIframe);
+        console.log(response);
+        // const object = response.object;
+        // this.registerItemId = object.registerItemId;
+        // this.urlIframe = this.urlIframe + this.registerItemId.toString();
+        // this.iframe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlIframe);
       },
       (err) => {
         this.loader = false;
@@ -58,7 +59,6 @@ export class ModalKysmartComponent implements OnInit {
     this.taskService.callRegisterItemIdKySmart(this.registerItemId).subscribe(
       (response) => {
         this.loader = false;
-        console.log(response);
         this.dialogRef.close({confirm: true, data: response});
       },
       (err) => {
