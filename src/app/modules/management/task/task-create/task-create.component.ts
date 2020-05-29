@@ -210,10 +210,11 @@ export class TaskCreateComponent implements OnInit {
         if (result) {
           console.log(result.data);
           this.kysmart = true;
-          this.kysmartChildrenTasks = result.data.childRegisters;
+          this.kysmartChildrenTasks = result.data.object.childRegisters;
+          console.log(result.data.object.attributeHourValue);
 
           // Esforço
-          this.form.value.duration = result.data.attributeHourValue;
+          this.form.controls.duration.setValue(result.data.object.attributeHourValue);
         }
      });
   }
