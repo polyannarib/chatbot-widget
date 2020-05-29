@@ -171,4 +171,11 @@ export class TaskDetailsComponent implements OnInit {
     return true;
   }
 
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    const dateNow = new Date();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6 && d >= dateNow;
+  }
+
 }
