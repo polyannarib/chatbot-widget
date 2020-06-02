@@ -150,7 +150,6 @@ export class TaskDetailsComponent implements OnInit {
       if(result.attachmentValid == true) {
         this.form.value.links.push(result.attachment);
       }
-      return;
     });
   }
 

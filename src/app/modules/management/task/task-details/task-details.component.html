@@ -26,7 +26,7 @@
 
       <div *ngIf="type.definition == 'EXECUTAVEL'">
         <mat-form-field>
-          <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="expectedAt" formControlName="expectedAt" placeholder="Data prevista inicio">
+          <input matInput [matDatepicker]="expectedAt" formControlName="expectedAt" placeholder="Data prevista inicio">
           <mat-datepicker-toggle matSuffix [for]="expectedAt"></mat-datepicker-toggle>
           <mat-datepicker #expectedAt></mat-datepicker>
         </mat-form-field>
