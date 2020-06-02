@@ -24,11 +24,13 @@
         </mat-radio-group>
       </div> -->
 
+      <div class="col m12 s12" *ngIf="!playerRated && !playerAvailable && !playerAvailableOverGroup">
+        <app-count>Sem recursos no momento</app-count>
+      </div>
       
-      
-      <div class="col m4 offset-m2 s12">
-        <app-count *ngIf="!playerRated">Sem recursos no momento</app-count>
-        <div *ngIf="playerRated">
+      <div class="col m4 s12" *ngIf="playerRated.length > 0">
+        <!-- <app-count *ngIf="!playerRated">Sem recursos no momento</app-count> -->
+        <!-- <div *ngIf="playerRated"> -->
           <div class="input-field">
             <input matInput (input)="onSearchChange($event.target.value)" id="findPlayerRated" value="" class="validate">
             <label for="findPlayerRated">Recursos disponíveis com carta</label>
@@ -40,12 +42,12 @@
               </span>
             </mat-radio-button>
           </mat-radio-group>
-        </div>
+        <!-- </div> -->
       </div>
 
-      <div class="col s12 m4">
-        <app-count *ngIf="!playerAvailable">Sem recursos no momento</app-count>
-        <div *ngIf="playerAvailable">
+      <div class="col s12 m4" *ngIf="playerAvailable.length > 0">
+        <!-- <app-count *ngIf="!playerAvailable">Sem recursos no momento</app-count> -->
+        <!-- <div *ngIf="playerAvailable"> -->
           <div class="input-field">
             <input matInput (input)="onSearchChange($event.target.value)" id="find" class="validate" placeholder="Recursos disponíveis">
           </div>
@@ -56,7 +58,23 @@
               </span>
             </mat-radio-button>
           </mat-radio-group>
-        </div>
+        <!-- </div> -->
+      </div>
+
+      <div class="col s12 m4" *ngIf="playerAvailableOverGroup.length > 0">
+        <!-- <app-count *ngIf="!playerAvailableOverGroup">Sem recursos no momento</app-count> -->
+        <!-- <div *ngIf="playerAvailableOverGroup"> -->
+          <div class="input-field">
+            <input matInput (input)="onSearchChange($event.target.value)" id="find" class="validate" placeholder="Recursos disponíveis">
+          </div>
+          <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="playerSelect">
+            <mat-radio-button class="example-radio-button" *ngFor="let player of playerAvailableOverGroupFilter" [value]="player.id">
+              <span class="radio-text valign-wrapper">{{ player.name }}
+                <i class="material-icons tiny green-text ml-5">event_available</i>
+              </span>
+            </mat-radio-button>
+          </mat-radio-group>
+        <!-- </div> -->
       </div>
 
       <!-- <div class="col s12 m4">
