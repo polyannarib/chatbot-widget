@@ -95,10 +95,11 @@ export class TaskDetailsComponent implements OnInit {
       this.taskService.createTask(this.form.value).subscribe(
         (response) => {
           if (response.status == 0) {
-            if(response.object == "TASK_CANT_BE_CHANGE") {
-              this.dialogRef.close({confirm: true});
-              this.loader = false;
-            }
+            // if(response.object == "TASK_CANT_BE_CHANGE") {
+            //   this.dialogRef.close({confirm: true});
+            //   this.loader = false;
+            //   return;
+            // }
             this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Projeto atualizado com sucesso!' }});
             this.dialogRef.close({confirm: true});
             this.loader = false;

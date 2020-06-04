@@ -60,7 +60,7 @@
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <ng-container *ngIf="note?.status != 'REMOVED'">
             <button mat-icon-button disabled></button>
-            <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
+            <button [disabled]="editTaskStatus(node.status)" (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
               <i class="material-icons" style="color:black">edit</i>
             </button>
             <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
@@ -92,7 +92,7 @@
                 {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
               </i>
             </button>
-            <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
+            <button [disabled]="editTaskStatus(node.status)" (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
               <i class="material-icons" style="color:black">edit</i>
             </button>
             <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
