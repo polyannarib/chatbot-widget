@@ -292,4 +292,11 @@ export class ProjectDetailsTaskComponent implements OnInit {
     return true;
   }
 
+  editTaskStatus(status) {
+    if(status == 'WAITING EXECUTION' || status == 'EXECUTION') {
+      return true;
+    }
+    return false;
+  }
+
 }
