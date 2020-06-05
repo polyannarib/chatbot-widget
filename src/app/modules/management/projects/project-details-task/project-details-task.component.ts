@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
 import { ReportEditNoteComponent } from '../../report/report-edit-note/report-edit-note.component';
 import { ReportEditComponent } from '../../report/report-edit/report-edit.component';
 import { FlatTreeControl } from '@angular/cdk/tree';
@@ -11,6 +11,7 @@ import { TaskDetailsComponent } from '../../task/task-details/task-details.compo
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { ProjectCreateComponent } from '../project-create/project-create.component';
 import {Validators} from "@angular/forms";
+import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 
 
 /**
@@ -76,7 +77,8 @@ export class ProjectDetailsTaskComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
     private taskService: TaskService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -163,6 +165,11 @@ export class ProjectDetailsTaskComponent implements OnInit {
   }
 
   editTask(node) {
+    if(node.status == 'WAITING' || node.status == 'EXECUTION') {
+      this._snackBar.openFromComponent(NotifyComponent,
+        { data: { type: 'error', message: 'Não é possivel editar tarefas em andamento' }});
+      return;
+    }
     const dataSend = {
       project: this.data.project,
       task: node
@@ -290,13 +297,6 @@ export class ProjectDetailsTaskComponent implements OnInit {
       return false;
     }
     return true;
-  }
-
-  editTaskStatus(status) {
-    if(status == 'WAITING EXECUTION' || status == 'EXECUTION') {
-      return true;
-    }
-    return false;
   }
 
 }
