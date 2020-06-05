@@ -105,12 +105,16 @@ export class TaskCreateComponent implements OnInit {
       description: this.form.controls.description.value,
     };
 
+    console.log({data, projectId: this.form.controls.projectId.value});
+
     this.taskService.createTask(data).subscribe(
       (responseCreateMother) => {
         if (responseCreateMother.status === 0) {
+          console.log('Criou tarefa mae');
           this.taskService.getTasksByProject(this.form.controls.projectId.value).subscribe(
             (responseTaskMother) => {
               if (responseTaskMother.status === 0) {
+                console.log('Buscou todas as tarefas do projeto ' + this.form.controls.projectId.value);
                 const tasks = responseTaskMother.object;
                 tasks.map(task => {
                   if (task.name === this.form.controls.name.value) {
@@ -124,9 +128,11 @@ export class TaskCreateComponent implements OnInit {
                           duration: taskToCreate.attributeHourValue,
                           expectedAt: this.form.value.expectedAt + taskToCreate.attributeHourValue
                         };
+                        console.log(dataChildren);
                         this.taskService.createTask(dataChildren).subscribe(
                           (responseCreateChildren) => {
                             if (responseCreateChildren.status === 0) {
+                              console.log('Criou tarefa filha');
                               console.log(responseCreateChildren);
                             }
                           }
