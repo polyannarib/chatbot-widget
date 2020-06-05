@@ -64,33 +64,37 @@ export class TaskCreateComponent implements OnInit {
 
   createTask() {
     this.loader = true;
-    if (this.form.valid) {
-      if(this.type.definition == 'EXECUTAVEL') {
-        const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
-        const setTimesStamp = new Date(expectedAt).getTime();
-        this.form.value.expectedAt = setTimesStamp;
-        this.form.value.links = this.attachment;
-      }
-      this.form.value.time = undefined;
-      // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
-      this.form.value.type = this.types.find( element => element.level == this.createNewType )
-      this.taskService.createTask(this.form.value).subscribe(
-        (response) => {
-          if (response.status == 0) {
-            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Projeto atualizado com sucesso!' }});
-            this.dialogRef.close({confirm: true});
-            this.loader = false;
-            return;
-          }
-          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao editar o projeto, favor tentar novamente!' }});
-          this.loader = false;
-        }, (err) => {
-          this.loader = false;
-          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao editar o projeto, favor tentar novamente!' }});
-      })
+    if (this.kysmart) {
+      this.createFromKySmart();
     } else {
-      this.loader = false;
-      this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
+      if (this.form.valid) {
+        if(this.type.definition == 'EXECUTAVEL') {
+          const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
+          const setTimesStamp = new Date(expectedAt).getTime();
+          this.form.value.expectedAt = setTimesStamp;
+          this.form.value.links = this.attachment;
+        }
+        this.form.value.time = undefined;
+        // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
+        this.form.value.type = this.types.find( element => element.level == this.createNewType )
+        this.taskService.createTask(this.form.value).subscribe(
+          (response) => {
+            if (response.status == 0) {
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Projeto atualizado com sucesso!' }});
+              this.dialogRef.close({confirm: true});
+              this.loader = false;
+              return;
+            }
+            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao editar o projeto, favor tentar novamente!' }});
+            this.loader = false;
+          }, (err) => {
+            this.loader = false;
+            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao editar o projeto, favor tentar novamente!' }});
+          })
+      } else {
+        this.loader = false;
+        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
+      }
     }
   }
 
