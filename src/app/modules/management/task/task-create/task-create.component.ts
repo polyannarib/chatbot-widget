@@ -100,6 +100,14 @@ export class TaskCreateComponent implements OnInit {
 
   createFromKySmart() {
     this.loader = true;
+    if(this.type.definition == 'EXECUTAVEL') {
+      const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
+      const setTimesStamp = new Date(expectedAt).getTime();
+      this.form.value.expectedAt = setTimesStamp;
+      this.form.value.links = this.attachment;
+    }
+    this.form.value.time = undefined;
+    this.form.value.type = this.types.find( element => element.level === this.createNewType );
     const data = {
       name: this.form.controls.name.value,
       description: this.form.controls.description.value,
