@@ -107,7 +107,7 @@ export class TaskCreateComponent implements OnInit {
       this.form.value.links = this.attachment;
     }
     this.form.value.time = undefined;
-    this.form.value.type = this.types.find( element => element.level === this.createNewType );
+    this.form.controls.type.setValue(this.types.find( element => element.level === this.createNewType ));
     const data = {
       name: this.form.controls.name.value,
       description: this.form.controls.description.value,
@@ -116,6 +116,7 @@ export class TaskCreateComponent implements OnInit {
       type: this.form.controls.type.value
     };
 
+    console.log(this.types);
     console.log({data, projectId: this.form.controls.projectId.value});
 
     this.taskService.createTask(data).subscribe(
@@ -232,7 +233,6 @@ export class TaskCreateComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          console.log(result.data);
           this.kysmart = true;
           this.kysmartChildrenTasks = result.data.object.childRegisters;
           console.log(result.data.object.attributeHourValue);
