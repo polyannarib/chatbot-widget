@@ -124,6 +124,7 @@ export class TaskCreateComponent implements OnInit {
       (responseCreateMother) => {
         if (responseCreateMother.status === 0) {
           console.log('Criou tarefa mae');
+          console.log(responseCreateMother);
           this.taskService.getTasksByProject(this.form.controls.projectId.value).subscribe(
             (responseTaskMother) => {
               if (responseTaskMother.status === 0) {
