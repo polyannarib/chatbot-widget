@@ -128,8 +128,8 @@ export class TaskCreateComponent implements OnInit {
             (responseTaskMother) => {
               if (responseTaskMother.status === 0) {
                 console.log('Buscou todas as tarefas do projeto ' + this.form.controls.projectId.value);
-                const tasks = responseTaskMother.object.tasksSons;
-                console.log(responseTaskMother.object);
+                const tasks = responseTaskMother.object[0].tasksSons;
+                console.log(responseTaskMother.object[0]);
                 console.log(responseTaskMother.object.tasksSons);
                 tasks.map(task => {
                   if (task.name === this.form.controls.name.value) {
