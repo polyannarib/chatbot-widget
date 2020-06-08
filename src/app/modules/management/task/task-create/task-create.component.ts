@@ -117,6 +117,7 @@ export class TaskCreateComponent implements OnInit {
     };
 
     console.log(this.types);
+    console.log(this.form);
     console.log({data, projectId: this.form.controls.projectId.value});
 
     this.taskService.createTask(data).subscribe(
