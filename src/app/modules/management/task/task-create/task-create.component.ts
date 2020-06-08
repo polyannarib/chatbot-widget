@@ -129,8 +129,7 @@ export class TaskCreateComponent implements OnInit {
             (responseTaskMother) => {
               if (responseTaskMother.status === 0) {
                 console.log('Buscou todas as tarefas do projeto ' + this.form.controls.projectId.value);
-                const tasks = responseTaskMother.object;
-                console.log(responseTaskMother);
+                const tasks = responseTaskMother.object.tasksSons;
                 tasks.map(task => {
                   if (task.name === this.form.controls.name.value) {
                     this.kysmartChildrenTasks.map(taskToCreate => {
