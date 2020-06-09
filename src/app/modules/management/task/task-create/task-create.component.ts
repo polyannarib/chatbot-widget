@@ -124,53 +124,33 @@ export class TaskCreateComponent implements OnInit {
       (responseCreateMother) => {
         if (responseCreateMother.status === 0) {
           console.log('Criou tarefa mae');
-          console.log(responseCreateMother.object);
-          this.taskService.getTasksByProject(this.form.controls.projectId.value).subscribe(
-            (responseTaskMother) => {
-              if (responseTaskMother.status === 0) {
-                console.log('Buscou todas as tarefas do projeto ' + this.form.controls.projectId.value);
-                const tasks = responseTaskMother.object[0].tasksSons;
-                console.log(responseTaskMother.object[0]);
-                console.log(responseTaskMother.object.tasksSons);
-                tasks.map(task => {
-                  if (task.name === this.form.controls.name.value) {
-                    this.kysmartChildrenTasks.map(taskToCreate => {
-                      if (taskToCreate.attributeId === 25 ||
-                          taskToCreate.attributeId === 27 ||
-                          taskToCreate.attributeId === 29 ||
-                          taskToCreate.attributeId === 32) {
-                        const dataChildren = {
-                          name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
-                          duration: taskToCreate.attributeHourValue,
-                          expectedAt: this.form.value.expectedAt + taskToCreate.attributeHourValue,
-                          projectId: this.form.controls.projectId.value,
-                          parentId: task.id,
-                          type: this.form.controls.type.value
-                        };
-                        console.log(dataChildren);
-                        this.taskService.createTask(dataChildren).subscribe(
-                          (responseCreateChildren) => {
-                            if (responseCreateChildren.status === 0) {
-                              console.log('Criou tarefa filha');
-                              console.log(responseCreateChildren);
-                            }
-                          }
-                        );
-                      }
-                    });
-                    this.loader = false;
-                    console.log('tasks filhas criadas');
-                    return;
-                  } else {
-                    this.loader = false;
-                    this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao pesquisar tarefa mãe!' }});
+          const taskMother = responseCreateMother.object;
+          this.kysmartChildrenTasks.map(taskToCreate => {
+            if (taskToCreate.attributeId === 25 ||
+              taskToCreate.attributeId === 27 ||
+              taskToCreate.attributeId === 29 ||
+              taskToCreate.attributeId === 32) {
+              const dataChildren = {
+                name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
+                duration: taskToCreate.attributeHourValue,
+                expectedAt: this.form.value.expectedAt + taskToCreate.attributeHourValue,
+                projectId: this.form.controls.projectId.value,
+                parentId: taskMother.id,
+                type: this.form.controls.type.value
+              };
+              console.log(dataChildren);
+              this.taskService.createTask(dataChildren).subscribe(
+                (responseCreateChildren) => {
+                  if (responseCreateChildren.status === 0) {
+                    console.log('Criou tarefa filha ' + responseCreateChildren.object.id);
+                    console.log(responseCreateChildren);
                   }
-                });
-              }
-            }, (err) => {
-              this.loader = false;
+                }
+              );
             }
-          );
+          });
+          this.loader = false;
+          return;
         }
       }, (err) => {
         this.loader = false;
