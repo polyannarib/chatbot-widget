@@ -133,10 +133,13 @@ export class TaskCreateComponent implements OnInit {
               const dataChildren = {
                 name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
                 duration: taskToCreate.attributeHourValue,
-                expectedAt: this.form.value.expectedAt + taskToCreate.attributeHourValue,
+                expectedAt: this.form.value.expectedAt,
                 projectId: this.form.controls.projectId.value,
                 parentId: taskMother.id,
-                type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'}
+                type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
+                card: null,
+                description: this.form.controls.description.value,
+                links: []
               };
               console.log(dataChildren);
               this.taskService.createTask(dataChildren).subscribe(
