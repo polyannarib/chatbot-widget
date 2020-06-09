@@ -4,6 +4,7 @@ import { ConfirmComponent } from 'src/app/shared/components/modal/confirm/confir
 import { MatDialog, PageEvent } from '@angular/material';
 import { ProjectEditComponent } from '../project-edit/project-edit.component';
 import { ProfileService } from 'src/app/core/services/profile.service';
+import { ProjectCreateComponent } from '../project-create/project-create.component';
 
 @Component({
   selector: 'app-project-import',
@@ -76,12 +77,16 @@ export class ProjectImportComponent implements OnInit {
 
   openConfirm(project) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
-      width: '50vw'
+      width: '500px'
     });
     dialogRef.afterClosed().subscribe(
       (result) => {
         if(result.confirm == true) {
-          this.importProjectWorkplayer(project);
+          const getProjectWorkgroup = result.workgroupId;
+          const getProjectManager = result.managerId;
+          project.team = { id: getProjectWorkgroup }
+          project.projectManager = { personId: getProjectManager }
+          this.importProjectWorkplayer(project) ;
         }
     });
   }
@@ -92,7 +97,7 @@ export class ProjectImportComponent implements OnInit {
       (response) => {
         // console.log(response);
         if(response.status == 0) {
-          this.projectEditAndSave(project);
+          this.projectEditAndSave(response.object);
           this.loader = false;
           return;
         }
@@ -105,9 +110,10 @@ export class ProjectImportComponent implements OnInit {
 
   projectEditAndSave(project) {
     const dataSend = {
+      type: "edit",
       project: project
     }
-    const dialogRef = this.dialog.open(ProjectEditComponent, {
+    const dialogRef = this.dialog.open(ProjectCreateComponent, {
       width: '600px',
       data: dataSend
     });
@@ -167,7 +173,6 @@ export class ProjectImportComponent implements OnInit {
       this.getProjects({ page: this.page, pageSize: 20, name: this.projectName });
       return;
     }
-    alert('Digite algo')
   }
 
 }
