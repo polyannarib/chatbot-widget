@@ -147,12 +147,16 @@ export class TaskCreateComponent implements OnInit {
                   if (responseCreateChildren.status === 0) {
                     console.log('Criou tarefa filha ' + responseCreateChildren.object.id);
                     console.log(responseCreateChildren);
+                    this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
+                    this.loader = false;
+                    return;
                   }
                 }
               );
             }
           });
           this.loader = false;
+          this.dialogRef.close({confirm: true});
           return;
         }
       }, (err) => {
