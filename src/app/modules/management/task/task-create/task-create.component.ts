@@ -64,50 +64,73 @@ export class TaskCreateComponent implements OnInit {
 
   createTask() {
     this.loader = true;
-    if (this.form.valid) {
-      if(this.type.definition == 'EXECUTAVEL') {
-        const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
-        const setTimesStamp = new Date(expectedAt).getTime();
-        this.form.value.expectedAt = setTimesStamp;
-        this.form.value.links = this.attachment;
-      }
-      this.form.value.time = undefined;
-      // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
-      this.form.value.type = this.types.find( element => element.level == this.createNewType )
-      this.taskService.createTask(this.form.value).subscribe(
-        (response) => {
-          if (response.status == 0) {
-            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Projeto atualizado com sucesso!' }});
-            this.dialogRef.close({confirm: true});
-            this.loader = false;
-            return;
-          }
-          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao editar o projeto, favor tentar novamente!' }});
-          this.loader = false;
-        }, (err) => {
-          this.loader = false;
-          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao editar o projeto, favor tentar novamente!' }});
-      })
+    if (this.kysmart) {
+      this.createFromKySmart();
     } else {
-      this.loader = false;
-      this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
+      if (this.form.valid) {
+        if(this.type.definition == 'EXECUTAVEL') {
+          const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
+          const setTimesStamp = new Date(expectedAt).getTime();
+          this.form.value.expectedAt = setTimesStamp;
+          this.form.value.links = this.attachment;
+        }
+        this.form.value.time = undefined;
+        // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
+        this.form.value.type = this.types.find( element => element.level == this.createNewType )
+        this.taskService.createTask(this.form.value).subscribe(
+          (response) => {
+            if (response.status == 0) {
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Projeto atualizado com sucesso!' }});
+              this.dialogRef.close({confirm: true});
+              this.loader = false;
+              return;
+            }
+            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao editar o projeto, favor tentar novamente!' }});
+            this.loader = false;
+          }, (err) => {
+            this.loader = false;
+            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao editar o projeto, favor tentar novamente!' }});
+          })
+      } else {
+        this.loader = false;
+        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
+      }
     }
   }
 
   createFromKySmart() {
     this.loader = true;
+    if(this.type.definition == 'EXECUTAVEL') {
+      const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
+      const setTimesStamp = new Date(expectedAt).getTime();
+      this.form.value.expectedAt = setTimesStamp;
+      this.form.value.links = this.attachment;
+    }
+    this.form.value.time = undefined;
+    this.form.controls.type.setValue(this.types.find( element => element.level === this.createNewType ));
     const data = {
       name: this.form.controls.name.value,
       description: this.form.controls.description.value,
+      projectId: this.form.controls.projectId.value,
+      parentId: this.form.controls.parentId.value,
+      type: this.form.controls.type.value
     };
+
+    console.log(this.types);
+    console.log(this.form);
+    console.log({data, projectId: this.form.controls.projectId.value});
 
     this.taskService.createTask(data).subscribe(
       (responseCreateMother) => {
         if (responseCreateMother.status === 0) {
+          console.log('Criou tarefa mae');
           this.taskService.getTasksByProject(this.form.controls.projectId.value).subscribe(
             (responseTaskMother) => {
               if (responseTaskMother.status === 0) {
-                const tasks = responseTaskMother.object;
+                console.log('Buscou todas as tarefas do projeto ' + this.form.controls.projectId.value);
+                const tasks = responseTaskMother.object[0].tasksSons;
+                console.log(responseTaskMother.object[0]);
+                console.log(responseTaskMother.object.tasksSons);
                 tasks.map(task => {
                   if (task.name === this.form.controls.name.value) {
                     this.kysmartChildrenTasks.map(taskToCreate => {
@@ -118,11 +141,16 @@ export class TaskCreateComponent implements OnInit {
                         const dataChildren = {
                           name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
                           duration: taskToCreate.attributeHourValue,
-                          expectedAt: this.form.value.expectedAt + taskToCreate.attributeHourValue
+                          expectedAt: this.form.value.expectedAt + taskToCreate.attributeHourValue,
+                          projectId: this.form.controls.projectId.value,
+                          parentId: task.id,
+                          type: this.form.controls.type.value
                         };
+                        console.log(dataChildren);
                         this.taskService.createTask(dataChildren).subscribe(
                           (responseCreateChildren) => {
                             if (responseCreateChildren.status === 0) {
+                              console.log('Criou tarefa filha');
                               console.log(responseCreateChildren);
                             }
                           }
@@ -208,7 +236,6 @@ export class TaskCreateComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          console.log(result.data);
           this.kysmart = true;
           this.kysmartChildrenTasks = result.data.object.childRegisters;
           console.log(result.data.object.attributeHourValue);
@@ -217,6 +244,13 @@ export class TaskCreateComponent implements OnInit {
           this.form.controls.duration.setValue(result.data.object.attributeHourValue);
         }
      });
+  }
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    const dateNow = new Date();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6 && d >= dateNow;
   }
 
   // inputHidden() {

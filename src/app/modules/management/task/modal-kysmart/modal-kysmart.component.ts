@@ -40,11 +40,10 @@ export class ModalKysmartComponent implements OnInit {
     this.taskService.callRegisterItemKySmart().subscribe(
       (response) => {
         this.loader = false;
-        console.log(response);
-        // const object = response.object;
-        // this.registerItemId = object.registerItemId;
-        // this.urlIframe = this.urlIframe + this.registerItemId.toString();
-        // this.iframe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlIframe);
+        const object = response.object;
+        this.registerItemId = object.registerItemId;
+        this.urlIframe = this.urlIframe + this.registerItemId.toString();
+        this.iframe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlIframe);
       },
       (err) => {
         this.loader = false;

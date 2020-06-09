@@ -95,6 +95,11 @@ export class TaskDetailsComponent implements OnInit {
       this.taskService.createTask(this.form.value).subscribe(
         (response) => {
           if (response.status == 0) {
+            // if(response.object == "TASK_CANT_BE_CHANGE") {
+            //   this.dialogRef.close({confirm: true});
+            //   this.loader = false;
+            //   return;
+            // }
             this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Projeto atualizado com sucesso!' }});
             this.dialogRef.close({confirm: true});
             this.loader = false;
@@ -150,7 +155,6 @@ export class TaskDetailsComponent implements OnInit {
       if(result.attachmentValid == true) {
         this.form.value.links.push(result.attachment);
       }
-      return;
     });
   }
 
@@ -169,6 +173,13 @@ export class TaskDetailsComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    const dateNow = new Date();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6 && d >= dateNow;
   }
 
 }

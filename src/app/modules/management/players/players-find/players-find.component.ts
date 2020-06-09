@@ -31,6 +31,8 @@ export class PlayersFindComponent implements OnInit {
   playerAvailable: any;
   playerAvailableFilter: any;
   playerAllocated: any;
+  playerAvailableOverGroup: any;
+  playerAvailableOverGroupFilter: any;
 
   constructor(
     private playerService: PlayerService,
@@ -60,7 +62,10 @@ export class PlayersFindComponent implements OnInit {
 
         this.playerAvailable = response.object.available;
         this.playerAvailableFilter = this.playerAvailable;
-
+        
+        this.playerAvailableOverGroup = response.object.availableOverGroup;
+        this.playerAvailableOverGroupFilter = this.playerAvailableOverGroup;
+        
         this.onSearchChange('');
 
         this.loader = false;
@@ -93,7 +98,7 @@ export class PlayersFindComponent implements OnInit {
   }
 
   onSearchChange(searchValue: string): void {
-    if(this.playerRated != null){
+    if(this.playerRated != null) {
       this.playerRatedFilter = this.playerRated.filter(
         (curr) => {
           return curr.name.toUpperCase().includes(searchValue.toUpperCase());
@@ -101,13 +106,21 @@ export class PlayersFindComponent implements OnInit {
       )
       this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
     }
-    if(this.playerAvailable != null){
+    if(this.playerAvailable != null) {
       this.playerAvailableFilter = this.playerAvailable.filter(
         (curr) => {
           return curr.name.toUpperCase().includes(searchValue.toUpperCase());
         }
       )
       this.playerAvailableFilter.splice(5,this.playerAvailableFilter.length);
+    }
+    if(this.playerAvailableOverGroup != null) {
+      this.playerAvailableOverGroupFilter = this.playerAvailableOverGroup.filter(
+        (curr) => {
+          return curr.name.toUpperCase().includes(searchValue.toUpperCase());
+        }
+      )
+      this.playerAvailableOverGroupFilter.splice(5,this.playerAvailableOverGroupFilter.length);
     }
   }
 
