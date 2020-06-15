@@ -73,4 +73,9 @@ export class TaskService {
   callRegisterItemIdKySmart(id): Observable<any> {
     return this.http.get(`${environment.back_end_kysmart}/registerItem/${id}`);
   }
+
+  cardRemoved(taskId, cardId): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/${taskId}/removeCard/${cardId}`);
+  }
+
 }
