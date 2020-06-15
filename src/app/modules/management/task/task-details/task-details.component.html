@@ -61,23 +61,15 @@
         </mat-select>
       </mat-form-field>  -->
 
-      <ul class="collection" *ngIf="type.definition == 'EXECUTAVEL'">
-        <label *ngIf="cardSelect">Cartas</label>
-        <li *ngIf="cardSelect" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
+      <ul class="collection" *ngIf="type.definition == 'EXECUTAVEL' && cards.length > 0">
+        <label *ngIf="cards.length > 0">Cartas</label>
+        <li *ngFor="let card of cards" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
           <div>
-            {{ cardSelect.cardName }}
-            <a (click)="removeCard()" class="secondary-content"><i class="material-icons">close</i></a>
+            {{ card.cardName }}
+            <a (click)="removeCard(card)" class="secondary-content"><i class="material-icons">close</i></a>
           </div>
         </li>
       </ul>
-
-      <!-- <div class="attachment" *ngIf="form.value.links && type.definition == 'EXECUTAVEL'">
-        <label>Anexos</label>
-        <mat-chip *ngFor="let item of form.value.links">
-          <a target="_blank" href="{{ item.url }}"><i class="material-icons">attach_file</i></a>
-          <a (click)="removeCard()" class="secondary-content"><i class="material-icons">close</i></a>
-        </mat-chip>
-      </div> -->
 
       <ul class="collection" *ngIf="form.value.links.length > 0 && type.definition == 'EXECUTAVEL'">
         <label *ngIf="form.value.links.length > 0">Anexos</label>

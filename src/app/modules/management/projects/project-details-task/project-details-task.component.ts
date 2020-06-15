@@ -112,7 +112,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
       id: node.id,
       allocated: node.allocated ? node.allocated : '',
       effort: node.effort ? node.effort : '',
-      card: node.card ? node.card : null,
+      cards: node.cards,
       status: node.status,
       type: node.type,
       description: node.description ? node.description : '',
@@ -272,8 +272,12 @@ export class ProjectDetailsTaskComponent implements OnInit {
   }
 
   getCardName(card?) {
-    if(card && card != null) {
-      return card.cardName;
+    console.log('--------------------')
+    console.log('----- cardName -----')
+    console.log(card)
+    if(card && card != []) {
+      const nameCard = card.map(element => element.cardName);
+      return nameCard.join(', ');
     }
     return '';
   }
