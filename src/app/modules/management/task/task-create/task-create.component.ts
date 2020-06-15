@@ -109,52 +109,64 @@ export class TaskCreateComponent implements OnInit {
 
   createFromKySmart() {
     this.loader = true;
+    if(this.type.definition == 'EXECUTAVEL') {
+      const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
+      const setTimesStamp = new Date(expectedAt).getTime();
+      this.form.value.expectedAt = setTimesStamp;
+      this.form.value.links = this.attachment;
+    }
+    this.form.value.time = undefined;
+    this.form.controls.type.setValue(this.types.find( element => element.level === this.createNewType ));
     const data = {
       name: this.form.controls.name.value,
       description: this.form.controls.description.value,
+      projectId: this.form.controls.projectId.value,
+      parentId: this.form.controls.parentId.value,
+      type: this.form.controls.type.value
     };
+
+    console.log(this.types);
+    console.log(this.form);
+    console.log({data, projectId: this.form.controls.projectId.value});
 
     this.taskService.createTask(data).subscribe(
       (responseCreateMother) => {
         if (responseCreateMother.status === 0) {
-          this.taskService.getTasksByProject(this.form.controls.projectId.value).subscribe(
-            (responseTaskMother) => {
-              if (responseTaskMother.status === 0) {
-                const tasks = responseTaskMother.object;
-                tasks.map(task => {
-                  if (task.name === this.form.controls.name.value) {
-                    this.kysmartChildrenTasks.map(taskToCreate => {
-                      if (taskToCreate.attributeId === 25 ||
-                          taskToCreate.attributeId === 27 ||
-                          taskToCreate.attributeId === 29 ||
-                          taskToCreate.attributeId === 32) {
-                        const dataChildren = {
-                          name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
-                          duration: taskToCreate.attributeHourValue,
-                          expectedAt: this.form.value.expectedAt + taskToCreate.attributeHourValue
-                        };
-                        this.taskService.createTask(dataChildren).subscribe(
-                          (responseCreateChildren) => {
-                            if (responseCreateChildren.status === 0) {
-                              console.log(responseCreateChildren);
-                            }
-                          }
-                        );
-                      }
-                    });
+          console.log('Criou tarefa mae');
+          const taskMother = responseCreateMother.object;
+          this.kysmartChildrenTasks.map(taskToCreate => {
+            if (taskToCreate.attributeId === 25 ||
+              taskToCreate.attributeId === 27 ||
+              taskToCreate.attributeId === 29 ||
+              taskToCreate.attributeId === 32) {
+              const dataChildren = {
+                name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
+                duration: taskToCreate.attributeHourValue,
+                expectedAt: this.form.value.expectedAt,
+                projectId: this.form.controls.projectId.value,
+                parentId: taskMother.id,
+                type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
+                card: null,
+                description: this.form.controls.description.value,
+                links: []
+              };
+              console.log(dataChildren);
+              this.taskService.createTask(dataChildren).subscribe(
+                (responseCreateChildren) => {
+                  if (responseCreateChildren.status === 0) {
+                    console.log('Criou tarefa filha ' + responseCreateChildren.object.id);
+                    console.log(responseCreateChildren);
+                    this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
                     this.loader = false;
-                    console.log('tasks filhas criadas');
                     return;
-                  } else {
-                    this.loader = false;
-                    this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao pesquisar tarefa mãe!' }});
                   }
-                });
-              }
-            }, (err) => {
-              this.loader = false;
+                }
+              );
             }
-          );
+          });
+          this.loader = false;
+          this.dialogRef.close({confirm: true});
+          return;
         }
       }, (err) => {
         this.loader = false;
