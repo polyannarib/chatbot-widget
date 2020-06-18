@@ -137,7 +137,7 @@ export class TaskCreateComponent implements OnInit {
                 projectId: this.form.controls.projectId.value,
                 parentId: taskMother.id,
                 type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
-                card: null,
+                cards: [],
                 description: this.form.controls.description.value,
                 links: []
               };
