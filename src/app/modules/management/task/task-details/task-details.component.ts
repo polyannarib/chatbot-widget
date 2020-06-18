@@ -6,6 +6,7 @@ import { ProfileService } from 'src/app/core/services/profile.service';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 import { CardFindComponent } from '../../card/card-find/card-find.component';
 import { AttachmentComponent } from 'src/app/shared/components/modal/attachment/attachment.component';
+import {ModalKysmartComponent} from "../modal-kysmart/modal-kysmart.component";
 
 @Component({
   selector: 'app-task-details',
@@ -15,20 +16,24 @@ import { AttachmentComponent } from 'src/app/shared/components/modal/attachment/
 export class TaskDetailsComponent implements OnInit {
 
   loader: boolean = false;
+  kysmart: boolean = false;
+  kysmartChildrenTasks: any = [];
   mainStyle = this.profileService.getAppMainColor();
   secoundStyle = this.profileService.getAppSecondaryColor();
-  card: any = (this.data.task.card != null) ? this.isCardSelect(this.data.task.card.cardId) : null;
+  // card: any = (this.data.task.card != null) ? this.isCardSelect(this.data.task.card.cardId) : null;
   cardSelect: any = this.data.task.card;
   type: any = this.data.task.type;
   nameTaskParent = this.data.task.name;
   types: any;
   times = new Date(this.data.task.expectedAt).getHours();
+  classificationId: any;
+  cards: any[] = this.data.task.cards;
   form: FormGroup = this.formBuilder.group({
     id: [this.data.task.id],
     name: [this.data.task.name, [Validators.required]],
     description: [this.data.task.description],
     duration: [this.data.task.duration],
-    card: [this.card],
+    cards: [this.cards],
     expectedAt: [new Date(this.data.task.expectedAt)],
     time: [new Date(this.data.task.expectedAt).getHours()],
     effort: [this.data.task.effort],
@@ -80,15 +85,24 @@ export class TaskDetailsComponent implements OnInit {
         const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
         const setTimesStamp = new Date(expectedAt).getTime();
         this.form.value.expectedAt = setTimesStamp;
+        this.form.value.cards = this.cards;
+        // this.form.value.cards = this.cards.map(element => new Object({ 
+        //   cardId: element.knowledgeId,
+        //   classification: { id: this.classificationId }
+        // }));
         // this.form.value.links = this.attachment;
+        // this.form.value.cards = this.cards.map(element => new Object({ 
+        //   cardId: element.knowledgeId,
+        //   classification: { id: this.classificationId }
+        // }));
       }
       // const expectedAt = new Date(this.form.value.expectedAt).getTime();
       // this.form.value.expectedAt = expectedAt;
-      if(this.cardSelect == null) {
-        this.form.value.card = null
-      } else {
-        this.form.value.card = this.card;
-      }
+      // if(this.cardSelect == null) {
+      //   this.form.value.card = null
+      // } else {
+      //   this.form.value.card = this.card;
+      // }
       // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
       // this.form.value.type = this.types.find( element => element.level == this.data.nodeType.level + 1 )
       this.form.value.time = undefined;
@@ -117,29 +131,80 @@ export class TaskDetailsComponent implements OnInit {
     }
   }
 
+  createFromKySmart() {
+    this.loader = true;
+    if (this.type.definition == 'EXECUTAVEL') {
+      const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
+      const setTimesStamp = new Date(expectedAt).getTime();
+      this.form.value.expectedAt = setTimesStamp;
+    }
+
+    this.kysmartChildrenTasks.map(taskToCreate => {
+      if (taskToCreate.attributeId === 25 ||
+        taskToCreate.attributeId === 27 ||
+        taskToCreate.attributeId === 29 ||
+        taskToCreate.attributeId === 32) {
+        const dataChildren = {
+          name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
+          duration: taskToCreate.attributeHourValue,
+          expectedAt: this.form.value.expectedAt,
+          projectId: this.form.controls.projectId.value,
+          parentId: this.data.task.id,
+          type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
+          card: this.form.value.card,
+          description: this.form.controls.description.value,
+          links: this.form.value.links
+        };
+        this.taskService.createTask(dataChildren).subscribe(
+          (responseCreateChildren) => {
+            if (responseCreateChildren.status === 0) {
+              console.log('Criou tarefa filha ' + responseCreateChildren.object.id);
+              console.log(responseCreateChildren);
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
+              this.loader = false;
+              return;
+            }
+          }
+        );
+      }
+    });
+    this.loader = false;
+    this.dialogRef.close({confirm: true});
+    return;
+  }
+
   addCard() {
-    // const dataSend = {
-    //   project: this.data.project
-    // }
+    const dataSend = this.cards;
     const dialogRef = this.dialog.open(CardFindComponent, {
       width: '400px',
-      // data: dataSend
+      data: dataSend
     });
     dialogRef.afterClosed().subscribe(
     (result) => {
-      if(result && result.knowledgeId) {        
-        this.card = { cardId: result.knowledgeId };
-        this.cardSelect = {
-          cardName: result.name,
-          id: result.knowledgeId
-        };
-        // this.form.value.card = { cardId: this.card.knowledgeId };
-      } else {
-        this.card = null
-        this.cardSelect = null;
+      if(result.confirm == true && result.card) {
+        this.cards.push(result.card);
       }
     });
   }
+
+  // addCard() {
+  //   const dialogRef = this.dialog.open(CardFindComponent, {
+  //     width: '400px',
+  //   });
+  //   dialogRef.afterClosed().subscribe(
+  //   (result) => {
+  //     if(result && result.knowledgeId) {        
+  //       this.card = { cardId: result.knowledgeId };
+  //       this.cardSelect = {
+  //         cardName: result.name,
+  //         id: result.knowledgeId
+  //       };
+  //     } else {
+  //       this.card = null
+  //       this.cardSelect = null;
+  //     }
+  //   });
+  // }
 
   setAttachment() {
     const dataSend = {
@@ -158,9 +223,20 @@ export class TaskDetailsComponent implements OnInit {
     });
   }
 
-  removeCard() {
-    if(this.cardSelect) {
-      this.cardSelect = null;
+  removeCard(card) {
+    if(card.root) {
+      this.taskService.cardRemoved(this.data.task.id, card.cardId).subscribe(
+        (response) => {
+          if (response.status == 0) {
+            this.cards = response.object.cards;
+          }
+        });
+    } else {
+      this.cards.forEach((element, position) => {
+        if(element.cardId == card.cardId) {
+          this.cards.splice(position, this.cards.length)
+        }
+      });
     }
   }
 
@@ -173,6 +249,24 @@ export class TaskDetailsComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  openCalculator() {
+    const dialogRef = this.dialog.open(ModalKysmartComponent, {
+      width: '1200px',
+      // data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.kysmart = true;
+          this.kysmartChildrenTasks = result.data.object.childRegisters;
+          console.log(result.data.object.attributeHourValue);
+
+          // Esforço
+          this.form.controls.duration.setValue(result.data.object.attributeHourValue);
+        }
+      });
   }
 
   myFilter = (d: Date | null): boolean => {

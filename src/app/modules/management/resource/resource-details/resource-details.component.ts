@@ -59,4 +59,12 @@ export class ResourceDetailsComponent implements OnInit {
     }
   }
 
+  getCardName(cards): string {
+    if(cards && cards != []) {
+      const nameCard = cards.map(element => element.cardName);
+      return nameCard.join(', ');
+    }
+    return '';
+  }
+
 }

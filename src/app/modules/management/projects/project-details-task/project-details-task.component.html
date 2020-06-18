@@ -77,7 +77,7 @@
                   <td> <span [ngStyle]="{'background-color': secoundStyle}"> {{ node.type.name }} </span> {{ node.name }}</td>
                   <td class="maxWidth">{{ node.expectedAt | date:'dd/MM/yyyy' }}</td>
                   <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
-                  <td class="maxWidth">{{ getCardName(node.card) }}</td>
+                  <td class="maxWidth">{{ getCardName(node.cards) }}</td>
                   <td class="maxWidth">{{ node.player?.name }}</td>
                   <td class="maxWidth">{{ node.duration }}</td>
                 </tr>

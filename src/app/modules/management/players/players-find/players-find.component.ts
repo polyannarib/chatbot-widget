@@ -17,6 +17,7 @@ export class PlayersFindComponent implements OnInit {
   @Input() taskId: number;
   @Input() dataInicial: any;
   @Input() dataFim: any;
+  @Input() cards: any;
 
   loader: boolean = false;
   mainStyle = this.profileService.getAppMainColor();
@@ -57,14 +58,14 @@ export class PlayersFindComponent implements OnInit {
         // this.playerAvailableFilter = this.playerAvailable;
         // this.onSearchChange('');
 
-        this.playerRated = response.object.rated;
+        this.playerRated = response.object;
         this.playerRatedFilter = this.playerRated;
 
-        this.playerAvailable = response.object.available;
-        this.playerAvailableFilter = this.playerAvailable;
+        // this.playerAvailable = response.object.map(element => element.onTeam == true);
+        // this.playerAvailableFilter = this.playerAvailable;
         
-        this.playerAvailableOverGroup = response.object.availableOverGroup;
-        this.playerAvailableOverGroupFilter = this.playerAvailableOverGroup;
+        // this.playerAvailableOverGroup = response.object.map(element => element.onTeam == false);
+        // this.playerAvailableOverGroupFilter = this.playerAvailableOverGroup;
         
         this.onSearchChange('');
 
@@ -122,6 +123,31 @@ export class PlayersFindComponent implements OnInit {
       )
       this.playerAvailableOverGroupFilter.splice(5,this.playerAvailableOverGroupFilter.length);
     }
+  }
+
+  selectedFilter(valueFilter) {
+    if(valueFilter == 'playersTeam') {
+      this.playerRatedFilter = this.playerRated.filter(element => element.onTeam == true);
+      this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
+    }
+    if(valueFilter == 'playersCards') {
+      const cards = this.cards.map(element => element.name);
+      this.playerRatedFilter = this.playerRated.filter((element) => {
+        cards.forEach(cardsName => {
+          if(element[cardsName] && element[cardsName] == 1) {
+            return element;
+          }
+        })
+      })
+      this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
+    }
+  }
+
+  playerValid() {
+    if(!this.playerSelect) {
+      return true;
+    }
+    return false;
   }
 
   // -----------------------------------------------
