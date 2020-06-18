@@ -143,6 +143,13 @@ export class PlayersFindComponent implements OnInit {
     }
   }
 
+  playerValid() {
+    if(!this.playerSelect) {
+      return true;
+    }
+    return false;
+  }
+
   // -----------------------------------------------
   // onSearchChange(searchValue: string): void {
   //   this.searchPlayersFilter = this.searchPlayers.filter((element, index) => element.list.map((curr) => { 
