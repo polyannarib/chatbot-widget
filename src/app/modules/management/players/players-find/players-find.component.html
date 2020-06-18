@@ -23,31 +23,45 @@
           </ng-container>
         </mat-radio-group>
       </div> -->
-
-      <div class="col m12 s12" *ngIf="!playerRated && !playerAvailable && !playerAvailableOverGroup">
-        <app-count>Sem recursos no momento</app-count>
-      </div>
       
-      <div class="col m4 s12" *ngIf="playerRated.length > 0">
+      <div class="col offset-m3 m3 s12">
         <!-- <app-count *ngIf="!playerRated">Sem recursos no momento</app-count> -->
         <!-- <div *ngIf="playerRated"> -->
-          <div class="input-field">
-            <input matInput (input)="onSearchChange($event.target.value)" id="findPlayerRated" value="" class="validate">
-            <label for="findPlayerRated">Recursos disponíveis com carta</label>
-          </div>
-          <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="playerSelect">
-            <mat-radio-button class="example-radio-button" *ngFor="let player of playerRatedFilter" [value]="player.id">
-              <span class="radio-text valign-wrapper">{{ player.name }}
-                <i class="material-icons tiny green-text ml-5">event_available</i>
-              </span>
-            </mat-radio-button>
-          </mat-radio-group>
+        <div class="input-field">
+          <input matInput (input)="onSearchChange($event.target.value)" id="findPlayerRated" value="" class="validate">
+          <label for="findPlayerRated">Recursos disponíveis com carta</label>
+        </div>
+      </div>
+        <!-- <div class="input-field"> -->
+      <div class="col m3 s12">
+        <mat-form-field>
+          <mat-label>Filtros</mat-label>
+          <mat-select (selectionChange)="selectedFilter($event.value)">
+            <mat-option value="playersCards">Players com cartas</mat-option>
+            <mat-option value="playersTeam">Players da equipe</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col offset-m4 m4 s12">
+        <div *ngIf="playerRatedFilter.length == 0">
+          <app-count>Sem recursos no momento</app-count>
+        </div>
+
+        <mat-radio-group *ngIf="playerRatedFilter.length > 0" aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="playerSelect">
+          <mat-radio-button class="example-radio-button" *ngFor="let player of playerRatedFilter" [value]="player.id">
+            <span class="radio-text valign-wrapper">{{ player.name }}
+              <i class="material-icons tiny green-text ml-5">event_available</i>
+            </span>
+          </mat-radio-button>
+        </mat-radio-group>
         <!-- </div> -->
       </div>
+    </div>
 
-      <div class="col s12 m4" *ngIf="playerAvailable.length > 0">
-        <!-- <app-count *ngIf="!playerAvailable">Sem recursos no momento</app-count> -->
-        <!-- <div *ngIf="playerAvailable"> -->
+      <!-- <div class="col s12 m4" *ngIf="playerAvailable.length > 0">
           <div class="input-field">
             <input matInput (input)="onSearchChange($event.target.value)" id="find" class="validate" placeholder="Recursos disponíveis">
           </div>
@@ -58,12 +72,9 @@
               </span>
             </mat-radio-button>
           </mat-radio-group>
-        <!-- </div> -->
-      </div>
+      </div> -->
 
-      <div class="col s12 m4" *ngIf="playerAvailableOverGroup.length > 0">
-        <!-- <app-count *ngIf="!playerAvailableOverGroup">Sem recursos no momento</app-count> -->
-        <!-- <div *ngIf="playerAvailableOverGroup"> -->
+      <!-- <div class="col s12 m4" *ngIf="playerAvailableOverGroup.length > 0">
           <div class="input-field">
             <input matInput (input)="onSearchChange($event.target.value)" id="find" class="validate" placeholder="Recursos disponíveis">
           </div>
@@ -74,8 +85,7 @@
               </span>
             </mat-radio-button>
           </mat-radio-group>
-        <!-- </div> -->
-      </div>
+      </div> -->
 
       <!-- <div class="col s12 m4">
         <app-count *ngIf="!playerAvailable">Sem recursos no momento</app-count>
@@ -93,8 +103,6 @@
         </div>
       </div> -->
 
-
-    </div>
     <div class="row">
       <div class="col-xs-12">
         <button [ngStyle]="{'background-color': mainStyle}" (click)="onSubmit()" class="button button-primary right">{{ 'FINISHDESIGNATE' | translate }}</button>
