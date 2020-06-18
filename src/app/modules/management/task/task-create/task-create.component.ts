@@ -125,10 +125,6 @@ export class TaskCreateComponent implements OnInit {
       type: this.form.controls.type.value
     };
 
-    console.log(this.types);
-    console.log(this.form);
-    console.log({data, projectId: this.form.controls.projectId.value});
-
     this.taskService.createTask(data).subscribe(
       (responseCreateMother) => {
         if (responseCreateMother.status === 0) {

@@ -17,3 +17,13 @@
 .example-radio-button {
     margin: 5px;
 }
+
+.mat-form-field {
+    font-size: 14px;
+    display: block;
+    padding-top: 10px;
+}
+
+.mat-select {
+    padding-bottom: 11px;
+}

@@ -272,9 +272,6 @@ export class ProjectDetailsTaskComponent implements OnInit {
   }
 
   getCardName(card?) {
-    console.log('--------------------')
-    console.log('----- cardName -----')
-    console.log(card)
     if(card && card != []) {
       const nameCard = card.map(element => element.cardName);
       return nameCard.join(', ');
