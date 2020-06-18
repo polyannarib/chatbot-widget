@@ -15,7 +15,9 @@ export class CardFindComponent implements OnInit {
   disabled: any;
   description: string;
   card: any;
-  cardSelect
+  cardSelect;
+  classificationList;
+  classification;
 
   mainStyle = this.profileService.getAppMainColor();
 
@@ -51,8 +53,9 @@ export class CardFindComponent implements OnInit {
     // debugger;
     if (resource.level === 4) {
       this.card = event;
-      this.disabled = false;
       this.description = event.description;
+      this.getClassification(event);
+      // this.disabled = false;
       return;
     }
     // debugger;
@@ -85,8 +88,42 @@ export class CardFindComponent implements OnInit {
 
   confirmCard() {
     if(this.card) {
-      this.dialogRef.close(this.card);
+      // this.dialogRef.close({
+      //   confirm: true,
+      //   card: this.card,
+      //   classification: this.classification
+      // });
+      this.dialogRef.close({
+        confirm: true,
+        card: {
+          cardId: this.card.knowledgeId,
+          cardName: this.card.name,
+          classification: this.classification
+        }
+      });
     }
+  }
+
+  isKnowledge(knowledge): boolean {
+    const listSelectTypes = this.data.map(element => element.root);
+    if(listSelectTypes.includes(knowledge.name)) {
+      return false;
+    }
+    return true;
+  }
+
+  getClassification(card) {
+    this.cardService.findCardById(card.knowledgeId).subscribe(
+      (response) => {
+        if(response.status == 0) {
+          this.classificationList = response.object;
+        }
+      })
+  }
+
+  selectClassification(classification) {
+    this.disabled = false;
+    this.classification = classification;
   }
 
 }

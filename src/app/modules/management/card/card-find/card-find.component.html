@@ -9,10 +9,18 @@
                 <mat-form-field>
                     <mat-label>{{ levelElement.knowledgeList[0].type.name }}</mat-label>
                     <mat-select (selectionChange)="FindParente($event.value, levelElement)">
-                        <mat-option *ngFor="let knowledge of levelElement.knowledgeList; let i= index" [value]="knowledge">{{ knowledge.name }}</mat-option>
+                        <ng-container *ngFor="let knowledge of levelElement.knowledgeList; let i= index">
+                            <mat-option *ngIf="isKnowledge(knowledge)" [value]="knowledge">{{ knowledge.name }}</mat-option>
+                        </ng-container>
                     </mat-select>
                 </mat-form-field>
             </div>
+            <mat-form-field *ngIf="classificationList">
+                <mat-label>Classificação</mat-label>
+                <mat-select (selectionChange)="selectClassification($event.value)">
+                    <mat-option *ngFor="let classification of classificationList; let i= index" [value]="classification">{{ classification.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
     </div>
     <div class="modal-footer">

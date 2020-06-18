@@ -7,6 +7,7 @@ import { NotifyComponent } from 'src/app/shared/components/notify/notify.compone
 import { CardFindComponent } from '../../card/card-find/card-find.component';
 import { AttachmentComponent } from 'src/app/shared/components/modal/attachment/attachment.component';
 import { ModalKysmartComponent } from '../modal-kysmart/modal-kysmart.component';
+import { CardService } from 'src/app/core/services/card.service';
 
 @Component({
   selector: 'app-task-create',
@@ -20,7 +21,7 @@ export class TaskCreateComponent implements OnInit {
   kysmartChildrenTasks: any = [];
   mainStyle = this.profileService.getAppMainColor();
   secoundStyle = this.profileService.getAppSecondaryColor();
-  card: any;
+  cards = [];
   type: any;
   types: any;
   createNewType: any = this.data.type ? (this.data.type.level + 1) : 1;
@@ -30,7 +31,7 @@ export class TaskCreateComponent implements OnInit {
   form: FormGroup = this.formBuilder.group({
     name: [null, [Validators.required]],
     description: [null],
-    card: [this.card],
+    cards: [this.cards],
     expectedAt: [null],
     duration: [null],
     type: [null],
@@ -39,6 +40,8 @@ export class TaskCreateComponent implements OnInit {
     parentId: [this.data.parentId],
     projectId: [this.data.project.id]
   });
+  cardsTypes: any;
+  classificationId: any;
 
   constructor(
     public dialogRef: MatDialogRef<TaskCreateComponent>,
@@ -47,11 +50,13 @@ export class TaskCreateComponent implements OnInit {
     private taskService: TaskService,
     private _snackBar: MatSnackBar,
     private profileService: ProfileService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cardService: CardService
   ) { }
 
   ngOnInit() {
     this.getTypes();
+    this.searchCard();
   }
 
   getTypeCreate(level, types?) {
@@ -73,9 +78,13 @@ export class TaskCreateComponent implements OnInit {
           const setTimesStamp = new Date(expectedAt).getTime();
           this.form.value.expectedAt = setTimesStamp;
           this.form.value.links = this.attachment;
+          this.form.value.cards = this.cards;
+          // this.form.value.cards = this.cards.map(element => new Object({ 
+          //   cardId: element.knowledgeId,
+          //   classification: { id: this.classificationId }
+          // }));
         }
         this.form.value.time = undefined;
-        // this.form.value.type = this.getTypeCreate(this.data.nodeType.level + 1, this.types);
         this.form.value.type = this.types.find( element => element.level == this.createNewType )
         this.taskService.createTask(this.form.value).subscribe(
           (response) => {
@@ -115,10 +124,6 @@ export class TaskCreateComponent implements OnInit {
       parentId: this.form.controls.parentId.value,
       type: this.form.controls.type.value
     };
-
-    console.log(this.types);
-    console.log(this.form);
-    console.log({data, projectId: this.form.controls.projectId.value});
 
     this.taskService.createTask(data).subscribe(
       (responseCreateMother) => {
@@ -167,26 +172,25 @@ export class TaskCreateComponent implements OnInit {
   }
 
   addCard() {
-    // const dataSend = {
-    //   project: this.data.project
-    // }
+    const dataSend = this.cards;
     const dialogRef = this.dialog.open(CardFindComponent, {
-      width: '600px',
-      // data: dataSend
+      width: '400px',
+      data: dataSend
     });
     dialogRef.afterClosed().subscribe(
     (result) => {
-      if(result) {
-        this.card = result;
-        this.form.value.card = { cardId: this.card.knowledgeId };
+      if(result.confirm == true && result.card) {
+        this.cards.push(result.card);
       }
     });
   }
 
-  removeCard() {
-    if(this.card) {
-      this.card = null;
-    }
+  removeCard(card) {
+    this.cards = this.cards.map(element => {
+      if(element.knowledgeId != card.knowledgeId) {
+        return element;
+      }
+    });
   }
 
   getTypes() {
@@ -226,12 +230,10 @@ export class TaskCreateComponent implements OnInit {
         if (result) {
           this.kysmart = true;
           this.kysmartChildrenTasks = result.data.object.childRegisters;
-          console.log(result.data.object.attributeHourValue);
-
           // Esforço
           this.form.controls.duration.setValue(result.data.object.attributeHourValue);
-        }
-     });
+        } 
+      });
   }
 
   myFilter = (d: Date | null): boolean => {
@@ -239,6 +241,19 @@ export class TaskCreateComponent implements OnInit {
     const dateNow = new Date();
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6 && d >= dateNow;
+  }
+
+  searchCard() {
+    this.cardService.searchComboCompetence().subscribe(
+      (response) => {
+        if(response.status == 0) {
+          this.cardsTypes = response.object;
+          return;
+        }
+        // console.log('deu ruim');
+      }, (err) => {
+        // console.log('deu ruim');
+    })
   }
 
   // inputHidden() {

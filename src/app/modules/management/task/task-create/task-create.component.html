@@ -62,12 +62,18 @@
         </mat-select>
       </mat-form-field> -->
 
-      <ul class="collection" *ngIf="type.definition == 'EXECUTAVEL'">
-        <label *ngIf="card">Anexos</label>
-        <li *ngIf="card" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
+      <!-- <figure>
+        <pre>
+          {{ cards | json }}
+        </pre>
+      </figure> -->
+
+      <ul class="collection" *ngIf="type.definition == 'EXECUTAVEL' && (cards.length > 0 || cards != [])">
+        <label>Cartas</label>
+        <li *ngFor="let card of cards" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
           <div>
-            {{ card.name }}
-            <a (click)="removeCard()" class="secondary-content"><i class="material-icons">close</i></a>
+            {{ card.cardName }}
+            <a (click)="removeCard(card)" class="secondary-content"><i class="material-icons">close</i></a>
           </div>
         </li>
       </ul>
@@ -84,7 +90,7 @@
 
     </div>
     <div class="modal-footer">
-      <button *ngIf="type.definition == 'EXECUTAVEL'" [disabled]="card" (click)="addCard()" class="button left" [ngStyle]="{'background-color': mainStyle}">{{ 'Adicionar carta' | translate }}</button>
+      <button *ngIf="type.definition == 'EXECUTAVEL'" (click)="addCard()" class="button left" [ngStyle]="{'background-color': mainStyle}">{{ 'Adicionar carta' | translate }}</button>
       <button *ngIf="type.definition == 'EXECUTAVEL'" (click)="setAttachment()" matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button>
       <button (click)="createTask()" type="submit" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'Criar' | translate }}</button>
     </div>

@@ -47,7 +47,7 @@
             <mz-collapsible-item-body>
               <ul>
                 <!-- <li><span>{{ 'PROJECT' | translate}}</span> {{ activity.project.name }}</li> -->
-                <li><span>{{ 'CARD' | translate }}</span> {{ activity.card.skillName }} - {{ activity.card.cardName }}</li>
+                <li><span>{{ 'CARD' | translate }}</span> {{ getCardName(activity.cards) }}</li>
                 <li><span>{{ 'PREVIEWSTARTDATE' | translate}}</span> {{ activity.expectedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
                 <li><span>{{ 'PREVIEWENDDATE' | translate}}</span> {{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
                 <li><span>{{ 'STARTDATE' | translate}}</span> {{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
@@ -61,7 +61,7 @@
                 <app-button-suspend *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-suspend>
                 <app-button-designate *ngIf="!activity.player" [taskId]="activity.id" (isDesign)="reciverDesignate($event)"></app-button-designate>
               </div>
-              <app-players-find (taskDesignatedSucess)="updateDesignated($event)" [taskId]="activity.id" [dataInicial]="activity.expectedAt" [dataFim]="activity.previewedAt" *ngIf="designate && (taskId == activity.id)"></app-players-find>
+              <app-players-find (taskDesignatedSucess)="updateDesignated($event)" [cards]="activity.cards" [taskId]="activity.id" [dataInicial]="activity.expectedAt" [dataFim]="activity.previewedAt" *ngIf="designate && (taskId == activity.id)"></app-players-find>
             </mz-collapsible-item-body>
           </mz-collapsible-item>
         </ng-container>

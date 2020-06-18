@@ -45,3 +45,8 @@ mat-form-field input:focus {
     color: white;
     text-transform: uppercase;
 }
+
+ul.cardSelect li {
+    width: 120px;
+    margin: 15px;
+}
