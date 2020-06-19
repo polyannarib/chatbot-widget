@@ -140,11 +140,15 @@ export class PlayersFindComponent implements OnInit {
     if(valueFilter == 'playersCards') {
       const cards = this.cards.map(element => element.name);
       this.playerRatedFilter = this.playerRated.filter((element) => {
-        cards.forEach(cardsName => {
-          if(element[cardsName] && element[cardsName] == 1) {
-            return element;
-          }
+        const card = cards.map(cardsName => {
+          if(element[cardsName] && (element[cardsName] == 1 || element[cardsName] == 0)) {
+            return true;
+          } 
+          return false;
         })
+        if(card.includes(true)) {
+          return element;
+        } 
       })
       this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
     }
