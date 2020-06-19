@@ -18,6 +18,7 @@ export class PlayersFindComponent implements OnInit {
   @Input() dataInicial: any;
   @Input() dataFim: any;
   @Input() cards: any;
+  @Input() projectDate: any;
 
   loader: boolean = false;
   mainStyle = this.profileService.getAppMainColor();
@@ -58,7 +59,13 @@ export class PlayersFindComponent implements OnInit {
         // this.playerAvailableFilter = this.playerAvailable;
         // this.onSearchChange('');
 
-        this.playerRated = response.object;
+        this.playerRated = response.object.filter(element => {
+          let dateProject = new Date(this.projectDate).toDateString();
+          let datePlayerAvailable = new Date(element.availableDate).toDateString();
+          if(dateProject === datePlayerAvailable) {
+            return element;
+          }
+        });
         this.playerRatedFilter = this.playerRated;
 
         // this.playerAvailable = response.object.map(element => element.onTeam == true);
