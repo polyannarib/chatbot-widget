@@ -79,7 +79,7 @@ export class TaskCreateComponent implements OnInit {
           this.form.value.expectedAt = setTimesStamp;
           this.form.value.links = this.attachment;
           this.form.value.cards = this.cards;
-          // this.form.value.cards = this.cards.map(element => new Object({ 
+          // this.form.value.cards = this.cards.map(element => new Object({
           //   cardId: element.knowledgeId,
           //   classification: { id: this.classificationId }
           // }));
@@ -130,15 +130,17 @@ export class TaskCreateComponent implements OnInit {
         if (responseCreateMother.status === 0) {
           console.log('Criou tarefa mae');
           const taskMother = responseCreateMother.object;
+          let timeTaskToCreate = new Date(this.form.value.expectedAt).getTime();
           this.kysmartChildrenTasks.map(taskToCreate => {
             if (taskToCreate.attributeId === 25 ||
               taskToCreate.attributeId === 27 ||
               taskToCreate.attributeId === 29 ||
               taskToCreate.attributeId === 32) {
+              timeTaskToCreate += taskToCreate.attributeHourValue;
               const dataChildren = {
                 name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
                 duration: taskToCreate.attributeHourValue,
-                expectedAt: this.form.value.expectedAt,
+                expectedAt: new Date(timeTaskToCreate).getTime(),
                 projectId: this.form.controls.projectId.value,
                 parentId: taskMother.id,
                 type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
@@ -232,7 +234,7 @@ export class TaskCreateComponent implements OnInit {
           this.kysmartChildrenTasks = result.data.object.childRegisters;
           // Esforço
           this.form.controls.duration.setValue(result.data.object.attributeHourValue);
-        } 
+        }
       });
   }
 
