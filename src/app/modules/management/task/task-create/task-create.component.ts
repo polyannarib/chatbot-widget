@@ -124,12 +124,13 @@ export class TaskCreateComponent implements OnInit {
       type: this.form.controls.type.value
     };
 
+    let timeTaskToCreate = this.form.value.expectedAt;
+
     this.taskService.createTask(data).subscribe(
       (responseCreateMother) => {
         if (responseCreateMother.status === 0) {
           console.log('Criou tarefa mae');
           const taskMother = responseCreateMother.object;
-          let timeTaskToCreate = this.form.value.expectedAt;
           this.kysmartChildrenTasks.map(taskToCreate => {
             if (taskToCreate.attributeId === 25 ||
               taskToCreate.attributeId === 27 ||
@@ -138,7 +139,7 @@ export class TaskCreateComponent implements OnInit {
               const dataChildren = {
                 name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
                 duration: taskToCreate.attributeHourValue,
-                expectedAt: new Date(timeTaskToCreate).getTime(),
+                expectedAt: timeTaskToCreate,
                 projectId: this.form.controls.projectId.value,
                 parentId: taskMother.id,
                 type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
@@ -154,7 +155,6 @@ export class TaskCreateComponent implements OnInit {
                     timeTaskToCreate = responseCreateChildren.object.previewedAt;
                     this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
                     this.loader = false;
-                    return;
                   }
                 }
               );
