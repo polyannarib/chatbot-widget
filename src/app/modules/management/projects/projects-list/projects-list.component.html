@@ -25,7 +25,7 @@
   <app-loading [loader]="loaderDays && !daysOfWeek10"></app-loading>
 
   <div class="tableOverflow">
-    <table class="responsive-table" *ngIf="!loaderDays && daysOfWeek10">
+    <table *ngIf="!loaderDays && daysOfWeek10">
       <thead>
         <tr>
           <th class="projectCode">{{ 'CODE' | translate }}</th>

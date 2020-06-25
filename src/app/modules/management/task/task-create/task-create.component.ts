@@ -21,11 +21,11 @@ export class TaskCreateComponent implements OnInit {
   kysmartChildrenTasks: any = [];
   mainStyle = this.profileService.getAppMainColor();
   secoundStyle = this.profileService.getAppSecondaryColor();
-  cards = [];
+  cards: any[] = [];
   type: any;
   types: any;
   createNewType: any = this.data.type ? (this.data.type.level + 1) : 1;
-  attachment = [];
+  attachment: any[] = [];
   taskCreate = this.data.type ? this.data.type.name : this.data.project.name;
   times: any;
   form: FormGroup = this.formBuilder.group({
@@ -35,7 +35,7 @@ export class TaskCreateComponent implements OnInit {
     expectedAt: [null],
     duration: [null],
     type: [null],
-    links: [null],
+    links: [this.attachment],
     time: [null],
     parentId: [this.data.parentId],
     projectId: [this.data.project.id]
@@ -204,6 +204,7 @@ export class TaskCreateComponent implements OnInit {
 
   setAttachment() {
     const dataSend = {
+      // task: this.data.task.id,
       nameComponent: 'taskCreate'
     }
     const dialogRef = this.dialog.open(AttachmentComponent, {
@@ -212,12 +213,10 @@ export class TaskCreateComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(
     (result) => {
-      if(result) {
-        if(result.attachmentValid == true) {
-          this.form.value.links.push(result.attachment);
-        }
+      if(result.attachmentValid == true) {
+        this.form.value.links.push(result.attachment);
       }
-    })
+    });
   }
 
   openCalculator() {

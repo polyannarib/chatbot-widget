@@ -18,6 +18,7 @@ export class CardFindComponent implements OnInit {
   cardSelect;
   classificationList;
   classification;
+  rootName;
 
   mainStyle = this.profileService.getAppMainColor();
 
@@ -51,6 +52,9 @@ export class CardFindComponent implements OnInit {
 
   FindParente(event, resource) {
     // debugger;
+    if(resource.level === 1) {
+      this.rootName = event.name;
+    }
     if (resource.level === 4) {
       this.card = event;
       this.description = event.description;
@@ -98,7 +102,8 @@ export class CardFindComponent implements OnInit {
         card: {
           cardId: this.card.knowledgeId,
           cardName: this.card.name,
-          classification: this.classification
+          classification: this.classification,
+          root: this.rootName
         }
       });
     }
