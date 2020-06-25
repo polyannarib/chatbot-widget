@@ -153,6 +153,7 @@ export class TaskCreateComponent implements OnInit {
                     console.log('Criou tarefa filha ' + responseCreateChildren.object.id);
                     console.log(responseCreateChildren.object);
                     timeTaskToCreate = responseCreateChildren.object.previewedAt;
+                    console.log(timeTaskToCreate);
                     this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
                     this.loader = false;
                   }
