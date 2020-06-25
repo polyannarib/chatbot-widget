@@ -130,6 +130,7 @@ export class TaskCreateComponent implements OnInit {
         if (responseCreateMother.status === 0) {
           console.log('Criou tarefa mae');
           const taskMother = responseCreateMother.object;
+          console.log(taskMother);
           let timeTaskToCreate = new Date(this.form.value.expectedAt).getTime();
           this.kysmartChildrenTasks.map(taskToCreate => {
             if (taskToCreate.attributeId === 25 ||
