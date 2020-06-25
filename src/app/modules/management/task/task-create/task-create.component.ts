@@ -19,6 +19,7 @@ export class TaskCreateComponent implements OnInit {
   loader: boolean = false;
   kysmart: boolean = false;
   kysmartChildrenTasks: any = [];
+  kysmartDateChildren: any;
   mainStyle = this.profileService.getAppMainColor();
   secoundStyle = this.profileService.getAppSecondaryColor();
   cards = [];
@@ -124,7 +125,7 @@ export class TaskCreateComponent implements OnInit {
       type: this.form.controls.type.value
     };
 
-    let timeTaskToCreate = this.form.value.expectedAt;
+    this.kysmartDateChildren = this.form.value.expectedAt;
 
     this.taskService.createTask(data).subscribe(
       (responseCreateMother) => {
@@ -139,7 +140,7 @@ export class TaskCreateComponent implements OnInit {
               const dataChildren = {
                 name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
                 duration: taskToCreate.attributeHourValue,
-                expectedAt: timeTaskToCreate,
+                expectedAt: this.kysmartDateChildren,
                 projectId: this.form.controls.projectId.value,
                 parentId: taskMother.id,
                 type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
@@ -152,8 +153,8 @@ export class TaskCreateComponent implements OnInit {
                   if (responseCreateChildren.status === 0) {
                     console.log('Criou tarefa filha ' + responseCreateChildren.object.id);
                     console.log(responseCreateChildren.object);
-                    timeTaskToCreate = responseCreateChildren.object.previewedAt;
-                    console.log(timeTaskToCreate);
+                    this.kysmartDateChildren = responseCreateChildren.object.previewedAt;
+                    console.log(this.kysmartDateChildren);
                     this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
                     this.loader = false;
                   }
