@@ -60,7 +60,7 @@
 </div> -->
 
 <div class="row boxCharactersDeck" *ngIf="playerDeck && !loaderDeck">
-  <div class="charactersDeck" *ngFor="let card of playerDeck" [ngClass]="{'help' : status}">
+  <div class="charactersDeck" *ngFor="let card of playerDeck" [ngClass]="{'help' : status}" matTooltip="{{ card.cardName }}">
     <img class="card-star" [src]="card.classification.starUrl | image | async">
     <img class="card-img" width="100%" [src]="card.classification.url | image | async">
     <img class="logo" [src]="card.url | image | async">

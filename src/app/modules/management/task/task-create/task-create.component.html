@@ -78,9 +78,9 @@
         </li>
       </ul>
 
-      <ul class="collection" *ngIf="attachment.length > 0 && type.definition == 'EXECUTAVEL'">
-        <label *ngIf="attachment.length > 0">Anexos</label>
-        <li *ngFor="let item of attachment" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
+      <ul class="collection" *ngIf="form.value.links.length > 0 && type.definition == 'EXECUTAVEL'">
+        <label *ngIf="form.value.links.length > 0">Anexos</label>
+        <li *ngFor="let item of form.value.links" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
           <div>
             <a target="_blank" href="{{ item.url }}">{{ item.description }}</a>
             <!-- <a (click)="removeAttachment(item)" class="secondary-content"><i class="material-icons">close</i></a> -->

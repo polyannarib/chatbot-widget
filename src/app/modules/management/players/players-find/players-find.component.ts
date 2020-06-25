@@ -5,6 +5,7 @@ import { TaskService } from 'src/app/core/services/task.service';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 import { MatSnackBar } from '@angular/material';
 import { ProfileService } from 'src/app/core/services/profile.service';
+import { compareDesc } from 'date-fns';
 
 @Component({
   selector: 'app-players-find',
@@ -60,9 +61,9 @@ export class PlayersFindComponent implements OnInit {
         // this.onSearchChange('');
 
         this.playerRated = response.object.filter(element => {
-          let dateProject = new Date(this.projectDate).toDateString();
-          let datePlayerAvailable = new Date(element.availableDate).toDateString();
-          if(dateProject === datePlayerAvailable) {
+          const dateProject = new Date(this.dataInicial).getDate();
+          const datePlayerAvailable = new Date(element.availableDate).getDate();
+          if(compareDesc(dateProject, datePlayerAvailable) < 1) {
             return element;
           }
         });
