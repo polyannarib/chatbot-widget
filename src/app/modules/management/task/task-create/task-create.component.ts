@@ -132,7 +132,7 @@ export class TaskCreateComponent implements OnInit {
         if (responseCreateMother.status === 0) {
           console.log('Criou tarefa mae');
           const taskMother = responseCreateMother.object;
-          this.kysmartChildrenTasks.map(taskToCreate => {
+          this.kysmartChildrenTasks.map(async taskToCreate => {
             if (taskToCreate.attributeId === 25 ||
               taskToCreate.attributeId === 27 ||
               taskToCreate.attributeId === 29 ||
@@ -148,7 +148,7 @@ export class TaskCreateComponent implements OnInit {
                 description: this.form.controls.description.value,
                 links: []
               };
-              this.taskService.createTask(dataChildren).subscribe(
+              await this.taskService.createTask(dataChildren).subscribe(
                 (responseCreateChildren) => {
                   if (responseCreateChildren.status === 0) {
                     console.log('Criou tarefa filha ' + responseCreateChildren.object.id);
