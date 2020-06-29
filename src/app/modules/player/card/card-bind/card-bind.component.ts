@@ -284,7 +284,8 @@ export class CardBindComponent implements OnInit {
         this.service.removeCard(element.id).subscribe(
           (response) => {
             if(response.status == 0) {
-              this.playerDeck.splice(index, 1);
+              // this.playerDeck.splice(index, 1);
+              this.myDeck();
               this._snackBar.openFromComponent(NotifyComponent, 
                 { data: { type: 'success', message: 'Carta removida com sucesso!' }});
               return;
