@@ -1,6 +1,6 @@
 <app-loading [loader]="loader"></app-loading>
 <div *ngIf="players && !loader">
-  
+
   <div class="row">
     <div class="col m6 s12">
       <div class="input-field">
@@ -19,7 +19,7 @@
   <app-loading [loader]="loaderDays"></app-loading>
 
   <div class="tableOverflow">
-    <table class="responsive-table" *ngIf="!loaderDays">
+    <table *ngIf="!loaderDays">
       <thead>
         <tr>
           <th></th>

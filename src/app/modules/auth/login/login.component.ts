@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
               this.authService.setAppToken(responseAuth.object.appToken);
               resolve();
             } if (responseAuth.status == 1) {
-              throw new Error('Por favor, digite os campos corretamente!');
+              reject(new Error('Por favor, digite os campos corretamente!'));
               // this.loader = false;
               // this._snackBar.openFromComponent(NotifyComponent, 
               //   { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});
@@ -73,13 +73,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
               return;
             }
           }, (err) => {
-            throw new Error('Problemas ao fazer o login, favor tentar novamente!');
+            reject(new Error('Problemas ao fazer o login, favor tentar novamente!'));
             // this.loader = false;
             // this._snackBar.openFromComponent(NotifyComponent, 
             //   { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
         })
       } else {
-        throw new Error('Por favor, digite os campos corretamente!');
+        reject(new Error('Por favor, digite os campos corretamente!'));
         // this.loader = false;
         // this._snackBar.openFromComponent(NotifyComponent, 
         //   { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' }});

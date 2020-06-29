@@ -1,13 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatDialog } from '@angular/material';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TaskService } from 'src/app/core/services/task.service';
-import { ProfileService } from 'src/app/core/services/profile.service';
-import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
-import { CardFindComponent } from '../../card/card-find/card-find.component';
-import { AttachmentComponent } from 'src/app/shared/components/modal/attachment/attachment.component';
-import { ModalKysmartComponent } from '../modal-kysmart/modal-kysmart.component';
-import { CardService } from 'src/app/core/services/card.service';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {TaskService} from 'src/app/core/services/task.service';
+import {ProfileService} from 'src/app/core/services/profile.service';
+import {NotifyComponent} from 'src/app/shared/components/notify/notify.component';
+import {CardFindComponent} from '../../card/card-find/card-find.component';
+import {AttachmentComponent} from 'src/app/shared/components/modal/attachment/attachment.component';
+import {ModalKysmartComponent} from '../modal-kysmart/modal-kysmart.component';
+import {CardService} from 'src/app/core/services/card.service';
 
 @Component({
   selector: 'app-task-create',
@@ -19,13 +19,14 @@ export class TaskCreateComponent implements OnInit {
   loader: boolean = false;
   kysmart: boolean = false;
   kysmartChildrenTasks: any = [];
+  kysmartDateChildren: any;
   mainStyle = this.profileService.getAppMainColor();
   secoundStyle = this.profileService.getAppSecondaryColor();
-  cards = [];
+  cards: any[] = [];
   type: any;
   types: any;
   createNewType: any = this.data.type ? (this.data.type.level + 1) : 1;
-  attachment = [];
+  attachment: any[] = [];
   taskCreate = this.data.type ? this.data.type.name : this.data.project.name;
   times: any;
   form: FormGroup = this.formBuilder.group({
@@ -35,7 +36,7 @@ export class TaskCreateComponent implements OnInit {
     expectedAt: [null],
     duration: [null],
     type: [null],
-    links: [null],
+    links: [this.attachment],
     time: [null],
     parentId: [this.data.parentId],
     projectId: [this.data.project.id]
@@ -79,7 +80,7 @@ export class TaskCreateComponent implements OnInit {
           this.form.value.expectedAt = setTimesStamp;
           this.form.value.links = this.attachment;
           this.form.value.cards = this.cards;
-          // this.form.value.cards = this.cards.map(element => new Object({ 
+          // this.form.value.cards = this.cards.map(element => new Object({
           //   cardId: element.knowledgeId,
           //   classification: { id: this.classificationId }
           // }));
@@ -111,8 +112,7 @@ export class TaskCreateComponent implements OnInit {
     this.loader = true;
     if(this.type.definition == 'EXECUTAVEL') {
       const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
-      const setTimesStamp = new Date(expectedAt).getTime();
-      this.form.value.expectedAt = setTimesStamp;
+      this.form.value.expectedAt = new Date(expectedAt).getTime();
       this.form.value.links = this.attachment;
     }
     this.form.value.time = undefined;
@@ -125,6 +125,8 @@ export class TaskCreateComponent implements OnInit {
       type: this.form.controls.type.value
     };
 
+    this.kysmartDateChildren = this.form.value.expectedAt;
+
     this.taskService.createTask(data).subscribe(
       (responseCreateMother) => {
         if (responseCreateMother.status === 0) {
@@ -135,28 +137,8 @@ export class TaskCreateComponent implements OnInit {
               taskToCreate.attributeId === 27 ||
               taskToCreate.attributeId === 29 ||
               taskToCreate.attributeId === 32) {
-              const dataChildren = {
-                name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
-                duration: taskToCreate.attributeHourValue,
-                expectedAt: this.form.value.expectedAt,
-                projectId: this.form.controls.projectId.value,
-                parentId: taskMother.id,
-                type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
-                cards: [],
-                description: this.form.controls.description.value,
-                links: []
-              };
-              console.log(dataChildren);
-              this.taskService.createTask(dataChildren).subscribe(
-                (responseCreateChildren) => {
-                  if (responseCreateChildren.status === 0) {
-                    console.log('Criou tarefa filha ' + responseCreateChildren.object.id);
-                    console.log(responseCreateChildren);
-                    this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
-                    this.loader = false;
-                    return;
-                  }
-                }
+              this.createTaskChildren(taskToCreate, taskMother, this.kysmartDateChildren).then(
+                (newDate) => this.kysmartDateChildren = newDate
               );
             }
           });
@@ -169,6 +151,34 @@ export class TaskCreateComponent implements OnInit {
         this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao criar tarefa mãe!' }});
       }
     );
+  }
+
+  async createTaskChildren(taskToCreate, taskMother, dateChildren): Promise<any> {
+    let newDate = 0;
+    const dataChildren = {
+      name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
+      duration: taskToCreate.attributeHourValue,
+      expectedAt: dateChildren,
+      projectId: this.form.controls.projectId.value,
+      parentId: taskMother.id,
+      type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
+      cards: [],
+      description: this.form.controls.description.value,
+      links: []
+    };
+    this.taskService.createTask(dataChildren).subscribe(
+      (responseCreateChildren) => {
+        if (responseCreateChildren.status === 0) {
+          console.log('Criou tarefa filha ' + responseCreateChildren.object.id);
+          console.log(responseCreateChildren.object);
+          newDate = responseCreateChildren.object.previewedAt;
+          console.log(this.kysmartDateChildren);
+          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
+          this.loader = false;
+        }
+      }
+    );
+    return newDate;
   }
 
   addCard() {
@@ -204,6 +214,7 @@ export class TaskCreateComponent implements OnInit {
 
   setAttachment() {
     const dataSend = {
+      // task: this.data.task.id,
       nameComponent: 'taskCreate'
     }
     const dialogRef = this.dialog.open(AttachmentComponent, {
@@ -212,12 +223,10 @@ export class TaskCreateComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(
     (result) => {
-      if(result) {
-        if(result.attachmentValid == true) {
-          this.form.value.links.push(result.attachment);
-        }
+      if(result.attachmentValid == true) {
+        this.form.value.links.push(result.attachment);
       }
-    })
+    });
   }
 
   openCalculator() {
@@ -232,7 +241,7 @@ export class TaskCreateComponent implements OnInit {
           this.kysmartChildrenTasks = result.data.object.childRegisters;
           // Esforço
           this.form.controls.duration.setValue(result.data.object.attributeHourValue);
-        } 
+        }
       });
   }
 
