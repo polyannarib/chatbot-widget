@@ -6,9 +6,9 @@
     {{ nameTaskParent }} <br>
     <span [ngStyle]="{'background-color': mainStyle}"> {{ type.name }} </span>
   </div>
-  <button (click)="openCalculator()" *ngIf="type.name.toLowerCase() == 'tarefa'" matTooltip="{{ 'OPEN_CALCULATOR' | translate }}" mat-icon-button>
-    <i class="material-icons">post_add</i>
-  </button>
+<!--  <button (click)="openCalculator()" *ngIf="type.name.toLowerCase() == 'tarefa'" matTooltip="{{ 'OPEN_CALCULATOR' | translate }}" mat-icon-button>-->
+<!--    <i class="material-icons">post_add</i>-->
+<!--  </button>-->
   <form [formGroup]="form">
     <div class="modal-body">
 
