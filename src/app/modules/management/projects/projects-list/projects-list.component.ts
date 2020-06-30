@@ -59,7 +59,7 @@ export class ProjectsListComponent implements OnInit {
       startDate: format(this.startDate, 'dd-MM-yyyy'),
       endDate: format(this.endDate, 'dd-MM-yyyy'),
       page: 1,
-      pageSize: 20
+      pageSize: 50
     };
     this.projectService.listProjects(params).subscribe(
       (response) => {
