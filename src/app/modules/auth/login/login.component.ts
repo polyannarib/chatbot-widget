@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                   form: this.form.value,
                   companys: responseAuth.object
               }});
-              return;
+              resolve();
             }
           }, (err) => {
             reject(new Error('Problemas ao fazer o login, favor tentar novamente!'));

@@ -68,3 +68,8 @@ ul {
     50% { opacity: 0.5 }
     100% { opacity: 0 }
 }
+.add-project-button {
+    right: 0;
+    position: fixed;
+    margin: 20px;
+}

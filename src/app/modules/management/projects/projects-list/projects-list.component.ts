@@ -10,6 +10,7 @@ import { ProjectDetailsTaskComponent } from '../project-details-task/project-det
 import { environment } from 'src/environments/environment';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ProjectCreateComponent } from '../project-create/project-create.component';
 
 @Component({
   selector: 'app-projects-list',
@@ -162,6 +163,21 @@ export class ProjectsListComponent implements OnInit {
           { data: { type: 'error', message: 'Problemas, contate o administrador' }});
         break;
     }
+  }
+
+  modalAddProject() {
+    const dataSend = {
+      type: 'create'
+    };
+    const dialogRef = this.dialog.open(ProjectCreateComponent, {
+      width: '600px',
+      data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.confirm == true) {
+        this.findProjects();
+      }
+    });
   }
 
 }
