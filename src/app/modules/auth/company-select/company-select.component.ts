@@ -34,10 +34,10 @@ export class CompanySelectComponent implements OnInit {
       (response) => {
         if(response.status == 0) {
           this.authService.setAppToken(response.object.appToken);
-          this.authService.setSSOID(response.object.ssoId);
-          window.location.href = AppConstants.URL_SSO + '/cookie' 
-                  + '?SSOID=' + response.object.ssoId
-                  + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + '/management/cockpit';
+          // this.authService.setSSOID(response.object.ssoId);
+          // window.location.href = AppConstants.URL_SSO + '/cookie' 
+          //         + '?SSOID=' + response.object.ssoId
+          //         + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + '/management/cockpit';
           this.close();
           return;
         }
