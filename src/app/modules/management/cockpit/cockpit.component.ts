@@ -68,19 +68,5 @@ export class CockpitComponent implements OnInit {
     this.loader = false;
   }
 
-  modalAddProject() {
-    const dataSend = {
-      type: 'create'
-    };
-    const dialogRef = this.dialog.open(ProjectCreateComponent, {
-      width: '90vw',
-      data: dataSend
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.loader = true;
-      window.location.reload();
-    });
-  }
-
 
 }

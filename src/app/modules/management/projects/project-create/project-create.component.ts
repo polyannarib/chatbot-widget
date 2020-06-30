@@ -39,7 +39,7 @@ export class ProjectCreateComponent implements OnInit {
     } else {
       this.projectService.getProjectInfo(this.data.project.id).subscribe(
         (response) => {
-          if (response.status === 0) {
+          if (response.status == 0) {
             this.loader = false;
             console.log(response);
             this.data.project = response.object[0];
@@ -48,11 +48,11 @@ export class ProjectCreateComponent implements OnInit {
           }
           this.httpError(response.message);
           this.loader = false;
-          this.dialogRef.close({confirm: true});
+          this.dialogRef.close();
         }, (err) => {
           this.httpError(null);
           this.loader = false;
-          this.dialogRef.close({confirm: true});
+          this.dialogRef.close();
         }
       );
     }
@@ -232,8 +232,8 @@ export class ProjectCreateComponent implements OnInit {
     }
     this.loader = true;
     this.projectService.createProject(data).subscribe(
-      (response) => {
-        if (response.status === 0) {
+      (response) => {        
+        if (response.status == 0) {
           this.loader = false;
           this.dialogRef.close({confirm: true});
           return;

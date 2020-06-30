@@ -2,6 +2,12 @@
 
 <div *ngIf="projectsList && !loader && scopes">
 
+  <div class="add-project-button" *ngIf="scopes.wpleader || scopes.wpmaster">
+    <a class="waves-effect waves-light btn-small" (click)="modalAddProject()" [ngStyle]="{'background-color': mainStyle}">
+      <i class="material-icons right">add</i>Adicionar projeto
+    </a>
+  </div>
+
   <div class="row">
     <div class="col s12 m6">
       <div class="input-field">
