@@ -110,14 +110,14 @@ export class TaskCreateComponent implements OnInit {
 
   createFromKySmart() {
     this.loader = true;
-    if(this.type.definition == 'EXECUTAVEL') {
+    if(this.type.definition === 'EXECUTAVEL') {
       const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
       this.form.value.expectedAt = new Date(expectedAt).getTime();
       this.form.value.links = this.attachment;
     }
     this.form.value.time = undefined;
     this.form.controls.type.setValue(this.types.find( element => element.level === this.createNewType ));
-    const data = {
+    const dataMother = {
       name: this.form.controls.name.value,
       description: this.form.controls.description.value,
       projectId: this.form.controls.projectId.value,
@@ -125,22 +125,106 @@ export class TaskCreateComponent implements OnInit {
       type: this.form.controls.type.value
     };
 
-    this.kysmartDateChildren = this.form.value.expectedAt;
+    let firstChildren;
+    let secondChildren;
+    let thirdChildren;
+    let fourthChildren;
 
-    this.taskService.createTask(data).subscribe(
+    this.taskService.createTask(dataMother).subscribe(
       (responseCreateMother) => {
         if (responseCreateMother.status === 0) {
           console.log('Criou tarefa mae');
           const taskMother = responseCreateMother.object;
           this.kysmartChildrenTasks.map(taskToCreate => {
-            if (taskToCreate.attributeId === 25 ||
-              taskToCreate.attributeId === 27 ||
-              taskToCreate.attributeId === 29 ||
-              taskToCreate.attributeId === 32) {
-              this.createTaskChildren(taskToCreate, taskMother, this.kysmartDateChildren).then(
-                (newDate) => this.kysmartDateChildren = newDate
-              );
+            if (taskToCreate.attributeId === 25) {
+              firstChildren = {
+                name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
+                duration: taskToCreate.attributeHourValue,
+                expectedAt: this.form.value.expectedAt,
+                projectId: this.form.controls.projectId.value,
+                parentId: taskMother.id,
+                type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
+                cards: [],
+                description: this.form.controls.description.value,
+                links: []
+              };
+            } else if (taskToCreate.attributeId === 27) {
+              secondChildren = {
+                name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
+                duration: taskToCreate.attributeHourValue,
+                expectedAt: null,
+                projectId: this.form.controls.projectId.value,
+                parentId: taskMother.id,
+                type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
+                cards: [],
+                description: this.form.controls.description.value,
+                links: []
+              };
+            } else if (taskToCreate.attributeId === 29) {
+              thirdChildren = {
+                name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
+                duration: taskToCreate.attributeHourValue,
+                expectedAt: null,
+                projectId: this.form.controls.projectId.value,
+                parentId: taskMother.id,
+                type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
+                cards: [],
+                description: this.form.controls.description.value,
+                links: []
+              };
+            } else if (taskToCreate.attributeId === 32) {
+              fourthChildren = {
+                name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
+                duration: taskToCreate.attributeHourValue,
+                expectedAt: null,
+                projectId: this.form.controls.projectId.value,
+                parentId: taskMother.id,
+                type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
+                cards: [],
+                description: this.form.controls.description.value,
+                links: []
+              };
             }
+          }).then(() => {
+            console.log(firstChildren);
+            this.taskService.createTask(firstChildren).subscribe(
+              (responseCreateFirstChildren) => {
+                if (responseCreateFirstChildren.status === 0) {
+                  console.log('Criou primeira tarefa filha ' + responseCreateFirstChildren.object.id);
+                  secondChildren.expectedAt = responseCreateFirstChildren.object.previewedAt;
+                  console.log(secondChildren);
+                  this.taskService.createTask(secondChildren).subscribe(
+                    (responseCreateSecondChildren) => {
+                      if (responseCreateSecondChildren.status === 0) {
+                        console.log('Criou segunda tarefa filha ' + responseCreateSecondChildren.object.id);
+                        thirdChildren.expectedAt = responseCreateSecondChildren.object.previewedAt;
+                        console.log(thirdChildren);
+                        this.taskService.createTask(thirdChildren).subscribe(
+                          (responseCreateThirdChildren) => {
+                            if (responseCreateThirdChildren.status === 0) {
+                              console.log('Criou terceira tarefa filha ' + responseCreateThirdChildren.object.id);
+                              fourthChildren.expectedAt = responseCreateThirdChildren.object.previewedAt;
+                              console.log(fourthChildren);
+                              this.taskService.createTask(thirdChildren).subscribe(
+                                (responseCreateFourthChildren) => {
+                                  if (responseCreateFourthChildren.status === 0) {
+                                    console.log('Criou quarta tarefa filha ' + responseCreateFourthChildren.object.id);
+                                    this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
+                                  }
+                                }
+                              );
+                              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
+                            }
+                          }
+                        );
+                        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
+                      }
+                    }
+                  );
+                  this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
+                }
+              }
+            );
           });
           this.loader = false;
           this.dialogRef.close({confirm: true});
@@ -151,34 +235,6 @@ export class TaskCreateComponent implements OnInit {
         this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao criar tarefa mãe!' }});
       }
     );
-  }
-
-  async createTaskChildren(taskToCreate, taskMother, dateChildren): Promise<any> {
-    let newDate = 0;
-    const dataChildren = {
-      name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
-      duration: taskToCreate.attributeHourValue,
-      expectedAt: dateChildren,
-      projectId: this.form.controls.projectId.value,
-      parentId: taskMother.id,
-      type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
-      cards: [],
-      description: this.form.controls.description.value,
-      links: []
-    };
-    this.taskService.createTask(dataChildren).subscribe(
-      (responseCreateChildren) => {
-        if (responseCreateChildren.status === 0) {
-          console.log('Criou tarefa filha ' + responseCreateChildren.object.id);
-          console.log(responseCreateChildren.object);
-          newDate = responseCreateChildren.object.expecteddAt;
-          console.log(this.kysmartDateChildren);
-          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
-          this.loader = false;
-        }
-      }
-    );
-    return newDate;
   }
 
   addCard() {
