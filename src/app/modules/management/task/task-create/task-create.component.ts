@@ -140,7 +140,7 @@ export class TaskCreateComponent implements OnInit {
               firstChildren = {
                 name: taskToCreate.registerItemDescription + ' - ' + this.form.controls.name.value,
                 duration: taskToCreate.attributeHourValue,
-                expectedAt: this.form.value.expectedAt,
+                expectedAt: new Date(this.form.value.expectedAt).getTime(),
                 projectId: this.form.controls.projectId.value,
                 parentId: taskMother.id,
                 type: {id: 4, name: 'SUB-TAREFA', definition: 'EXECUTAVEL', level: 3, status: 'ACTIVATED'},
