@@ -185,47 +185,46 @@ export class TaskCreateComponent implements OnInit {
                 links: []
               };
             }
-          }).then(() => {
-            console.log(firstChildren);
-            this.taskService.createTask(firstChildren).subscribe(
-              (responseCreateFirstChildren) => {
-                if (responseCreateFirstChildren.status === 0) {
-                  console.log('Criou primeira tarefa filha ' + responseCreateFirstChildren.object.id);
-                  secondChildren.expectedAt = responseCreateFirstChildren.object.previewedAt;
-                  console.log(secondChildren);
-                  this.taskService.createTask(secondChildren).subscribe(
-                    (responseCreateSecondChildren) => {
-                      if (responseCreateSecondChildren.status === 0) {
-                        console.log('Criou segunda tarefa filha ' + responseCreateSecondChildren.object.id);
-                        thirdChildren.expectedAt = responseCreateSecondChildren.object.previewedAt;
-                        console.log(thirdChildren);
-                        this.taskService.createTask(thirdChildren).subscribe(
-                          (responseCreateThirdChildren) => {
-                            if (responseCreateThirdChildren.status === 0) {
-                              console.log('Criou terceira tarefa filha ' + responseCreateThirdChildren.object.id);
-                              fourthChildren.expectedAt = responseCreateThirdChildren.object.previewedAt;
-                              console.log(fourthChildren);
-                              this.taskService.createTask(thirdChildren).subscribe(
-                                (responseCreateFourthChildren) => {
-                                  if (responseCreateFourthChildren.status === 0) {
-                                    console.log('Criou quarta tarefa filha ' + responseCreateFourthChildren.object.id);
-                                    this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
-                                  }
-                                }
-                              );
-                              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
-                            }
-                          }
-                        );
-                        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
-                      }
-                    }
-                  );
-                  this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
-                }
-              }
-            );
           });
+          console.log(firstChildren);
+          this.taskService.createTask(firstChildren).subscribe(
+            (responseCreateFirstChildren) => {
+              if (responseCreateFirstChildren.status === 0) {
+                console.log('Criou primeira tarefa filha ' + responseCreateFirstChildren.object.id);
+                secondChildren.expectedAt = responseCreateFirstChildren.object.previewedAt;
+                console.log(secondChildren);
+                this.taskService.createTask(secondChildren).subscribe(
+                  (responseCreateSecondChildren) => {
+                    if (responseCreateSecondChildren.status === 0) {
+                      console.log('Criou segunda tarefa filha ' + responseCreateSecondChildren.object.id);
+                      thirdChildren.expectedAt = responseCreateSecondChildren.object.previewedAt;
+                      console.log(thirdChildren);
+                      this.taskService.createTask(thirdChildren).subscribe(
+                        (responseCreateThirdChildren) => {
+                          if (responseCreateThirdChildren.status === 0) {
+                            console.log('Criou terceira tarefa filha ' + responseCreateThirdChildren.object.id);
+                            fourthChildren.expectedAt = responseCreateThirdChildren.object.previewedAt;
+                            console.log(fourthChildren);
+                            this.taskService.createTask(thirdChildren).subscribe(
+                              (responseCreateFourthChildren) => {
+                                if (responseCreateFourthChildren.status === 0) {
+                                  console.log('Criou quarta tarefa filha ' + responseCreateFourthChildren.object.id);
+                                  this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
+                                }
+                              }
+                            );
+                            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
+                          }
+                        }
+                      );
+                      this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
+                    }
+                  }
+                );
+                this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com sucesso!' }});
+              }
+            }
+          );
           this.loader = false;
           this.dialogRef.close({confirm: true});
           return;
