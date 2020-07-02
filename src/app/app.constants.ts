@@ -8,5 +8,4 @@ export class AppConstants {
     public static SYSTEM_NAME = environment.SYSTEM_NAME;
     public static WORKPLAYER_HOME = environment.WORKPLAYER_HOME;
     public static COMPANY = environment.COMPANY;
-
 }
