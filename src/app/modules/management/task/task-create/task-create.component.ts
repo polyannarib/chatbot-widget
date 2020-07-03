@@ -205,7 +205,7 @@ export class TaskCreateComponent implements OnInit {
                             console.log('Criou terceira tarefa filha ' + responseCreateThirdChildren.object.id);
                             fourthChildren.expectedAt = responseCreateThirdChildren.object.previewedAt;
                             console.log(fourthChildren);
-                            this.taskService.createTask(thirdChildren).subscribe(
+                            this.taskService.createTask(fourthChildren).subscribe(
                               (responseCreateFourthChildren) => {
                                 if (responseCreateFourthChildren.status === 0) {
                                   console.log('Criou quarta tarefa filha ' + responseCreateFourthChildren.object.id);
