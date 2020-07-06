@@ -63,7 +63,7 @@ export class PlayersFindComponent implements OnInit {
         this.playerRated = response.object.filter(element => {
           const dateProject = new Date(this.dataInicial).getDate();
           const datePlayerAvailable = new Date(element.availableDate).getDate();
-          if(compareDesc(dateProject, datePlayerAvailable) < 1) {
+          if(compareDesc(dateProject, datePlayerAvailable) == 0) {
             return element;
           }
         });
