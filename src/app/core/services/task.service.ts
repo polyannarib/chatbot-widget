@@ -17,65 +17,69 @@ export class TaskService {
   getTasksByProject(projectId: number): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/byProject/${projectId}`);
   }
-
+  
   createTask(data): Observable<any> {
     return this.http.post(`${environment.back_end_url}/${this.prefixService}`, data );
   }
-
+  
   editTask(data): Observable<any> {
     return this.http.post(`${environment.back_end_url}/${this.prefixService}`, data );
   }
-
+  
   removeTask(id: Number, reason: String ): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/${id}/remove?reason=${reason}`);
   }
-
+  
   setAttachment(id, data): Observable<any> {
     return this.http.post(`${environment.back_end_url}/link/${this.prefixService}/${id}`, data);
   }
-
+  
   getTypesTask(): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/type/all`);
   }
-
+  
   findTasks(playerId: Number, date: String): Observable< any > {
     return this.http.get( this.url + '/dashboard/player/' + playerId + '/task/date/' + date );
   }
-
+  
   findProjectTasks(id: Number, date: String): Observable< any > {
     return this.http.get( this.url + '/dashboard/project/' + id + '/task/date/' + date );
   }
-
+  
   finalize(id: Number): Observable< any > {
     return this.http.get( this.url + '/task/' + id + '/finalize' );
   }
-
+  
   suspend(id: Number, reason: String ): Observable< any > {
     return this.http.get( this.url + '/task/' + id + '/suspend?reason=' + reason );
   }
-
+  
   removePlayer(id: Number, reason: String ): Observable< any > {
     return this.http.get( this.url + '/task/' + id + '/giveBack?reason=' + reason );
   }
-
+  
   assignTask(taskId: Number, playerId: Number ): Observable< any > {
     return this.http.get( this.url + '/task/' + taskId + '/assign/player/' + playerId );
   }
-
+  
   rescheduleTask(taskId: Number, dateTo: String): Observable< any > {
     return this.http.get( this.url + '/task/' + taskId + '/reschedule?previewedAt=' + dateTo );
   }
-
+  
   callRegisterItemKySmart(): Observable<any> {
     return this.http.post(`${environment.back_end_kysmart}/kyrograma/kyrogramaRegister?registerId=307`, null);
   }
-
+  
   callRegisterItemIdKySmart(id): Observable<any> {
     return this.http.get(`${environment.back_end_kysmart}/registerItem/${id}`);
   }
-
+  
   cardRemoved(taskId, cardId): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/${taskId}/removeCard/${cardId}`);
+  }
+  
+  getRules(rule: any): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/listRule`, { params: rule });
   }
 
 }
