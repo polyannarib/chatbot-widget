@@ -37,7 +37,7 @@ export class TaskCreateComponent implements OnInit {
     duration: [null],
     type: [null],
     links: [this.attachment],
-    time: [null],
+    time: [8],
     parentId: [this.data.parentId],
     projectId: [this.data.project.id]
   });
