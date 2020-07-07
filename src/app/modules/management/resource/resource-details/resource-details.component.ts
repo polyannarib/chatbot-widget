@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TaskService } from 'src/app/core/services/task.service';
 import { format } from 'date-fns';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-resource-details',
@@ -13,12 +14,15 @@ export class ResourceDetailsComponent implements OnInit {
   playerActivity: any;
   findTask: any;
   loader: boolean = false;
-  progress: any
+  progress: any;
+  mainStyle = this.profileService.getAppMainColor();
+  secoundStyle = this.profileService.getAppSecondaryColor();
 
   constructor(
     public dialogRef: MatDialogRef<ResourceDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {
