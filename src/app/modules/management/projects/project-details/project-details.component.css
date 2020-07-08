@@ -12,3 +12,30 @@
     padding: 3px 25px;
     font-size: 22px;
 }
+.collection {
+    padding-top: 10px;
+    margin-bottom: 0px;
+    border: none !important;
+    margin: 0px important;
+}
+.collection label, .collection a {
+    color: #000000;
+    font-weight: 600;
+}
+.collection {
+    margin-bottom: 0px;
+    border: none !important;
+    margin: 0px important;
+}
+.collection .collection-item {
+    background-color: #fff;
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: none;
+}
+.collection .secondary-content {
+    float: right;
+    color: #000000;
+    cursor: pointer;
+}

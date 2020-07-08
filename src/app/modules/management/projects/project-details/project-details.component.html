@@ -55,7 +55,18 @@
                 <li><span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration }}h</li>
                 <li><span>{{ 'EFFORT' | translate }} </span> {{ activity.effort }}h</li>
               </ul>
-              <div class="containerButtons center-align" *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
+
+              <div class="collection" *ngIf="activity.links && activity.links.length > 0">
+                <label *ngIf="activity.links && activity.links.length > 0">Anexos</label>
+                <li *ngFor="let item of activity.links" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
+                  <div>
+                    <a target="_blank" href="{{ item.url }}">{{ item.description }}</a>
+                    <!-- <a (click)="removeAttachment(item)" class="secondary-content"><i class="material-icons">close</i></a> -->
+                  </div>
+                </li>
+              </div>
+
+              <div class="containerButtons center-align" *ngIf="(activity.cards.length > 0) && (scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster)">
                 <app-button-finalize *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-finalize>
                 <app-button-remove (update)="updateTasks($event)" [activityId]="activity.id"></app-button-remove>
                 <app-button-suspend *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-suspend>

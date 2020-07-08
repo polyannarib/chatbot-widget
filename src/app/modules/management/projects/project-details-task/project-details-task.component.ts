@@ -219,7 +219,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
       project: this.data.project
     };
     const dialogRef = this.dialog.open(ProjectCreateComponent, {
-      width: '90vw',
+      width: '600px',
       data: dataSend
     });
   }
@@ -230,7 +230,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
       project: this.data.project
     };
     const dialogRef = this.dialog.open(ProjectCreateComponent, {
-      width: '90vw',
+      width: '600px',
       data: dataSend
     });
   }

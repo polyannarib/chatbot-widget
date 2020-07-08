@@ -41,7 +41,6 @@ export class ProjectCreateComponent implements OnInit {
         (response) => {
           if (response.status == 0) {
             this.loader = false;
-            console.log(response);
             this.data.project = response.object[0];
             this.getType();
             return;

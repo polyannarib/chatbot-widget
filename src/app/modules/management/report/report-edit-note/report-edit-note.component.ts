@@ -33,6 +33,11 @@ export class ReportEditNoteComponent implements OnInit {
   }
 
   getType() {
+
+    console.log('---------------------')
+    console.log('----- getType() -----')
+    console.log(this.data)
+
     if(this.data.type == 'edit') {
       this.data.note.noteDate = new Date();
       this.data.note.noteEndDate = new Date();
@@ -46,10 +51,10 @@ export class ReportEditNoteComponent implements OnInit {
         noteEndDate: [new Date(this.data.note.noteEndDate)],
         criticallyLevel: [this.data.note.criticallyLevel],
         status: this.formBuilder.group({
-          id: [this.data.statusId.id]
+          id: [this.data.statusId]
         }),
         type: this.formBuilder.group({
-          id: [this.data.typeId.id]
+          id: [this.data.typeId]
         }),
         project: this.formBuilder.group({
           id: [this.data.projectId]

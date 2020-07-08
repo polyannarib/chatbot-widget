@@ -4,6 +4,7 @@ import { TaskService } from 'src/app/core/services/task.service';
 import { format } from 'date-fns';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-project-details',
@@ -27,13 +28,16 @@ export class ProjectDetailsComponent implements OnInit {
   updateDesignate: boolean;
   taskId: any;
   scopes = Object.assign({}, this.authService.getScopes());
+  mainStyle = this.profileService.getAppMainColor();
+  secoundStyle = this.profileService.getAppSecondaryColor();
 
   constructor(
     public dialogRef: MatDialogRef<ProjectDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private taskService: TaskService,
     public dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {
