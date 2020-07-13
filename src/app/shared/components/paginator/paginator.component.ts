@@ -8,7 +8,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class PaginatorComponent implements OnInit, OnChanges {
   
-  @Input() itens: Array<any>;
+  // @Input() itens: Array<any>;
   @Input() initialPage: number;
   @Input() pageSize: number;
   @Input() totalFound: number;
@@ -20,11 +20,12 @@ export class PaginatorComponent implements OnInit, OnChanges {
     if(this.initialPage == null) {
       this.initialPage = 1;
     }
+    
     // this.pageNumbers = this.totalFound / this.pageSize;
     // if( (this.pageNumbers * this.pageSize) < this.totalFound ){
     //       this.pageNumbers = this.pageNumbers + 1;
     // }
-    // this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
+    // const teste = Array(this.totalFound).fill(0).map((x) => x);
   }
 
   ngOnChanges(changes: SimpleChanges) {
