@@ -6,7 +6,7 @@ export const environment = {
   SYSTEM_NAME: 'WORKPLAYER',
   WORKPLAYER_HOME: 'https://www.kyros.com.br/webplayer',
   COMPANY: '1',
-  URL_STATUS_REPORT: 'http://andersonm:Kyros@123@reports.kyros.com.br/ReportServer/Pages/ReportViewer.aspx?%2fSTATUS_REPORT%2fStatusReport&ID_PROJETO=',
+  URL_STATUS_REPORT: 'http://reports.kyros.com.br/ReportServer/Pages/ReportViewer.aspx?%2fSTATUS_REPORT%2fStatusReport&ID_PROJETO=',
   production: true
 };
 

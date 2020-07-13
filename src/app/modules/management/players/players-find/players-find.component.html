@@ -49,9 +49,8 @@
         <div *ngIf="playerRatedFilter.length == 0">
           <app-count>Sem recursos no momento</app-count>
         </div>
-
         <mat-radio-group *ngIf="playerRatedFilter.length > 0" aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="playerSelect">
-          <mat-radio-button class="example-radio-button" *ngFor="let player of playerRatedFilter" [value]="player.playerId">
+          <mat-radio-button class="example-radio-button" *ngFor="let player of getPlayer(playerRatedFilter)" [value]="player.playerId">
             <span class="radio-text valign-wrapper">{{ player.name }}
               <i class="material-icons tiny green-text ml-5">event_available</i>
             </span>

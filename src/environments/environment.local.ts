@@ -10,7 +10,7 @@ export const environment = {
   SYSTEM_NAME: 'WORKPLAYER',
   WORKPLAYER_HOME: 'http://localhost:4200',
   COMPANY: '1',
-  URL_STATUS_REPORT: 'http://andersonm:Kyros@123@192.168.0.116/ReportServer/Pages/ReportViewer.aspx?%2fSTATUS_REPORT%2fStatusReport&ID_PROJETO=',
+  URL_STATUS_REPORT: 'http://192.168.0.116/ReportServer/Pages/ReportViewer.aspx?%2fSTATUS_REPORT%2fStatusReport&ID_PROJETO=',
   production: false
 };
 

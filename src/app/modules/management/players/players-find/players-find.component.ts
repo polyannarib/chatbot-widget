@@ -162,6 +162,10 @@ export class PlayersFindComponent implements OnInit {
     return false;
   }
 
+  getPlayer(data) {
+    return data.splice(5, data);
+  }
+
   // -----------------------------------------------
   // onSearchChange(searchValue: string): void {
   //   this.searchPlayersFilter = this.searchPlayers.filter((element, index) => element.list.map((curr) => { 
