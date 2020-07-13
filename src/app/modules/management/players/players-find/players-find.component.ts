@@ -113,7 +113,7 @@ export class PlayersFindComponent implements OnInit {
           return curr.name.toUpperCase().includes(searchValue.toUpperCase());
         }
       )
-      this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
+      // this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
     }
     if(this.playerAvailable != null) {
       this.playerAvailableFilter = this.playerAvailable.filter(
@@ -121,7 +121,7 @@ export class PlayersFindComponent implements OnInit {
           return curr.name.toUpperCase().includes(searchValue.toUpperCase());
         }
       )
-      this.playerAvailableFilter.splice(5,this.playerAvailableFilter.length);
+      // this.playerAvailableFilter.splice(5,this.playerAvailableFilter.length);
     }
     if(this.playerAvailableOverGroup != null) {
       this.playerAvailableOverGroupFilter = this.playerAvailableOverGroup.filter(
@@ -129,14 +129,14 @@ export class PlayersFindComponent implements OnInit {
           return curr.name.toUpperCase().includes(searchValue.toUpperCase());
         }
       )
-      this.playerAvailableOverGroupFilter.splice(5,this.playerAvailableOverGroupFilter.length);
+      // this.playerAvailableOverGroupFilter.splice(5,this.playerAvailableOverGroupFilter.length);
     }
   }
 
   selectedFilter(valueFilter) {
     if(valueFilter == 'playersTeam') {
       this.playerRatedFilter = this.playerRated.filter(element => element.onTeam == true);
-      this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
+      // this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
     }
     if(valueFilter == 'playersCards') {
       const cards = this.cards.map(element => element.root);
@@ -151,7 +151,7 @@ export class PlayersFindComponent implements OnInit {
           return element;
         } 
       })
-      this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
+      // this.playerRatedFilter.splice(5,this.playerRatedFilter.length);
     }
   }
 
@@ -163,7 +163,8 @@ export class PlayersFindComponent implements OnInit {
   }
 
   getPlayer(data) {
-    return data.splice(5, data);
+    data.splice(5, data.length);
+    return data;
   }
 
   // -----------------------------------------------
@@ -178,6 +179,5 @@ export class PlayersFindComponent implements OnInit {
   //   console.log('--------------')
   //   console.log(this.searchPlayersFilter)
   // }
-
 
 }
