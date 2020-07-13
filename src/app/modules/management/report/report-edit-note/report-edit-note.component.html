@@ -41,18 +41,18 @@
 
       <mat-form-field class="example-full-width">
         <mat-label>Selecione o tipo</mat-label>
-        <mat-select formControlName="type.id">
-          <mat-option *ngFor="let typ of typeDesc" [value]="typ.key">
-            {{ typ.value }}
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let type of typeNotes" [value]="type">
+            {{ type.description }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Selecione o status</mat-label>
-        <mat-select formControlName="status.id">
-          <mat-option *ngFor="let stats of statusDesc" [value]="stats.key">
-            {{ stats.value }}
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let status of statusNotes" [value]="status">
+            {{ status.description }}
           </mat-option>
         </mat-select>
       </mat-form-field>

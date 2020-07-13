@@ -32,8 +32,8 @@ export class ReportEditComponent implements OnInit {
   columnsToDisplay: string[] = this.displayedColumns.slice();
 
   formFind: FormGroup = this.formBuilder.group({
-    typeId: [1, [Validators.required]],
-    statusId: [1, [Validators.required]],
+    typeId: [null, [Validators.required]],
+    statusId: [null, [Validators.required]],
     projectId: [this.data.project.id],
     page: [1],
     pageSize: [50]
@@ -55,7 +55,7 @@ export class ReportEditComponent implements OnInit {
   ngOnInit() {
     this.getTypes();
     this.getStatus();
-    this.findNotes();
+    this.notesLoader();
   }
 
   getTypes() {
@@ -82,7 +82,25 @@ export class ReportEditComponent implements OnInit {
     this.messageNotes = false;
     this.loaderNotes = true;
     if (this.formFind.valid) {
-      this.notesLoader();
+      // this.notesLoader();
+      this.noteService.findNotes(this.formFind.value).subscribe(
+        (response) => {
+          if (response.object.list.length > 0) {
+            this.notes = response.object.list;
+            this.loaderNotes = false;
+            return;
+          } else {
+            // this._snackBar.openFromComponent(NotifyComponent,
+            //   { data: { type: 'error', message: 'Não foi encontrado nenhuma nota' }});
+            this.notes = null;
+            this.loaderNotes = false;
+            this.messageNotes = true;
+          }
+        }, (err) => {
+          this.loaderNotes = false;
+          this._snackBar.openFromComponent(NotifyComponent,
+            { data: { type: 'error', message: 'Problemas para procurar as notas' }});
+      })
     } else {
       this.loaderNotes = false;
       this._snackBar.openFromComponent(NotifyComponent,
@@ -91,8 +109,13 @@ export class ReportEditComponent implements OnInit {
   }
 
   notesLoader() {
+    const data = {
+      projectId: this.data.project.id,
+      page: 1,
+      pageSize: 50
+    }
     this.loaderNotes = true;
-    this.noteService.findNotes(this.formFind.value).subscribe(
+    this.noteService.findNotes(data).subscribe(
       (response) => {
         if (response.object.list.length > 0) {
           this.notes = response.object.list;
@@ -130,12 +153,12 @@ export class ReportEditComponent implements OnInit {
   }
 
   modalCreateNotesReport() {
-    if(this.formFind.valid) {
+    // if(this.formFind.valid) {
       const dataSend = {
         type: 'create',
         projectId: this.formFind.value.projectId,
-        statusId: {id: this.formFind.value.statusId, value: this.statusNotes.find(x => x.id === this.formFind.value.statusId).description},
-        typeId: {id: this.formFind.value.typeId, value: this.typeNotes.find(x => x.id === this.formFind.value.typeId).description}
+        // statusId: {id: this.formFind.value.statusId, value: this.statusNotes.find(x => x.id === this.formFind.value.statusId).description},
+        // typeId: {id: this.formFind.value.typeId, value: this.typeNotes.find(x => x.id === this.formFind.value.typeId).description}
       };
       const dialogRef = this.dialog.open(ReportEditNoteComponent, {
         width: '40vw',
@@ -144,10 +167,10 @@ export class ReportEditComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         this.notesLoader();
       });
-    } else {
-      this._snackBar.openFromComponent(NotifyComponent,
-        { data: { type: 'error', message: 'Favor selecionar acima o tipo e o status da nota' }});
-    }
+    // } else {
+    //   this._snackBar.openFromComponent(NotifyComponent,
+    //     { data: { type: 'error', message: 'Favor selecionar acima o tipo e o status da nota' }});
+    // }
   }
 
   modalEditProject(project) {

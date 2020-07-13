@@ -55,7 +55,7 @@ export class ResourceListComponent implements OnInit {
     let params = {
       "startDate": format(this.startDate, 'dd-MM-yyyy'),
       "page": 1,
-      // "pageSize": 10
+      "pageSize": 50
     }
     this.playerService.findPlayers(params).subscribe(
       (response) => {
