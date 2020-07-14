@@ -52,6 +52,7 @@ import { RectangleDirective } from './directives/rectangle.directive';
 // NgxMaterial components importados
 import { MzCollapsibleModule } from 'ngx-materialize';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // Material Angular components importados
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -111,7 +112,8 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
     MatTreeModule,
     MatIconModule,
     MatBadgeModule,
-    RouterModule
+    RouterModule,
+    NgxPaginationModule
   ],
   declarations: [
     SidebarComponent,
@@ -208,7 +210,8 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
     PaginatorComponent,
     CollapseComponent,
     ImagePipe,
-    SafePipe
+    SafePipe,
+    NgxPaginationModule
   ],
   entryComponents: [
     FinalizeComponent,
