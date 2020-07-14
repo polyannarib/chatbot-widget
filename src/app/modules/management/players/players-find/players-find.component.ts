@@ -61,8 +61,8 @@ export class PlayersFindComponent implements OnInit {
         // this.onSearchChange('');
 
         this.playerRated = response.object.filter(element => {
-          const dateProject = new Date(this.dataInicial).getDate();
-          const datePlayerAvailable = new Date(element.availableDate).getDate();
+          const dateProject = new Date(this.dataInicial);
+          const datePlayerAvailable = new Date(element.availableDate);
           if(compareDesc(dateProject, datePlayerAvailable) == 0) {
             return element;
           }
