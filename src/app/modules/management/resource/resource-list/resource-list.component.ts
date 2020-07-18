@@ -19,11 +19,16 @@ export class ResourceListComponent implements OnInit {
   daysOfWeek13: any;
   filteredPlayers: any;
   pageLength: number;
-  pageSize: number;
   pageSizeOptions: number[] = [10, 25, 50];
   loader: boolean = false;
   loaderDays: boolean = false;
   numberOfDays = 8;
+
+  pageSize: number = 50;
+  page: number;
+
+  playersListOptions: any;
+
   startDate = new Date(Date.now());
   endDate = addDays(new Date(Date.now()), this.numberOfDays);
 
@@ -54,14 +59,15 @@ export class ResourceListComponent implements OnInit {
     this.loaderResource.emit(true);
     let params = {
       "startDate": format(this.startDate, 'dd-MM-yyyy'),
-      "page": 1,
-      "pageSize": 50
+      "page": this.page ? this.page : 1,
+      "pageSize": this.pageSize
     }
     this.playerService.findPlayers(params).subscribe(
       (response) => {
         if(response.status == 0) {
           this.loader = false;
           this.players = response.object.list;
+          this.playersListOptions = response.object;
           this.filteredPlayers = this.players;
           return;
         }
@@ -122,6 +128,12 @@ export class ResourceListComponent implements OnInit {
           { data: { type: 'error', message: 'Problemas, contate o administrador' }});
         break;
     }
+  }
+
+  updatePage(value) {
+    console.log('----------------- updatePage-----------------------')
+    console.log(value)
+    this.findPlayers();
   }
 
 }

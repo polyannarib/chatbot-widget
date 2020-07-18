@@ -1,6 +1,6 @@
 <app-loading [loader]="loader"></app-loading>
 
-<div id="modal" *ngIf="!loader">
+<div id="modal" *ngIf="!loader && typeNotes && statusNotes">
   <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
   <!-- <div class="modal-header"></div> -->
   <form [formGroup]="form" (ngSubmit)="saveNotes()">
@@ -39,19 +39,19 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width" *ngIf="typeNotes">
         <mat-label>Selecione o tipo</mat-label>
         <mat-select formControlName="type">
-          <mat-option *ngFor="let type of typeNotes" [value]="type">
+          <mat-option *ngFor="let type of typeNotes" [value]="type.id">
             {{ type.description }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width" *ngIf="statusNotes">
         <mat-label>Selecione o status</mat-label>
         <mat-select formControlName="status">
-          <mat-option *ngFor="let status of statusNotes" [value]="status">
+          <mat-option *ngFor="let status of statusNotes" [value]="status.id">
             {{ status.description }}
           </mat-option>
         </mat-select>
