@@ -187,4 +187,25 @@ export class ReportEditComponent implements OnInit {
     window.open( environment.URL_STATUS_REPORT + this.data.project.id, '_blank');
   }
 
+  getColor(color) {
+    switch (color) {
+      case 'CONCLUIDO':
+        return '#494947';
+      case 'EM_ANDAMENTO':
+        return '#FFC53E';
+      case 'EM_ANDAMENTO_COM_ATRASO':
+        return '#0085B2';
+      case 'RESOLVIDO':
+        return '#00D69D';
+      // case 'HANGING':
+      //   return '#C9133E';
+      // case 'WAITING EXECUTION':
+      //   return '#949396';
+      case 'CANCELADO':
+        return '#A50104';
+      default:
+        return '#000';
+    }
+  }
+
 }
