@@ -14,7 +14,7 @@ export class ReportEditNoteComponent implements OnInit {
 
   form: FormGroup;
   loader: boolean = false;
-  typeNotes: any;
+  typeNotes: Type[];
   statusNotes: any;
   // typeDesc: Type[] = [{key: -1, value: 'Escolher'}];
   // statusDesc: Status[] = [{key: -1, value: 'Escolher'}];
@@ -31,19 +31,11 @@ export class ReportEditNoteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getType();
     this.getTypes();
-    this.getStatus();
   }
 
   getType() {
     if(this.data.type == 'edit') {
-
-      console.log('----------------------')
-      console.log('------ editar --------')
-      console.log(this.statusNotes)
-      console.log(this.typeNotes)
-
       this.data.note.noteDate = new Date();
       this.data.note.noteEndDate = new Date();
       this.form = this.formBuilder.group({
@@ -55,13 +47,16 @@ export class ReportEditNoteComponent implements OnInit {
         noteStartDate: [this.data.note.noteStartDate],
         noteEndDate: [new Date(this.data.note.noteEndDate)],
         criticallyLevel: [this.data.note.criticallyLevel],
-        status: [this.data.note.status],
-        type: [this.data.note.type],
+        // status: [this.data.note.status],
+        // type: [this.data.note.type],
+        status: [this.data.note.status.id],
+        type: [this.data.note.type.id],
         project: this.formBuilder.group({
           id: [this.data.projectId]
         })
       });
-      console.log(this.form.value)
+      // this.form.controls.type.setValue(type);
+      // console.log(this.form.value)
       // this.typeDesc.push({key: this.data.typeId.id, value: this.data.typeId.value});
       // this.statusDesc.push({key: this.data.statusId.id, value: this.data.statusId.value});
     } if(this.data.type == 'create') {
@@ -95,6 +90,10 @@ export class ReportEditNoteComponent implements OnInit {
     this.form.value.noteDate = (this.form.value.noteDate != null) ? new Date(this.form.value.noteDate).getTime() : null;
     this.form.value.noteStartDate = (this.form.value.noteStartDate != null) ? new Date(this.form.value.noteStartDate).getTime() : null;
     this.form.value.noteEndDate = (this.form.value.noteEndDate != null) ? new Date(this.form.value.noteEndDate).getTime() : null;
+    if(this.data.type == 'edit') {
+      this.form.controls.status.setValue({ id: this.form.value.status })
+      this.form.controls.type.setValue({ id: this.form.value.type })
+    }
     if(this.form.valid) {
       var noteSave = new Array(this.form.value);
       this.noteService.saveNotes(noteSave).subscribe(
@@ -126,6 +125,8 @@ export class ReportEditNoteComponent implements OnInit {
       (response) => {
         if(response.status == 0) {
           this.typeNotes = response.object;
+          console.log(this.typeNotes)
+          this.getStatus();
         }
       }, (err) => {
     })
@@ -136,16 +137,29 @@ export class ReportEditNoteComponent implements OnInit {
       (response) => {
         if(response.status == 0) {
           this.statusNotes = response.object;
+          this.getType();
         }
       }, (err) => {
     })
   }
 
+  setValue(value: number) {
+    return value;
+  }
+
 }
 
 interface Type {
-  key: number;
-  value: string;
+  // key: number;
+  // value: string;
+  createdAt: number,
+  createdBy: string,
+  description: string,
+  flagActive: string,
+  id: number,
+  noteType: string,
+  updatedAt: any,
+  updatedBy: any,
 }
 
 interface Status {

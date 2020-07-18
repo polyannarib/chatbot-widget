@@ -38,20 +38,28 @@ export class CompanySelectComponent implements OnInit {
           // window.location.href = AppConstants.URL_SSO + '/cookie' 
           //         + '?SSOID=' + response.object.ssoId
           //         + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + '/management/cockpit';
-          this.close();
+          this.close({selected : true});
+          // this._bottomSheetRef.dismiss({selected : true});
           return;
         }
+        this.loader = false;
+        this.close();
       }, (err) => {
         this.loader = false;
-        this._bottomSheetRef.dismiss();
+        // this._bottomSheetRef.dismiss();
+        // this.close()
         this._snackBar.openFromComponent(NotifyComponent, 
           { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
-        this.close();
+        this.close({err : true});
     })
   }
 
-  close(): void {
-    this._bottomSheetRef.dismiss();
+  close(data?): void {
+    if(data) {
+      this._bottomSheetRef.dismiss(data);
+    } else {
+      this._bottomSheetRef.dismiss();
+    }
     event.preventDefault();
   }
 

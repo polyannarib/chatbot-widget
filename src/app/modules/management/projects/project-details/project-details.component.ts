@@ -49,7 +49,7 @@ export class ProjectDetailsComponent implements OnInit {
     this.taskService.findProjectTasks(this.data.projectId, format(this.data.projectDate, 'dd-MM-yyyy')).subscribe(
       (response) => {
         // this.dataSource = response.object;
-        this.taskList = response.object.tasks
+        this.taskList = response.object.tasks.filter(element => element.rule.name == 'ATIVIDADE');
         this.projectTasks = response.object;
         this.loader = false;
       }, (err) => {

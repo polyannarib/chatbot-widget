@@ -17,6 +17,7 @@ export class ResourceDetailsComponent implements OnInit {
   progress: any;
   mainStyle = this.profileService.getAppMainColor();
   secoundStyle = this.profileService.getAppSecondaryColor();
+  tasksList: any;
 
   constructor(
     public dialogRef: MatDialogRef<ResourceDetailsComponent>,
@@ -34,7 +35,8 @@ export class ResourceDetailsComponent implements OnInit {
     this.taskService.findTasks(this.data.playerId, format(this.data.activityDate, 'dd-MM-yyyy')).subscribe(
       (response) => {
         this.playerActivity = response.object.player;
-        this.progress = response.object.progress
+        this.tasksList = response.object.player.task.filter(element => element.rule.name == 'ATIVIDADE');
+        this.progress = response.object.progress;
         this.loader = false;
       }, (err) => {
         this.loader = false;

@@ -140,8 +140,8 @@ export class ReportEditComponent implements OnInit {
       type: 'edit',
       note: note,
       projectId: this.formFind.value.projectId,
-      statusId: this.formFind.value.statusId,
-      typeId: this.formFind.value.typeId
+      // statusId: this.formFind.value.statusId,
+      // typeId: this.formFind.value.typeId
     }
     const dialogRef = this.dialog.open(ReportEditNoteComponent, {
       width: '600px',

@@ -34,6 +34,11 @@ export class ProjectsListComponent implements OnInit {
   mainStyle = this.profileService.getAppMainColor();
   secondarytyle = this.profileService.getAppSecondaryColor();
 
+  pageSize: number = 50;
+  page: number;
+
+  projectsListOptions: number;
+
   constructor(
     private projectService: ProjectService,
     public dialog: MatDialog,
@@ -56,16 +61,17 @@ export class ProjectsListComponent implements OnInit {
     this.loader = true;
     this.loaderProject.emit(true);
     const params = {
-      startDate: format(this.startDate, 'dd-MM-yyyy'),
-      endDate: format(this.endDate, 'dd-MM-yyyy'),
-      page: 1,
-      pageSize: 50
+      "startDate": format(this.startDate, 'dd-MM-yyyy'),
+      "endDate": format(this.endDate, 'dd-MM-yyyy'),
+      "page": this.page ? this.page : 1,
+      "pageSize": this.pageSize
     };
     this.projectService.listProjects(params).subscribe(
       (response) => {
         if (response.status == 0) {
           this.loader = false;
           this.projectsList = response.object.list;
+          this.projectsListOptions = response.object;
           this.filteredProjectsList = this.projectsList;
           return;
         }
@@ -178,6 +184,12 @@ export class ProjectsListComponent implements OnInit {
         this.findProjects();
       }
     });
+  }
+
+  updatePage(value) {
+    console.log('----------------- updatePage-----------------------')
+    console.log(value)
+    this.findProjects();
   }
 
 }
