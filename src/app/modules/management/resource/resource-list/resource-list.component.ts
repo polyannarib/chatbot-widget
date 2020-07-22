@@ -137,6 +137,7 @@ export class ResourceListComponent implements OnInit {
   }
 
   updatePage(value) {
+    this.page = value;
     this.findPlayers();
   }
 

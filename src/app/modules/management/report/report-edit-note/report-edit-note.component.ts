@@ -90,10 +90,10 @@ export class ReportEditNoteComponent implements OnInit {
     this.form.value.noteDate = (this.form.value.noteDate != null) ? new Date(this.form.value.noteDate).getTime() : null;
     this.form.value.noteStartDate = (this.form.value.noteStartDate != null) ? new Date(this.form.value.noteStartDate).getTime() : null;
     this.form.value.noteEndDate = (this.form.value.noteEndDate != null) ? new Date(this.form.value.noteEndDate).getTime() : null;
-    if(this.data.type == 'edit') {
-      this.form.controls.status.setValue({ id: this.form.value.status })
-      this.form.controls.type.setValue({ id: this.form.value.type })
-    }
+    // if(this.data.type == 'edit') {
+    this.form.controls.status.setValue({ id: this.form.value.status })
+    this.form.controls.type.setValue({ id: this.form.value.type })
+    // }
     if(this.form.valid) {
       var noteSave = new Array(this.form.value);
       this.noteService.saveNotes(noteSave).subscribe(
