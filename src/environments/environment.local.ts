@@ -5,6 +5,7 @@
 export const environment = {
   back_end_url: 'http://192.168.1.235:8989/workplayer-portal/services',
   back_end_kysmart: 'http://192.168.0.240:8081/ApiKysmart',
+  register_id_kysmart: 307,
   URL_SSO: 'http://192.168.1.235/kyros-sso',
   URL_SSO_SERVICES: 'http://192.168.1.229:8593/kyros-sso',
   SYSTEM_NAME: 'WORKPLAYER',
