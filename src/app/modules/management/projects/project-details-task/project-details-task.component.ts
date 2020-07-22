@@ -13,51 +13,6 @@ import { ProjectCreateComponent } from '../project-create/project-create.compone
 import {Validators} from "@angular/forms";
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 
-
-/**
- * Food data with nested structure.
- * Each node has a name and an optional list of children.
- */
-// interface FoodNode {
-//   name: string;
-//   children?: FoodNode[];
-// }
-
-// const TREE_DATA: any = [
-//   {
-//     name: 'Fruit',
-//     children: [
-//       {name: 'Apple'},
-//       {name: 'Banana'},
-//       {name: 'Fruit loops'},
-//     ]
-//   }, {
-//     name: 'Vegetables',
-//     children: [
-//       {
-//         name: 'Green',
-//         children: [
-//           {name: 'Broccoli'},
-//           {name: 'Brussels sprouts'},
-//         ]
-//       }, {
-//         name: 'Orange',
-//         children: [
-//           {name: 'Pumpkins'},
-//           {name: 'Carrots'},
-//         ]
-//       },
-//     ]
-//   },
-// ];
-
-/** Flat node with expandable and level information */
-// interface ExampleFlatNode {
-//   expandable: boolean;
-//   name: string;
-//   level: number;
-// }
-
 @Component({
   selector: 'app-project-details-task',
   templateUrl: './project-details-task.component.html',
@@ -91,7 +46,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
     this.taskService.getTasksByProject(id).subscribe(
       (response) => {
         if(response.status == 0) {
-          this.tasks = response.object.filter(element => element.rule.name == 'ATIVIDADE');
+          this.tasks = response.object.filter(element => element.rule == null || element.rule.name == 'ATIVIDADE');
           this.dataSource.data = this.tasks;
           this.loader = false;
           return;
