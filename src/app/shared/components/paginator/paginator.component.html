@@ -1,7 +1,8 @@
-<ul class="pagination">
+<ul class="pagination" *ngIf="getPageNumbers().length > 1">
     <li [ngClass]="{disabled: pageSelected == 1}"><a (click)="prev()"><i class="material-icons">chevron_left</i></a></li>
-    <li *ngFor="let item of pageNumbersArray" class="waves-effect">
-        <button (click)="setPage(item)">{{ item }}</button>
+    <li *ngFor="let item of getPageNumbers()" [ngStyle]="{'background-color': getStyle(pageSelected, item)}">
+        <a (click)="setPage(item)">{{ item }}</a>
+        <!-- <button [ngClass]="{active: pageSelected === item}" (click)="setPage(item)">{{ item }}</button> -->
     </li>
-    <li [ngClass]="{disabled: lastPage()}" class="waves-effect"><a (click)="next()"><i class="material-icons">chevron_right</i></a></li>
+    <li [ngClass]="{disabled: lastPage()}"><a (click)="next()"><i class="material-icons">chevron_right</i></a></li>
 </ul>

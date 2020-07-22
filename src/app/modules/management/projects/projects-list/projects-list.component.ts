@@ -34,8 +34,9 @@ export class ProjectsListComponent implements OnInit {
   mainStyle = this.profileService.getAppMainColor();
   secondarytyle = this.profileService.getAppSecondaryColor();
 
-  pageSize: number = 50;
+  pageSize: number = 20;
   page: number;
+  totalFound: number;
 
   projectsListOptions: number;
 
@@ -62,7 +63,7 @@ export class ProjectsListComponent implements OnInit {
     this.loaderProject.emit(true);
     const params = {
       "startDate": format(this.startDate, 'dd-MM-yyyy'),
-      "endDate": format(this.endDate, 'dd-MM-yyyy'),
+      // "endDate": format(this.endDate, 'dd-MM-yyyy'),
       "page": this.page ? this.page : 1,
       "pageSize": this.pageSize
     };
@@ -73,6 +74,11 @@ export class ProjectsListComponent implements OnInit {
           this.projectsList = response.object.list;
           this.projectsListOptions = response.object;
           this.filteredProjectsList = this.projectsList;
+
+          this.pageSize = response.object.pageSize;
+          this.page = response.object.page;
+          this.totalFound = response.object.totalFound;
+
           return;
         }
         this.httpError(response.message);
@@ -186,9 +192,15 @@ export class ProjectsListComponent implements OnInit {
     });
   }
 
+  pageEvent(eventoPaginator) {
+    this.totalFound = eventoPaginator.length;
+    this.pageSize = eventoPaginator.pageSize;
+    this.page = eventoPaginator.pageIndex + 1;
+    this.findProjects();
+  }
+
   updatePage(value) {
-    console.log('----------------- updatePage-----------------------')
-    console.log(value)
+    this.page = value;
     this.findProjects();
   }
 

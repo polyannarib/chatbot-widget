@@ -1,7 +1,16 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .selected {
     background-color: blue;
 }
 
 button {
     color: #000;
+}
+.pagination li {
+    cursor: pointer;
 }

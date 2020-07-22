@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-paginator',
@@ -16,8 +17,24 @@ export class PaginatorComponent implements OnInit {
   
   pageNumbers: number;
   pageNumbersArray = new Array;
+  loader: boolean = true;
+
+  mainStyle = this.profileService.getAppMainColor();
+  secondarytyle = this.profileService.getAppSecondaryColor();
+
+  constructor(
+    private profileService: ProfileService
+  ) { }
 
   ngOnInit() {
+    // this.pageNumbers = this.totalFound / this.pageSize;
+    // if( (this.pageNumbers * this.pageSize) < this.totalFound ){
+    //       this.pageNumbers = this.pageNumbers + 1;
+    // }
+    // const teste = Array(this.totalFound).fill(0).map((x) => x);
+  }
+
+  getPageNumbers() {
     if(this.pageSelected == null) {
       this.pageSelected = 1;
     }
@@ -32,25 +49,12 @@ export class PaginatorComponent implements OnInit {
     } else {
       this.pageNumbers = 1;
     }
-
-    // console.log('----valores------')
-    // console.log(remainder)
-    // console.log(quotient)
-    // console.log(this.pageNumbers)
-
-    for (let index = 1; index <= this.pageNumbers; index++) {
-      // console.log('Entrou dentro do for')
-      this.pageNumbersArray.push(index);
-    }
-
-    console.log('---pageNumbersArray---')
-    console.log(this.pageNumbersArray)
-
-    // this.pageNumbers = this.totalFound / this.pageSize;
-    // if( (this.pageNumbers * this.pageSize) < this.totalFound ){
-    //       this.pageNumbers = this.pageNumbers + 1;
+    return Array(this.pageNumbers).fill(0).map((x,i) => i + 1);
+    // this.pageNumbersArray = Array(this.pageNumbers).fill(0).map((x,i)=>i++);
+    // return this.pageNumbersArray;
+    // for (let index = 1; index <= this.pageNumbers; index++) {
+    //   this.pageNumbersArray.push(index);
     // }
-    // const teste = Array(this.totalFound).fill(0).map((x) => x);
   }
 
   // ngOnChanges(changes: SimpleChanges) {
@@ -58,27 +62,35 @@ export class PaginatorComponent implements OnInit {
   //   console.log(changes)
   // }
 
-  private setPage(number) {
+  setPage(number) {
     this.pageSelected = number;
     this.page.emit(this.pageSelected);
   }
 
-  private next() {
-    const page = this.pageSelected ++;
+  next() {
+    const page = this.pageSelected + 1;
     this.setPage(page)
   }
 
-  private prev() {
-    const page = this.pageSelected --;
+  prev() {
+    const page = this.pageSelected - 1;
     this.setPage(page)
   }
 
-  private lastPage(): boolean {
-    var ultimo = this.pageNumbersArray.pop();
-    if(this.pageNumbersArray.length > 1 && this.pageSelected == ultimo) {
+  lastPage(): boolean {
+    let pages = this.getPageNumbers();
+    var ultimo = pages.pop();
+    if(pages.length > 1 && this.pageSelected == ultimo) {
       return true;
     }
     return false;
+  }
+
+  getStyle(pageSelected, item) {
+    if(pageSelected === item) { 
+      return this.mainStyle;
+    }
+    return 'none';
   }
 
   // pageSizeOptions: number[] = [20, 30, 50, 100];
