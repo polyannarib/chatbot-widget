@@ -24,8 +24,9 @@ export class ResourceListComponent implements OnInit {
   loaderDays: boolean = false;
   numberOfDays = 8;
 
-  pageSize: number = 50;
+  pageSize: number = 20;
   page: number;
+  totalFound: number;
 
   playersListOptions: any;
 
@@ -69,6 +70,11 @@ export class ResourceListComponent implements OnInit {
           this.players = response.object.list;
           this.playersListOptions = response.object;
           this.filteredPlayers = this.players;
+
+          this.pageSize = response.object.pageSize;
+          this.page = response.object.page;
+          this.totalFound = response.object.totalFound;
+
           return;
         }
         this.httpError(response.message);
@@ -131,8 +137,6 @@ export class ResourceListComponent implements OnInit {
   }
 
   updatePage(value) {
-    console.log('----------------- updatePage-----------------------')
-    console.log(value)
     this.findPlayers();
   }
 
