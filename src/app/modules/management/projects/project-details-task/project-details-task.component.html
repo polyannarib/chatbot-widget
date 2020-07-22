@@ -24,7 +24,7 @@
     </div> -->
 
     <app-loading [loader]="loader"></app-loading>
-    <app-count *ngIf="tasks && tasks.length < 1 && !loader">Esse projeto está sem task cadastrada no momento!</app-count>
+    <app-count *ngIf="tasks.length < 1 && !loader">Esse projeto está sem task cadastrada no momento!</app-count>
 
     <!-- <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
