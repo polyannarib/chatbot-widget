@@ -24,7 +24,7 @@
     </div> -->
 
     <app-loading [loader]="loader"></app-loading>
-    <app-count *ngIf="tasks.length < 1 && !loader">Esse projeto está sem task cadastrada no momento!</app-count>
+    <app-count *ngIf="tasks?.length == 0 && !loader">Esse projeto está sem task cadastrada no momento!</app-count>
 
     <!-- <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
@@ -45,7 +45,7 @@
       </mat-tree-node>
     </mat-tree> -->
 
-    <div *ngIf="tasks && !loader && tasks.length > 0">
+    <div *ngIf="tasks && !loader && tasks?.length > 0">
       <table class="TreeHeader">
         <tr>
           <td></td>
@@ -63,7 +63,7 @@
             <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
               <i class="material-icons" style="color:black">edit</i>
             </button>
-            <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
+            <button *ngIf="typeSon(node)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
               <i class="material-icons" style="color:black">add</i>
             </button>
             <button (click)="removeTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">

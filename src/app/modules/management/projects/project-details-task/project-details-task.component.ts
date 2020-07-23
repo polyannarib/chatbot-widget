@@ -45,7 +45,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
     this.loader = true;
     this.taskService.getTasksByProject(id).subscribe(
       (response) => {
-        if(response.status == 0) {
+        if(response.status == 0) {          
           this.tasks = response.object.filter(element => element.rule == null || element.rule.name == 'ATIVIDADE');
           this.dataSource.data = this.tasks;
           this.loader = false;
