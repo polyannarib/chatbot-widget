@@ -190,19 +190,19 @@ export class ReportEditComponent implements OnInit {
   getColor(color) {
     switch (color) {
       case 'CONCLUIDO':
-        return '#494947';
+        return '#00D69D';
       case 'EM_ANDAMENTO':
         return '#FFC53E';
       case 'EM_ANDAMENTO_COM_ATRASO':
-        return '#0085B2';
+        return '#A50104';
       case 'RESOLVIDO':
-        return '#00D69D';
+        return '#0085B2';
       // case 'HANGING':
       //   return '#C9133E';
       // case 'WAITING EXECUTION':
       //   return '#949396';
       case 'CANCELADO':
-        return '#A50104';
+        return '#F2165E';
       default:
         return '#000';
     }
