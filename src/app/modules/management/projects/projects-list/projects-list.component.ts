@@ -34,6 +34,12 @@ export class ProjectsListComponent implements OnInit {
   mainStyle = this.profileService.getAppMainColor();
   secondarytyle = this.profileService.getAppSecondaryColor();
 
+  pageSize: number = 20;
+  page: number;
+  totalFound: number;
+
+  projectsListOptions: number;
+
   constructor(
     private projectService: ProjectService,
     public dialog: MatDialog,
@@ -56,17 +62,23 @@ export class ProjectsListComponent implements OnInit {
     this.loader = true;
     this.loaderProject.emit(true);
     const params = {
-      startDate: format(this.startDate, 'dd-MM-yyyy'),
-      endDate: format(this.endDate, 'dd-MM-yyyy'),
-      page: 1,
-      pageSize: 50
+      "startDate": format(this.startDate, 'dd-MM-yyyy'),
+      // "endDate": format(this.endDate, 'dd-MM-yyyy'),
+      "page": this.page ? this.page : 1,
+      "pageSize": this.pageSize
     };
     this.projectService.listProjects(params).subscribe(
       (response) => {
         if (response.status == 0) {
           this.loader = false;
           this.projectsList = response.object.list;
+          this.projectsListOptions = response.object;
           this.filteredProjectsList = this.projectsList;
+
+          this.pageSize = response.object.pageSize;
+          this.page = response.object.page;
+          this.totalFound = response.object.totalFound;
+
           return;
         }
         this.httpError(response.message);
@@ -178,6 +190,18 @@ export class ProjectsListComponent implements OnInit {
         this.findProjects();
       }
     });
+  }
+
+  pageEvent(eventoPaginator) {
+    this.totalFound = eventoPaginator.length;
+    this.pageSize = eventoPaginator.pageSize;
+    this.page = eventoPaginator.pageIndex + 1;
+    this.findProjects();
+  }
+
+  updatePage(value) {
+    this.page = value;
+    this.findProjects();
   }
 
 }

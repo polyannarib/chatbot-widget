@@ -1,15 +1,8 @@
-<!-- <mat-paginator [length]="length"
-               [pageSize]="pageSize"
-               [pageSizeOptions]="pageSizeOptions"
-               (page)="pageEvent = $event">
-</mat-paginator> -->
-
-<ul class="pagination">
-    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-    <li class="active"><a href="#!">1</a></li>
-    <li class="waves-effect"><a href="#!">2</a></li>
-    <li class="waves-effect"><a href="#!">3</a></li>
-    <li class="waves-effect"><a href="#!">4</a></li>
-    <li class="waves-effect"><a href="#!">5</a></li>
-    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+<ul class="pagination" *ngIf="getPageNumbers().length > 1">
+    <li [ngClass]="{disabled: pageSelected == 1}"><a (click)="prev()"><i class="material-icons">chevron_left</i></a></li>
+    <li *ngFor="let item of getPageNumbers()" [ngStyle]="{'background-color': getStyle(pageSelected, item)}">
+        <a (click)="setPage(item)">{{ item }}</a>
+        <!-- <button [ngClass]="{active: pageSelected === item}" (click)="setPage(item)">{{ item }}</button> -->
+    </li>
+    <li [ngClass]="{disabled: lastPage()}"><a (click)="next()"><i class="material-icons">chevron_right</i></a></li>
 </ul>

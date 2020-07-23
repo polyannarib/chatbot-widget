@@ -140,8 +140,8 @@ export class ReportEditComponent implements OnInit {
       type: 'edit',
       note: note,
       projectId: this.formFind.value.projectId,
-      statusId: this.formFind.value.statusId,
-      typeId: this.formFind.value.typeId
+      // statusId: this.formFind.value.statusId,
+      // typeId: this.formFind.value.typeId
     }
     const dialogRef = this.dialog.open(ReportEditNoteComponent, {
       width: '600px',
@@ -185,6 +185,27 @@ export class ReportEditComponent implements OnInit {
 
   generateReport() {
     window.open( environment.URL_STATUS_REPORT + this.data.project.id, '_blank');
+  }
+
+  getColor(color) {
+    switch (color) {
+      case 'CONCLUIDO':
+        return '#00D69D';
+      case 'EM_ANDAMENTO':
+        return '#FFC53E';
+      case 'EM_ANDAMENTO_COM_ATRASO':
+        return '#A50104';
+      case 'RESOLVIDO':
+        return '#0085B2';
+      // case 'HANGING':
+      //   return '#C9133E';
+      // case 'WAITING EXECUTION':
+      //   return '#949396';
+      case 'CANCELADO':
+        return '#F2165E';
+      default:
+        return '#000';
+    }
   }
 
 }

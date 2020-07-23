@@ -49,6 +49,12 @@
         </ng-container>
       </tbody>
     </table>
+    <app-paginator 
+      [pageSize]="pageSize"
+      [totalFound]="totalFound"
+      [pageSelected]="page"
+      (page)="updatePage($event)">
+    </app-paginator>
   </div>
   
 </div>

@@ -37,7 +37,7 @@
               <td>{{ note?.noteEndDate | date:'dd/MM/yyyy' }}</td>
               <td>
                 <!-- [ngClass]="'color': activity.status == '1' ? 'green', 'color': activity.status == '2' ? 'yellow', 'color': activity.status == '3' ? 'red'" -->
-                <i class="material-icons">fiber_manual_record</i>
+                <i matTooltip="{{ note.status.description }}" [ngStyle]="{color: getColor(note.status.noteStatus)}" class="material-icons">fiber_manual_record</i>
               </td>
               <td class="action"><button matTooltip="Editar" [ngStyle]="{'background-color': mainStyle}" (click)="modalEditNotesReport(note)" mat-mini-fab color="warn"><i class="material-icons">edit</i></button></td>
             </tr>
