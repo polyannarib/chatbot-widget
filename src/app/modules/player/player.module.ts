@@ -6,7 +6,6 @@ import { PlayerComponent } from './player.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardBindComponent } from './card/card-bind/card-bind.component';
-import { ExtractComponent } from './extract/extract.component';
 
 @NgModule({
   imports: [
@@ -18,11 +17,7 @@ import { ExtractComponent } from './extract/extract.component';
   ],
   declarations: [
     PlayerComponent, 
-    CardBindComponent, 
-    ExtractComponent
-  ],
-  entryComponents: [
-    ExtractComponent
+    CardBindComponent
   ]
 })
 export class PlayerModule { }
