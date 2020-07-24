@@ -2,7 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
 import { JobService } from 'src/app/core/services/job.service';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
-import { add, sub } from 'date-fns';
+import { add } from 'date-fns';
+import { sub } from 'date-fns';
 import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
