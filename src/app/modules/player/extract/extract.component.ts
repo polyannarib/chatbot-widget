@@ -65,7 +65,7 @@ export class ExtractComponent implements OnInit {
   }
   
   prevMonthName(): Date {
-    return sub(this.date, {months: 1})
+    return sub(this.date, {months: 1});
   }
 
 }
