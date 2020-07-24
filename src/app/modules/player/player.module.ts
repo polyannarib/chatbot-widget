@@ -6,8 +6,7 @@ import { PlayerComponent } from './player.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardBindComponent } from './card/card-bind/card-bind.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CardInterceptor } from 'src/app/core/interceptors/card-interceptor';
+import { ExtractComponent } from './extract/extract.component';
 
 @NgModule({
   imports: [
@@ -19,10 +18,11 @@ import { CardInterceptor } from 'src/app/core/interceptors/card-interceptor';
   ],
   declarations: [
     PlayerComponent, 
-    CardBindComponent
+    CardBindComponent, 
+    ExtractComponent
   ],
-  providers: [
-    // { provide: HTTP_INTERCEPTORS, useClass: CardInterceptor, multi: true }
+  entryComponents: [
+    ExtractComponent
   ]
 })
 export class PlayerModule { }

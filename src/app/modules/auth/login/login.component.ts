@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.setError('Por favor, digite os campos corretamente!');
             this.loader = false;
           } if (responseAuth.status == 2) {
-            console.log('Entrou dentro do responseAuth.status = 2')
             const bottomSheetRef = this._bottomSheet.open(CompanySelectComponent, 
               { data: {
                 form: this.form.value,
@@ -65,8 +64,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
             }});
             bottomSheetRef.afterDismissed().subscribe((response) => {
               if(response.selected === true) {
-                console.log('afterDismissed')
-                console.log(response)
                 this.getWhiteLavel();
                 return;
               }

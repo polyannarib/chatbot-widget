@@ -5,6 +5,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {NotifyComponent} from '../../../../shared/components/notify/notify.component';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-task-create',
@@ -16,7 +17,7 @@ export class ModalKysmartComponent implements OnInit {
   loader = false;
   mainStyle = this.profileService.getAppMainColor();
   secoundStyle = this.profileService.getAppSecondaryColor();
-  urlIframe: string = 'http://192.168.0.240:8081/kysmart/#/registerItem/';
+  urlIframe: string = `${environment.back_end_kysmart}/kysmart/#/registerItem/`;
   iframe: SafeResourceUrl;
   html: string;
   registerItemId: number;
