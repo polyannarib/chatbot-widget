@@ -67,11 +67,11 @@ export class TaskService {
   }
   
   callRegisterItemKySmart(): Observable<any> {
-    return this.http.post(`${environment.back_end_kysmart}/kyrograma/kyrogramaRegister?registerId=${environment.register_id_kysmart}`, null);
+    return this.http.post(`${environment.back_end_kysmart}/ApiKysmart/kyrograma/kyrogramaRegister?registerId=${environment.register_id_kysmart}`, null);
   }
   
   callRegisterItemIdKySmart(id): Observable<any> {
-    return this.http.get(`${environment.back_end_kysmart}/registerItem/${id}`);
+    return this.http.get(`${environment.back_end_kysmart}/ApiKysmart/registerItem/${id}`);
   }
   
   cardRemoved(taskId, cardId): Observable<any> {

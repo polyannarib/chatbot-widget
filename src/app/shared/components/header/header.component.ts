@@ -3,6 +3,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { AppConstants } from '../../../app.constants';
 import { Router } from '@angular/router';
 import { ProfileService } from 'src/app/core/services/profile.service';
+import { MatDialog } from '@angular/material';
+import { ExtractComponent } from 'src/app/modules/player/extract/extract.component';
 
 declare var $: any;
 
@@ -22,7 +24,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private dialog: MatDialog
   ) {
     this.getPlayerProfile();
   }
@@ -32,6 +35,12 @@ export class HeaderComponent implements OnInit {
     if(document.body.classList.contains('nav-open')){
       document.querySelector('.navbar-toggle').classList.add('toggled');
     }
+  }
+
+  getExtract() {
+    const dialogRef = this.dialog.open(ExtractComponent, {
+      width: '600px',
+    });
   }
 
   // logout() {

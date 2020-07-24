@@ -32,6 +32,10 @@ header nav .brand-logo {
     }
 }
 
+header .player .image {
+    cursor: pointer;
+}
+
 
 
 /*---INSERÇÃO SIDEBAR---*/
