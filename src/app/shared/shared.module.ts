@@ -41,6 +41,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { CollapseComponent } from './components/collapse/collapse.component';
 import { RemoveTaskComponent } from './components/modal/remove-task/remove-task.component';
 import { AttachmentComponent } from './components/modal/attachment/attachment.component';
+import { ExtractComponent } from '../modules/player/extract/extract.component';
 
 // Diretivas
 import { EditModeDirective } from './directives/edit-mode.directive';
@@ -81,6 +82,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MainColorDirective } from './directives/main-color.directive';
 import { PrimaryColorDirective } from './directives/primary-color.directive';
 import { SecundaryColorDirective } from './directives/secundary-color.directive';
+
 
 @NgModule({
   imports: [
@@ -154,7 +156,8 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
     ImagePipe,
     SafePipe,
     RemoveTaskComponent,
-    AttachmentComponent
+    AttachmentComponent,
+    ExtractComponent
   ],
   exports: [
     MenuComponent,
@@ -222,7 +225,8 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
     ErrorComponent,
     ConfirmComponent,
     RemoveTaskComponent,
-    AttachmentComponent
+    AttachmentComponent,
+    ExtractComponent
   ],
   providers: [
     {
