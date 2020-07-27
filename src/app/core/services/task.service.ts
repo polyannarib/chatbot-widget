@@ -49,6 +49,10 @@ export class TaskService {
   finalize(id: Number): Observable< any > {
     return this.http.get( this.url + '/task/' + id + '/finalize' );
   }
+
+  initialize(id: Number): Observable< any > {
+    return this.http.get(`${environment.back_end_url}/${this.prefixService}/${id}/initialize`);
+  }
   
   suspend(id: Number, reason: String ): Observable< any > {
     return this.http.get( this.url + '/task/' + id + '/suspend?reason=' + reason );
