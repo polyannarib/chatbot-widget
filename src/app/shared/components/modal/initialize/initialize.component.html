@@ -1,13 +1,13 @@
 <div id="modal">
     <div class="modal-header">
-      {{ 'confirmInitialize' | translate }}
+      {{ 'MESSAGECONFIRMINITIALIZE' | translate }}
       <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
     </div>
     <div class="modal-body">
       <!-- <p *ngIf="statusErr != 0">{{ errMessage | translate }}</p> -->
-      <p>{{ 'confirmInitialize' | translate }}</p>
+      <p>{{ 'MESSAGECONFIRMINITIALIZE' | translate }}</p>
     </div>
     <div class="modal-footer">
-      <button class="button button-primary right" [ngStyle]="{'background-color': mainStyle}" (click)="confirmFinalize()">{{ 'CONFIRM' | translate }}</button>
+      <button class="button button-primary right" [ngStyle]="{'background-color': mainStyle}" (click)="confirmInitialize()">{{ 'CONFIRM' | translate }}</button>
     </div>
 </div>

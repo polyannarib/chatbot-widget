@@ -54,6 +54,7 @@
     "REMOVE": "Remove player",
     "REPLAN": "Replan",
     "MESSAGECONFIRMFINALIZE": "Do you wish to finalize this task?",
+    "MESSAGECONFIRMINITIALIZE": "Do you wish to start this task?",
     "MESSAGECONFIRMREMOVEPLAYER": "Do you wish to remove the player from this task?",
     "MESSAGECONFIRMSUSPEND": "Do you wish to suspend this task?",
     "SUCCESSTITLE": "Success!",

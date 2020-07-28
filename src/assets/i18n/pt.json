@@ -55,6 +55,7 @@
     "REMOVE": "Remover player",
     "REPLAN": "Replanejar",
     "MESSAGECONFIRMFINALIZE": "Deseja realmente finalizar a atividade?",
+    "MESSAGECONFIRMINITIALIZE": "Deseja realmente iniciar a atividade?",
     "MESSAGECONFIRMREMOVEPLAYER": "Deseja realmente remover o player da atividade?",
     "MESSAGECONFIRMSUSPEND": "Deseja realmente suspender a atividade?",
     "SUCCESSTITLE": "Sucesso!",
