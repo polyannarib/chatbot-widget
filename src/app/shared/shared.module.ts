@@ -82,6 +82,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MainColorDirective } from './directives/main-color.directive';
 import { PrimaryColorDirective } from './directives/primary-color.directive';
 import { SecundaryColorDirective } from './directives/secundary-color.directive';
+import { ButtonInitializeComponent } from './components/buttons/button-initialize/button-initialize.component';
+import { InitializeComponent } from './components/modal/initialize/initialize.component';
 
 
 @NgModule({
@@ -157,7 +159,9 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
     SafePipe,
     RemoveTaskComponent,
     AttachmentComponent,
-    ExtractComponent
+    ExtractComponent,
+    ButtonInitializeComponent,
+    InitializeComponent
   ],
   exports: [
     MenuComponent,
@@ -214,6 +218,8 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
     CollapseComponent,
     ImagePipe,
     SafePipe,
+    ButtonInitializeComponent,
+    InitializeComponent
     // NgxPaginationModule
   ],
   entryComponents: [
