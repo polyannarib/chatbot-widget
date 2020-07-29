@@ -17,7 +17,7 @@ export class ModalKysmartComponent implements OnInit {
   loader = false;
   mainStyle = this.profileService.getAppMainColor();
   secoundStyle = this.profileService.getAppSecondaryColor();
-  urlIframe: string = `${environment.back_end_kysmart}/kysmart/#/registerItem/`;
+  urlIframe: string = `${environment.front_end_kysmart}/#/registerItem/`;
   iframe: SafeResourceUrl;
   html: string;
   registerItemId: number;
