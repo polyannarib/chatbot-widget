@@ -17,10 +17,12 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CountComponent } from './components/count/count.component';
+import { InitializeComponent } from './components/modal/initialize/initialize.component';
 import { FinalizeComponent } from './components/modal/finalize/finalize.component';
 import { RemoveComponent } from './components/modal/remove/remove.component';
 import { SuspendComponent } from './components/modal/suspend/suspend.component';
 import { BaseModalComponent } from './components/modal/base-modal/base-modal.component';
+import { ButtonInitializeComponent } from './components/buttons/button-initialize/button-initialize.component';
 import { ButtonFinalizeComponent } from './components/buttons/button-finalize/button-finalize.component';
 import { ButtonRemoveComponent } from './components/buttons/button-remove/button-remove.component';
 import { ButtonSuspendComponent } from './components/buttons/button-suspend/button-suspend.component';
@@ -82,8 +84,6 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MainColorDirective } from './directives/main-color.directive';
 import { PrimaryColorDirective } from './directives/primary-color.directive';
 import { SecundaryColorDirective } from './directives/secundary-color.directive';
-import { ButtonInitializeComponent } from './components/buttons/button-initialize/button-initialize.component';
-import { InitializeComponent } from './components/modal/initialize/initialize.component';
 
 
 @NgModule({
@@ -232,7 +232,8 @@ import { InitializeComponent } from './components/modal/initialize/initialize.co
     ConfirmComponent,
     RemoveTaskComponent,
     AttachmentComponent,
-    ExtractComponent
+    ExtractComponent,
+    InitializeComponent
   ],
   providers: [
     {

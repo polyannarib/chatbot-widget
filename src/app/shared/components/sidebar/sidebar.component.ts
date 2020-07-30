@@ -20,11 +20,4 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() { }
 
-  isNotMobileMenu() {
-    if ($(window).width() > 991) {
-      return false;
-    }
-    return true;
-  }
-  
 }
