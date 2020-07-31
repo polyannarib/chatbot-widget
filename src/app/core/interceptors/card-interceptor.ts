@@ -19,7 +19,7 @@ export class CardInterceptor implements HttpInterceptor {
     // }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const userToken = 'YWRtaW46YWRtaW4=';
+        const userToken = 'YWRtaW46T2lKS1YxUWlMQ0poYkdjaU9pSklVelV4TWlKOQ==';
         const modifiedReq = req.clone({ 
           headers: req.headers.set('Authorization', `Basic ${userToken}`),
         });
