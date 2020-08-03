@@ -75,12 +75,12 @@
               </div>
 
               <div *ngIf="activity.status != 'FINISHED'" class="containerButtons center-align">
-                <app-button-initialize [activityId]="activity.id" *ngIf="activity.status == 'WAITING'">
+                <app-button-initialize [activityId]="activity.id" (update)="findTasks()" *ngIf="['WAITING'].includes(activity.status)">
                 </app-button-initialize>
                 <app-button-finalize [activityId]="activity.id"></app-button-finalize>
                 <app-button-suspend [activityId]="activity.id"></app-button-suspend>
                 <app-button-give-back [activityId]="activity.id" (update)="findTasks()"
-                  *ngIf="activity.status == 'WAITING' || activity.status == 'EXECUTION' || activity.status == 'DELAYED' || activity.status == 'HANGING'">
+                  *ngIf="['WAITING', 'EXECUTION', 'DELAYED', 'HANGING'].includes(activity.status)">
                 </app-button-give-back>
               </div>
             </mz-collapsible-item-body>

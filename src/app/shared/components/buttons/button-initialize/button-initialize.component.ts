@@ -32,7 +32,7 @@ export class ButtonInitializeComponent implements OnInit {
       data: dataSend
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.update.emit(true);
+      this.update.emit();
     });
   }
 
