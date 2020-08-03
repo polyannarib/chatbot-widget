@@ -84,6 +84,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MainColorDirective } from './directives/main-color.directive';
 import { PrimaryColorDirective } from './directives/primary-color.directive';
 import { SecundaryColorDirective } from './directives/secundary-color.directive';
+import { ButtonGiveBackComponent } from './components/buttons/button-give-back/button-give-back.component';
+import { GiveBackComponent } from './components/modal/give-back/give-back.component';
 
 
 @NgModule({
@@ -161,7 +163,9 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
     AttachmentComponent,
     ExtractComponent,
     ButtonInitializeComponent,
-    InitializeComponent
+    InitializeComponent,
+    ButtonGiveBackComponent,
+    GiveBackComponent
   ],
   exports: [
     MenuComponent,
@@ -203,6 +207,7 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
     ButtonSuspendComponent,
     ButtonDesignateComponent,
     ButtonReplanComponent,
+    ButtonGiveBackComponent,
     ChartjsComponent,
     EditableComponent,
     SlickComponent,
@@ -219,8 +224,8 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
     ImagePipe,
     SafePipe,
     ButtonInitializeComponent,
-    InitializeComponent
-    // NgxPaginationModule
+    InitializeComponent,
+    GiveBackComponent
   ],
   entryComponents: [
     FinalizeComponent,
@@ -233,7 +238,8 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
     RemoveTaskComponent,
     AttachmentComponent,
     ExtractComponent,
-    InitializeComponent
+    InitializeComponent,
+    GiveBackComponent
   ],
   providers: [
     {

@@ -141,8 +141,11 @@ body {
 
 /* Codigos para padronizar o modal */
 #modal .modal-header {
-  font-size: 1.64rem;
-  text-align: center;
+  h1 {
+    font-size: 1.64rem;
+    text-align: center;
+    margin: 0;
+  } 
   padding-bottom: 10px;
   border-bottom: 1px solid #ebebeb;
 }
@@ -306,6 +309,18 @@ mz-collapsible-item-body ul {
 
 .btn-green {
   background-color: #4CAF50 !important;
+}
+
+.btn-red {
+  background-color: #F44336 !important;
+}
+
+.btn-yellow {
+  background-color: #ff9800 !important;
+}
+
+.full-width {
+  width: 100%;
 }
 
 .white-icon {

@@ -1,0 +1,18 @@
+<div id="modal">
+  <div class="modal-header">
+    <h1>{{ 'MESSAGECONFIRMGIVEBACK' | translate }}</h1>
+    <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ 'MESSAGECONFIRMGIVEBACK' | translate }}</p>
+
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>{{ 'REASON' | translate }}</mat-label>
+      <textarea matInput [(ngModel)]="reason"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="modal-footer">
+    <button class="button button-primary right" [ngStyle]="{'background-color': mainStyle}"
+      (click)="confirmGiveBack()">{{ 'CONFIRM' | translate }}</button>
+  </div>
+</div>
