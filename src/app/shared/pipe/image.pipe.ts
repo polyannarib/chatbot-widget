@@ -11,7 +11,7 @@ export class ImagePipe implements PipeTransform {
   ) { }
 
   async transform(src: string): Promise<string> {
-    const token = 'YWRtaW46YWRtaW4=';
+    const token = 'YWRtaW46T2lKS1YxUWlMQ0poYkdjaU9pSklVelV4TWlKOQ==';
     const headers = new HttpHeaders({'Authorization': `Basic ${token}`});
 
     const imageBlob = await this.http.get(src, {headers, responseType: 'blob'}).toPromise();
