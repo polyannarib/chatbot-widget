@@ -6,7 +6,7 @@
 
       <app-loading [loader]="loader"></app-loading>
 
-      <form [formGroup]="form" (ngSubmit)="onLogin()" *ngIf="!loader">
+      <form [formGroup]="form" (submit)="onLogin()" *ngIf="!loader">
         <div class="input-field">
           <input id="usuario" type="text" class="validate" formControlName="email" required>
           <label for="usuario">Usuário</label>

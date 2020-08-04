@@ -3,22 +3,27 @@
 <div *ngIf="projectsList && !loader && scopes">
 
   <div class="add-project-button" *ngIf="scopes.wpleader || scopes.wpmaster">
-    <a class="waves-effect waves-light btn-small" (click)="modalAddProject()" [ngStyle]="{'background-color': mainStyle}">
+    <a class="waves-effect waves-light btn-small" (click)="modalAddProject()"
+      [ngStyle]="{'background-color': mainStyle}">
       <i class="material-icons right">add</i>Adicionar projeto
     </a>
   </div>
 
   <div class="row">
     <div class="col s12 m6">
-      <div class="input-field">
-        <input autocomplete="off" id="findProject" (keyup)="onSearchChangeProject($event.target.value)" matInput id="findProject" type="text" class="validate" value="">
-        <label for="findProject">Buscar projetos</label>
-      </div>
+      <form [formGroup]="searchProjects" (submit)="onSearchProjects()">
+        <div class="input-field">
+          <input matInput formControlName="name" type="text" id="findProject" class="validate" autocomplete="off">
+          <label for="findProject">Buscar projetos</label>
+        </div>
+      </form>
     </div>
     <div class="col m3 s12">
       <ul>
-        <li><a (click)="changeDays('prev')" [ngStyle]="{'background-color': mainStyle}" class="button button-floating"><i class="material-icons">chevron_left</i></a></li>
-        <li><a (click)="changeDays('next')" [ngStyle]="{'background-color': mainStyle}" class="button button-floating"><i class="material-icons">chevron_right</i></a></li>
+        <li><a (click)="changeDays('prev')" [ngStyle]="{'background-color': mainStyle}"
+            class="button button-floating"><i class="material-icons">chevron_left</i></a></li>
+        <li><a (click)="changeDays('next')" [ngStyle]="{'background-color': mainStyle}"
+            class="button button-floating"><i class="material-icons">chevron_right</i></a></li>
       </ul>
     </div>
     <!-- <div class="col m3 s12">
@@ -43,8 +48,12 @@
           <th>{{ 'EXP' | translate }}</th>
           <th>{{ 'EFF' | translate }}</th>
           <th>{{ 'EDIT' | translate }}</th>
-          <th *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster"><!-- {{ 'STATUSREPORT' | translate }} --></th>
-          <th *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster"><!-- {{ 'GENERATEREPORT' | translate }} --></th>
+          <th *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
+            <!-- {{ 'STATUSREPORT' | translate }} -->
+          </th>
+          <th *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
+            <!-- {{ 'GENERATEREPORT' | translate }} -->
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -54,10 +63,14 @@
             <td>{{ project.name }}</td>
             <ng-container *ngFor="let activity of project.tasks">
               <td class="days">
-                <button class="btnDayCalendar" [ngClass]="{hoverable: activity.validDay}" [ngStyle]="{'background-color': activity.style}" [disabled]="!activity.validDay" (click)="modalProjectDetails(project.id, activity)"><span [ngClass]="{'animated infinite fadeIn': !activity.allocated}">{{ activity.referenceDate | date:'dd' }}</span></button>
+                <button class="btnDayCalendar" [ngClass]="{hoverable: activity.validDay}"
+                  [ngStyle]="{'background-color': activity.style}" [disabled]="!activity.validDay"
+                  (click)="modalProjectDetails(project.id, activity)"><span
+                    [ngClass]="{'animated infinite fadeIn': !activity.allocated}">{{ activity.referenceDate | date:'dd' }}</span></button>
               </td>
             </ng-container>
-            <td class="fontMin"><b>Real:</b> {{ project.actualEffort }} <br><b>Prev:</b> {{ project.predictEffort }}</td>
+            <td class="fontMin"><b>Real:</b> {{ project.actualEffort }} <br><b>Prev:</b> {{ project.predictEffort }}
+            </td>
             <td class="fontMin">{{ project.actualConclusion}} <br> {{ project.predictConclusion }}</td>
             <td>
               <i class="material-icons" [ngStyle]="{ 'color': project.riskProject }">fiber_manual_record</i>
@@ -69,30 +82,31 @@
               <i class="material-icons" [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i>
             </td>
             <td *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
-              <button matTooltip="{{ 'EDIT' | translate }}" mat-icon-button (click)="openProjectEdit(project)"><i class="material-icons">more_vert</i></button>
+              <button matTooltip="{{ 'EDIT' | translate }}" mat-icon-button (click)="openProjectEdit(project)"><i
+                  class="material-icons">more_vert</i></button>
             </td>
             <td *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
-              <button matTooltip="Adicionar nota" mat-icon-button (click)="openReport(project)"><i class="material-icons">assignment</i></button>
+              <button matTooltip="Adicionar nota" mat-icon-button (click)="openReport(project)"><i
+                  class="material-icons">assignment</i></button>
             </td>
             <td *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
-              <button matTooltip="{{ 'STATUSREPORT' | translate }}" mat-icon-button (click)="generateReport(project)"><i class="material-icons">flight_takeoff</i></button>
+              <button matTooltip="{{ 'STATUSREPORT' | translate }}" mat-icon-button (click)="generateReport(project)"><i
+                  class="material-icons">flight_takeoff</i></button>
             </td>
           </tr>
           <tr>
             <td class="playerCompleted">{{ project.completed }}%</td>
             <td>
               <div class="progress">
-                <div class="determinate" [ngStyle]="{'background-color': secondarytyle}" [ngStyle]="{'width': project.completed+'%'}"></div>
+                <div class="determinate" [ngStyle]="{'background-color': secondarytyle}"
+                  [ngStyle]="{'width': project.completed+'%'}"></div>
               </div>
             </td>
           </tr>
         </ng-container>
       </tbody>
     </table>
-    <app-paginator 
-      [pageSize]="pageSize"
-      [totalFound]="totalFound"
-      [pageSelected]="page"
-      (page)="updatePage($event)"></app-paginator>
+    <app-paginator [pageSize]="pageSize" [totalFound]="totalFound" [pageSelected]="page" (page)="updatePage($event)">
+    </app-paginator>
   </div>
 </div>

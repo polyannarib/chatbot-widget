@@ -3,15 +3,25 @@
 
   <div class="row">
     <div class="col m6 s12">
-      <div class="input-field">
-        <input autocomplete="off" (keyup)="onSearchChangeResource($event.target.value)" matInput id="findResource" type="text" class="validate" value="">
-        <label for="findResource">{{ 'RESOURCES' | translate }}</label>
-      </div>
+      <form [formGroup]="searchResources" (submit)="onSearchResources()">
+        <div class="input-field">
+          <input matInput formControlName="name" type="text" id="findResource" class="validate" autocomplete="off">
+          <label for="findResource">{{ 'RESOURCES' | translate }}</label>
+        </div>
+      </form>
     </div>
-    <div class="col m6 s12">
+    <div class="col m3 s12">
       <ul>
-        <li><a (click)="changeDays('prev')" [ngStyle]="{'background-color': mainStyle}" class="button button-floating"><i class="material-icons">chevron_left</i></a></li>
-        <li><a (click)="changeDays('next')" [ngStyle]="{'background-color': mainStyle}" class="button button-floating"><i class="material-icons">chevron_right</i></a></li>
+        <li>
+          <a (click)="changeDays('prev')" [ngStyle]="{'background-color': mainStyle}" class="button button-floating">
+            <i class="material-icons">chevron_left</i>
+          </a>
+        </li>
+        <li>
+          <a (click)="changeDays('next')" [ngStyle]="{'background-color': mainStyle}" class="button button-floating">
+            <i class="material-icons">chevron_right</i>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -34,7 +44,10 @@
             <td class="left-align"><b>{{ player.name }}</b></td>
             <ng-container *ngFor="let activity of player.tasks">
               <td class="days">
-                <button [ngStyle]="{'background-color': activity.style}" [ngClass]="{hoverable: activity.validDay}" [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}" class="btnDayCalendar" [disabled]="!activity.validDay" (click)="modalResourceDetails(player.id, activity)">{{ activity.referenceDate | date:'dd' }}</button>
+                <button [ngStyle]="{'background-color': activity.style}" [ngClass]="{hoverable: activity.validDay}"
+                  [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}"
+                  class="btnDayCalendar" [disabled]="!activity.validDay"
+                  (click)="modalResourceDetails(player.id, activity)">{{ activity.referenceDate | date:'dd' }}</button>
               </td>
             </ng-container>
           </tr>
@@ -42,19 +55,16 @@
             <td class="playerAllocated">{{ player.allocated }}%</td>
             <td>
               <div class="progress">
-                <div class="determinate" [ngStyle]="{'background-color': secondarytyle}" [ngStyle]="{'width': player.allocated+'%'}"></div>
+                <div class="determinate" [ngStyle]="{'background-color': secondarytyle}"
+                  [ngStyle]="{'width': player.allocated+'%'}"></div>
               </div>
             </td>
           </tr>
         </ng-container>
       </tbody>
     </table>
-    <app-paginator 
-      [pageSize]="pageSize"
-      [totalFound]="totalFound"
-      [pageSelected]="page"
-      (page)="updatePage($event)">
+    <app-paginator [pageSize]="pageSize" [totalFound]="totalFound" [pageSelected]="page" (page)="updatePage($event)">
     </app-paginator>
   </div>
-  
+
 </div>
