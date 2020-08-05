@@ -141,13 +141,16 @@ body {
 
 /* Codigos para padronizar o modal */
 #modal .modal-header {
+  font-size: 1.64rem;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ebebeb;
+
   h1 {
     font-size: 1.64rem;
     text-align: center;
     margin: 0;
   } 
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ebebeb;
 }
 #modal .modal-body {
   padding: 15px 0px;

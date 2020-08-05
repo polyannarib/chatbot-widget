@@ -169,8 +169,7 @@ export class ProjectsListComponent implements OnInit {
       page: 1,
       startDate: format(this.startDate, 'dd-MM-yyyy'),
       pageSize: this.pageSize,
-      name: this.searchProjects.value.name,
-      // identify: this.searchProjects.value.name
+      name: this.searchProjects.value.name
     }
 
     this.projectService.listProjects(params).subscribe(
