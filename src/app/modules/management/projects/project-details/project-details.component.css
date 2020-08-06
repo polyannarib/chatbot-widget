@@ -1,41 +1,54 @@
+#back-button {
+  position: absolute;
+  top: 50%;
+  left: -45px;
+}
+
+#forward-button {
+  position: absolute;
+  top: 50%;
+  right: -45px;
+}
+
 .dateProgress .title {
-    font-weight: bold;
+  font-weight: bold;
 }
 .dateActivity {
-    font-size: 15px;
-    padding: 0px;
+  font-size: 15px;
+  padding: 0px;
 }
 .dateProgress .dateActivity .activityDay {
-    background-color: #ff9d8c;
-    color: white;
-    border-radius: 3px;
-    padding: 3px 25px;
-    font-size: 22px;
+  background-color: #ff9d8c;
+  color: white;
+  border-radius: 3px;
+  padding: 3px 25px;
+  font-size: 22px;
 }
 .collection {
-    padding-top: 10px;
-    margin-bottom: 0px;
-    border: none !important;
-    margin: 0px important;
+  padding-top: 10px;
+  margin-bottom: 0px;
+  border: none !important;
+  margin: 0px important;
 }
-.collection label, .collection a {
-    color: #000000;
-    font-weight: 600;
+.collection label,
+.collection a {
+  color: #000000;
+  font-weight: 600;
 }
 .collection {
-    margin-bottom: 0px;
-    border: none !important;
-    margin: 0px important;
+  margin-bottom: 0px;
+  border: none !important;
+  margin: 0px important;
 }
 .collection .collection-item {
-    background-color: #fff;
-    line-height: 1.5rem;
-    padding: 10px 20px;
-    margin: 0;
-    border-bottom: none;
+  background-color: #fff;
+  line-height: 1.5rem;
+  padding: 10px 20px;
+  margin: 0;
+  border-bottom: none;
 }
 .collection .secondary-content {
-    float: right;
-    color: #000000;
-    cursor: pointer;
+  float: right;
+  color: #000000;
+  cursor: pointer;
 }

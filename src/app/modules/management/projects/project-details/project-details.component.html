@@ -7,6 +7,13 @@
     </button>
   </div>
   <div class="modal-body">
+    <button mat-mini-fab id="back-button" [ngStyle]="{'background-color': mainStyle}" (click)="loadPriorDay()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <button mat-mini-fab id="forward-button" [ngStyle]="{'background-color': mainStyle}" (click)="loadNextDay()">
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
 
     <div class="row dateProgress">
       <div class="col s12 m4 dateActivity center-align">
@@ -40,7 +47,8 @@
                 <div class="col m2 s12 left-align">{{ activity.player != null ? activity.player.name : '' }}</div>
                 <div class="col m2 s12 left-align">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</div>
                 <div class="col m1 s12 left-align">{{ activity.dailyEffort }}h</div>
-                <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons" matTooltip="{{ activity.status | translate }}"
+                <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons"
+                    matTooltip="{{ activity.status | translate }}"
                     [ngStyle]="{'color': getColor(activity.status)}">fiber_manual_record</i></div>
               </div>
             </mz-collapsible-item-header>
@@ -48,8 +56,10 @@
               <ul>
                 <!-- <li><span>{{ 'PROJECT' | translate}}</span> {{ activity.project.name }}</li> -->
                 <li><span>{{ 'CARD' | translate }}</span> {{ getCardName(activity.cards) }}</li>
-                <li><span>{{ 'PREVIEWSTARTDATE' | translate}}</span> {{ activity.expectedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
-                <li><span>{{ 'PREVIEWENDDATE' | translate}}</span> {{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
+                <li><span>{{ 'PREVIEWSTARTDATE' | translate}}</span>
+                  {{ activity.expectedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
+                <li><span>{{ 'PREVIEWENDDATE' | translate}}</span>
+                  {{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
                 <li><span>{{ 'STARTDATE' | translate}}</span> {{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
                 <li><span>{{ 'ENDDATE' | translate}}</span> {{ activity.finalizedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
                 <li><span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration }}h</li>
@@ -58,7 +68,8 @@
 
               <div class="collection" *ngIf="activity.links && activity.links.length > 0">
                 <label *ngIf="activity.links && activity.links.length > 0">Anexos</label>
-                <li *ngFor="let item of activity.links" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
+                <li *ngFor="let item of activity.links" class="collection-item dismissable"
+                  [ngStyle]="{'background-color': secoundStyle}">
                   <div>
                     <a target="_blank" href="{{ item.url }}">{{ item.description }}</a>
                     <!-- <a (click)="removeAttachment(item)" class="secondary-content"><i class="material-icons">close</i></a> -->
@@ -66,13 +77,20 @@
                 </li>
               </div>
 
-              <div class="containerButtons center-align" *ngIf="(activity.cards.length > 0) && (scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster)">
-                <app-button-finalize *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-finalize>
-                <app-button-remove *ngIf="activity.player" (update)="updateTasks($event)" [activityId]="activity.id"></app-button-remove>
-                <app-button-suspend *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id"></app-button-suspend>
-                <app-button-designate *ngIf="!activity.player && activity.cards.length > 0" [taskId]="activity.id" (isDesign)="reciverDesignate($event)"></app-button-designate>
+              <div class="containerButtons center-align"
+                *ngIf="(activity.cards.length > 0) && (scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster)">
+                <app-button-finalize *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id">
+                </app-button-finalize>
+                <app-button-remove *ngIf="activity.player" (update)="updateTasks($event)" [activityId]="activity.id">
+                </app-button-remove>
+                <app-button-suspend *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id">
+                </app-button-suspend>
+                <app-button-designate *ngIf="!activity.player && activity.cards.length > 0" [taskId]="activity.id"
+                  (isDesign)="reciverDesignate($event)"></app-button-designate>
               </div>
-              <app-players-find (taskDesignatedSucess)="updateDesignated($event)" [projectDate]="data.projectDate" [cards]="activity.cards" [taskId]="activity.id" [dataInicial]="activity.expectedAt" [dataFim]="activity.previewedAt" *ngIf="designate && (taskId == activity.id)"></app-players-find>
+              <app-players-find (taskDesignatedSucess)="updateDesignated($event)" [projectDate]="data.projectDate"
+                [cards]="activity.cards" [taskId]="activity.id" [dataInicial]="activity.expectedAt"
+                [dataFim]="activity.previewedAt" *ngIf="designate && (taskId == activity.id)"></app-players-find>
             </mz-collapsible-item-body>
           </mz-collapsible-item>
         </ng-container>
@@ -80,5 +98,5 @@
     </section>
 
   </div>
-<!-- <div class="modal-footer"></div> -->
+  <!-- <div class="modal-footer"></div> -->
 </div>

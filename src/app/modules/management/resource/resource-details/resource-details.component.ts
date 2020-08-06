@@ -73,4 +73,14 @@ export class ResourceDetailsComponent implements OnInit {
     }
     return '';
   }
+
+  loadPriorDay() {
+    this.data.activityDate.setDate(this.data.activityDate.getDate() - 1);
+    this.findTasks();
+  }
+
+  loadNextDay() {
+    this.data.activityDate.setDate(this.data.activityDate.getDate() + 1);
+    this.findTasks();
+  }
 }

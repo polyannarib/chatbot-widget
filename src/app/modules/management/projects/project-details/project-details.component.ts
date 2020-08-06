@@ -12,8 +12,8 @@ import { ProfileService } from 'src/app/core/services/profile.service';
   styleUrls: ['./project-details.component.css'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ]
@@ -59,13 +59,13 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   updateDesignated(value) {
-    if(value === true) {
+    if (value === true) {
       this.findProjectTasks();
     }
   }
 
   reciverDesignate(value) {
-    if(value.task) {
+    if (value.task) {
       this.taskId = value.task;
     }
     this.designate = value.status;
@@ -93,17 +93,26 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   updateTasks(event) {
-    if(event === true) {
+    if (event === true) {
       this.findProjectTasks();
     }
   }
 
   getCardName(cards): string {
-    if(cards && cards != []) {
+    if (cards && cards != []) {
       const nameCard = cards.map(element => element.cardName);
       return nameCard.join(', ');
     }
     return '';
   }
 
+  loadPriorDay() {
+    this.data.projectDate.setDate(this.data.projectDate.getDate() - 1);
+    this.findProjectTasks();
+  }
+
+  loadNextDay() {
+    this.data.projectDate.setDate(this.data.projectDate.getDate() + 1);
+    this.findProjectTasks();
+  }
 }

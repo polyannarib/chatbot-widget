@@ -5,6 +5,13 @@
     <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
   </div>
   <div class="modal-body">
+    <button mat-mini-fab id="back-button" [ngStyle]="{'background-color': mainStyle}" (click)="loadPriorDay()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <button mat-mini-fab id="forward-button" [ngStyle]="{'background-color': mainStyle}" (click)="loadNextDay()">
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
 
     <div class="row dateProgress">
       <div class="col s12 m4 dateActivity center-align">
@@ -75,7 +82,8 @@
               </div>
 
               <div *ngIf="activity.status != 'FINISHED'" class="containerButtons center-align">
-                <app-button-initialize [activityId]="activity.id" (update)="findTasks()" *ngIf="['WAITING', 'HANGING', 'DELAYED'].includes(activity.status)">
+                <app-button-initialize [activityId]="activity.id" (update)="findTasks()"
+                  *ngIf="['WAITING', 'HANGING', 'DELAYED'].includes(activity.status)">
                 </app-button-initialize>
                 <app-button-finalize [activityId]="activity.id"></app-button-finalize>
                 <app-button-suspend [activityId]="activity.id"></app-button-suspend>
