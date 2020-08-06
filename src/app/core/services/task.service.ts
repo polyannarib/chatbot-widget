@@ -58,6 +58,10 @@ export class TaskService {
     return this.http.get(this.url + '/task/' + id + '/suspend?reason=' + reason);
   }
 
+  giveBack(id: Number, reason: String): Observable<any> {
+    return this.http.get(`${this.url}/task/${id}/giveBack?reason=${reason}`);
+  }
+
   removePlayer(id: Number, reason: String): Observable<any> {
     return this.http.get(this.url + '/task/' + id + '/giveBack?reason=' + reason);
   }

@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ProjectCreateComponent } from '../project-create/project-create.component';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-projects-list',
@@ -34,6 +35,8 @@ export class ProjectsListComponent implements OnInit {
   mainStyle = this.profileService.getAppMainColor();
   secondarytyle = this.profileService.getAppSecondaryColor();
 
+  searchProjects: FormGroup;
+
   pageSize: number = 20;
   page: number;
   totalFound: number;
@@ -45,13 +48,18 @@ export class ProjectsListComponent implements OnInit {
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private profileService: ProfileService,
-    private authService: AuthService
+    private authService: AuthService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
     this.scopes = Object.assign({}, this.authService.getScopes());
     this.daysOfWeek(this.startDate, this.endDate);
     this.findProjects();
+
+    this.searchProjects = this.formBuilder.group({
+      name: ['']
+    });
   }
 
   daysOfWeek(start, end) {
@@ -153,15 +161,39 @@ export class ProjectsListComponent implements OnInit {
     }
   }
 
-  onSearchChangeProject(searchValue: string): void {
-    const project = this.projectsList;
-    searchValue = searchValue.toLocaleLowerCase();
-    this.filteredProjectsList = project.filter((project) => project.name.toLocaleLowerCase().indexOf(searchValue) !== -1);
-    // this.project = this.project.filter(
-    //   (curr) => {
-    //     return curr.name.toUpperCase().includes(searchValue.toUpperCase());
-    //   }
-    // )
+  onSearchProjects() {
+    this.loader = true;
+    this.loaderProject.emit(true);
+
+    let params = {
+      page: 1,
+      startDate: format(this.startDate, 'dd-MM-yyyy'),
+      pageSize: this.pageSize,
+      name: this.searchProjects.value.name,
+      identify: this.searchProjects.value.name
+    }
+
+    this.projectService.listProjects(params).subscribe(
+      (response) => {
+        if (response.status == 0) {
+          this.loader = false;
+          this.projectsList = response.object.list;
+          this.projectsListOptions = response.object;
+          this.filteredProjectsList = this.projectsList;
+          this.pageSize = response.object.pageSize;
+          this.page = response.object.page;
+          this.totalFound = response.object.totalFound;
+        }
+        else {
+          this.httpError(response.message);
+          this.loader = false;
+        }
+      },
+      (error) => {
+        this.httpError(null);
+        this.loader = false;
+      }
+    )
   }
 
   httpError(value) {

@@ -1,3 +1,3 @@
-<button class="btn-floating waves-effect waves-light green" mat-icon-button matTooltip="Inicializar tarefa">
-    <i (click)="initialize()" class="material-icons">stars</i>
+<button mat-mini-fab (click)="initialize()" matTooltip="{{ 'INITIALIZE' | translate }}" [ngStyle]="{'background-color': mainStyle}"> 
+  <mat-icon class="white-icon">play_arrow</mat-icon>
 </button>

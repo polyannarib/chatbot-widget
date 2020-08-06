@@ -34,7 +34,7 @@ export class SuspendComponent implements OnInit {
       (response) => {
         if(response.status === 0) {
           this._snackBar.openFromComponent(NotifyComponent, 
-            { data: { type: 'error', message: 'Tarefa suspendida com sucesso!' }});
+            { data: { type: 'success', message: 'Tarefa suspensa com sucesso!' }});
           this.dialogRef.close(response);
           return;
         }

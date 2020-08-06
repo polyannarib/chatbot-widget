@@ -1,298 +1,332 @@
 /* You can add global styles to this file, and also import other style files */
-@font-face { font-family: 'Blogger'; src: url('./assets/fonts/blogger-sans.ttf') } 
-@font-face { font-family: 'BloggerBold'; src: url("./assets/fonts/blogger-sans-bold.ttf") }
-@font-face { font-family: 'BloggerLight'; src: url("./assets/fonts/bloggersans-light.ttf") }
-@font-face { font-family: 'BloggerItalic'; src: url("./assets/fonts/blogger-sans-italic.ttf") }
+@font-face {
+  font-family: "Blogger";
+  src: url("./assets/fonts/blogger-sans.ttf");
+}
+@font-face {
+  font-family: "BloggerBold";
+  src: url("./assets/fonts/blogger-sans-bold.ttf");
+}
+@font-face {
+  font-family: "BloggerLight";
+  src: url("./assets/fonts/bloggersans-light.ttf");
+}
+@font-face {
+  font-family: "BloggerItalic";
+  src: url("./assets/fonts/blogger-sans-italic.ttf");
+}
 
-@import './theme.scss';
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons++Icons+Sharp');
+// @import '~bootstrap/dist/css/bootstrap.min.css';
+@import "./theme.scss";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons++Icons+Sharp");
 
 html {
-    font-family: 'Blogger' !important;
-    // line-height: 1.5;
-    // font-weight: normal;
-    // color: rgba(0,0,0,0.87);
+  font-family: "Blogger" !important;
+  // line-height: 1.5;
+  // font-weight: normal;
+  // color: rgba(0,0,0,0.87);
 }
 * {
-    font-family: 'Blogger';
+  font-family: "Blogger";
 }
 body {
-    font-family: 'Blogger' !important;
-    background-image: url('./assets/images/fundo.png');
-    width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
+  font-family: "Blogger" !important;
+  background-image: url("./assets/images/fundo.png");
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .button {
-    font-family: 'Blogger' !important;
-    display: inline-block;
-    font-weight: 400;
-    color: #fff;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-color: transparent;
-    border: none;
-    padding: 10px 25px;
-    font-size: 1rem;
-    // line-height: 1.5;
-    border-radius: 3px;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  font-family: "Blogger" !important;
+  display: inline-block;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: none;
+  padding: 10px 25px;
+  font-size: 1rem;
+  // line-height: 1.5;
+  border-radius: 3px;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.button:hover, .button:active, .button:focus {
-    opacity: 0.75;
-    color: #fff;
+.button:hover,
+.button:active,
+.button:focus {
+  opacity: 0.75;
+  color: #fff;
 }
 // .button-primary {
 //     background-color: #650199 !important;
 //     color: #fff;
 // }
 .button-danger {
-    background-color: #ff644a !important;
-    color: #fff;
+  background-color: #ff644a !important;
+  color: #fff;
 }
 .button-floating {
-    position: relative;
-    overflow: hidden;
-    width: 40px;
-    height: 40px;
-    line-height: 53px;
-    padding: 0;
-    border-radius: 50%;
-    -webkit-transition: background-color .3s;
-    transition: background-color .3s;
-    cursor: pointer;
-    vertical-align: middle;
+  position: relative;
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  line-height: 53px;
+  padding: 0;
+  border-radius: 50%;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  vertical-align: middle;
 }
-
 
 /* Codigo de padronização dos botões de dias do Dashboard */
 .btnDayCalendar {
-    display: inline-block;
-    color: #000000;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    width: 33px;
-    height: 100%;
-    line-height: 33px;
-    padding: 0;
-    border-radius: 0%;
-    -webkit-transition: .3s;
-    transition: .3s;
-    cursor: pointer;
-    vertical-align: middle;
-    box-shadow: none;
-    border: none;
+  display: inline-block;
+  color: #000000;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  width: 33px;
+  height: 100%;
+  line-height: 33px;
+  padding: 0;
+  border-radius: 0%;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+  vertical-align: middle;
+  box-shadow: none;
+  border: none;
 }
-
-
-
 
 // CODIGO PARA ADICIONAR O TRAPEZIO NA LATERAL DA DIV
 .trapezio:after {
-    content: "";
-    /* box-shadow: inset -0.5px 0 0px 3px white; */
-    display: inline-block;
-    width: 15px;
-    height: 88px;
-    background: rgba(255,255,255,0.4);
-    transform: perspective(2px) rotateY(1deg);
-    position: absolute;
-    top: calc(50% - 45px);
-    right: -17px;
-    border-left: #000 5px solid;
-    padding-left: 2px;
-    background-clip: content-box;
-    z-index: 15;
-  }
-  .trapezio:before {
-    content: "";
-    /* box-shadow: inset -0.5px 0 0px 3px white; */
-    display: inline-block;
-    width: 15px;
-    height: 88px;
-    background: rgba(255,255,255,0.4);
-    transform: perspective(2px) rotateY(-1deg);
-    position: absolute;
-    top: calc(50% - 45px);
-    left: -17px;
-    border-right: #000 5px solid;
-    padding-right: 2px;
-    background-clip: content-box;
-    z-index: 15;
+  content: "";
+  /* box-shadow: inset -0.5px 0 0px 3px white; */
+  display: inline-block;
+  width: 15px;
+  height: 88px;
+  background: rgba(255, 255, 255, 0.4);
+  transform: perspective(2px) rotateY(1deg);
+  position: absolute;
+  top: calc(50% - 45px);
+  right: -17px;
+  border-left: #000 5px solid;
+  padding-left: 2px;
+  background-clip: content-box;
+  z-index: 15;
+}
+.trapezio:before {
+  content: "";
+  /* box-shadow: inset -0.5px 0 0px 3px white; */
+  display: inline-block;
+  width: 15px;
+  height: 88px;
+  background: rgba(255, 255, 255, 0.4);
+  transform: perspective(2px) rotateY(-1deg);
+  position: absolute;
+  top: calc(50% - 45px);
+  left: -17px;
+  border-right: #000 5px solid;
+  padding-right: 2px;
+  background-clip: content-box;
+  z-index: 15;
 }
 
 /* Codigos para padronizar o modal */
 #modal .modal-header {
+  font-size: 1.64rem;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ebebeb;
+
+  h1 {
     font-size: 1.64rem;
     text-align: center;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ebebeb;
+    margin: 0;
+  } 
 }
 #modal .modal-body {
-    padding: 15px 0px;
-    max-height: 60vh;
-    overflow-y: auto;
+  padding: 15px 0px;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 #modal .modal-footer {
-    border-top: 1px solid #ebebeb;
-    padding-top: 20px;
+  border-top: 1px solid #ebebeb;
+  padding-top: 20px;
 }
 #modal .close {
-    transition: all 0.05s ease;
-    background: #ff644a;
-    color: white;
-    box-shadow: none;
-    font-size: 31px;
-    border-radius: 100%;
-    width: 42px;
-    height: 42px;
-    padding: 0;
-    padding-bottom: 2px;
-    position: absolute;
-    right: -38px;
-    top: -38px;
+  transition: all 0.05s ease;
+  background: #ff644a;
+  color: white;
+  box-shadow: none;
+  font-size: 31px;
+  border-radius: 100%;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  padding-bottom: 2px;
+  position: absolute;
+  right: -38px;
+  top: -38px;
 }
 #modal .close:hover {
-    transition: all 0.05s ease;
-    // transform: scale(1.1);
-    background: #ff4524;
+  transition: all 0.05s ease;
+  // transform: scale(1.1);
+  background: #ff4524;
 }
 #modal {
-    position: relative;
+  position: relative;
 }
 .mat-dialog-container {
-    overflow: visible !important;
-    // border-top: #650199 3px solid;
-    border-radius: 3px !important;
+  overflow: visible !important;
+  // border-top: #650199 3px solid;
+  border-radius: 3px !important;
 }
-
 
 /* Codigo para padronização do collapse */
 .collapsible-body {
-    display: none;
-    border-bottom: 1px solid #ddd;
-    box-sizing: border-box;
-    padding: 15px;
+  display: none;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+  padding: 15px;
 }
 .collapsible-header {
-    display: -webkit-box;
-    display: flex;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    line-height: 1.5;
-    padding: 10px 0px !important;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
+  display: -webkit-box;
+  display: flex;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1.5;
+  padding: 10px 0px !important;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
 }
 mz-collapsible-item-header {
-    width: 100%;
-    font-size: 14px;
+  width: 100%;
+  font-size: 14px;
 }
 mz-collapsible-item-body {
-    padding: 10px;
-    margin: 0px;
-    font-size: 11px;
+  padding: 10px;
+  margin: 0px;
+  font-size: 11px;
 }
 mz-collapsible-item-body span {
-    display: block;
-    font-weight: bold;
+  display: block;
+  font-weight: bold;
 }
 mz-collapsible-item-body {
-    padding: 0px !important;
+  padding: 0px !important;
 }
 mz-collapsible-item-body ul {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 .containerButtons button {
-    margin: 15px 5px 0px 5px;
+  margin: 15px 5px 0px 5px;
 }
 .headerTextCollapse {
-    margin-bottom: 0px;
-    font-weight: bold;
+  margin-bottom: 0px;
+  font-weight: bold;
 }
 .no-padding {
-    margin: 0px;
+  margin: 0px;
 }
-
 
 // codigo para o toastr/notify
 .mat-snack-bar-container {
-    border-radius: 4px;
-    box-sizing: border-box;
-    display: block;
-    margin: 24px;
-    max-width: 33vw;
-    min-width: 344px;
-    padding: 0px !important;
-    min-height: 48px;
-    transform-origin: center;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: block;
+  margin: 24px;
+  max-width: 33vw;
+  min-width: 344px;
+  padding: 0px !important;
+  min-height: 48px;
+  transform-origin: center;
 }
 .cdk-overlay-dark-backdrop {
-    background: rgba(0,0,0,0.87);
+  background: rgba(0, 0, 0, 0.87);
 }
-
-
 
 .ct-slick-prev,
 .ct-slick-next {
-    line-height: 0;
-    position: absolute;
-    top: 50%;
-    display: block;
-    background-color: #fff;
-    -webkit-transform: translate(0, -50%);
-    -ms-transform: translate(0, -50%);
-    transform: translate(0, -50%);
-    cursor: pointer;
-    border: none;
-    outline: none;
-    font-size: xx-large !important;
-    color: #000 !important;
-    border-radius: 0;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-    opacity: 1;
+  line-height: 0;
+  position: absolute;
+  top: 50%;
+  display: block;
+  background-color: #fff;
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: xx-large !important;
+  color: #000 !important;
+  border-radius: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  opacity: 1;
 }
 .ct-slick-prev {
-    left: -25px;
-    z-index: 9;
-    padding: 0px;
-    opacity: 0.8;
+  left: -25px;
+  z-index: 9;
+  padding: 0px;
+  opacity: 0.8;
 }
 .ct-slick-next {
-    right: -25px;
-    z-index: 9;
-    padding: 0px;
-    opacity: 0.8;
+  right: -25px;
+  z-index: 9;
+  padding: 0px;
+  opacity: 0.8;
 }
 .ct-slick-prev::after {
-    border: 12px solid transparent;
-    border-right-color: #fff;
-    content: "";
-    left: -24px;
-    position: absolute;
+  border: 12px solid transparent;
+  border-right-color: #fff;
+  content: "";
+  left: -24px;
+  position: absolute;
 }
 .ct-slick-next:before {
-    border: 12px solid transparent;
-    border-left-color: #fff;
-    content: "";
-    right: -24px;
-    position: absolute;
+  border: 12px solid transparent;
+  border-left-color: #fff;
+  content: "";
+  right: -24px;
+  position: absolute;
 }
 .ct-slick-prev i {
-    position: relative;
-    left: -14px;
-    z-index: 5;
+  position: relative;
+  left: -14px;
+  z-index: 5;
 }
 .ct-slick-next i {
-    position: relative;
-    right: -14px;
-    z-index: 5;
+  position: relative;
+  right: -14px;
+  z-index: 5;
+}
+
+.btn-green {
+  background-color: #4CAF50 !important;
+}
+
+.btn-red {
+  background-color: #F44336 !important;
+}
+
+.btn-yellow {
+  background-color: #ff9800 !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.white-icon {
+  color: #fff;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { InitializeComponent } from '../../modal/initialize/initialize.component';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-button-initialize',
@@ -12,8 +13,11 @@ export class ButtonInitializeComponent implements OnInit {
   @Input() activityId: number;
   @Output() update: EventEmitter<any> = new EventEmitter();
 
+  mainStyle = this.profileService.getAppMainColor();
+
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit() {
@@ -28,7 +32,7 @@ export class ButtonInitializeComponent implements OnInit {
       data: dataSend
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.update.emit(true);
+      this.update.emit();
     });
   }
 

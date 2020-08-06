@@ -5,6 +5,7 @@ import { PageEvent, MatDialog, MatSnackBar } from '@angular/material';
 import { ResourceDetailsComponent } from '../resource-details/resource-details.component';
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 import { ProfileService } from 'src/app/core/services/profile.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-resource-list',
@@ -28,6 +29,8 @@ export class ResourceListComponent implements OnInit {
   page: number;
   totalFound: number;
 
+  searchResources: FormGroup;
+
   playersListOptions: any;
 
   startDate = new Date(Date.now());
@@ -40,12 +43,17 @@ export class ResourceListComponent implements OnInit {
     private playerService: PlayerService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private formBuilder: FormBuilder  
   ) { }
 
   ngOnInit() {
     this.daysOfWeek(this.startDate, this.endDate);
     this.findPlayers();
+
+    this.searchResources = this.formBuilder.group({
+      name: ['']
+    })
   }
 
   daysOfWeek(start, end) {
@@ -86,10 +94,38 @@ export class ResourceListComponent implements OnInit {
     );
   }
 
-  onSearchChangeResource(searchValue: string): void {
-    let PlayersFilters = this.players;
-    PlayersFilters = this.players.filter((curr) => { return curr.name.toUpperCase().includes(searchValue.toUpperCase()) })
-    this.filteredPlayers = PlayersFilters;
+  onSearchResources() {
+    this.loader = true;
+    this.loaderResource.emit(true);
+
+    let params = {
+      startDate: format(this.startDate, 'dd-MM-yyyy'),
+      name: this.searchResources.value.name,
+      pageSize: this.pageSize,
+      page: 1
+    }
+
+    this.playerService.findPlayers(params).subscribe(
+      (response) => {
+        if (response.status == 0) {
+          this.loader = false;
+          this.players = response.object.list;
+          this.playersListOptions = response.object;
+          this.filteredPlayers = this.players;
+          this.pageSize = response.object.pageSize;
+          this.page = response.object.page;
+          this.totalFound = response.object.totalFound;
+        }
+        else {
+          this.httpError(response.message);
+          this.loader = false;
+        }
+      },
+      (error) => {
+        this.httpError(null);
+        this.loader = false;
+      }
+    )
   }
 
   modalResourceDetails(playerId, activity) {
