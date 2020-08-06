@@ -11,11 +11,15 @@
 
   <div class="row">
     <div class="col s12 m6">
-      <form [formGroup]="searchProjects" (submit)="onSearchProjects()">
-        <div class="input-field">
+      <form [formGroup]="searchProjects" (submit)="onSearchProjects()" style="display: flex; align-items: center;">
+        <div class="input-field" style="flex-grow: 1; margin-right: 1.5rem; margin-top: 0;">
           <input matInput formControlName="name" type="text" id="findProject" class="validate" autocomplete="off">
           <label for="findProject">Buscar projetos</label>
         </div>
+
+        <button mat-mini-fab type="submit"  [ngStyle]="{'background-color': mainStyle}">
+          <mat-icon>search</mat-icon>
+        </button>
       </form>
     </div>
     <div class="col m3 s12">

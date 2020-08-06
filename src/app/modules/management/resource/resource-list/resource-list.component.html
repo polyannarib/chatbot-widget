@@ -3,11 +3,15 @@
 
   <div class="row">
     <div class="col m6 s12">
-      <form [formGroup]="searchResources" (submit)="onSearchResources()">
-        <div class="input-field">
+      <form [formGroup]="searchResources" (submit)="onSearchResources()" style="display: flex; align-items: center;">
+        <div class="input-field" style="flex-grow: 1; margin-right: 1.5rem; margin-top: 0;">
           <input matInput formControlName="name" type="text" id="findResource" class="validate" autocomplete="off">
           <label for="findResource">{{ 'RESOURCES' | translate }}</label>
         </div>
+
+        <button mat-mini-fab type="submit"  [ngStyle]="{'background-color': mainStyle}">
+          <mat-icon>search</mat-icon>
+        </button>
       </form>
     </div>
     <div class="col m3 s12">
