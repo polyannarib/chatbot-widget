@@ -23,6 +23,7 @@
             <span id="score" [ngStyle]="{'color': mainStyle}" >{{score}} Pts</span>
         </div>
         <!-- <div class="image" [ngStyle]="{'background-image': user.url }"></div> -->
-        <img class="image" (click)="getExtract()" [src]="user.url | image | async">
+        <img class="image" (click)="getExtract()" [src]="(user.url | image | async) ? (user.url | image | async) : '../../../../assets/user.svg'" alt="foto de usuário">
+        <!-- <img src="" alt=""> -->
     </div>
 </header>
