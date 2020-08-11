@@ -20,7 +20,8 @@
         <div class="characters" *ngFor="let attribute of characters">
           <img class="card-star" [src]="attribute.starUrl | image | async">
           <img class="card-img" *ngIf="attribute.attributes" width="100%" [src]="attribute.url | image | async">
-          <img class="logo" [src]="attribute.logoUrl | image | async">
+          <img class="logo" [src]="attribute.logoUrl | image | async" *ngIf="attribute.logoUrl | image | async">
+          <p *ngIf="!(attribute.logoUrl | image | async)">{{ competenceName }}</p>
           <button [disabled]="getDisabled(attribute.attributes)" [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="addCard(attribute.attributes)"> <i class="material-icons">add</i> </button>
         </div>
       </app-slick>
