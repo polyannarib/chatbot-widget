@@ -1,14 +1,4 @@
-<!-- <app-loading [loader]="loaderDeck"></app-loading> -->
-
 <div class="row" id="input-row" *ngIf="playerDeck">
-  <!-- <div id="help-div" [ngClass]="{'tips' : status}">
-    <button matTooltip="{{ helpMessage }}" 
-      matTooltipPosition="after" 
-      id="help"
-      class="btn-floating btn-large waves-effect waves-light"
-      (click)="onShowTips()"> ? </button >
-    <div id="black-filter"></div>
-  </div> -->
   <div class="col s12" matTooltip="Use os filtros para buscar cartas específicas" matTooltipPosition="above">
     <div class="find">
       <div *ngFor="let levelElement of cardKnowledgeFilter; let i= index" [ngClass]="{'help' : status}">
@@ -39,7 +29,6 @@
   <div class="col s12 m7">
     <app-count *ngIf="!showErrorMessageAttributes(characters[indexSlick].attributes)">Esta carta não possui nenhum atributo cadastrado</app-count>
     <div class="boxAttributes" *ngIf="showErrorMessageAttributes(characters[indexSlick].attributes)">
-      <!-- <app-box-property [ngClass]="{'help' : status}" [title]="'Conhecimento'"> {{ characters[indexSlick].description }} </app-box-property> -->
       <app-box-property [ngClass]="{'help' : status}" [title]="'Descrição'"> {{ description }} </app-box-property>
       <ng-container *ngFor="let metric of characters[indexSlick].attributes">
         <app-box-property [ngClass]="{'help' : status}" title="{{ metric.attribute.name }}" *ngIf="metric && !metric.attribute.manualDefiner"> {{ metric.attribute.type }} </app-box-property>
@@ -47,17 +36,6 @@
     </div>
   </div>
 </div>
-
-<!-- <app-loading [loader]="loaderDeck"></app-loading> -->
-
-<!-- <div class="row deck" *ngIf="playerDeck">
-  <app-slick [options]="deck" [arrows]="arrows" #tp5="matTooltip" matTooltip="Essas são as suas cartas" matTooltipDisabled="{{ !status }}" matTooltipPosition="above" [type]="refreshSlick">
-    <div class="characters" *ngFor="let card of playerDeck; index as i;" [ngClass]="{'help' : status}">
-      <img class="deck-img" width="100%" [src]="card.classification.url | image | async">
-      <img class="deck-img" width="100%" src="{{ getCardDeck(card) }}">
-    </div>
-  </app-slick>
-</div> -->
 
 <div class="row boxCharactersDeck" *ngIf="playerDeck && !loaderDeck">
   <div class="charactersDeck" *ngFor="let card of playerDeck" [ngClass]="{'help' : status}" matTooltip="{{ card.cardName }}">

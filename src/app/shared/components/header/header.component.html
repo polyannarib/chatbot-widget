@@ -1,29 +1,23 @@
 <header class="navbar navbar-fixed navbar-expand navbar-default">
-    <button type="button" class="navbar-toggle btn btn-primary-custom p-2 ml-4" (click)="toggleMenu()">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </button>
-    <div id="black-filter"></div>
-    <nav [ngStyle]="{'background': secondStyle}">
-        <div class="nav-wrapper container-fluid">
-            <!-- <ul class="right hide-on-med-and-down">
-                <li><a class="dropdown-trigger" href="" data-target="dropdown1"><i class="material-icons">perm_identity</i></a></li>
-                <ul id="dropdown1" class="dropdown-content">
-                    <li><a (click)="logout()"><i class="material-icons">exit_to_app</i>Logout</a></li>
-                </ul>
-            </ul> -->
-        </div>
-    </nav>
-    <div class="player" *ngIf="user">
-        <div class="playerInfo" [ngStyle]="{'color': mainStyle}">
-            <span [ngStyle]="{'color': '#696969e8'}">{{ user.name }}</span>
-            <br>
-            <span id="scoreSpan" [ngStyle]="{'color': '#696969e8'}">Score:</span>
-            <span id="score" [ngStyle]="{'color': mainStyle}" >{{score}} Pts</span>
-        </div>
-        <!-- <div class="image" [ngStyle]="{'background-image': user.url }"></div> -->
-        <img class="image" (click)="getExtract()" [src]="(user.url | image | async) ? (user.url | image | async) : '../../../assets/images/svg/user.svg'" alt="foto de usuário">
-        <!-- <img src="" alt=""> -->
+  <button type="button" class="navbar-toggle btn btn-primary-custom p-2 ml-4" (click)="toggleMenu()">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <div id="black-filter"></div>
+  <nav [ngStyle]="{'background': secondStyle}">
+    <div class="nav-wrapper container-fluid">
     </div>
+  </nav>
+  <div class="player" *ngIf="user">
+    <div class="playerInfo" [ngStyle]="{'color': mainStyle}">
+      <span [ngStyle]="{'color': '#696969e8'}">{{ user.name }}</span>
+      <br>
+      <span id="scoreSpan" [ngStyle]="{'color': '#696969e8'}">Score:</span>
+      <span id="score" [ngStyle]="{'color': mainStyle}">{{score}} Pts</span>
+    </div>
+    <img class="image" (click)="getExtract()"
+      [src]="(user.url | image | async) ? (user.url | image | async) : 'assets/images/svg/user.svg'"
+      alt="foto de usuário">
+  </div>
 </header>
