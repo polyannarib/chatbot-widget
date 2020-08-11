@@ -27,6 +27,7 @@ export class CardBindComponent implements OnInit {
   indexSlick: number = 0;
   arrows: boolean = true;
   auxComp = [];
+  competenceName = '';
   cardKnowledgeFilter: any;
   parentIdsLevels: any;
   disabled: any;
@@ -137,12 +138,13 @@ export class CardBindComponent implements OnInit {
     })
   }
 
-  FindParente(event, resource) {
+  findParente(event, resource) {
     // debugger;
     if (resource.level === 4) {
       this.disabled = false;
       this.searchCards(event.knowledgeId);
       this.description = event.description;
+      this.competenceName = event.name;
       return;
     }
     // debugger;
