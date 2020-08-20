@@ -46,7 +46,7 @@
                 <div class="col m6 s12 left-align">{{ activity.name }}</div>
                 <div class="col m2 s12 left-align">{{ activity.player != null ? activity.player.name : '' }}</div>
                 <div class="col m2 s12 left-align">{{ activity.previewedAt | date:'dd/MM/yyyy' }}</div>
-                <div class="col m1 s12 left-align">{{ activity.dailyEffort }}h</div>
+                <div class="col m1 s12 left-align">{{ activity.dailyEffort ? activity.dailyEffort : 0 }}h</div>
                 <div class="col m1 s12 padding-zero valign-wrapper"><i class="material-icons"
                     matTooltip="{{ activity.status | translate }}"
                     [ngStyle]="{'color': getColor(activity.status)}">fiber_manual_record</i></div>
@@ -62,7 +62,7 @@
                   {{ activity.previewedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
                 <li><span>{{ 'STARTDATE' | translate}}</span> {{ activity.startedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
                 <li><span>{{ 'ENDDATE' | translate}}</span> {{ activity.finalizedAt | date:'dd/MM/yyyy HH:mm:ss' }}</li>
-                <li><span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration }}h</li>
+                <li><span>{{ 'EXPEFFORT' | translate }}</span> {{ activity.duration ? activity.duration : 0 }}h</li>
                 <li><span>{{ 'EFFORT' | translate }} </span> {{ activity.effort }}h</li>
               </ul>
 
@@ -78,7 +78,7 @@
               </div>
 
               <div class="containerButtons center-align"
-                *ngIf="(activity.cards.length > 0) && (scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster)">
+                *ngIf="(activity.cards.length > 0) && (scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster) && (activity.effort > 0)">
                 <app-button-finalize *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id">
                 </app-button-finalize>
                 <app-button-remove *ngIf="activity.player" (update)="updateTasks($event)" [activityId]="activity.id">
