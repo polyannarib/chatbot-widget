@@ -34,7 +34,7 @@ export class TaskDetailsComponent implements OnInit {
     description: [this.data.task.description],
     duration: [this.data.task.duration],
     cards: [this.cards],
-    expectedAt: [new Date(this.data.task.expectedAt)],
+    expectedAt: [this.data.task.expectedAt ? new Date(this.data.task.expectedAt) : null],
     time: [new Date(this.data.task.expectedAt).getHours()],
     effort: [this.data.task.effort],
     dailyEffort: [this.data.task.dailyEffort],
@@ -82,8 +82,12 @@ export class TaskDetailsComponent implements OnInit {
     this.loader = true;
     if (this.form.valid) {
       if(this.form.value.expectedAt != null) {
+        console.log(this.form.value.expectedAt)
+        console.log(new Date(this.form.value.expectedAt))
+        console.log(new Date(this.form.value.expectedAt).setHours(this.form.value.time))
         const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
         const setTimesStamp = new Date(expectedAt).getTime();
+        console.log(setTimesStamp)
         this.form.value.expectedAt = setTimesStamp;
         this.form.value.cards = this.cards;
         // this.form.value.cards = this.cards.map(element => new Object({ 

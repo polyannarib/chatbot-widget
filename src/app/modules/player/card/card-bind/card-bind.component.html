@@ -4,7 +4,7 @@
       <div *ngFor="let levelElement of cardKnowledgeFilter; let i= index" [ngClass]="{'help' : status}">
         <mat-form-field>
           <mat-label>{{ levelElement.knowledgeList[0].type.name }}</mat-label>
-          <mat-select (selectionChange)="FindParente($event.value, levelElement)">
+          <mat-select (selectionChange)="findParent($event.value, levelElement)">
             <mat-option *ngFor="let knowledge of levelElement.knowledgeList; let i= index" [value]="knowledge">{{ knowledge.name }}</mat-option>
           </mat-select>
         </mat-form-field>

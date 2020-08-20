@@ -24,6 +24,7 @@ export class CardBindComponent implements OnInit {
   characters: any;
   loader: boolean = false;
   cardNotFound: boolean = false;
+  competenceName = '';
   indexSlick: number = 0;
   arrows: boolean = true;
   auxComp = [];
@@ -137,9 +138,10 @@ export class CardBindComponent implements OnInit {
     })
   }
 
-  FindParente(event, resource) {
+  findParent(event, resource) {
     // debugger;
     if (resource.level === 4) {
+      this.competenceName = event.name;
       this.disabled = false;
       this.searchCards(event.knowledgeId);
       this.description = event.description;

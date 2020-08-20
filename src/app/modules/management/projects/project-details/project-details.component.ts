@@ -49,6 +49,7 @@ export class ProjectDetailsComponent implements OnInit {
     this.taskService.findProjectTasks(this.data.projectId, format(this.data.projectDate, 'dd-MM-yyyy')).subscribe(
       (response) => {
         this.taskList = response.object.tasks;
+        console.log(this.taskList);
         this.projectTasks = response.object;
         this.loader = false;
       }, (err) => {
