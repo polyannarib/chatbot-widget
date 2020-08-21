@@ -78,7 +78,7 @@
               </div>
 
               <div class="containerButtons center-align"
-                *ngIf="(activity.cards.length > 0) && (scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster) && (activity.effort > 0)">
+                *ngIf="(activity.cards.length > 0) && (scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster) && (activity.duration > 0)">
                 <app-button-finalize *ngIf="activity.status != 'FINISHED'" [activityId]="activity.id">
                 </app-button-finalize>
                 <app-button-remove *ngIf="activity.player" (update)="updateTasks($event)" [activityId]="activity.id">

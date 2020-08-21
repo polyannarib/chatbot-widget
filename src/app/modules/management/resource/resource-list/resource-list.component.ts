@@ -78,7 +78,7 @@ export class ResourceListComponent implements OnInit {
           this.players = response.object.list;
           this.playersListOptions = response.object;
           this.filteredPlayers = this.players;
-
+          console.log(this.players)
           this.pageSize = response.object.pageSize;
           this.page = response.object.page;
           this.totalFound = response.object.totalFound;
