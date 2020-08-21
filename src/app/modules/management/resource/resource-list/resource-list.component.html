@@ -37,7 +37,7 @@
       <thead>
         <tr>
           <th></th>
-          <th class="days">Player</th>
+          <th class="days">Player </th>
           <th *ngFor="let day of daysOfWeek13">{{ day | date:'E' }}</th>
         </tr>
       </thead>
@@ -51,7 +51,11 @@
                 <button [ngStyle]="{'background-color': activity.style}" [ngClass]="{hoverable: activity.validDay}"
                   [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}"
                   class="btnDayCalendar" [disabled]="!activity.validDay"
-                  (click)="modalResourceDetails(player.id, activity)">{{ activity.referenceDate | date:'dd' }}</button>
+                  (click)="modalResourceDetails(player.id, activity)">
+                  <span [ngClass]="{'animated infinite fadeIn': !activity.allocated}">
+                    {{ activity.referenceDate | date:'dd' }}
+                  </span>
+                </button>
               </td>
             </ng-container>
           </tr>
