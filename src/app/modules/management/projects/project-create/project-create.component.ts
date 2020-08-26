@@ -3,8 +3,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { ProjectService } from 'src/app/core/services/project.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
-import {AuthService} from '../../../../core/services/auth.service';
-import {NotifyComponent} from "../../../../shared/components/notify/notify.component";
+import { AuthService } from '../../../../core/services/auth.service';
+import { NotifyComponent } from "../../../../shared/components/notify/notify.component";
 
 @Component({
   selector: 'app-project-create',
@@ -13,8 +13,8 @@ import {NotifyComponent} from "../../../../shared/components/notify/notify.compo
 })
 export class ProjectCreateComponent implements OnInit {
 
-  workgroups: Workgroup[] = [{value: -1, viewValue: 'Escolher'}];
-  managers: Manager[] = [{value: -1, viewValue: 'Escolher'}];
+  workgroups: Workgroup[] = [{ value: -1, viewValue: 'Escolher' }];
+  managers: Manager[] = [{ value: -1, viewValue: 'Escolher' }];
   formCreateProject: FormGroup;
   loader = false;
   mainStyle = this.profileService.getAppMainColor();
@@ -59,17 +59,16 @@ export class ProjectCreateComponent implements OnInit {
 
   getType() {
     if (this.data.type === 'edit') {
+      console.log(this.data.project);  
       this.formCreateProject = this.formBuilder.group({
         name: [this.data.project.name, [Validators.required]],
-        projectManager: [this.data.project.projectManager.name, [Validators.required]],
+        projectManager: [this.data.project.projectManager.personId, [Validators.required]],
         customerOwner: [this.data.project.customerOwner, [Validators.required]],
         description: [this.data.project.description, [Validators.required]],
         identify: [this.data.project.identify, [Validators.required]],
-        workgroup: [this.data.project.workgroup, [Validators.required]]
+        workgroup: [this.data.project.team.id, [Validators.required]]
       });
-      this.formCreateProject.controls.workgroup.disable();
       this.formCreateProject.controls.customerOwner.disable();
-      this.formCreateProject.controls.projectManager.disable();
     } else if (this.data.type === 'create' || this.data.type === 'epic') {
       this.formCreateProject = this.formBuilder.group({
         name: [null, [Validators.required]],
@@ -79,8 +78,8 @@ export class ProjectCreateComponent implements OnInit {
         identify: [null, [Validators.required]],
         workgroup: [null, [Validators.required]]
       });
-      this.findFromProfile();
     }
+    this.findFromProfile();
   }
 
   findFromProfile() {
@@ -113,9 +112,9 @@ export class ProjectCreateComponent implements OnInit {
           if (response.object != null) {
             const objects = response.object;
             objects.map(object => {
-              this.managers.push({value: object.personId, viewValue: object.name});
+              this.managers.push({ value: object.personId, viewValue: object.name });
               if (object.workgroupList != null) {
-                object.workgroupList.map(workgroup => this.workgroups.push({value: workgroup.id, viewValue: workgroup.name}));
+                object.workgroupList.map(workgroup => this.workgroups.push({ value: workgroup.id, viewValue: workgroup.name }));
               }
             });
           }
@@ -139,7 +138,7 @@ export class ProjectCreateComponent implements OnInit {
           if (response.object != null) {
             const list = response.object;
             list.map(workgroup => {
-              this.workgroups.push({value: workgroup.id, viewValue: workgroup.name});
+              this.workgroups.push({ value: workgroup.id, viewValue: workgroup.name });
             });
             if (this.scopes.wpleader) {
               this.findAllMasters();
@@ -168,9 +167,9 @@ export class ProjectCreateComponent implements OnInit {
             if (response.object != null) {
               const objects = response.object;
               objects.map(object => {
-                this.managers.push({value: object.personId, viewValue: object.name});
+                this.managers.push({ value: object.personId, viewValue: object.name });
                 if (object.workgroupList != null) {
-                  object.workgroupList.map(workgroup => this.workgroups.push({value: workgroup.id, viewValue: workgroup.name}));
+                  object.workgroupList.map(workgroup => this.workgroups.push({ value: workgroup.id, viewValue: workgroup.name }));
                 }
               });
             }
@@ -231,10 +230,10 @@ export class ProjectCreateComponent implements OnInit {
     }
     this.loader = true;
     this.projectService.createProject(data).subscribe(
-      (response) => {        
+      (response) => {
         if (response.status == 0) {
           this.loader = false;
-          this.dialogRef.close({confirm: true});
+          this.dialogRef.close({ confirm: true });
           return;
         }
         this.httpError(response.message);
@@ -250,11 +249,11 @@ export class ProjectCreateComponent implements OnInit {
     switch (value) {
       case 'TEAM_INVALID_OR_INACTIVE':
         this._snackBar.openFromComponent(NotifyComponent,
-          { data: { type: 'error', message: 'Workgroup inválido ou inativo.' }});
+          { data: { type: 'error', message: 'Workgroup inválido ou inativo.' } });
         break;
       default:
         this._snackBar.openFromComponent(NotifyComponent,
-          { data: { type: 'error', message: 'Problemas, contate o administrador' }});
+          { data: { type: 'error', message: 'Problemas, contate o administrador' } });
         break;
     }
   }
