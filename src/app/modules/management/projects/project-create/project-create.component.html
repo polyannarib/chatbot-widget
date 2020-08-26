@@ -5,19 +5,21 @@
   <div class="modal-header" *ngIf="this.data.type === 'epic'">
     <span [ngStyle]="{'background-color': mainStyle}"> Épico </span>
   </div>
-  <form [formGroup]="formCreateProject" (ngSubmit)="createProject()">
+  <form [formGroup]="formCreateProject" (submit)="createProject()">
     <div class="modal-body">
       <!-- NOME DO PROJETO -->
       <div class="input-field">
         <input id="project_name" type="text" class="validate" formControlName="name" required>
-        <label
-          for="project_name">{{ (this.data.type === 'epic') ? 'Nome do Épico' : 'PROJECTNAME' | translate }}</label>
+        <label [class.active]="formCreateProject.controls.name.value != null" for="project_name">
+          {{ (this.data.type === 'epic') ? 'Nome do Épico' : 'PROJECTNAME' | translate }}
+        </label>
       </div>
 
       <!-- WORKGOUP DO PROJETO -->
-      <div *ngIf="!this.data.type === 'edit' || this.data.type === 'epic' || this.data.type === 'create'">
+      <div>
         <mat-form-field>
-          <mat-label>{{ (this.data.type === 'epic') ? 'Workgroup' : 'CREATE_PROJECT_WORKGROUP' | translate }}
+          <mat-label>
+            {{ (this.data.type === 'epic') ? 'Workgroup' : 'CREATE_PROJECT_WORKGROUP' | translate }}
           </mat-label>
           <mat-select formControlName="workgroup">
             <mat-option *ngFor="let workgroup of workgroups" [value]="workgroup.value">
@@ -28,9 +30,11 @@
       </div>
 
       <!-- GESTOR DO PROJETO -->
-      <div *ngIf="!this.data.type === 'edit' || this.data.type === 'epic' || this.data.type === 'create'">
+      <div *ngIf="this.data.type === 'edit' || this.data.type === 'epic' || this.data.type === 'create'">
         <mat-form-field>
-          <mat-label>{{ (this.data.type === 'epic') ? 'Gestor' : 'CREATE_PROJECT_MANAGER' | translate }}</mat-label>
+          <mat-label>
+            {{ (this.data.type === 'epic') ? 'Gestor' : 'CREATE_PROJECT_MANAGER' | translate }}
+          </mat-label>
           <mat-select formControlName="projectManager">
             <mat-option *ngFor="let manager of managers" [value]="manager.value">
               {{manager.viewValue}}
@@ -41,16 +45,19 @@
 
       <!-- DESCRICAO DO PROJETO -->
       <div class="input-field">
-        <textarea id="project_description" class="validate" formControlName="description" required></textarea>
-        <label
-          for="project_description">{{ (this.data.type === 'epic') ? 'Descrição do Épico' : 'CREATE_PROJECT_DESCRIPTION' | translate }}</label>
+        <textarea id="project_description" class="validate materialize-textarea" formControlName="description"
+          required></textarea>
+        <label for="project_description" [class.active]="formCreateProject.controls.description.value != null">
+          {{ (this.data.type === 'epic') ? 'Descrição do Épico' : 'CREATE_PROJECT_DESCRIPTION' | translate }}
+        </label>
       </div>
 
       <!-- IDENTIFICACAO DO PROJETO -->
       <div class="input-field">
         <input id="project_identify" type="text" class="validate" formControlName="identify" required>
-        <label
-          for="project_identify">{{ (this.data.type === 'epic') ? 'Identificador do Épico' : 'CREATE_PROJECT_IDENTIFY' | translate }}</label>
+        <label for="project_identify" [class.active]="formCreateProject.controls.identify.value != null">
+          {{ (this.data.type === 'epic') ? 'Identificador do Épico' : 'CREATE_PROJECT_IDENTIFY' | translate }}
+        </label>
       </div>
 
     </div>
