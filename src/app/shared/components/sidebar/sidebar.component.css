@@ -5,7 +5,6 @@
 button.navbar-toggle {
   float: left !important;
   margin: 0px 14px !important;
-  background: #650199 !important;
 }
 
 .sidebar{
@@ -11919,9 +11918,6 @@ legend {
     }
     .footer nav.pull-left, .social-area.pull-right {
         float: none!important
-    }
-    .navbar-toggle:focus, .navbar-toggle:hover {
-        background-color: #7700b5 !important
     }
     /* .btn.dropdown-toggle {
         margin-bottom: 0
