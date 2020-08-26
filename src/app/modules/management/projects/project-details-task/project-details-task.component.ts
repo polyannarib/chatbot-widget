@@ -152,6 +152,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
     (result) => {
       this.getTasks(this.data.project.id);
+      console.log('teste');
     });
   }
 
