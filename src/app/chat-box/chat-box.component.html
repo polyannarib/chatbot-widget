@@ -1,0 +1,10 @@
+<div class="box">
+    <ng-container *ngFor = "let message of messages">
+        <div class="msgUser" *ngIf = "message.hasOwnProperty('user')">
+            {{ message.user }}
+        </div>
+        <div class="msgBot" *ngIf = "message.hasOwnProperty('bot')">
+            {{ message.bot }}
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,7 @@
+<div>
+    <app-chat-box></app-chat-box>
+    <form [formGroup]="userInput" (ngSubmit)="onSubmit()">
+        <input autocomplete="off" placeholder="Envie sua mensagem..." type="text" formControlName="text">
+        <button mat-button type="submit"> send </button>
+    </form>
+</div>
