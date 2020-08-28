@@ -27,7 +27,11 @@ export class AuthService {
   login(data): Observable<any> {
     return this.http.post<any>(`${environment.back_end_url}/login`, data);
   }
-  
+
+  forgottenPassword(data): Observable<any> {
+    return this.http.get<any>(`${environment.back_forgotten_password}/${data}/forgot`);
+  }
+
   // logout(): Observable<any> {
   //   this.profileService.removeAppColors();
   //   return this.http.get(AppConstants.URL_SSO_SERVICES + '/user/logout' );
@@ -123,7 +127,7 @@ export class AuthService {
         });
       }
     }
-    return scopesArray;    
+    return scopesArray;
   }
 
   getAppToken() {
@@ -135,7 +139,7 @@ export class AuthService {
       // }
       // catch(error) {
       //   return null;
-      // }      
+      // }
     }
   }
 
