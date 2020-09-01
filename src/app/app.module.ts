@@ -9,12 +9,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
 import {MatButtonModule} from '@angular/material/button'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChatBoxIconComponent } from './chat-box-icon/chat-box-icon.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatBoxComponent,
-    ChatWindowComponent
+    ChatWindowComponent,
+    ChatBoxIconComponent
   ],
   imports: [
     BrowserModule,
