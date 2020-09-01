@@ -1,10 +1,16 @@
 <div class="box">
     <ng-container *ngFor = "let message of messages">
-        <div class="msgUser" *ngIf = "message.hasOwnProperty('user')">
-            {{ message.user }}
+        <div class="msgBox" *ngIf = "message.hasOwnProperty('user')">
+            <div class="msgUser">
+                {{ message.user }}
+            </div>
+            <img src="assets/images/user.png" width="33px" height="33px">
         </div>
-        <div class="msgBot" *ngIf = "message.hasOwnProperty('bot')">
-            {{ message.bot }}
+        <div class="msgBox" *ngIf = "message.hasOwnProperty('bot')">
+            <img src="assets/images/bot.png" width="33px" height="33px">
+            <div class="msgBot">
+                {{ message.bot }}
+            </div>
         </div>
     </ng-container>
 </div>

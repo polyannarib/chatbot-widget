@@ -11,12 +11,21 @@ div {
 }
 
 input {
-    width: 305px;
+    border-top: 1px solid black;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+    width: 295px;
     background-color: #FFF;
-    border: none;
     outline: none;
     height: 33px;
     color: #000;
     font-size: 14px;
-    padding: 0 0 0 15px;
+    padding: 0 40px 0 15px;
+}
+
+button {
+    position: absolute;
+    right: 20px;
+    bottom: 7px;
 }

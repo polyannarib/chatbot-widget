@@ -9,6 +9,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
 import {MatButtonModule} from '@angular/material/button'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,6 +2,13 @@
     <app-chat-box></app-chat-box>
     <form [formGroup]="userInput" (ngSubmit)="onSubmit()">
         <input autocomplete="off" placeholder="Envie sua mensagem..." type="text" formControlName="text">
-        <button mat-button type="submit"> send </button>
+        <button *ngIf="typing else not_typing" mat-icon-button>
+            <mat-icon>send</mat-icon>
+        </button>
     </form>
+    <ng-template #not_typing>
+        <button mat-icon-button>
+            <mat-icon>mic</mat-icon>
+        </button>
+    </ng-template>
 </div>

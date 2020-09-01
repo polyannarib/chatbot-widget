@@ -8,13 +8,24 @@ import { MessagesFlowService } from '../messages-flow.service';
   styleUrls: ['./chat-window.component.css']
 })
 export class ChatWindowComponent implements OnInit {
+  typing: boolean = false;
   userInput: FormGroup = new FormGroup({
     text: new FormControl(""),
   })
 
   constructor(public messageService: MessagesFlowService) { }
 
+
   ngOnInit(): void {
+    this.userInput.get("text").valueChanges.subscribe(value => {
+      console.log(value);
+      if(value !== ""){
+        this.typing = true;
+      }
+      else {
+        this.typing = false;
+      }
+    })
   }
 
   onSubmit(){
