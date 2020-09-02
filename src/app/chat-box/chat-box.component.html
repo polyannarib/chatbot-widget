@@ -1,10 +1,17 @@
 <div class="box">
-    <ng-container *ngFor = "let message of messages">
-        <div class="msgUser" *ngIf = "message.hasOwnProperty('user')">
-            {{ message.user }}
-        </div>
-        <div class="msgBot" *ngIf = "message.hasOwnProperty('bot')">
-            {{ message.bot }}
-        </div>
+  <ng-container *ngIf="true; else clearConversation">
+    <ng-container *ngFor="let message of messages">
+      <div class="msgUser" *ngIf="message.hasOwnProperty('user')">
+        {{ message.user }}
+      </div>
+      <div class="msgBot" *ngIf="message.hasOwnProperty('bot')">
+        {{ message.bot }}
+      </div>
     </ng-container>
+  </ng-container>
+  <ng-template #clearConversation>
+    <div clear-chat-container>
+        <h1>Limpar Chat</h1>
+    </div>
+  </ng-template>
 </div>

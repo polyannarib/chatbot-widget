@@ -1,5 +1,5 @@
 <div class="windowContainer" *ngIf="opened">
-  <app-chat-box-header (close)="closeChatbot($event)"></app-chat-box-header>
+  <app-chat-box-header  (close)="closeChatbot($event)"></app-chat-box-header>
   <app-chat-box></app-chat-box>
   <div class="chatbotFooter">
     <form [formGroup]="userInput" (ngSubmit)="onSubmit()">

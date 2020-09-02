@@ -1,10 +1,8 @@
 <div class="header-container">
   <img class="header-icon" [src]="headerIcon" alt="icone workplayer" />
   <span class="header-title">Workplayer</span>
-  <img
-    class="close-icon"
-    (click)="closeChat()"
-    [src]="closeIcon"
-    alt=""
-  />
+  <span class="icons">
+    <img class="refresh-icon" (click)="clearChat()"[src]="refreshIcon" alt="" />
+    <img class="close-icon" (click)="closeChat()" [src]="closeIcon" alt="" />
+  </span>
 </div>
