@@ -10,13 +10,15 @@ import { ChatWindowComponent } from './chat-window/chat-window.component';
 import {MatButtonModule} from '@angular/material/button'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChatBoxIconComponent } from './chat-box-icon/chat-box-icon.component';
+import { ChatBoxHeaderComponent } from './chat-window/chat-box-header/chat-box-header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatBoxComponent,
     ChatWindowComponent,
-    ChatBoxIconComponent
+    ChatBoxIconComponent,
+    ChatBoxHeaderComponent
   ],
   imports: [
     BrowserModule,

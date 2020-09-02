@@ -1,0 +1,30 @@
+.header-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: 10%;
+  background-color: #65009A;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+.header-title {
+  margin-left: 3%;
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.header-icon {
+  max-height: 80%;
+  border-radius: 50%;
+  margin-left: 5%;
+  display: inline-block;
+}
+
+.close-icon {
+  cursor: pointer;
+  height: 20px;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: 5%;
+}

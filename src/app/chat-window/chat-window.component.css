@@ -1,22 +1,23 @@
-div {
-    padding: 50px 20px 10px 20px;
-    background-color: #607aa6;
-    bottom: 50px;
-    position: fixed;
-    right: 50px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+.windowContainer {
+  position: fixed;
+  bottom: 0;
+  right: 50px;
+  max-width: 50vw;
+  width: 25%;
+  height: 500px;
 }
 
-input {
-    width: 305px;
-    background-color: #FFF;
-    border: none;
-    outline: none;
-    height: 33px;
-    color: #000;
-    font-size: 14px;
-    padding: 0 0 0 15px;
+.chatbotFooter {
+  height: 25%;
+  border: 1px solid black
+}
+.inputContainer {
+  width: 305px;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  height: 33px;
+  color: #000;
+  font-size: 14px;
+  padding: 0 0 0 15px;
 }
