@@ -22,5 +22,4 @@ export class ChatBoxComponent implements OnInit {
       (error) => console.log(error),
     )
   }
-
 }

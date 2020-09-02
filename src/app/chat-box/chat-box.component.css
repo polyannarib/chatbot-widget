@@ -18,7 +18,7 @@
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     color: #FFF;
-    margin: 0 10px 10px auto;
+    margin: 0 0 10px auto;
     overflow-wrap: break-word;
 }
 
@@ -31,10 +31,6 @@
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     color: #000;
-    margin: 0 auto 10px 10px;
+    margin: 0 auto 10px 0;
     overflow-wrap: break-word;
-}
-
-.msgBox {
-    display: flex;
 }

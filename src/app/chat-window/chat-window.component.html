@@ -5,10 +5,10 @@
         <button *ngIf="typing else not_typing" mat-icon-button>
             <mat-icon>send</mat-icon>
         </button>
+        <ng-template #not_typing>
+            <button (mousedown)="startListening()" (mouseup)="stopListening()" mat-icon-button>
+                <mat-icon>mic</mat-icon>
+            </button>
+        </ng-template>
     </form>
-    <ng-template #not_typing>
-        <button mat-icon-button>
-            <mat-icon>mic</mat-icon>
-        </button>
-    </ng-template>
 </div>

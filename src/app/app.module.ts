@@ -25,7 +25,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
