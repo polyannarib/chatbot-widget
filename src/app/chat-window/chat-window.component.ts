@@ -26,7 +26,7 @@ export class ChatWindowComponent implements OnInit {
   onSubmit() {
     if (this.userInput.value.text !== '') {
       this.messageService.userMessages(this.userInput.value.text);
-      this.messageService.botMessages();
+      this.messageService.botMessages(this.userInput.value.text);
       this.userInput.setValue({ text: '' });
     }
   }
