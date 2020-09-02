@@ -23,13 +23,26 @@
 .msgBot {
   width: 50%;
   padding: 10px;
-  background-color: #e3e3e3;
+  background-color: #65009a;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  color: #000;
+  color: #ffffff;
   margin: 0 auto 10px 0;
 }
 
+.buttonsContainer {
+  width: 80%;
+  flex: 1 ;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  justify-content: space-between;
+}
 
+.botButton {
+  color: #ffffff;
+  margin-top: 2%;
+  width: 100%;
+}

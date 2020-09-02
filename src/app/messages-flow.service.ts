@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import { Buttons } from './buttons';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class MessagesFlowService {
   chatclear: boolean;
   public userMsgs: Subject<string> = new Subject<string>();
   public botMsgs: Subject<string> = new Subject<string>();
+  public botButtons: Subject<[]> = new Subject<[]>();
   constructor(private http: HttpClient) {}
 
   userMessages(text: string) {
@@ -48,8 +50,8 @@ export class MessagesFlowService {
           { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
         )
         .subscribe((botMsg) => {
-          console.log(botMsg);
           this.botMsgs.next(botMsg[0].text);
+          this.botButtons.next(botMsg[0].buttons)
         });
       this.interactionstarted = true;
     }
