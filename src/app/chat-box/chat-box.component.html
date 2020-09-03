@@ -1,21 +1,20 @@
 <div class="box">
-  <ng-container *ngFor="let message of messages">
+  <ng-container *ngFor="let message of messages; trackBy: trackByFn">
     <div class="msgUser" *ngIf="message.hasOwnProperty('user')">
       {{ message.user }}
     </div>
     <div class="msgBot" *ngIf="message.hasOwnProperty('bot')">
-      {{ message.bot }}
-    </div>
-    <div class="buttonsContainer" *ngIf="message.hasOwnProperty('buttons')">
-      <ng-container *ngFor="let button of message.buttons">
-        <button
-          (click)="sendButton(button.payload)"
-          class="botButton"
-          color="accent"
-          mat-raised-button
-        >
-          {{ button.title }}
-        </button>
+      <ng-container *ngFor="let botRes of message.bot">
+        {{ botRes.botText }}
+        <div class="buttonsContainer" *ngIf="botRes.hasOwnProperty('buttons')">
+            <button
+              *ngFor="let button of botRes.buttons"
+              (click)="sendButton(button.payload, button.title)"
+              class="botButton"
+            >
+              {{ button.title }}
+            </button>
+        </div>
       </ng-container>
     </div>
   </ng-container>

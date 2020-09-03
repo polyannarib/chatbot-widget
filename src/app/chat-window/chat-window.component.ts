@@ -1,15 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MessagesFlowService } from '../messages-flow.service';
 import { OpenChatService } from '../open-chat.service';
+import { Subscription } from 'rxjs';
+declare const annyang: any;
 
 @Component({
   selector: 'app-chat-window',
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.css'],
 })
-export class ChatWindowComponent implements OnInit {
-  private speechRec = null;
+export class ChatWindowComponent implements OnInit, OnDestroy {
+  private sub: Subscription;
   private micPressed: boolean = false;
   private userSaid: string = '';
   typing: boolean = false;
@@ -27,18 +29,33 @@ export class ChatWindowComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userInput.get('text').valueChanges.subscribe((value) => {
-      console.log(value);
+    console.log(annyang);
+    if(annyang !== null) {
+      annyang.setLanguage('pt-br');
+      annyang.addCallback('errorNetwork', () => {
+        alert("Error de rede");
+      });
+      annyang.addCallback('errorPermissionBlocked', () => {
+        alert("Erro de permissão")
+      });
+      annyang.addCallback('errorPermissionDenied', () => {
+        alert("Erro de permissão")
+      });
+      annyang.addCallback('result', (phrases) => {
+        this.userSaid = phrases[0];
+        annyang.pause();
+      });
+    }
+
+    this.sub = this.userInput.get('text').valueChanges.subscribe((value) => {
       value !== '' ? (this.typing = true) : (this.typing = false);
     });
+    }
 
-    if ('speechSynthesis' in window) {
-      this.speechRec =
-         new window.SpeechRecognition(); // || window.webkitSpeechRecognition() -> a testar
-      this.speechRec.onresult = (e) => {
-        this.userSaid = e.results[0][0].transcript;
-        console.log(e.results[0][0].transcript);
-      };
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+    if(annyang.getSpeechRecognizer() !== undefined) {
+      annyang.abort();
     }
   }
 
@@ -58,18 +75,13 @@ export class ChatWindowComponent implements OnInit {
   }
 
   startListening() {
-    if (this.speechRec !== null) {
-      this.speechRec.start();
-      this.micPressed = true;
-    } else {
-      alert('Reconhecimento de voz não suportado nesse navegador');
-    }
+    annyang !== null ?
+    (this.micPressed = true, annyang.start()) :
+    (alert("Reconhecimento de voz não suportado neste navegador"));
   }
 
   stopListening() {
-    if (this.speechRec !== null) {
-      this.speechRec.stop();
-    }
+    null;
   }
 
   private waitFor(condition) {
@@ -86,10 +98,12 @@ export class ChatWindowComponent implements OnInit {
   closeChatbot(closed) {
     this.opened = closed;
   }
+
   restartAlert(request: boolean) {
     console.log('request: ' + request);
     this.request = request;
   }
+  
   willRestart(restart: boolean) {
     this.request = false;
     if (restart) {

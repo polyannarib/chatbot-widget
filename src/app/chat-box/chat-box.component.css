@@ -10,9 +10,10 @@
 }
 
 .msgUser {
+  font-family: Helvetica, Arial, sans-serif;
   width: 50%;
   padding: 10px;
-  background-color: #99b9f0;
+  background-color: #d6a6f0;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   border-bottom-left-radius: 8px;
@@ -22,28 +23,43 @@
 }
 
 .msgBot {
+  font-family: Helvetica, Arial, sans-serif;
+  position: relative;
   width: 50%;
   padding: 10px;
-  background-color: #65009a;
+  background-color: #cecece;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  color: #ffffff;
+  color: #000;
   margin: 0 auto 10px 0;
 }
 
 .buttonsContainer {
-  width: 80%;
-  flex: 1 ;
+  margin: 10px 0 10px 0;
+  position: absolute;
+  width: 100%;
+  flex: 1;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
   justify-content: space-between;
+  left: 0;
 }
 
 .botButton {
-  color: #ffffff;
-  margin-top: 2%;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #d191f3;
+  margin-top: 5px;
+  min-height: 40px;
+  background-color: transparent;
+  border: 1px solid #d191f3;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
   width: 100%;
+  outline: none;
+  cursor: pointer;
 }
