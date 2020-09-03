@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MessagesFlowService } from '../messages-flow.service';
-import { Button } from 'protractor';
 
 @Component({
   selector: 'app-chat-box',

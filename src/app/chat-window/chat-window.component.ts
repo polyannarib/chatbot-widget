@@ -14,6 +14,7 @@ export class ChatWindowComponent implements OnInit {
   private userSaid: string = '';
   typing: boolean = false;
   opened: boolean;
+  expanded: boolean = false;
   request: boolean;
   userInput: FormGroup = new FormGroup({
     text: new FormControl(''),
@@ -23,7 +24,10 @@ export class ChatWindowComponent implements OnInit {
     public messageService: MessagesFlowService,
     private chat: OpenChatService
   ) {
-    this.chat.isOpen.subscribe((open) => (this.opened = open));
+    this.chat.isOpen.subscribe((open) => {
+      this.opened = open;
+      this.expanded = open;
+    });
   }
 
   ngOnInit(): void {
@@ -33,8 +37,7 @@ export class ChatWindowComponent implements OnInit {
     });
 
     if ('speechSynthesis' in window) {
-      this.speechRec =
-         new window.SpeechRecognition(); // || window.webkitSpeechRecognition() -> a testar window.speechRecognition || window.webkitSpeechRecognition;
+      this.speechRec = new window.SpeechRecognition(); // || window.webkitSpeechRecognition() -> a testar window.speechRecognition || window.webkitSpeechRecognition;
       this.speechRec.onresult = (e) => {
         this.userSaid = e.results[0][0].transcript;
         console.log(e.results[0][0].transcript);
@@ -85,6 +88,7 @@ export class ChatWindowComponent implements OnInit {
 
   closeChatbot(closed) {
     this.opened = closed;
+    this.expanded = false;
   }
   restartAlert(request: boolean) {
     console.log('request: ' + request);
@@ -95,5 +99,8 @@ export class ChatWindowComponent implements OnInit {
     if (restart) {
       this.messageService.clearChat(true);
     }
+  }
+  expand() {
+    this.expanded = !this.expanded;
   }
 }
