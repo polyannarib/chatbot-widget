@@ -12,7 +12,6 @@ export class ButtonFinalizeComponent implements OnInit {
 
   @Input() activityId: number;
   @Output() update: EventEmitter<any> = new EventEmitter();
-  // @Output() update = new EventEmitter();
 
   constructor(
     private taskService: TaskService,
@@ -31,9 +30,7 @@ export class ButtonFinalizeComponent implements OnInit {
       data: dataSend
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.update.emit(true);
-      // console.log('result ------- finalize component --------');
-      // console.log(result);
+      this.update.emit();
     });
   }
 

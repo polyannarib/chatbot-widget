@@ -1,0 +1,14 @@
+<div id="modal">
+  <div class="modal-header">
+    {{ 'Não foi possível iniciar a atividade!' | translate }}
+    <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ "Você possui a atividade '" + data.object.name + "' em andamento. O que deseja fazer com ela?" | translate }}</p>
+  </div>
+  <div class="modal-footer containerButtons center-align">
+    <app-button-finalize [activityId]="data.object.id" (update)="startTask()"></app-button-finalize>
+    <app-button-suspend [activityId]="data.object.id" (update)="startTask()"></app-button-suspend>
+    <app-button-give-back [activityId]="data.object.id" (update)="startTask()"></app-button-give-back>
+  </div>
+</div>
