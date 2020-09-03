@@ -16,7 +16,7 @@
         class="inputContainer"
       />
       <button *ngIf="typing; else not_typing" mat-icon-button>
-        <mat-icon>send</mat-icon>
+        <mat-icon [ngStyle]="{'color':'white'}">send</mat-icon>
       </button>
       <ng-template #not_typing>
         <button
@@ -24,7 +24,7 @@
           (mouseup)="stopListening()"
           mat-icon-button
         >
-          <mat-icon>mic</mat-icon>
+          <mat-icon [ngStyle]="{'color':'white'}">mic</mat-icon>
         </button>
       </ng-template>
     </form>

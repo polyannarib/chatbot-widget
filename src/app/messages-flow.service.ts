@@ -2,7 +2,6 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { Buttons } from './buttons';
 
 @Injectable({
   providedIn: 'root',
@@ -28,14 +27,22 @@ export class MessagesFlowService {
         { sender: 'antonio', message: usermsg },
         { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
       )
-      .subscribe((botMsg) => {
-        if (typeof botMsg[0] !== 'undefined') {
-          this.botMsgs.next(botMsg[0].text);
-          if (typeof botMsg[0].buttons !== 'undefined') {
-            this.botButtons.next(botMsg[0].buttons);
+      .subscribe(
+        (botMsg) => {
+          if (typeof botMsg[0] !== 'undefined') {
+            this.botMsgs.next(botMsg[0].text);
+            if (typeof botMsg[0].buttons !== 'undefined') {
+              this.botButtons.next(botMsg[0].buttons);
+            }
           }
+        },
+        (error) => {
+          console.log(error);
+          this.botMsgs.next(
+            'Desculpe, estou com dificuldades para me comunicar com você. Eu e meus colegas estamos trabalhando para atender aos seus pedidos 👾. Tente novamente mais tarde'
+          );
         }
-      });
+      );
   }
 
   clearChat(willClear: boolean) {
@@ -54,10 +61,18 @@ export class MessagesFlowService {
           { sender: 'Player', message: 'oi' },
           { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
         )
-        .subscribe((botMsg) => {
-          this.botMsgs.next(botMsg[0].text);
-          this.botButtons.next(botMsg[0].buttons);
-        });
+        .subscribe(
+          (botMsg) => {
+            this.botMsgs.next(botMsg[0].text);
+            this.botButtons.next(botMsg[0].buttons);
+          },
+          (error) => {
+            console.log(error);
+            this.botMsgs.next(
+              'Desculpe, estou com dificuldades para me comunicar com você. Eu e meus colegas estamos trabalhando para atender aos seus pedidos 👾. Tente novamente mais tarde'
+            );
+          }
+        );
       this.interactionstarted = true;
     }
   }

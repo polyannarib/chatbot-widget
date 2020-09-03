@@ -34,7 +34,7 @@ export class ChatWindowComponent implements OnInit {
 
     if ('speechSynthesis' in window) {
       this.speechRec =
-         new window.SpeechRecognition(); // || window.webkitSpeechRecognition() -> a testar
+         new window.SpeechRecognition(); // || window.webkitSpeechRecognition() -> a testar window.speechRecognition || window.webkitSpeechRecognition;
       this.speechRec.onresult = (e) => {
         this.userSaid = e.results[0][0].transcript;
         console.log(e.results[0][0].transcript);

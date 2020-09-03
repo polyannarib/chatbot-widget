@@ -2,23 +2,27 @@
   position: fixed;
   bottom: 0;
   right: 50px;
-  max-width: 50vw;
-  width: 25%;
+  width: 25vw;
   height: 500px;
 }
 
 .chatbotFooter {
   height: 10%;
   border: 1px solid black;
+  background-color: #65009a;
+
 }
+
 .inputContainer {
-  width: 305px;
-  background-color: #fff;
-  border: none;
+  width: 70%;
+  background-color: #ffffff;
   outline: none;
   height: inherit;
   color: #000;
   font-size: 14px;
   padding: 0 0 0 15px;
+  border-radius: 3px;
+  margin-left: 5%;
+  margin-top: 2%;
+  line-height: 2em;
 }
-
