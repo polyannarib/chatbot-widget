@@ -2,31 +2,35 @@
   <app-chat-box-header
     (restartRequest)="restartAlert($event)"
     (close)="closeChatbot($event)"
+    (click)="expand()"
+    [ngStyle]="{ cursor: 'pointer' }"
   ></app-chat-box-header>
-  <app-chat-box></app-chat-box>
-  <app-restart-warning (requestStatus)="willRestart($event)" *ngIf="request">
-  </app-restart-warning>
-  <div class="chatbotFooter">
-    <form [formGroup]="userInput" (ngSubmit)="onSubmit()">
-      <input
-        autocomplete="off"
-        placeholder="Envie sua mensagem..."
-        type="text"
-        formControlName="text"
-        class="inputContainer"
-      />
-      <button *ngIf="typing; else not_typing" mat-icon-button>
-        <mat-icon>send</mat-icon>
-      </button>
-      <ng-template #not_typing>
-        <button
-          (mousedown)="startListening()"
-          (mouseup)="stopListening()"
-          mat-icon-button
-        >
-          <mat-icon>mic</mat-icon>
+  <div *ngIf="expanded">
+    <app-chat-box></app-chat-box>
+    <app-restart-warning (requestStatus)="willRestart($event)" *ngIf="request">
+    </app-restart-warning>
+    <div class="chatbotFooter">
+      <form [formGroup]="userInput" (ngSubmit)="onSubmit()">
+        <input
+          autocomplete="off"
+          placeholder="Envie sua mensagem..."
+          type="text"
+          formControlName="text"
+          class="inputContainer"
+        />
+        <button *ngIf="typing; else not_typing" mat-icon-button>
+          <mat-icon [ngStyle]="{ color: 'white' }">send</mat-icon>
         </button>
-      </ng-template>
-    </form>
+        <ng-template #not_typing>
+          <button
+            (mousedown)="startListening()"
+            (mouseup)="stopListening()"
+            mat-icon-button
+          >
+            <mat-icon [ngStyle]="{ color: 'white' }">mic</mat-icon>
+          </button>
+        </ng-template>
+      </form>
+    </div>
   </div>
 </div>

@@ -16,6 +16,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   private userSaid: string = '';
   typing: boolean = false;
   opened: boolean;
+  expanded: boolean = false;
   request: boolean;
   userInput: FormGroup = new FormGroup({
     text: new FormControl(''),
@@ -25,7 +26,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     public messageService: MessagesFlowService,
     private chat: OpenChatService
   ) {
-    this.chat.isOpen.subscribe((open) => (this.opened = open));
+    this.chat.isOpen.subscribe((open) => {
+      this.opened = open;
+      this.expanded = open;
+    });
   }
 
   ngOnInit(): void {
@@ -97,6 +101,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
 
   closeChatbot(closed) {
     this.opened = closed;
+    this.expanded = false;
   }
 
   restartAlert(request: boolean) {
@@ -109,5 +114,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     if (restart) {
       this.messageService.clearChat(true);
     }
+  }
+  expand() {
+    this.expanded = !this.expanded;
   }
 }
