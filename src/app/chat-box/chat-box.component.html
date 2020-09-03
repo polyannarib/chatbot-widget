@@ -1,24 +1,22 @@
 <div class="box">
-  <ng-container *ngIf="true; else clearConversation">
-    <ng-container *ngFor="let message of messages">
-      <div class="msgUser" *ngIf="message.hasOwnProperty('user')">
-        {{ message.user }}
-      </div>
-      <div class="msgBot" *ngIf="message.hasOwnProperty('bot')">
-        {{ message.bot }}
-      </div>
-      <div class="buttonsContainer" *ngIf="message.hasOwnProperty('buttons')">
-        <ng-container *ngFor="let button of message.buttons">
-          <button class="botButton" color="accent" mat-raised-button>
-            {{ button.title }}
-          </button>
-        </ng-container>
-      </div>
-    </ng-container>
-  </ng-container>
-  <ng-template #clearConversation>
-    <div clear-chat-container>
-      <h1>Limpar Chat</h1>
+  <ng-container *ngFor="let message of messages">
+    <div class="msgUser" *ngIf="message.hasOwnProperty('user')">
+      {{ message.user }}
     </div>
-  </ng-template>
+    <div class="msgBot" *ngIf="message.hasOwnProperty('bot')">
+      {{ message.bot }}
+    </div>
+    <div class="buttonsContainer" *ngIf="message.hasOwnProperty('buttons')">
+      <ng-container *ngFor="let button of message.buttons">
+        <button
+          (click)="sendButton(button.payload)"
+          class="botButton"
+          color="accent"
+          mat-raised-button
+        >
+          {{ button.title }}
+        </button>
+      </ng-container>
+    </div>
+  </ng-container>
 </div>

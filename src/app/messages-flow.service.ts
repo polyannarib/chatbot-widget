@@ -25,12 +25,16 @@ export class MessagesFlowService {
     this.http
       .post<any>(
         'https://bot.kyros.com.br/bot',
-        { sender: 'christian', message: usermsg },
+        { sender: 'antonio', message: usermsg },
         { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
       )
       .subscribe((botMsg) => {
-        console.log(botMsg[0].text);
-        this.botMsgs.next(botMsg[0].text);
+        if (typeof botMsg[0] !== 'undefined') {
+          this.botMsgs.next(botMsg[0].text);
+          if (typeof botMsg[0].buttons !== 'undefined') {
+            this.botButtons.next(botMsg[0].buttons);
+          }
+        }
       });
   }
 
@@ -38,6 +42,7 @@ export class MessagesFlowService {
     this.chatclear = willClear;
     this.clear.emit(this.chatclear);
     this.interactionstarted = false;
+    this.botMessages('/restart');
     this.startInteraction();
   }
 
@@ -46,12 +51,12 @@ export class MessagesFlowService {
       this.http
         .post<any>(
           'https://bot.kyros.com.br/bot',
-          { sender: 'christian', message: 'oi' },
+          { sender: 'Player', message: 'oi' },
           { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
         )
         .subscribe((botMsg) => {
           this.botMsgs.next(botMsg[0].text);
-          this.botButtons.next(botMsg[0].buttons)
+          this.botButtons.next(botMsg[0].buttons);
         });
       this.interactionstarted = true;
     }

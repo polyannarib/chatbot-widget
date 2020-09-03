@@ -12,6 +12,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChatBoxIconComponent } from './chat-box-icon/chat-box-icon.component';
 import { ChatBoxHeaderComponent } from './chat-window/chat-box-header/chat-box-header.component';
+import { RestartWarningComponent } from './chat-window/restart-warning/restart-warning.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ChatBoxHeaderComponent } from './chat-window/chat-box-header/chat-box-h
     ChatBoxComponent,
     ChatWindowComponent,
     ChatBoxIconComponent,
-    ChatBoxHeaderComponent
+    ChatBoxHeaderComponent,
+    RestartWarningComponent
   ],
   imports: [
     BrowserModule,

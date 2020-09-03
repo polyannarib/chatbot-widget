@@ -1,0 +1,14 @@
+.clearRequestContainer {
+  background-color: #65009a;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-align: center;
+}
+
+.clearButtonsContainer {
+  display: flex;
+  justify-content: space-evenly;
+}

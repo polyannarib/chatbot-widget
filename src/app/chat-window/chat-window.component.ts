@@ -10,6 +10,7 @@ import { OpenChatService } from '../open-chat.service';
 })
 export class ChatWindowComponent implements OnInit {
   opened: boolean;
+  request: boolean;
   userInput: FormGroup = new FormGroup({
     text: new FormControl(''),
   });
@@ -32,5 +33,15 @@ export class ChatWindowComponent implements OnInit {
   }
   closeChatbot(closed) {
     this.opened = closed;
+  }
+  restartAlert(request: boolean) {
+    console.log('request: ' + request);
+    this.request = request;
+  }
+  willRestart(restart: boolean) {
+    this.request = false;
+    if (restart) {
+      this.messageService.clearChat(true);
+    }
   }
 }

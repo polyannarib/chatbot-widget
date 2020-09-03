@@ -9,7 +9,7 @@
 
 .chatbotFooter {
   height: 25%;
-  border: 1px solid black
+  border: 1px solid black;
 }
 .inputContainer {
   width: 305px;
@@ -21,3 +21,4 @@
   font-size: 14px;
   padding: 0 0 0 15px;
 }
+

@@ -31,9 +31,11 @@ export class ChatBoxComponent implements OnInit {
     this.messageService.botButtons.subscribe(
       (button) => {
         this.messages.push({ buttons: button });
-        console.log(button);
       },
       (error) => console.log(error)
     );
+  }
+  sendButton(buttonAction: string) {
+    this.messageService.botMessages(buttonAction);
   }
 }

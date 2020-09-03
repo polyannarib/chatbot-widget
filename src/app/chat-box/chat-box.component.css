@@ -1,11 +1,12 @@
 .box {
   height: 60%;
-  width: 100%;
+  width: inherit;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   padding: 10px;
   overflow-y: auto;
+  border: 1px solid #65009a;
 }
 
 .msgUser {
