@@ -92,14 +92,11 @@ export class TaskCreateComponent implements OnInit {
         this.form.value.time = undefined;
         this.form.value.type = this.types.find(element => element.level == this.createNewType)
 
-        console.log('-------------------')
-        console.log(this.form.value)
-
         this.taskService.createTask(this.form.value).subscribe(
           (response) => {
             if (response.status == 0) {
               this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Projeto atualizado com sucesso!' } });
-              this.dialogRef.close({ confirm: true });
+              this.dialogRef.close(response);
               this.loader = false;
               return;
             }
@@ -346,7 +343,6 @@ export class TaskCreateComponent implements OnInit {
   }
 
   getRules() {
-    console.log('Entrou dentro do getRules')
     const data = {
       name: 'ATIVIDADE'
     }
@@ -354,31 +350,9 @@ export class TaskCreateComponent implements OnInit {
       (response) => {
         if (response.status == 0) {
           this.rule = response.object.find(element => element.name == 'ATIVIDADE');
-          console.log('**************************')
-          console.log('--------------------------')
-          console.log(response.object)
-          console.log(this.rule)
-          // this.cardsTypes = response.object;
           return;
         }
-        // console.log('deu ruim');
       }, (err) => {
-        // console.log('deu ruim');
       })
   }
-
-  // inputHidden() {
-  //   const type = this.types.find( element => element.level == this.createNewType );
-
-  //   console.log('-------------------')
-  //   console.log('----- type -----')
-  //   console.log(type)
-
-  //   if(type.definition == "EXECUTAVEL") {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-
 }

@@ -38,7 +38,7 @@ export class RemoveTaskComponent implements OnInit {
       (response) => {
         if (response.status == 0) {
           this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefa removida com sucesso!' }});
-          this.dialogRef.close({confirm: true});
+          this.dialogRef.close(response);
           this.loader = false;
           return;
         }
