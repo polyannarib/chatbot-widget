@@ -39,6 +39,9 @@ export class MessagesFlowService {
       )
       .subscribe(
         (botMsg) => {
+          if (usermsg == '/restart') {
+            console.log(botMsg);
+          }
           if (botMsg.length > 0) {
             for (let i = 0; i < botMsg.length; i++) {
               if (botMsg[i].hasOwnProperty('buttons')) {
