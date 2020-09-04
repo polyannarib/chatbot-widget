@@ -16,9 +16,9 @@
 
 .chatbotFooter {
   height: fit-content;
-  border: 1px solid black;
-  background-color: #65009a;
-
+  border: 1px solid #5d3280;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .micBlack {
@@ -30,17 +30,21 @@
 }
 
 .inputContainer {
-  width: 70%;
+  width: calc(100% - 15px);
   background-color: #ffffff;
   outline: none;
-  height: 30px;
+  height: 35px;
+  border: none;
   color: #000;
   font-size: 14px;
   font-family: Helvetica, Arial, sans-serif;
-  padding: 0 0 0 15px;
-  border-radius: 3px;
-  margin-left: 5%;
-  margin-top: 2%;
+  padding: 0 15px 0 15px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   line-height: 2em;
+}
+
+.formButton {
+  position: absolute;
 }
 

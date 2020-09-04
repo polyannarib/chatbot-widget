@@ -21,11 +21,12 @@
           formControlName="text"
           class="inputContainer"
         />
-        <button *ngIf="typing; else not_typing" mat-icon-button>
-          <mat-icon [ngStyle]="{ color: 'white' }">send</mat-icon>
+        <button class="formButton" *ngIf="typing; else not_typing" mat-icon-button>
+          <mat-icon>send</mat-icon>
         </button>
         <ng-template #not_typing>
           <button
+            class="formButton"
             (mousedown)="startListening()"
             (mouseup)="stopListening()"
             mat-icon-button
