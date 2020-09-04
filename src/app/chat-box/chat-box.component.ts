@@ -20,6 +20,8 @@ export class ChatBoxComponent implements OnInit {
     this.messageService.userMsgs.subscribe(
       (message) => {
         let i: number = this.messages.length - 1;
+        console.log(i)
+        console.log(this.messages)
         if(this.messages[i].hasOwnProperty('bot')) {
           for(let z=0; z<this.messages[i].bot.length; z++) {
             if(this.messages[i].bot[z].hasOwnProperty('buttons')) {

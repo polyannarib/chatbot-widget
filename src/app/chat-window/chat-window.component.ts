@@ -28,8 +28,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   ) {
     this.chat.isOpen.subscribe((open) => {
       this.opened = open;
-      this.expanded = open;
     });
+    this.chat.isExpanded.subscribe((expand)=>{
+      this.expanded = expand
+    })
   }
 
   ngOnInit(): void {
@@ -114,8 +116,5 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     if (restart) {
       this.messageService.clearChat(true);
     }
-  }
-  expand() {
-    this.expanded = !this.expanded;
   }
 }

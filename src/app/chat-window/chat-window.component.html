@@ -2,7 +2,6 @@
   <app-chat-box-header
     (restartRequest)="restartAlert($event)"
     (close)="closeChatbot($event)"
-    (minimizeHeader)="expand()"
     [ngStyle]="{ cursor: 'pointer' }"
   ></app-chat-box-header>
   <div *ngIf="expanded">
