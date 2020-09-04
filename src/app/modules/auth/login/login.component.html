@@ -2,7 +2,8 @@
 
   <div class="center">
     <img src="assets/images/WorkPlayer.png">
-    <div class="card">
+<!--    Login-->
+    <div class="card" *ngIf="!forgottenPasswordCard">
 
       <app-loading [loader]="loader"></app-loading>
 
@@ -15,9 +16,32 @@
           <input id="senha" type="password" class="validate" formControlName="password" required>
           <label for="senha">Senha</label>
         </div>
+        <div class="forgotten-password">
+          <a [routerLink]="" (click)="switchForgottenPasswordCard()">Esqueci a senha</a>
+        </div>
         <button type="submit" class="waves-effect waves-light btn center">Entrar</button>
       </form>
-      
+    </div>
+<!--    Forgotten Password-->
+    <div class="card" *ngIf="forgottenPasswordCard">
+
+      <app-loading [loader]="loader"></app-loading>
+
+      <form [formGroup]="formForgottenPassword" (submit)="onForgottenPassword()" *ngIf="!loader">
+        <div class="input-field" *ngIf="!showMessage">
+          <input id="nome-usuario" type="text" class="validate" formControlName="username" required>
+          <label for="nome-usuario">Nome de Usuário (não o e-mail)</label>
+        </div>
+        <div class="message-forgotten-password" *ngIf="showMessage">
+          <label>{{messageToShow}}  </label>
+          <i class="close material-icons" style="color: forestgreen" *ngIf="forgottenPasswordStatus === 'ACCEPTED'">check</i>
+          <i class="close material-icons" style="color: orangered" *ngIf="forgottenPasswordStatus !== 'ACCEPTED'">close</i>
+        </div>
+        <div class="forgotten-password">
+          <a [routerLink]="" (click)="switchForgottenPasswordCard()">Fazer login</a>
+        </div>
+        <button type="submit" class="waves-effect waves-light btn center" [disabled]="showMessage">Enviar</button>
+      </form>
     </div>
     <img class="logoKyros" src="assets/images/kyros_logo.png">
   </div>

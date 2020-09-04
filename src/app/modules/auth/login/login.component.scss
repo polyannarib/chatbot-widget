@@ -28,6 +28,19 @@ button {
     border-radius: 20px;
     background-color: black;
 }
+.forgotten-password {
+  position: absolute;
+  left: 0;
+  margin: 20px;
+}
+.message-forgotten-password {
+  padding: 20px;
+  width: 350px;
+  height: 100px;
+}
+.message-forgotten-password label {
+  font-size: 20px;
+}
 
 // body{
 //     background-image: url('../../../../assets/images/tetris.jpg');

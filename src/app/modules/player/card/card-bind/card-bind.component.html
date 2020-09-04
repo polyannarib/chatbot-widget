@@ -43,6 +43,17 @@
     <img class="card-star" [src]="card.classification.starUrl | image | async">
     <img class="card-img" width="100%" [src]="card.classification.url | image | async">
     <img class="logo" [src]="card.url | image | async">
-    <button [disabled]="getDisabled(card.classification.attributes)" [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton" [ngClass]="{'isInDeck': isInDeck}" (click)="removeCard(card.classification.attributes)"> <i class="material-icons">remove</i> </button>
+    <div class="row">
+      <button [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton2"
+              [ngClass]="{'isInDeck': isInDeck}" (click)="disableCard(card)">
+        <i class="material-icons" *ngIf="card.avoid.toLowerCase() === 'active'">toggle_on</i>
+        <i class="material-icons" *ngIf="card.avoid.toLowerCase() === 'inactive'">toggle_off</i>
+      </button>
+      <button [disabled]="getDisabled(card.classification.attributes)"
+              [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton1"
+              [ngClass]="{'isInDeck': isInDeck}" (click)="removeCard(card.classification.attributes)">
+        <i class="material-icons">remove</i>
+      </button>
+    </div>
   </div>
 </div>

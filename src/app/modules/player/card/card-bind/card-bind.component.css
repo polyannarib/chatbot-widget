@@ -31,12 +31,19 @@
 .slick-slide {
     position: relative;
 }
-.deckButton {
+.deckButton1 {
     position: absolute;
     bottom: -20px;
     margin: 0 auto;
-    left: calc(50% - 17px);
+    left: calc(75% - 17px);
     /* background: #650199; */
+}
+.deckButton2 {
+  position: absolute;
+  bottom: -20px;
+  margin: 0 auto;
+  left: calc(25% - 17px);
+  /* background: #650199; */
 }
 .characters {
     margin-top: 30px;

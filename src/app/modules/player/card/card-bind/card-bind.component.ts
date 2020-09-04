@@ -120,7 +120,7 @@ export class CardBindComponent implements OnInit {
     this.search();
     this.myDeck();
   }
-  
+
   search() {
     this.cardKnowledgeFilter = [];
     this.service.searchComboCompetence().subscribe(
@@ -238,20 +238,20 @@ export class CardBindComponent implements OnInit {
   }
 
   classSlick(event) {
-    event.on('afterChange', (event, slick, currentSlide, nextSlide) => { 
+    event.on('afterChange', (event, slick, currentSlide, nextSlide) => {
       this.indexSlick = currentSlide;
     });
   }
 
   addCard(attributes) {
-    let idAtributes; 
+    let idAtributes;
     attributes.forEach((res) => {
       if(res.attribute.manualDefiner == true) {
         idAtributes = res.id;
       }
     });
     if(this.myCards.includes(idAtributes)) {
-      this._snackBar.openFromComponent(NotifyComponent, 
+      this._snackBar.openFromComponent(NotifyComponent,
         { data: { type: 'success', message: 'Você já possui essa carta!' }});
       return;
     }
@@ -265,14 +265,14 @@ export class CardBindComponent implements OnInit {
           (response) => {
             if(response.status == 0) {
               this.playerDeck.push(response.object);
-              this._snackBar.openFromComponent(NotifyComponent, 
+              this._snackBar.openFromComponent(NotifyComponent,
                 { data: { type: 'success', message: 'Carta adicionada com sucesso!' }});
               return;
             }
-            this._snackBar.openFromComponent(NotifyComponent, 
+            this._snackBar.openFromComponent(NotifyComponent,
               { data: { type: 'error', message: 'Você já possui essa carta' }});
           }, (err) => {
-            this._snackBar.openFromComponent(NotifyComponent, 
+            this._snackBar.openFromComponent(NotifyComponent,
               { data: { type: 'error', message: 'Problemas ao cadastrar a carta ao deck, contate o adminstrador' }});
           }
         )
@@ -288,19 +288,58 @@ export class CardBindComponent implements OnInit {
             if(response.status == 0) {
               // this.playerDeck.splice(index, 1);
               this.myDeck();
-              this._snackBar.openFromComponent(NotifyComponent, 
+              this._snackBar.openFromComponent(NotifyComponent,
                 { data: { type: 'success', message: 'Carta removida com sucesso!' }});
               return;
             }
-            this._snackBar.openFromComponent(NotifyComponent, 
+            this._snackBar.openFromComponent(NotifyComponent,
               { data: { type: 'error', message: 'Essa carta não pode ser removida' }});
           }, (err) => {
-            this._snackBar.openFromComponent(NotifyComponent, 
+            this._snackBar.openFromComponent(NotifyComponent,
               { data: { type: 'error', message: 'Problemas ao remover a carta ao deck, contate o adminstrador' }});
           }
         )
       }
     });
+  }
+
+  disableCard(card) {
+    console.log(this.playerDeck);
+    console.log(card.avoid);
+    this.service.disableCard(card.cardId).subscribe(
+      (response) => {
+        if (response.status === 0) {
+          this.myDeck();
+          if (card.avoid.toLowerCase() === 'active') {
+            this._snackBar.openFromComponent(NotifyComponent,
+              { data: { type: 'success', message: 'Carta desabilitada com sucesso!' }});
+          }
+          if (card.avoid.toLowerCase() === 'inactive') {
+            this._snackBar.openFromComponent(NotifyComponent,
+              { data: { type: 'success', message: 'Carta habilitada com sucesso!' }});
+          }
+          window.location.reload();
+          return;
+        }
+        if (card.avoid.toLowerCase() === 'active') {
+          this._snackBar.openFromComponent(NotifyComponent,
+            { data: { type: 'error', message: 'Essa carta não pode ser desabilitada' }});
+        }
+        if (card.avoid.toLowerCase() === 'inactive') {
+          this._snackBar.openFromComponent(NotifyComponent,
+            { data: { type: 'error', message: 'Essa carta não pode ser habilitada' }});
+        }
+      }, (err) => {
+        if (card.avoid.toLowerCase() === 'active') {
+          this._snackBar.openFromComponent(NotifyComponent,
+            { data: { type: 'error', message: 'Problemas ao desabilitar a carta ao deck, contate o adminstrador' }});
+        }
+        if (card.avoid.toLowerCase() === 'inactive') {
+          this._snackBar.openFromComponent(NotifyComponent,
+            { data: { type: 'error', message: 'Problemas ao habilitar a carta ao deck, contate o adminstrador' }});
+        }
+      }
+    );
   }
 
   getDisabled(attribute) {

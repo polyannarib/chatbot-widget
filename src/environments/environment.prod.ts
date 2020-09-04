@@ -2,6 +2,7 @@ export const environment = {
   back_end_url: 'https://www.kyros.com.br/workplayer-portal/services',
   back_end_kysmart: 'https://kysmart.kyros.com.br/kysmart',
   front_end_kysmart: 'https://kysmart.kyros.com.br/kysmart',
+  back_forgotten_password: 'https://portal.kyros.com.br/kyros-sso/exposed/password',
   register_id_kysmart: 15210,
   URL_SSO: 'https://sso-dev.kyros.com.br/kyros-sso',
   URL_SSO_SERVICES: 'https://sso.kyros.com.br/kyros-sso',

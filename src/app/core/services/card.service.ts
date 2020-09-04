@@ -35,7 +35,7 @@ export class CardService {
   findAllCards(): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}`);
   }
-  
+
   giveToPlayer(data): Observable<any> {
     return this.http.post(`${environment.back_end_url}/${this.prefixService}/giveToPlayer`, data);
   }
@@ -43,7 +43,7 @@ export class CardService {
   findCardById(id: number): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/${id}/classification`);
   }
-  
+
   // findCardById(id: number): Observable<any> {
   //   return this.http.get(`${environment.back_end_url}/${this.prefixService}/byKnowledgeId/${id}`);
   // }
@@ -66,11 +66,15 @@ export class CardService {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/attribute/${attributeId}/removeFromMe`);
   }
 
+  disableCard(cardId): Observable<any> {
+    return this.http.post(`${environment.back_end_url}/card/switchAvoidFlag/card/${cardId}`, {});
+  }
+
   searchComboCompetence(): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn`);
   }
 
-  getCategory(data): Observable<any> { 
+  getCategory(data): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn?knowledgeParentId=` + data);
   }
 
@@ -84,7 +88,7 @@ export class CardService {
     }
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/person?page=1&pageSize=30&knowledgeIds=${parentIdsLevels}&workgroupIds=${idsWorkGroups}`);
   }
-  
+
   KnowledgeIn(data?: any): Observable<any> {
     if(!data) {
       return this.http.get(`${environment.back_end_url}/${this.prefixService}/knowledgeIn`);
