@@ -2,6 +2,7 @@
   position: fixed;
   bottom: 0;
   right: 50px;
+  top: 100px;
   width: 25vw;
   height: 500px;
 }
