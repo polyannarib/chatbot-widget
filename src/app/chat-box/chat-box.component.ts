@@ -18,7 +18,18 @@ export class ChatBoxComponent implements OnInit {
       }
     });
     this.messageService.userMsgs.subscribe(
-      (message) => this.messages.push({ user: message }),
+      (message) => {
+        let i: number = this.messages.length - 1;
+        if(this.messages[i].hasOwnProperty('bot')) {
+          for(let z=0; z<this.messages[i].bot.length; z++) {
+            if(this.messages[i].bot[z].hasOwnProperty('buttons')) {
+              console.log(this.messages[i].bot[z]);
+              delete this.messages[i].bot[z].buttons;
+            }
+          }
+        };
+        this.messages.push({ user: message });
+      },
       (error) => console.log(error)
     );
 
@@ -26,15 +37,14 @@ export class ChatBoxComponent implements OnInit {
       (message) => this.messages.push({ bot: message }),
       (error) => console.log(error)
     );
-
-    this.messageService.botButtons.subscribe(
-      (button) => {
-        this.messages.push({ buttons: button });
-      },
-      (error) => console.log(error)
-    );
   }
-  sendButton(buttonAction: string) {
+
+  sendButton(buttonAction: string, userText: string) {
     this.messageService.botMessages(buttonAction);
+    this.messageService.userMessages(userText);
+  }
+
+  trackByFn(index: number) {
+    return index;
   }
 }

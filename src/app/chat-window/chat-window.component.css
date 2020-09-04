@@ -8,7 +8,7 @@
 }
 
 .chatbotFooter {
-  height: 10%;
+  height: fit-content;
   border: 1px solid black;
   background-color: #65009a;
 
@@ -18,9 +18,10 @@
   width: 70%;
   background-color: #ffffff;
   outline: none;
-  height: inherit;
+  height: 30px;
   color: #000;
   font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
   padding: 0 0 0 15px;
   border-radius: 3px;
   margin-left: 5%;
