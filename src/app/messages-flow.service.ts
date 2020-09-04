@@ -92,45 +92,7 @@ export class MessagesFlowService {
           });
           this.botMsgs.next(response);
         },
-        () => this.startInteraction(),
+        () => this.firstInteraction(true),
       );
-  }
-
-  startInteraction(): void {
-    let response = [];
-    if (!this.interactionstarted) {
-      this.http
-        .post<any>(
-          'https://bot.kyros.com.br/bot',
-          { sender: 'Kyros', message: 'oi' },
-          { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
-        )
-        .subscribe((botMsg) => {
-          console.log("fi")
-          if (botMsg.length > 0) {
-            for(let i=0; i<botMsg.length; i++) {
-              if(botMsg[i].hasOwnProperty('buttons')) {
-                response.push({ botText: botMsg[i].text, buttons: botMsg[i].buttons })
-              }
-              else {
-                response.push({ botText: botMsg[i].text })
-              }
-            }
-          }
-          if(response.length > 0) {
-            this.botMsgs.next(response);
-          }
-        },
-        (error) => {
-          console.log(error);
-          response.push({
-            botText: 'Desculpe, estou com dificuldades para me comunicar com você. Eu e meus colegas estamos trabalhando para atender aos ' + 
-            'seus pedidos 👾. Tente novamente mais tarde'
-          });
-          this.botMsgs.next(response);
-        }
-      );
-      this.interactionstarted = true;
-    }
   }
 }
