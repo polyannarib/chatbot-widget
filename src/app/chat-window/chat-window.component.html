@@ -5,7 +5,7 @@
     [ngStyle]="{ cursor: 'pointer' }"
   ></app-chat-box-header>
   <div *ngIf="expanded">
-    <app-chat-box></app-chat-box>
+    <app-chat-box [messages]="historyMessages"></app-chat-box>
     <app-restart-warning (requestStatus)="willRestart($event)" *ngIf="request">
     </app-restart-warning>
     <div class="chatbotFooter">

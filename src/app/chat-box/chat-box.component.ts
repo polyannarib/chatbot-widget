@@ -1,15 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { MessagesFlowService } from '../messages-flow.service';
+import { OpenChatService } from '../open-chat.service';
 
 @Component({
   selector: 'app-chat-box',
   templateUrl: './chat-box.component.html',
   styleUrls: ['./chat-box.component.css'],
 })
-export class ChatBoxComponent implements OnInit {
-  public messages = [];
+export class ChatBoxComponent implements OnInit, OnDestroy {
+  @Input() messages: any[];
   clear: boolean;
-  constructor(public messageService: MessagesFlowService) {}
+  constructor(
+    public messageService: MessagesFlowService,
+    public chat: OpenChatService
+  ) {}
 
   ngOnInit(): void {
     this.messageService.clear.subscribe((clearedMessages) => {
@@ -20,16 +24,13 @@ export class ChatBoxComponent implements OnInit {
     this.messageService.userMsgs.subscribe(
       (message) => {
         let i: number = this.messages.length - 1;
-        console.log(i)
-        console.log(this.messages)
-        if(this.messages[i].hasOwnProperty('bot')) {
-          for(let z=0; z<this.messages[i].bot.length; z++) {
-            if(this.messages[i].bot[z].hasOwnProperty('buttons')) {
-              console.log(this.messages[i].bot[z]);
+        if (this.messages[i].hasOwnProperty('bot')) {
+          for (let z = 0; z < this.messages[i].bot.length; z++) {
+            if (this.messages[i].bot[z].hasOwnProperty('buttons')) {
               delete this.messages[i].bot[z].buttons;
             }
           }
-        };
+        }
         this.messages.push({ user: message });
       },
       (error) => console.log(error)
@@ -48,5 +49,10 @@ export class ChatBoxComponent implements OnInit {
 
   trackByFn(index: number) {
     return index;
+  }
+
+  ngOnDestroy() {
+    this.chat.storeMessages(this.messages);
+    this.messages = []
   }
 }

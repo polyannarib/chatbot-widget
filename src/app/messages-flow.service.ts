@@ -14,10 +14,19 @@ export class MessagesFlowService {
   public botMsgs: Subject<any[]> = new Subject<any[]>();
 
   constructor(private http: HttpClient) {}
-
   userMessages(text: string) {
     text = text.trim();
     this.userMsgs.next(text);
+  }
+
+  firstInteraction(firstInteraction) {
+    if (firstInteraction) {
+      console.log('first interaction');
+      this.interactionstarted = true;
+      this.botMessages('oi');
+    } else {
+      console.log('not first interaction');
+    }
   }
 
   botMessages(usermsg: string) {
@@ -25,7 +34,7 @@ export class MessagesFlowService {
     this.http
       .post<any>(
         'https://bot.kyros.com.br/bot',
-        { sender: 'Player', message: usermsg },
+        { sender: 'Kyros', message: usermsg },
         { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
       )
       .subscribe(
@@ -62,47 +71,6 @@ export class MessagesFlowService {
     this.clear.emit(this.chatclear);
     this.interactionstarted = false;
     this.botMessages('/restart');
-    this.startInteraction();
-  }
-
-  startInteraction(): void {
-    let response = [];
-    if (!this.interactionstarted) {
-      this.http
-        .post<any>(
-          'https://bot.kyros.com.br/bot',
-          { sender: 'Player', message: 'oi' },
-          { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
-        )
-        .subscribe(
-          (botMsg) => {
-            if (botMsg.length > 0) {
-              for (let i = 0; i < botMsg.length; i++) {
-                if (botMsg[i].hasOwnProperty('buttons')) {
-                  response.push({
-                    botText: botMsg[i].text,
-                    buttons: botMsg[i].buttons,
-                  });
-                } else {
-                  response.push({ botText: botMsg[i].text });
-                }
-              }
-            }
-            if (response.length > 0) {
-              console.log('condition working');
-              this.botMsgs.next(response);
-            }
-          },
-          (error) => {
-            console.log(error);
-            response.push({
-              botText:
-                'Desculpe, estou com dificuldades para me comunicar com você. Eu e meus colegas estamos trabalhando para atender aos ' +
-                'seus pedidos 👾. Tente novamente mais tarde',
-            });
-          }
-        );
-      this.interactionstarted = true;
-    }
+    this.botMessages('oi');
   }
 }
