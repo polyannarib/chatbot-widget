@@ -85,7 +85,7 @@
                 <app-button-initialize [activityId]="activity.id" (update)="findTasks()"
                   *ngIf="['WAITING', 'HANGING', 'DELAYED'].includes(activity.status)">
                 </app-button-initialize>
-                <app-button-finalize [activityId]="activity.id"></app-button-finalize>
+                <app-button-finalize [activityId]="activity.id" (update)="findTasks()"></app-button-finalize>
                 <app-button-suspend [activityId]="activity.id"></app-button-suspend>
                 <app-button-give-back [activityId]="activity.id" (update)="findTasks()"
                   *ngIf="['WAITING', 'EXECUTION', 'DELAYED'].includes(activity.status)">
