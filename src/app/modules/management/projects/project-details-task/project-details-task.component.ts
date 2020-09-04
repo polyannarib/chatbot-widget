@@ -10,7 +10,7 @@ import { TaskService } from 'src/app/core/services/task.service';
 import { TaskDetailsComponent } from '../../task/task-details/task-details.component';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { ProjectCreateComponent } from '../project-create/project-create.component';
-import {Validators} from "@angular/forms";
+import { Validators } from "@angular/forms";
 import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
 
 @Component({
@@ -41,14 +41,25 @@ export class ProjectDetailsTaskComponent implements OnInit {
     this.getTasks(this.data.project.id);
   }
 
-  getTasks(id) {
+  getTasks(id, reload = false, node = null, newNode = false) {
     this.loader = true;
     this.taskService.getTasksByProject(id).subscribe(
       (response) => {
-        if(response.status == 0) {          
+        if (response.status == 0) {
           this.tasks = response.object;
           this.dataSource.data = this.tasks;
           this.loader = false;
+
+          if (reload) {
+            if (newNode) {
+              console.log(this.treeControl.dataNodes.find(e => e.id = node.id))
+              console.log(this.treeControl.dataNodes);
+              this.expandParent(this.treeControl.dataNodes.find(e => e.id = node.id));
+            }
+            else {
+              this.expandParent(node);
+            }
+          }
           return;
         }
         this.loader = false;
@@ -85,21 +96,47 @@ export class ProjectDetailsTaskComponent implements OnInit {
       links: node.links ? node.links : null,
       level: level,
     };
-    // return {
-    //   expandable: !!node.children && node.children.length > 0,
-    //   name: node.name,
-    //   level: level,
-    // };
   }
 
-  treeControl = new FlatTreeControl<any>( node => node.level, node => node.expandable );
-  treeFlattener = new MatTreeFlattener( this._transformer, node => node.level, node => node.expandable, node => node.tasksSons );
-  dataSource = new MatTreeFlatDataSource( this.treeControl, this.treeFlattener );
-  hasChild = ( _: number, node: any ) => node.expandable;
+  treeControl = new FlatTreeControl<any>(node => node.level, node => node.expandable);
+  treeFlattener = new MatTreeFlattener(this._transformer, node => node.level, node => node.expandable, node => node.tasksSons);
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  hasChild = (_: number, node: any) => node.expandable;
+
+  expandParent(node) {
+    const parent = this.getParent(node);
+    this.treeControl.expand(parent);
+
+    if (parent && parent.level > 0) {
+      this.expandParent(parent);
+    }
+  }
+
+  getParent(node) {
+    const currentLevel = this.treeControl.getLevel(node);
+
+    if (currentLevel < 1) {
+      return null;
+    }
+
+    const startIndex = this.treeControl.dataNodes.map(e => e.id).indexOf(node.id) - 1;
+
+    for (let i = startIndex; i >= 0; i--) {
+      const currentNode = this.treeControl.dataNodes[i];
+
+      if (this.treeControl.getLevel(currentNode) < currentLevel) {
+        return currentNode;
+      }
+    }
+  }
 
   addTask(type?, id?) {
+    const currentIndex = this.treeControl.dataNodes.map(e => e.id).indexOf(id);
+    const currentNode = this.treeControl.dataNodes[currentIndex];
+    const nextNode = this.treeControl.dataNodes[currentIndex + 1];
+
     let dataSend: any;
-    if(type && id) {
+    if (type && id) {
       dataSend = {
         project: this.data.project,
         type,
@@ -116,14 +153,21 @@ export class ProjectDetailsTaskComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(
       (result) => {
-        this.getTasks(this.data.project.id);
-    });
+        if ((result === true) && (this.treeControl.getLevel(nextNode) > this.treeControl.getLevel(currentNode))) {
+          this.getTasks(this.data.project.id, true, nextNode);
+        }
+        else {
+          console.log(result.object);
+          this.getTasks(this.data.project.id, true, result.object, true);
+        }
+      }
+    );
   }
 
   editTask(node) {
-    if(node.status == 'WAITING' || node.status == 'EXECUTION') {
+    if (node.status == 'WAITING' || node.status == 'EXECUTION') {
       this._snackBar.openFromComponent(NotifyComponent,
-        { data: { type: 'error', message: 'Não é possivel editar tarefas em andamento' }});
+        { data: { type: 'error', message: 'Não é possivel editar tarefas em andamento' } });
       return;
     }
     const dataSend = {
@@ -136,11 +180,15 @@ export class ProjectDetailsTaskComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(
       (result) => {
-        this.getTasks(this.data.project.id);
-    });
+        this.getTasks(this.data.project.id, true, node);
+      }
+    );
   }
 
   removeTask(task) {
+    const prevIndex = this.treeControl.dataNodes.map(e => e.id).indexOf(task.id) - 1;
+    const prevNode = this.treeControl.dataNodes[prevIndex];
+
     const dataSend = {
       project: this.data.project,
       task
@@ -150,9 +198,15 @@ export class ProjectDetailsTaskComponent implements OnInit {
       data: dataSend
     });
     dialogRef.afterClosed().subscribe(
-    (result) => {
-      this.getTasks(this.data.project.id);
-    });
+      (result) => {
+        if (result === true) {
+          this.getTasks(this.data.project.id, true, task);
+        }
+        else {
+          this.getTasks(this.data.project.id, true, prevNode);
+        }
+      }
+    );
   }
 
   openReport() {
@@ -164,9 +218,10 @@ export class ProjectDetailsTaskComponent implements OnInit {
       data: dataSend
     });
     dialogRef.afterClosed().subscribe(
-    (result) => {
-      this.getTasks(this.data.project.id);
-    });
+      (result) => {
+        this.getTasks(this.data.project.id);
+      }
+    );
   }
 
   editProject() {
@@ -216,19 +271,19 @@ export class ProjectDetailsTaskComponent implements OnInit {
     this.taskService.getTypesTask().subscribe(
       (response) => {
         this.types = response.object.map(element => element.level);
-    })
+      })
   }
 
   typeSon(type): boolean {
     const levelSon = type.level + 1;
-    if(this.types.includes(levelSon)) {
+    if (this.types.includes(levelSon)) {
       return true;
     }
     return false;
   }
 
   getCardName(card?) {
-    if(card && card != []) {
+    if (card && card != []) {
       const nameCard = card.map(element => element.cardName);
       return nameCard.join(', ');
     }
@@ -250,7 +305,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
   }
 
   isStatus(status) {
-    if(status == 'BUILDING' || status == 'WAITING') {
+    if (status == 'BUILDING' || status == 'WAITING') {
       return false;
     }
     return true;
