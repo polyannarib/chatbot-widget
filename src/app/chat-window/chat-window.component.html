@@ -30,7 +30,7 @@
             (mouseup)="stopListening()"
             mat-icon-button
           >
-            <mat-icon [ngStyle]="{ color: 'white' }">mic</mat-icon>
+            <mat-icon [ngClass]="{ 'micRed': micColor, 'micBlack': !micColor }">mic</mat-icon>
           </button>
         </ng-template>
       </form>

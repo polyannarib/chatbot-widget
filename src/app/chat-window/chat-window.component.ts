@@ -14,6 +14,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   private micPressed: boolean = false;
   private userSaid: string = '';
+  public micColor: boolean = false;
   historyMessages = [];
   typing: boolean = false;
   opened: boolean;
@@ -85,13 +86,18 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 
   startListening() {
-    annyang !== null
-      ? ((this.micPressed = true), annyang.start())
-      : alert('Reconhecimento de voz não suportado neste navegador');
+    if(annyang !== null) {
+      (this.micPressed = true);
+      annyang.start();
+      this.micColor = true;
+    }
+    else {
+      alert('Reconhecimento de voz não suportado neste navegador');
+    }
   }
 
   stopListening() {
-    null;
+    this.micColor = false;
   }
 
   private waitFor(condition) {

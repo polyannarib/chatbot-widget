@@ -21,6 +21,14 @@
 
 }
 
+.micBlack {
+  color: #000;
+}
+
+.micRed {
+  color: #d90707;
+}
+
 .inputContainer {
   width: 70%;
   background-color: #ffffff;

@@ -40,7 +40,7 @@ export class MessagesFlowService {
       .subscribe(
         (botMsg) => {
           if (usermsg == '/restart') {
-            console.log(botMsg);
+            console.log(botMsg, "rest");
           }
           if (botMsg.length > 0) {
             for (let i = 0; i < botMsg.length; i++) {
@@ -70,11 +70,30 @@ export class MessagesFlowService {
   }
 
   clearChat(willClear: boolean) {
+    let response = [];
     this.chatclear = willClear;
     this.clear.emit(this.chatclear);
     this.interactionstarted = false;
-    this.botMessages('/restart');
-    this.startInteraction();
+    this.http
+      .post<any>(
+        'https://bot.kyros.com.br/bot',
+        { sender: 'Kyros', message: '/restart' },
+        { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+      )
+      .subscribe(
+        (botMsg) => {
+          console.log(botMsg, "rest");
+        },
+        (error) => {
+          console.log(error);
+          response.push({
+            botText: 'Desculpe, estou com dificuldades para me comunicar com você. Eu e meus colegas estamos trabalhando para atender aos ' + 
+            'seus pedidos 👾. Tente novamente mais tarde'
+          });
+          this.botMsgs.next(response);
+        },
+        () => this.startInteraction(),
+      );
   }
 
   startInteraction(): void {
@@ -83,10 +102,11 @@ export class MessagesFlowService {
       this.http
         .post<any>(
           'https://bot.kyros.com.br/bot',
-          { sender: 'Player', message: 'oi' },
+          { sender: 'Kyros', message: 'oi' },
           { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
         )
         .subscribe((botMsg) => {
+          console.log("fi")
           if (botMsg.length > 0) {
             for(let i=0; i<botMsg.length; i++) {
               if(botMsg[i].hasOwnProperty('buttons')) {
@@ -112,6 +132,5 @@ export class MessagesFlowService {
       );
       this.interactionstarted = true;
     }
-    this.botMessages('oi');
   }
 }
