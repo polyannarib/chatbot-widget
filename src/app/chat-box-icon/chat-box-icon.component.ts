@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { OpenChatService } from '../open-chat.service';
 import { MessagesFlowService } from '../messages-flow.service';
 
@@ -8,6 +8,8 @@ import { MessagesFlowService } from '../messages-flow.service';
   styleUrls: ['./chat-box-icon.component.css'],
 })
 export class ChatBoxIconComponent implements OnInit {
+  firstInteraction: boolean = true;
+  messages: any[] = [];
   botIcon: string =
     'https://www.puzzel.com/uk/wp-content/uploads/sites/2/2018/08/puzzel-bot-icon.png';
   constructor(
@@ -15,9 +17,11 @@ export class ChatBoxIconComponent implements OnInit {
     public messageService: MessagesFlowService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
   chatOpen() {
     this.chat.openChatboxFromIcon();
-    this.messageService.startInteraction();
+    this.messageService.firstInteraction(this.firstInteraction);
+    this.firstInteraction = false;
   }
 }

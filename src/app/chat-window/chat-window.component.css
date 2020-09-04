@@ -1,6 +1,14 @@
 .windowContainer {
   position: fixed;
-  bottom: 0;
+  right: 50px;
+  top: 100px;
+  width: 25vw;
+  height: 500px;
+}
+
+.minimized {
+  position: absolute;
+  top: 94vh;
   right: 50px;
   width: 25vw;
   height: 500px;
@@ -27,3 +35,4 @@
   margin-top: 2%;
   line-height: 2em;
 }
+

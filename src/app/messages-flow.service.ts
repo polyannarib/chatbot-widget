@@ -14,10 +14,19 @@ export class MessagesFlowService {
   public botMsgs: Subject<any[]> = new Subject<any[]>();
 
   constructor(private http: HttpClient) {}
-
   userMessages(text: string) {
     text = text.trim();
     this.userMsgs.next(text);
+  }
+
+  firstInteraction(firstInteraction) {
+    if (firstInteraction) {
+      console.log('first interaction');
+      this.interactionstarted = true;
+      this.botMessages('oi');
+    } else {
+      console.log('not first interaction');
+    }
   }
 
   botMessages(usermsg: string) {
@@ -25,24 +34,30 @@ export class MessagesFlowService {
     this.http
       .post<any>(
         'https://bot.kyros.com.br/bot',
-        { sender: 'antonio', message: usermsg },
+        { sender: 'Kyros', message: usermsg },
         { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
       )
-      .subscribe((botMsg) => {
-        if (botMsg.length > 0) {
-          for(let i=0; i<botMsg.length; i++) {
-            if(botMsg[i].hasOwnProperty('buttons')) {
-              response.push({ botText: botMsg[i].text, buttons: botMsg[i].buttons })
-            }
-            else {
-              response.push({ botText: botMsg[i].text })
+      .subscribe(
+        (botMsg) => {
+          if (usermsg == '/restart') {
+            console.log(botMsg);
+          }
+          if (botMsg.length > 0) {
+            for (let i = 0; i < botMsg.length; i++) {
+              if (botMsg[i].hasOwnProperty('buttons')) {
+                response.push({
+                  botText: botMsg[i].text,
+                  buttons: botMsg[i].buttons,
+                });
+              } else {
+                response.push({ botText: botMsg[i].text });
+              }
             }
           }
-        }
-        if(response.length > 0) {
-          this.botMsgs.next(response);
-        }
-      },
+          if(response.length > 0) {
+            this.botMsgs.next(response);
+          }
+        },
         (error) => {
           console.log(error);
           response.push({
@@ -97,5 +112,6 @@ export class MessagesFlowService {
       );
       this.interactionstarted = true;
     }
+    this.botMessages('oi');
   }
 }

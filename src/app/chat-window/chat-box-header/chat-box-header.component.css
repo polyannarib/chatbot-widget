@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: flex-start;
   height: 10%;
+  
   background-color: #65009a;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
@@ -27,16 +28,4 @@
   margin-left: auto;
   margin-right: 5%;
   height: auto;
-}
-.refresh-icon {
-  cursor: pointer;
-  height: 25px;
-  display: inline-block;
-  margin-right: 5px;
-  margin-top: 5px;
-}
-.close-icon {
-  cursor: pointer;
-  height: 20px;
-  display: inline-block;
 }

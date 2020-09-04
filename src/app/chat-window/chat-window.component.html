@@ -1,12 +1,15 @@
-<div class="windowContainer" *ngIf="opened">
+<div
+  class="windowContainer"
+  *ngIf="opened"
+  [ngClass]="{ minimized: expanded == false }"
+>
   <app-chat-box-header
     (restartRequest)="restartAlert($event)"
     (close)="closeChatbot($event)"
-    (click)="expand()"
-    [ngStyle]="{ cursor: 'pointer' }"
-  ></app-chat-box-header>
+  >
+  </app-chat-box-header>
   <div *ngIf="expanded">
-    <app-chat-box></app-chat-box>
+    <app-chat-box [messages]="historyMessages"></app-chat-box>
     <app-restart-warning (requestStatus)="willRestart($event)" *ngIf="request">
     </app-restart-warning>
     <div class="chatbotFooter">

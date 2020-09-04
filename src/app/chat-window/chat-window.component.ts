@@ -14,6 +14,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   private micPressed: boolean = false;
   private userSaid: string = '';
+  historyMessages = [];
   typing: boolean = false;
   opened: boolean;
   expanded: boolean = false;
@@ -28,22 +29,27 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   ) {
     this.chat.isOpen.subscribe((open) => {
       this.opened = open;
-      this.expanded = open;
+    });
+    this.chat.isExpanded.subscribe((expand) => {
+      this.expanded = expand;
     });
   }
 
   ngOnInit(): void {
-    console.log(annyang);
-    if(annyang !== null) {
+    this.chat.history.subscribe((lastMessages) => {
+      this.historyMessages = lastMessages;
+      console.log(this.historyMessages)
+    });
+    if (annyang !== null) {
       annyang.setLanguage('pt-br');
       annyang.addCallback('errorNetwork', () => {
-        alert("Error de rede");
+        alert('Error de rede');
       });
       annyang.addCallback('errorPermissionBlocked', () => {
-        alert("Erro de permissão")
+        alert('Erro de permissão');
       });
       annyang.addCallback('errorPermissionDenied', () => {
-        alert("Erro de permissão")
+        alert('Erro de permissão');
       });
       annyang.addCallback('result', (phrases) => {
         this.userSaid = phrases[0];
@@ -54,11 +60,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     this.sub = this.userInput.get('text').valueChanges.subscribe((value) => {
       value !== '' ? (this.typing = true) : (this.typing = false);
     });
-    }
+  }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-    if(annyang.getSpeechRecognizer() !== undefined) {
+    if (annyang.getSpeechRecognizer() !== undefined) {
       annyang.abort();
     }
   }
@@ -79,9 +85,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 
   startListening() {
-    annyang !== null ?
-    (this.micPressed = true, annyang.start()) :
-    (alert("Reconhecimento de voz não suportado neste navegador"));
+    annyang !== null
+      ? ((this.micPressed = true), annyang.start())
+      : alert('Reconhecimento de voz não suportado neste navegador');
   }
 
   stopListening() {
@@ -108,14 +114,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     console.log('request: ' + request);
     this.request = request;
   }
-  
+
   willRestart(restart: boolean) {
     this.request = false;
     if (restart) {
       this.messageService.clearChat(true);
     }
-  }
-  expand() {
-    this.expanded = !this.expanded;
   }
 }
