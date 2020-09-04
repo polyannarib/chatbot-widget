@@ -34,7 +34,7 @@
               matTooltip="{{ 'Editar' | translate }}">
               <i class="material-icons" style="color:black">edit</i>
             </button>
-            <button *ngIf="typeSon(node)" (click)="addTask(node.type, node.id)"
+            <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)"
               class="button button-primary button-floating right" mat-icon-button
               matTooltip="{{ 'Adicionar' | translate }}">
               <i class="material-icons" style="color:black">add</i>
