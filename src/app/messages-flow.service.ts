@@ -39,18 +39,19 @@ export class MessagesFlowService {
             }
           }
         }
+        if(response.length > 0) {
+          this.botMsgs.next(response);
+        }
       },
         (error) => {
           console.log(error);
           response.push({
             botText: 'Desculpe, estou com dificuldades para me comunicar com você. Eu e meus colegas estamos trabalhando para atender aos ' + 
             'seus pedidos 👾. Tente novamente mais tarde'
-          })
+          });
+          this.botMsgs.next(response);
         }
       );
-      if(response.length > 0) {
-        this.botMsgs.next(response);
-      }
   }
 
   clearChat(willClear: boolean) {
@@ -81,18 +82,19 @@ export class MessagesFlowService {
               }
             }
           }
+          if(response.length > 0) {
+            this.botMsgs.next(response);
+          }
         },
         (error) => {
           console.log(error);
           response.push({
             botText: 'Desculpe, estou com dificuldades para me comunicar com você. Eu e meus colegas estamos trabalhando para atender aos ' + 
             'seus pedidos 👾. Tente novamente mais tarde'
-          })
+          });
+          this.botMsgs.next(response);
         }
       );
-      if(response.length > 0) {
-        this.botMsgs.next(response);
-      }
       this.interactionstarted = true;
     }
   }
