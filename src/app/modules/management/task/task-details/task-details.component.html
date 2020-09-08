@@ -15,17 +15,17 @@
 
       <div class="input-field">
         <input id="name" type="text" class="validate" formControlName="name">
-        <label for="name">Nome</label>
+        <label for="name" [class.active]="form.controls.name.value != null">Nome</label>
       </div>
 
       <div class="input-field">
         <input id="description" type="text" class="validate" formControlName="description">
-        <label for="description">Descrição</label>
+        <label for="description" [class.active]="form.controls.description.value != null">Descrição</label>
       </div>
 
       <div class="input-field" *ngIf="type.definition == 'EXECUTAVEL'">
         <input id="duration" type="number" class="validate" formControlName="duration">
-        <label for="duration">Esforço</label>
+        <label for="duration" [class.active]="form.controls.duration.value != null">Esforço</label>
       </div>
 
       <div *ngIf="type.definition == 'EXECUTAVEL'">
