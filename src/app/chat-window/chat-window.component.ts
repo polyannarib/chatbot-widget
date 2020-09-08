@@ -88,36 +88,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
 
   startListening() {
     if(annyang !== null) {
-      (this.micPressed = true);
+      this.micPressed = true;
       annyang.start();
       this.micColor = true;
     }
     else {
-      alert('Reconhecimento de voz não suportado neste navegador');
-    }
-    else if(this.micPressed) {
-      this.waitFor(() => this.userSaid !== "").then(() => {
-        this.messageService.userMessages(this.userSaid);
-        this.messageService.botMessages();
-        this.userSaid = "";
-        this.micPressed = false;
-      })
-    }
-  }
-
-  startListening() {
-    if(this.speechRec !== null) {
-      this.speechRec.start();
-      this.micPressed = true;
-    }
-    else {
       alert("Reconhecimento de voz não suportado nesse navegador");
-    }
-  }
-
-  stopListening() {
-    if(this.speechRec !== null) {
-      this.speechRec.stop()
     }
   }
 
