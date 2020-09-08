@@ -46,7 +46,7 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
     this.messageService.botMessages(buttonAction);
     this.messageService.userMessages(userText);
   }
-
+  
   trackByFn(index: number) {
     return index;
   }

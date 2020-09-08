@@ -10,6 +10,7 @@ declare const annyang: any;
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.css'],
 })
+
 export class ChatWindowComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   private micPressed: boolean = false;
@@ -93,6 +94,30 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     }
     else {
       alert('Reconhecimento de voz não suportado neste navegador');
+    }
+    else if(this.micPressed) {
+      this.waitFor(() => this.userSaid !== "").then(() => {
+        this.messageService.userMessages(this.userSaid);
+        this.messageService.botMessages();
+        this.userSaid = "";
+        this.micPressed = false;
+      })
+    }
+  }
+
+  startListening() {
+    if(this.speechRec !== null) {
+      this.speechRec.start();
+      this.micPressed = true;
+    }
+    else {
+      alert("Reconhecimento de voz não suportado nesse navegador");
+    }
+  }
+
+  stopListening() {
+    if(this.speechRec !== null) {
+      this.speechRec.stop()
     }
   }
 

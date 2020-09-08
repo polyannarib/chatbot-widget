@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,6 +13,7 @@ import { ChatBoxIconComponent } from './chat-box-icon/chat-box-icon.component';
 import { ChatBoxHeaderComponent } from './chat-window/chat-box-header/chat-box-header.component';
 import { RestartWarningComponent } from './chat-window/restart-warning/restart-warning.component';
 import {MatIconModule} from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     AppComponent,
