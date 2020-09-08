@@ -1,21 +1,98 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MessagesFlowService {
+  interactionstarted: boolean = false;
+  clear = new EventEmitter<boolean>();
+  chatclear: boolean;
   public userMsgs: Subject<string> = new Subject<string>();
-  public botMsgs: Subject<string> = new Subject<string>();
+  public botMsgs: Subject<any[]> = new Subject<any[]>();
 
-  constructor() { }
-
+  constructor(private http: HttpClient) {}
   userMessages(text: string) {
     text = text.trim();
     this.userMsgs.next(text);
   }
 
-  botMessages() {
-    setTimeout(() => {this.botMsgs.next("olá")}, 3000);
+  firstInteraction(firstInteraction) {
+    if (firstInteraction) {
+      console.log('first interaction');
+      this.interactionstarted = true;
+      this.botMessages('oi');
+    } else {
+      console.log('not first interaction');
+    }
+  }
+
+  botMessages(usermsg: string) {
+    let response = [];
+    this.http
+      .post<any>(
+        'https://bot.kyros.com.br/bot',
+        { sender: 'Kyros', message: usermsg },
+        { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+      )
+      .subscribe(
+        (botMsg) => {
+          if (usermsg == '/restart') {
+            console.log(botMsg, "rest");
+          }
+          if (botMsg.length > 0) {
+            for (let i = 0; i < botMsg.length; i++) {
+              if (botMsg[i].hasOwnProperty('buttons')) {
+                response.push({
+                  botText: botMsg[i].text,
+                  buttons: botMsg[i].buttons,
+                });
+              } else {
+                response.push({ botText: botMsg[i].text });
+              }
+            }
+          }
+          if(response.length > 0) {
+            this.botMsgs.next(response);
+          }
+        },
+        (error) => {
+          console.log(error);
+          response.push({
+            botText: 'Desculpe, estou com dificuldades para me comunicar com você. Eu e meus colegas estamos trabalhando para atender aos ' + 
+            'seus pedidos 👾. Tente novamente mais tarde'
+          });
+          this.botMsgs.next(response);
+        }
+      );
+  }
+
+  clearChat(willClear: boolean) {
+    let response = [];
+    this.chatclear = willClear;
+    this.clear.emit(this.chatclear);
+    this.interactionstarted = false;
+    this.http
+      .post<any>(
+        'https://bot.kyros.com.br/bot',
+        { sender: 'Kyros', message: '/restart' },
+        { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+      )
+      .subscribe(
+        (botMsg) => {
+          console.log(botMsg, "rest");
+        },
+        (error) => {
+          console.log(error);
+          response.push({
+            botText: 'Desculpe, estou com dificuldades para me comunicar com você. Eu e meus colegas estamos trabalhando para atender aos ' + 
+            'seus pedidos 👾. Tente novamente mais tarde'
+          });
+          this.botMsgs.next(response);
+        },
+        () => this.firstInteraction(true),
+      );
   }
 }

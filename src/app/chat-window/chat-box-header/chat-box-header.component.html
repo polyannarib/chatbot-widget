@@ -1,0 +1,21 @@
+<div class="header-container">
+  <img class="header-icon" [src]="headerIcon" alt="icone workplayer" />
+  <span class="header-title">Workplayer</span>
+  <span class="icons">
+    <mat-icon
+      [ngStyle]="{ color: 'white', cursor: 'pointer' }"
+      (click)="minimize()"
+      >{{ minimizeOrMaximize }}</mat-icon
+    >
+    <mat-icon
+      [ngStyle]="{ color: 'white', cursor: 'pointer' }"
+      (click)="clearChat()"
+      >replay</mat-icon
+    >
+    <mat-icon
+      [ngStyle]="{ color: 'white', cursor: 'pointer' }"
+      (click)="closeChat()"
+      >clear</mat-icon
+    >
+  </span>
+</div>

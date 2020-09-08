@@ -1,31 +1,56 @@
-div {
-    padding: 50px 20px 10px 20px;
-    background-color: #607aa6;
-    bottom: 50px;
-    position: fixed;
-    right: 50px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+.windowContainer {
+  position: fixed;
+  right: 50px;
+  bottom: 8rem;
+  width: 25vw;
 }
 
-input {
-    border-top: 1px solid black;
-    border-left: none;
-    border-bottom: none;
-    border-right: none;
-    width: 295px;
-    background-color: #FFF;
-    outline: none;
-    height: 33px;
-    color: #000;
-    font-size: 14px;
-    padding: 0 40px 0 15px;
+.minimized {
+  position: absolute;
+  top: 94vh;
+  right: 50px;
+  width: 25vw;
+  height: 500px;
 }
 
-button {
-    position: absolute;
-    right: 20px;
-    bottom: 7px;
+.chatbotFooter {
+  position: relative;
+  height: fit-content;
+  border: 1px solid #5d3280;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.micBlack {
+  color: #000;
+}
+
+.micRed {
+  color: #d90707;
+}
+
+.inputContainer {
+  width: calc(100% - 60px);
+  background-color: #ffffff;
+  outline: none;
+  height: 35px;
+  border: none;
+  color: #000;
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+  padding: 0 45px 0 15px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  line-height: 2em;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+}
+
+.formButtons {
+  position: absolute;
+  right: 5px;
 }
