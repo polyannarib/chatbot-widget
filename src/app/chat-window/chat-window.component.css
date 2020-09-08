@@ -15,6 +15,7 @@
 }
 
 .chatbotFooter {
+  position: relative;
   height: fit-content;
   border: 1px solid #5d3280;
   border-bottom-left-radius: 20px;
@@ -30,7 +31,7 @@
 }
 
 .inputContainer {
-  width: calc(100% - 15px);
+  width: calc(100% - 60px);
   background-color: #ffffff;
   outline: none;
   height: 35px;
@@ -38,13 +39,19 @@
   color: #000;
   font-size: 14px;
   font-family: Helvetica, Arial, sans-serif;
-  padding: 0 15px 0 15px;
+  padding: 0 45px 0 15px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   line-height: 2em;
 }
 
-.formButton {
-  position: absolute;
+.icon {
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
 }
 
+.formButtons {
+  position: absolute;
+  right: 5px;
+}
