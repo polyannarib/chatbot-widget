@@ -1,9 +1,8 @@
 .windowContainer {
   position: fixed;
   right: 50px;
-  top: 100px;
+  bottom: 8rem;
   width: 25vw;
-  height: 500px;
 }
 
 .minimized {
