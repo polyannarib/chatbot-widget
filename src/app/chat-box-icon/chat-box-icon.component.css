@@ -1,8 +1,11 @@
 .icon{
     cursor:pointer;
-    height: 5vw;
-    width: 5vw;
-
+    height: 3.5rem;
+    width: 3.5rem;
+    position: fixed;
+    z-index: 10000;
+    bottom: 4rem;
+    right: 4rem;
 }
 .iconImage{
     max-width: 100%;
