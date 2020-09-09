@@ -52,9 +52,7 @@ export class ProjectDetailsTaskComponent implements OnInit {
 
           if (reload) {
             if (newNode) {
-              console.log(this.treeControl.dataNodes.find(e => e.id = node.id))
-              console.log(this.treeControl.dataNodes);
-              this.expandParent(this.treeControl.dataNodes.find(e => e.id = node.id));
+              this.expandParent(this.treeControl.dataNodes.find(e => e.id == node.id));
             }
             else {
               this.expandParent(node);
@@ -157,7 +155,6 @@ export class ProjectDetailsTaskComponent implements OnInit {
           this.getTasks(this.data.project.id, true, nextNode);
         }
         else {
-          console.log(result.object);
           this.getTasks(this.data.project.id, true, result.object, true);
         }
       }
