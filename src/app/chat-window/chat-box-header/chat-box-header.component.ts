@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OpenChatService } from 'src/app/open-chat.service';
+import { OpenChatService } from '../../services/open-chat.service';
 import { Output, EventEmitter } from '@angular/core';
-import { MessagesFlowService } from '../../messages-flow.service';
+import { MessagesFlowService } from '../../services/messages-flow.service';
 
 @Component({
   selector: 'app-chat-box-header',
@@ -28,9 +28,8 @@ export class ChatBoxHeaderComponent implements OnInit {
         this.minimizeOrMaximize = 'add';
       }
     });
-    this.chat.chatboxColor.subscribe((whiteLabel) => {
-      this.mainColor = whiteLabel;
-    });
+
+    this.mainColor = this.chat.whiteLabel.header;
   }
   closeChat() {
     this.close.emit(this.chat.closeChatbox());

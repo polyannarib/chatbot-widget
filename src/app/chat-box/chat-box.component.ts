@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { MessagesFlowService } from '../messages-flow.service';
-import { OpenChatService } from '../open-chat.service';
+import { MessagesFlowService } from '../services/messages-flow.service';
+import { OpenChatService } from '../services/open-chat.service';
 
 @Component({
   selector: 'app-chat-box',
@@ -10,16 +10,16 @@ import { OpenChatService } from '../open-chat.service';
 export class ChatBoxComponent implements OnInit, OnDestroy {
   @Input() messages: any[];
   clear: boolean;
-  mainColor: string;
+  public mainColors = {buttons: "", user: "", bot: ""};
   constructor(
     public messageService: MessagesFlowService,
     public chat: OpenChatService
   ) {}
 
   ngOnInit(): void {
-    this.chat.chatboxColor.subscribe((whiteLabel) => {
-      this.mainColor = whiteLabel;
-    });
+    this.mainColors.buttons = this.chat.whiteLabel.buttons;
+    this.mainColors.bot = this.chat.whiteLabel.bot;
+    this.mainColors.user = this.chat.whiteLabel.user;
 
     this.messageService.clear.subscribe((clearedMessages) => {
       if (clearedMessages) {

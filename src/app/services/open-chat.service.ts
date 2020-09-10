@@ -9,12 +9,12 @@ export class OpenChatService {
   public isExpanded = new BehaviorSubject<boolean>(true);
   public isOpen = new BehaviorSubject<boolean>(false);
   private isOpenState: boolean = this.isOpen.value;
-  public chatboxColor = new BehaviorSubject<string>('');
+  public whiteLabel;
   constructor() {}
 
-  getWhiteLabel(whiteLabel) {
-    this.chatboxColor.next(whiteLabel);
-  }
+  setWhiteLabel(whiteLabel) {
+    this.whiteLabel = whiteLabel;
+    }
   openChatboxFromIcon(): void {
     this.isOpen.next(!this.isOpenState);
     this.isExpanded.next(true);
