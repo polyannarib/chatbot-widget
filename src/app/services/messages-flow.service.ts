@@ -18,9 +18,10 @@ export class MessagesFlowService {
   constructor(private http: HttpClient) {}
 
   getCredentials(metadataReceived: { username: string; password: string }) {
-    let cryptpass = this.setEncryptedPass(metadataReceived.password);
-    let user = metadataReceived.username;
+    let cryptpass = btoa(this.setEncryptedPass(metadataReceived.password));
+    let user = btoa(metadataReceived.username);
     this.metadata = { username: user, password: cryptpass };
+    console.log(this.metadata)
   }
 
   userMessages(text: string) {
