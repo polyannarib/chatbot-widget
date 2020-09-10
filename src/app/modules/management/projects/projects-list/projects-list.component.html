@@ -45,7 +45,8 @@
         <tr>
           <td class="monthSpacer" colspan="2"></td>
           <th id="monthLabelHeader" class="monthLabel" colspan="5" scope="colgroup" [ngStyle]="{'height': '2em', 'text-align': 'bottom', 'border-bottom': '1px solid black'}">
-            {{startDate.toLocaleDateString('pt-BR', {month: 'long', year: 'numeric'})}}
+            {{ startDate | date:'MMMM y' }}
+            <!-- {{startDate.toLocaleDateString('pt-BR', {month: 'long', year: 'numeric'})}} -->
           </th>
         </tr>
         <tr>
