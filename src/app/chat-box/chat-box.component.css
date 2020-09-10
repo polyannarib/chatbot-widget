@@ -6,7 +6,7 @@
   flex-direction: column;
   padding: 10px;
   overflow-y: auto;
-  border: 1px solid #73409c;
+  border: 1px solid;
 }
 
 .msgUser {
@@ -25,17 +25,17 @@
 }
 
 .msgUser:after {
-	content: '';
-	position: absolute;
-	right: 0;
-	bottom: 13px;
-	width: 0;
-	height: 0;
-	border: 16px solid transparent;
-	border-left-color: #b8a9c4;
-	border-right: 0;
-	border-bottom: 0;
-	margin-top: -11px;
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 13px;
+  width: 0;
+  height: 0;
+  border: 16px solid transparent;
+  border-left-color: #b8a9c4;
+  border-right: 0;
+  border-bottom: 0;
+  margin-top: -11px;
   margin-right: -13px;
   word-wrap: break-word;
 }
@@ -56,17 +56,17 @@
 }
 
 .msgBot:after {
-  content: '';
-	position: absolute;
-	left: 0;
-	bottom: 13px;
-	width: 0;
-	height: 0;
-	border: 16px solid transparent;
-	border-right-color: #dedede;
-	border-left: 0;
-	border-bottom: 0;
-	margin-top: -11px;
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 13px;
+  width: 0;
+  height: 0;
+  border: 16px solid transparent;
+  border-right-color: #dedede;
+  border-left: 0;
+  border-bottom: 0;
+  margin-top: -11px;
   margin-left: -13px;
   word-wrap: break-word;
 }
@@ -85,11 +85,11 @@
 .botButton {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
-  color: #d191f3;
   margin-top: 5px;
   min-height: 40px;
   background-color: transparent;
-  border: 1px solid #d191f3;
+  border-style: solid;
+  border-width: 1px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   border-bottom-left-radius: 8px;

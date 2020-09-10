@@ -10,12 +10,12 @@ declare const annyang: any;
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.css'],
 })
-
 export class ChatWindowComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   private micPressed: boolean = false;
   private userSaid: string = '';
   public micColor: boolean = false;
+  mainColor: string;
   historyMessages = [];
   typing: boolean = false;
   opened: boolean;
@@ -24,7 +24,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   userInput: FormGroup = new FormGroup({
     text: new FormControl(''),
   });
-
   constructor(
     public messageService: MessagesFlowService,
     private chat: OpenChatService
@@ -38,9 +37,14 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.chat.chatboxColor.subscribe((whiteLabel) => {
+      this.mainColor = whiteLabel;
+    });
+    
     this.chat.history.subscribe((lastMessages) => {
       this.historyMessages = lastMessages;
-      console.log(this.historyMessages)
+      console.log(this.historyMessages);
     });
     if (annyang !== null) {
       annyang.setLanguage('pt-br');
@@ -87,13 +91,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 
   startListening() {
-    if(annyang !== null) {
+    if (annyang !== null) {
       this.micPressed = true;
       annyang.start();
       this.micColor = true;
-    }
-    else {
-      alert("Reconhecimento de voz não suportado nesse navegador");
+    } else {
+      alert('Reconhecimento de voz não suportado nesse navegador');
     }
   }
 

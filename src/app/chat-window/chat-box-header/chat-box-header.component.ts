@@ -12,6 +12,7 @@ export class ChatBoxHeaderComponent implements OnInit {
   @Output() close = new EventEmitter<boolean>();
   @Output() restartRequest = new EventEmitter<boolean>();
   minimizeOrMaximize: string = 'remove';
+  mainColor: string;
   headerIcon: string =
     'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Flh3.googleusercontent.com%2FpE5dgP2JoUsdqmsqCVRmsUQutQ7FH80O4ajh_yH4LW2kj3W7vMmbe_-tpzduyy3tDA%3Dw300&f=1&nofb=1';
   constructor(
@@ -26,6 +27,9 @@ export class ChatBoxHeaderComponent implements OnInit {
       } else {
         this.minimizeOrMaximize = 'add';
       }
+    });
+    this.chat.chatboxColor.subscribe((whiteLabel) => {
+      this.mainColor = whiteLabel;
     });
   }
   closeChat() {

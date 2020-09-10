@@ -10,12 +10,17 @@ import { OpenChatService } from '../open-chat.service';
 export class ChatBoxComponent implements OnInit, OnDestroy {
   @Input() messages: any[];
   clear: boolean;
+  mainColor: string;
   constructor(
     public messageService: MessagesFlowService,
     public chat: OpenChatService
   ) {}
 
   ngOnInit(): void {
+    this.chat.chatboxColor.subscribe((whiteLabel) => {
+      this.mainColor = whiteLabel;
+    });
+
     this.messageService.clear.subscribe((clearedMessages) => {
       if (clearedMessages) {
         this.messages = [];
@@ -46,13 +51,13 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
     this.messageService.botMessages(buttonAction);
     this.messageService.userMessages(userText);
   }
-  
+
   trackByFn(index: number) {
     return index;
   }
 
   ngOnDestroy() {
     this.chat.storeMessages(this.messages);
-    this.messages = []
+    this.messages = [];
   }
 }

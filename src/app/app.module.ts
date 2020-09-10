@@ -13,6 +13,7 @@ import { ChatBoxIconComponent } from './chat-box-icon/chat-box-icon.component';
 import { ChatBoxHeaderComponent } from './chat-window/chat-box-header/chat-box-header.component';
 import { RestartWarningComponent } from './chat-window/restart-warning/restart-warning.component';
 import {MatIconModule} from '@angular/material/icon';
+import { ChatbotWidgetComponent } from './chatbot-widget/chatbot-widget.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {MatIconModule} from '@angular/material/icon';
     ChatWindowComponent,
     ChatBoxIconComponent,
     ChatBoxHeaderComponent,
-    RestartWarningComponent
+    RestartWarningComponent,
+    ChatbotWidgetComponent
   ],
   imports: [
     BrowserModule,

@@ -16,7 +16,8 @@
 .chatbotFooter {
   position: relative;
   height: fit-content;
-  border: 1px solid #5d3280;
+  border-style: solid;
+  border-width: 1px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
