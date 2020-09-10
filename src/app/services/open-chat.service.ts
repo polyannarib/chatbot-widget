@@ -14,7 +14,6 @@ export class OpenChatService {
 
   setWhiteLabel(whiteLabel) {
     this.whiteLabel = whiteLabel;
-    console.log(this.whiteLabel);
     }
   openChatboxFromIcon(): void {
     this.isOpen.next(!this.isOpenState);
