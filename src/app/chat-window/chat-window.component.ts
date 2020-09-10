@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { MessagesFlowService } from '../messages-flow.service';
-import { OpenChatService } from '../open-chat.service';
+import { MessagesFlowService } from '../services/messages-flow.service';
+import { OpenChatService } from '../services/open-chat.service';
 import { Subscription } from 'rxjs';
 declare const annyang: any;
 
@@ -15,7 +15,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   private micPressed: boolean = false;
   private userSaid: string = '';
   public micColor: boolean = false;
-  mainColor: string;
+  public mainColor: string;
   historyMessages = [];
   typing: boolean = false;
   opened: boolean;
@@ -37,10 +37,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    this.chat.chatboxColor.subscribe((whiteLabel) => {
-      this.mainColor = whiteLabel;
-    });
+    this.mainColor = this.chat.whiteLabel.header;
     
     this.chat.history.subscribe((lastMessages) => {
       this.historyMessages = lastMessages;

@@ -1,9 +1,15 @@
-<div class="box" [ngStyle]="{ 'border-color': mainColor }">
+<div class="box" [ngStyle]="{ 'border-color': mainColors }">
   <ng-container *ngFor="let message of messages; trackBy: trackByFn">
-    <div class="msgUser" *ngIf="message.hasOwnProperty('user')">
+    <div
+      class="msgUser"
+      *ngIf="message.hasOwnProperty('user')"
+      [ngStyle]="{ 'background-color': mainColors.user, 'border-left-color': mainColors.user }">
       {{ message.user }}
     </div>
-    <div class="msgBot" *ngIf="message.hasOwnProperty('bot')">
+    <div
+      class="msgBot"
+      *ngIf="message.hasOwnProperty('bot')"
+      [ngStyle]="{ 'background-color': mainColors.bot, 'border-right-color': mainColors.bot }">
       <ng-container *ngFor="let botRes of message.bot">
         {{ botRes.botText }}
         <div class="buttonsContainer" *ngIf="botRes.hasOwnProperty('buttons')">
@@ -11,7 +17,7 @@
             *ngFor="let button of botRes.buttons"
             (click)="sendButton(button.payload, button.title)"
             class="botButton"
-            [ngStyle]="{ color: mainColor, 'border-color': mainColor }"
+            [ngStyle]="{ 'color': mainColors.buttons, 'border-color': mainColors.buttons }"
           >
             {{ button.title }}
           </button>

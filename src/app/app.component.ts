@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   metadata = { username: '', password: '' };
-  passedWhiteLabel: string = '#FF8e27';
+  passedWhiteLabel = {header: '#32a852', bot: '#d1d1d1', user: '#8fb599', buttons: '#7ff59e'};
   title = 'chatbot-widget';
   ngOnInit() {}
 }

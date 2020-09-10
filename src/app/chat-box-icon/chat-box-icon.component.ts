@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { OpenChatService } from '../open-chat.service';
-import { MessagesFlowService } from '../messages-flow.service';
+import { OpenChatService } from '../services/open-chat.service';
+import { MessagesFlowService } from '../services/messages-flow.service';
 
 @Component({
   selector: 'app-chat-box-icon',
