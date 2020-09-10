@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ElementRef } from '@angular/core';
 import { MessagesFlowService } from '../services/messages-flow.service';
 import { OpenChatService } from '../services/open-chat.service';
 
@@ -10,16 +10,18 @@ import { OpenChatService } from '../services/open-chat.service';
 export class ChatBoxComponent implements OnInit, OnDestroy {
   @Input() messages: any[];
   clear: boolean;
-  public mainColors = {buttons: "", user: "", bot: ""};
+  public mainColors = { border: "", buttons: "" };
   constructor(
     public messageService: MessagesFlowService,
-    public chat: OpenChatService
+    public chat: OpenChatService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit(): void {
     this.mainColors.buttons = this.chat.whiteLabel.buttons;
-    this.mainColors.bot = this.chat.whiteLabel.bot;
-    this.mainColors.user = this.chat.whiteLabel.user;
+    this.mainColors.border = this.chat.whiteLabel.header;
+    this.elementRef.nativeElement.style.setProperty('--bubbleUser', this.chat.whiteLabel.user);
+    this.elementRef.nativeElement.style.setProperty('--bubbleBot', this.chat.whiteLabel.bot)
 
     this.messageService.clear.subscribe((clearedMessages) => {
       if (clearedMessages) {

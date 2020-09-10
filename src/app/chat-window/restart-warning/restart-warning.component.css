@@ -1,14 +1,24 @@
 .clearRequestContainer {
-  background-color: #65009a;
   position: relative;
   bottom: 0;
   width: 100%;
   height: 100%;
   color: white;
   text-align: center;
+  padding-bottom: 10px;
 }
 
 .clearButtonsContainer {
   display: flex;
   justify-content: space-evenly;
+}
+
+.buttons {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  margin-top: 5px;
+  min-height: 40px;
+  width: fit-content;
+  outline: none;
+  cursor: pointer;
 }
