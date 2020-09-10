@@ -13,7 +13,8 @@ export class ChatbotWidgetComponent implements OnInit {
   constructor(public messageService: MessagesFlowService, public chat : OpenChatService) {}
 
   ngOnInit(): void {
-    this.messageService.getCredentials(this.meta);
+    this.messageService.getCredentials({username: atob(this.meta.username), password: atob(this.meta.password)});
     this.chat.getWhiteLabel(this.windowColor)
   }
+
 }
