@@ -36,9 +36,15 @@
     <table *ngIf="!loaderDays">
       <thead>
         <tr>
+          <td class="monthSpacer" colspan="2"></td>
+          <th id="resourceMonthLabelHeader" class="monthLabel" colspan="9" scope="colgroup">
+            {{ startDate | date:'MMMM y' }}
+          </th>
+        </tr>
+        <tr>
           <th></th>
           <th class="days">Player</th>
-          <th *ngFor="let day of daysOfWeek13">{{ day | date:'E' }}</th>
+          <th *ngFor="let day of daysOfWeek13" headers="resourceMonthLabelHeader">{{ day | date:'E' }}</th>
         </tr>
       </thead>
       <tbody>

@@ -68,3 +68,9 @@ ul {
     opacity: 0;
   }
 }
+
+table thead tr th.monthLabel {
+  height: 2em;
+  vertical-align: bottom; 
+  border-bottom: 1px solid black;
+}
