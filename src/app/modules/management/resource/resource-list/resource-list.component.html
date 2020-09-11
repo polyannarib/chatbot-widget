@@ -44,7 +44,12 @@
         <tr>
           <th></th>
           <th class="days">Player</th>
-          <th *ngFor="let day of daysOfWeek13" headers="resourceMonthLabelHeader">{{ day | date:'E' }}</th>
+          <th *ngFor="let day of daysOfWeek13; let first=first; let last=last"
+              [ngClass]="{'dayLabelFirst': first, 'dayLabelLast' : last}"
+              headers="resourceMonthLabelHeader"
+          >
+            {{ day | date:'E' }}
+          </th>
         </tr>
       </thead>
       <tbody>

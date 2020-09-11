@@ -72,5 +72,12 @@ ul {
 table thead tr th.monthLabel {
   height: 2em;
   vertical-align: bottom; 
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid white;
+}
+
+.dayLabelFirst {
+  border-left: 2px solid lightgray;
+}
+.dayLabelLast {
+  border-right: 2px solid lightgray;
 }
