@@ -73,3 +73,9 @@ ul {
     position: fixed;
     margin: 20px;
 }
+
+table thead tr th.monthLabel {
+    height: 2em;
+    vertical-align: bottom; 
+    border-bottom: 1px solid black;
+}

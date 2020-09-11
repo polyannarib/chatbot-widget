@@ -44,15 +44,14 @@
       <thead>
         <tr>
           <td class="monthSpacer" colspan="2"></td>
-          <th id="monthLabelHeader" class="monthLabel" colspan="5" scope="colgroup" [ngStyle]="{'height': '2em', 'text-align': 'bottom', 'border-bottom': '1px solid black'}">
+          <th id="projectMonthLabelHeader" class="monthLabel" colspan="5" scope="colgroup">
             {{ startDate | date:'MMMM y' }}
-            <!-- {{startDate.toLocaleDateString('pt-BR', {month: 'long', year: 'numeric'})}} -->
           </th>
         </tr>
         <tr>
           <th class="projectCode">{{ 'CODE' | translate }}</th>
           <th>{{ 'PROJECTNAME' | translate }}</th>
-          <th *ngFor="let day of daysOfWeek10" headers="monthLabelHeader">{{ day | date:'E' }}</th>
+          <th *ngFor="let day of daysOfWeek10" headers="projectMonthLabelHeader">{{ day | date:'E' }}</th>
           <th class="hour">{{ 'HOURS' | translate }}</th>
           <th>{{ 'DATE' | translate }}</th>
           <th>{{ 'RSC' | translate }}</th>
