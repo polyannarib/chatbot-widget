@@ -1,0 +1,45 @@
+<div id="modal">
+    <div class="modal-header">
+      {{ 'TITLEMESSAGECONFIRM' | translate }}
+      <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="confirm()">
+    <div class="modal-body">
+      
+      <!-- <p>Selecione os campos abaixo:</p> -->
+      
+        <!-- <div class="input-field">
+          <input id="usuario" type="text" class="validate" formControlName="email" required>
+          <label for="usuario">Usuário</label>
+        </div> -->
+          
+        <!-- WORKGOUP DO PROJETO -->
+        <div class="row">
+          <mat-form-field>
+            <mat-label>Selecione a equipe</mat-label>
+            <mat-select formControlName="workgroup">
+              <mat-option *ngFor="let workgroup of listWorkgroup" [value]="workgroup.id">
+                {{ workgroup.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- GESTOR DO PROJETO -->
+        <div class="row">
+          <mat-form-field>
+            <mat-label>Selecione o gestor</mat-label>
+            <mat-select formControlName="projectManager">
+              <mat-option *ngFor="let manager of listManagers" [value]="manager.personId">
+                {{ manager.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="button button-primary right" [disabled]="!form.valid" [ngStyle]="{'background-color': mainStyle}">{{ 'CONFIRM' | translate }}</button>
+      </div>
+    </form>
+</div>

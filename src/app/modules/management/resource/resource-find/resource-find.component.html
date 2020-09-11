@@ -1,0 +1,61 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="find">
+      <mat-form-field *ngFor="let levelElement of filterListKnowledge; let i= index">
+        <mat-label>{{ levelElement.knowledgeList[0].type.name }}</mat-label>
+        <mat-select (selectionChange)="FindParente($event, levelElement)" multiple>
+          <mat-option *ngFor="let knowledge of levelElement.knowledgeList" [value]="knowledge.knowledgeId">{{ knowledge.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button (click)="findPerson()" [ngStyle]="{'background-color': mainStyle}" [disabled]="disabled" matTooltip="Procurar" mat-mini-fab color="warn"><i class="material-icons">search</i></button>
+    </div>
+  </div>
+  <!-- <div class="row" *ngIf="!disabled">
+    <div class="find">
+      <div *ngFor="let workGroup of workGroupFilter; let i= index" [ngClass]="{'help' : status}">
+        <mat-form-field>
+          <mat-label>{{ workGroup.knowledgeList[0].type.name }}</mat-label>
+          <mat-select (selectionChange)="FindParenteWorkgroup($event.value, workGroup)">
+            <mat-option *ngFor="let workGroupItem of workGroup.workgroupList; let i= index" [value]="workGroupItem">{{ workGroupItem.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="row">
+    
+    <app-loading [loader]="loader"></app-loading>
+    <!-- <app-count>Nenhum recurso foi encontrado!</app-count> -->
+    
+    <div class="col s12" id="tabela-col" *ngIf="personList?.length > 0">
+      
+      <table id="tabela">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Recursos</th>
+            <!-- <th>Departamento</th> -->
+            <th>Grupos</th>
+            <th>Função</th>
+            <th>Projetos entregues</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let person of personList">
+            <td class="perfil">
+              <img src="https://image.freepik.com/vetores-gratis/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg">
+            </td>
+            <td>{{ person.name }}</td>
+            <!-- <td>{{ person.workgroups.DEPARTAMENTO ? person.workgroups.DEPARTAMENTO[0].name : '-' }}</td> -->
+            <td>{{ getWorkgroups(person.workgroupList) }}</td>
+            <td>{{ person.function.description }}</td>
+            <td>{{ person.taskFinished }} horas</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+.textDash[_ngcontent-mat-c3] {
+    font-size: 12px;
+}
+.textDash {
+    display: -webkit-box;
+    display: flex;
+    font-size: 11px;
+    padding: 0px;
+    margin: 0px;
+}
+.boxText {
+    padding: 15px;
+}
+
+.tableOverflow {
+    height: calc(90vh - 148px);
+    overflow-y: auto;
+}
+.tableOverflow::-webkit-scrollbar { 
+    display: none; 
+}
+.graph {
+    width: 80%;
+}

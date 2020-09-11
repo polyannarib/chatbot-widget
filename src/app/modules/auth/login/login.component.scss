@@ -1,0 +1,116 @@
+img {
+    width: 280px;
+}
+.card {
+    padding: 20px;
+    width: 400px;
+    height: 264px;
+    border: 5px solid black;
+    border-radius: 20px;
+}
+.loginBackground {
+    background-image: url('../../../../assets/images/tetris.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logoKyros {
+    height: 30px;
+    width: 80px;
+    margin-top: 50px;
+}
+button {
+    margin-top: 11px;
+    border-radius: 20px;
+    background-color: black;
+}
+.forgotten-password {
+  bottom: -20px;
+  margin: 5px auto;
+}
+.message-forgotten-password {
+  padding: 20px;
+  width: 350px;
+  height: 100px;
+}
+.message-forgotten-password label {
+  font-size: 20px;
+}
+
+// body{
+//     background-image: url('../../../../assets/images/tetris.jpg');
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//     background-position: center;
+
+//     display: flex;
+//     /* align-items: center; */
+//     justify-content: center;
+// }
+// .bodyLogin{
+//     background-color: balck;
+
+//     display: flex;
+//     /* align-items: center; */
+//     justify-content: center;
+// }
+// .panel{
+//     /* margin-left: 35% !important; */
+//     padding-top: 10px;
+//     border-radius: 20px ;
+//     opacity: 0.8 !important;
+//     width: 165% !important;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     padding-bottom: 10px;
+//     border-style: solid;
+//     border-width: 5px;
+//     border-color: black;
+//     height: 250px;
+// }
+// .btn{
+//     width: 35%;
+// }
+// .WorkPlayer{
+//     display: flex;
+//     justify-content: center;
+// }
+// img{
+//     width: 165%;
+// }
+// .loginImput{
+//     height: 95%;
+//     width: 95%;
+// }
+// .meio{
+//     margin-left: -30% !important;
+// }
+// .btn:hover, .btn-large:hover {
+//     background-color: goldenrod;
+// }
+// .btn, .btn-large {
+//     border-radius: 20px;
+//     background-color: black;
+// }
+// input[type=text]:focus{
+//     border-bottom: 1px solid goldenrod !important;
+//     box-shadow: 0 1px 0 0 goldenrod;
+// }
+// input[type=password]:focus{
+//     border-bottom: 1px solid goldenrod !important;
+//     box-shadow: 0 1px 0 0 goldenrod;
+// }
+// /* input[type=text]:focus + label{
+//     color: goldenrod !important;
+// } */
+// .logo{
+//     margin-top: 150%;
+//     width: 80px;
+//     margin-left: 34%;
+// }

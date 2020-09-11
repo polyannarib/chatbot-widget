@@ -1,0 +1,70 @@
+table {
+  font-size: 12px;
+}
+table tr {
+  border-bottom: none;
+}
+table thead tr th {
+  height: 38px;
+  text-align: center;
+}
+table tbody tr .days {
+  height: 33px;
+  width: 33px;
+  text-align: center;
+}
+table tbody tr .playerAllocated {
+  text-align: center;
+  position: relative;
+  top: -3px;
+}
+table tbody tr .spacename {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+td,
+th {
+  padding: 0px;
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+ul {
+  display: inline-flex;
+}
+
+.tableOverflow {
+  height: calc(90vh - 148px);
+  overflow-y: auto;
+}
+.tableOverflow::-webkit-scrollbar {
+  display: none;
+}
+.border-ok {
+  border: solid 2px green;
+}
+
+.border-delayed {
+  border: solid 2px red;
+}
+
+.animated {
+  -webkit-animation: fa-blink 0.75s linear infinite;
+  -moz-animation: fa-blink 0.75s linear infinite;
+  -ms-animation: fa-blink 0.75s linear infinite;
+  -o-animation: fa-blink 0.75s linear infinite;
+  animation: fa-blink 0.75s linear infinite;
+}
+@keyframes fa-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}

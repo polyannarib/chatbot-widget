@@ -1,0 +1,23 @@
+.sucess {
+    background-color: green;
+}
+.error {
+    background-color: red;
+}
+p {
+    padding: 15px 25px;
+    margin: 0px;
+    color: #ffffff;
+    text-align: center;
+}
+.mat-snack-bar-container {
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    margin: 24px;
+    max-width: 33vw;
+    min-width: 344px;
+    padding: 0px !important;
+    height: auto;
+    transform-origin: center
+}

@@ -1,0 +1,234 @@
+/* .row .col{
+    padding: 0 4px;
+} */
+
+
+/* CODIGO FEITO PARA BUSCA */
+.cdk-overlay-pane {
+    left: 115px !important;
+}
+.mat-form-field {
+    /* display: inline-block; */
+    position: relative;
+    text-align: left;
+    padding: 15px;
+    width: 225px;
+    /* float: left; */
+}
+button {
+    top: -5px;
+}
+.mat-paginator {
+    background-color: transparent;
+}
+.find {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+@media (max-width: 538px) {
+    .mat-form-field {
+        padding: 0px;
+        margin: 0px;
+    }
+    .find {
+        flex-direction: column;
+    }
+}
+
+
+
+
+
+
+
+
+/*-----TABLE-----*/
+    .perfil {
+        width: 60px;
+    }
+    .perfil img {
+        width: 50px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        position: absolute;
+        right: -10px;
+        top: -5px;
+    }
+
+    tbody tr {
+        border: none;
+    }
+    td, th {
+        padding: 0px 8px;
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        border-radius: none;
+    }
+
+    th {
+        color: #000;
+    }
+
+    thead tr {
+        border: 0;
+        height: 34px;
+    }
+
+    td:nth-child(odd) {
+        background: #ffffff63;
+    }
+
+    td:nth-child(even) {
+        background: #ffffffb5;
+    }
+
+    table {
+        border-collapse: separate !important;
+        border-spacing: 0 16px !important;
+        color: #636363 !important;
+    }
+
+    tbody tr {
+        box-shadow: inset 0 0 0 1px white;
+        position: relative;
+        height: 39px;
+    }
+
+    td.perfil {
+        position: relative;
+        background: transparent;
+        display: block;
+        width: 0px;
+        height: 100%;
+    }
+
+    tbody td:nth-child(2), thead th:nth-child(2) {
+        text-align: initial;
+        padding-left: 17px;
+    }
+
+    #tabela{
+        padding-left: 24px;
+    }
+
+@media only screen and (max-width: 700px){
+    #tabela-col{
+        overflow: auto;
+        white-space: nowrap;
+    }
+
+    div#tabela-col::-webkit-scrollbar {
+        height: 11px;
+        width: 11px;
+    }
+
+    div.content{
+        margin-top: 79px;
+    }
+}
+/*-----------------*/
+
+
+/*---FILTERS---*/
+/*   
+    .row .col{
+        padding: 0 2px;
+    }
+
+    .mat-select-value{
+        background: #ffffffb5;
+        box-shadow: inset 0 0 0 1px white;
+        height: 27px;
+        display: inline-block !important;
+        max-width: none !important;
+        width: calc(100% - 24px) !important;
+        vertical-align: middle;
+    }
+
+    .mat-select-arrow-wrapper {
+        background: #ffffffb5;
+        box-shadow: inset 0 0 0 1px white;
+        height: 27px;
+        display: inline-block !important;
+        margin-left: 2px;
+        padding-top: 11px;
+        width: 20px;
+    }
+
+    .mat-form-field-type-mat-select .mat-form-field-label{
+        width: calc(100% - 20px) !important;
+    }
+
+    .mat-select-trigger{
+        width: 100%;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-label {
+        color: #650199;
+        font-weight: 600;
+        text-align: center;
+        padding-top: 9px;
+        font-size: 13px;
+    }
+
+    .mat-form-field-underline{
+        display: none;
+    }
+
+    #filters{
+        text-align-last: center;
+        margin-left: -15px;
+    } */
+
+    /*-----Largura dos filtros-----*/
+
+        /* #tipoComp .mat-form-field-infix{
+            width: 210px;
+        }
+        #categoria .mat-form-field-infix{
+            width: 114px;
+        } */
+        #cla .mat-form-field-infix{
+            width: 130px;
+        }
+        /* #competencia .mat-form-field-infix{
+            width: 152px;
+        } */
+        #nivel .mat-form-field-infix{
+            width: 105px;
+        }
+        /* #departamento .mat-form-field-infix{
+            width: 158px;
+        } */
+        #equipe .mat-form-field-infix{
+            width: 130px;
+        }
+    /*-------------*/
+
+    @media only screen and (max-width: 700px){
+        .col{
+            width: 100%;
+            position: relative;
+        }
+        .mat-form-field-wrapper, .mat-form-field{
+            position: unset !important;
+        }
+        .mat-form-field{
+            margin-bottom: 10px;
+        }
+        #tipoComp .mat-form-field-infix, #categoria .mat-form-field-infix, #cla .mat-form-field-infix,
+        #competencia .mat-form-field-infix, #nivel .mat-form-field-infix, #departamento .mat-form-field-infix,
+        #equipe .mat-form-field-infix {
+            width: 100%;
+            position: absolute;
+            border-top: 0;
+            top: 0;
+        }
+    }
+    
+/*-------------*/

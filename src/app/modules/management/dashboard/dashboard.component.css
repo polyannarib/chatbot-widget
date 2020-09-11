@@ -1,0 +1,70 @@
+/* .row .col{
+    padding: 0 4px;
+} */
+
+
+/* CODIGO FEITO PARA BUSCA */
+.cdk-overlay-pane {
+  left: 115px !important;
+}
+.mat-form-field {
+  /* display: inline-block; */
+  position: relative;
+  text-align: left;
+  padding: 15px;
+  width: 225px;
+  /* float: left; */
+}
+button {
+  top: -5px;
+}
+.mat-paginator {
+  background-color: transparent;
+}
+.find {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+@media (max-width: 538px) {
+  .mat-form-field {
+      padding: 0px;
+      margin: 0px;
+  }
+  .find {
+      flex-direction: column;
+  }
+}
+
+
+
+
+
+
+
+
+  /* @media only screen and (max-width: 700px){
+      .col{
+          width: 100%;
+          position: relative;
+      }
+      .mat-form-field-wrapper, .mat-form-field{
+          position: unset !important;
+      }
+      .mat-form-field{
+          margin-bottom: 10px;
+      }
+      #tipoComp .mat-form-field-infix, #categoria .mat-form-field-infix, #cla .mat-form-field-infix,
+      #competencia .mat-form-field-infix, #nivel .mat-form-field-infix, #departamento .mat-form-field-infix,
+      #equipe .mat-form-field-infix {
+          width: 100%;
+          position: absolute;
+          border-top: 0;
+          top: 0;
+      }
+  } */
+  
+/*-------------*/

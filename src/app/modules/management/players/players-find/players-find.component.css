@@ -1,0 +1,29 @@
+.find {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    width: 260px;
+} 
+  
+.example-radio-button {
+    margin: 5px;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    display: block;
+    padding-top: 10px;
+}
+
+.mat-select {
+    padding-bottom: 11px;
+}

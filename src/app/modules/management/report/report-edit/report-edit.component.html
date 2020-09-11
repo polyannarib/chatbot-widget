@@ -1,0 +1,83 @@
+<!-- <app-loading [loader]="loader"></app-loading> -->
+
+<div id="modal" *ngIf="typeNotes || statusNotes">
+  <button type="button" class="close btn" [mat-dialog-close]="true"> <i class="material-icons">close</i> </button>
+  <div class="modal-header">
+    <div class="row">
+      <button [ngStyle]="{'background-color': mainStyle}" (click)="modalCreateNotesReport()" class="button button-primary left">{{ 'ADDNOTES' | translate }}</button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <app-loading [loader]="loaderNotes"></app-loading>
+    <div *ngIf="!loaderNotes">
+
+      <app-count *ngIf="messageNotes && !notes">Esse projeto não tem nota cadastrada no momento!</app-count>
+
+      <table *ngIf="notes">
+        <thead>
+          <tr>
+            <!-- <th>{{ 'NOTENUM' | translate }}</th> -->
+            <th>{{ 'NOTEDESCRIPTION' | translate }}</th>
+            <th>{{ 'OBSERVATION' | translate }}</th>
+            <th>{{ 'NOTEDATE' | translate }}</th>
+            <th>{{ 'NOTESTARTDATE' | translate }}</th>
+            <th>{{ 'NOTEENDDATE' | translate }}</th>
+            <th>{{ 'CRITICALLYLEVEL' | translate }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let note of notes">
+            <tr>
+              <!-- <td>{{ note.noteNum }}</td> -->
+              <td>{{ note.noteDescription }}</td>
+              <td>{{ note.observation }}</td>
+              <td>{{ note.noteDate | date:'dd/MM/yyyy' }}</td>
+              <td>{{ note?.noteStartDate | date:'dd/MM/yyyy' }}</td>
+              <td>{{ note?.noteEndDate | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <!-- [ngClass]="'color': activity.status == '1' ? 'green', 'color': activity.status == '2' ? 'yellow', 'color': activity.status == '3' ? 'red'" -->
+                <i matTooltip="{{ note.status.description }}" [ngStyle]="{color: getColor(note.status.noteStatus)}" class="material-icons">fiber_manual_record</i>
+              </td>
+              <td class="action"><button matTooltip="Editar" [ngStyle]="{'background-color': mainStyle}" (click)="modalEditNotesReport(note)" mat-mini-fab color="warn"><i class="material-icons">edit</i></button></td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+
+    <div class="row">
+      <form [formGroup]="formFind" (ngSubmit)="findNotes()">
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Selecione o tipo</mat-label>
+            <mat-select formControlName="typeId">
+              <mat-option *ngFor="let type of typeNotes" [value]="type.id">
+                {{ type.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Selecione o Status</mat-label>
+            <mat-select formControlName="statusId">
+              <mat-option *ngFor="let status of statusNotes" [value]="status.id">
+                {{ status.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <button type="submit" [ngStyle]="{'background-color': mainStyle}" class="button button-primary">Filtrar</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- <button (click)="modalEditProject()" class="button button-primary">{{ 'EDITPROJECT' | translate }}</button> -->
+    <!-- <button [ngStyle]="{'background-color': mainStyle}" (click)="modalCreateNotesReport()" class="button button-primary right">{{ 'ADDNOTES' | translate }}</button> -->
+    <!-- <button (click)="generateReport()" target="_blank" class="button button-primary right">{{ 'GENERATEREPORT' | translate }}</button> -->
+  </div>
+</div>

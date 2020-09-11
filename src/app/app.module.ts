@@ -1,40 +1,48 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { ChatBoxComponent } from './chat-box/chat-box.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatInputModule} from '@angular/material/input'; 
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { ChatWindowComponent } from './chat-window/chat-window.component';
-import {MatButtonModule} from '@angular/material/button'; 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChatBoxIconComponent } from './chat-box-icon/chat-box-icon.component';
-import { ChatBoxHeaderComponent } from './chat-window/chat-box-header/chat-box-header.component';
-import { RestartWarningComponent } from './chat-window/restart-warning/restart-warning.component';
-import {MatIconModule} from '@angular/material/icon';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { AppComponent } from './app.component';
+import { registerLocaleData } from '@angular/common';
+import { AppRoutingModule } from './routing/app-routing.module';
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import pt from '@angular/common/locales/pt';
+
+registerLocaleData(pt, 'pt');
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatBoxComponent,
-    ChatWindowComponent,
-    ChatBoxIconComponent,
-    ChatBoxHeaderComponent,
-    RestartWarningComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatIconModule,
+    SharedModule,
+    AppRoutingModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt' }
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('chatbot-widget app is running!');
+    expect(page.getTitleText()).toEqual('Welcome to Gamefication!');
   });
 
   afterEach(async () => {

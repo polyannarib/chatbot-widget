@@ -1,0 +1,25 @@
+[
+    {
+        "name":"kyros",
+        "theme": 
+        {
+            "--main-color": "#F8C326",
+            "--graph-main-color": "#fbc844cc",
+            "--graph-color": "#969696cc",
+            "--progress-color": "#fbc844cc",
+            "--logo-height": "25px"
+        }
+        
+    },
+    {
+        "name":"bradesco",
+        "theme": 
+        {
+            "--main-color": "#cc092f",
+            "--graph-main-color": "#96969666",
+            "--graph-color": "#cc092f99",
+            "--progress-color": "#cc092f99",
+            "--logo-height": "40px"
+        }
+    }
+]  

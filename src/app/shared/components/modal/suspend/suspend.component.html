@@ -1,0 +1,17 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div id="modal" *ngIf="!loader">
+  <div class="modal-header">
+    <h1>{{ 'CONFIRMACTION' | translate }}</h1>
+    <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ 'MESSAGECONFIRMSUSPEND' | translate }}</p>
+    <mat-form-field class="example-full-width">
+      <textarea matInput placeholder="{{ 'REASON' | translate }}" [(ngModel)]="reason"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="modal-footer">
+    <button [ngStyle]="{'background-color': mainStyle}" class="button button-primary right" (click)="confirmSuspend()">{{ 'CONFIRM' | translate }}</button>
+  </div>
+</div>

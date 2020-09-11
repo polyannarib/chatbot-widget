@@ -1,0 +1,83 @@
+<ul class="nav" *ngIf="scopes">
+    
+    <li routerLinkActive="active">
+        <a [routerLink]="['/management/cockpit']">
+            <span><i class="material-icons-outlined">dashboard</i></span>
+            <p>{{ 'COCKPIT' | translate }}</p>
+        </a>
+    </li>
+    <li routerLinkActive="active" *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
+        <a [routerLink]="['/management/resource/find']">
+            <span><i class="material-icons-outlined">people_alt</i></span>
+            <p>Recursos</p>
+        </a>
+    </li>
+    <li routerLinkActive="active" *ngIf="scopes.wpplayer">
+        <a [routerLink]="['/player/bind/cards']">
+            <span><i class="material-icons-outlined">build</i></span>
+            <p>Competências</p>
+        </a>
+    </li>
+    <li routerLinkActive="active" *ngIf="scopes.wpleader || scopes.wpmaster">
+        <a [routerLink]="['/management/import/project']">
+            <span><i class="material-icons-outlined">assignment_returned</i></span>
+            <p>Importar projeto</p>
+        </a>
+    </li>
+    <li routerLinkActive="active">
+        <a [routerLink]="['/management/dashboard']">
+            <span><i class="material-icons-outlined">pie_chart</i></span>
+            <p>Dashboards</p>
+        </a>
+    </li>
+    
+
+    <!-- Logout -->
+    <li routerLinkActive="active" id="logout">
+        <a (click)="logout()">
+            <span><i class="material-icons-outlined">exit_to_app</i></span>
+            <p>Sair</p>
+        </a>
+    </li>
+    <!-- <li routerLinkActive="active">
+        <a [routerLink]="['/bind/cards']">
+            <span><i class="material-icons-outlined">insert_chart</i></span>
+            <p>Selecionar cartas</p>
+        </a>
+    </li>
+    <li routerLinkActive="active">
+        <a [routerLink]="['/management/resource/list']">
+            <span><i class="material-icons-outlined">insert_chart</i></span>
+            <p>Pesquisar recursos</p>
+        </a>
+    </li> -->
+
+    <!-- <li id="menu-{{menuitem.title | lowercase}}" routerLinkActive="active" *ngFor="let menuitem of menuList"> -->
+            
+        <!--If is a single link-->
+        <!-- <a [routerLink]="[menuitem.path]" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link"
+            *ngIf="menuitem.type === 'link'">
+            <span [innerHTML]="menuitem.icontype"></span>
+            <p>{{menuitem.title | translate}}</p>
+        </a> -->
+
+        <!--If it have a submenu-->
+        <!-- <a id="link-{{menuitem.title | lowercase}}" data-toggle="collapse" href="#{{menuitem.title | lowercase}}"
+            *ngIf="menuitem.type === 'sub'">
+            <span [innerHTML]="menuitem.icontype"></span>
+            <p>{{menuitem.title | translate}}<b class="caret"></b></p>
+        </a> -->
+
+        <!--Display the submenu items-->
+        <!-- <div id="{{menuitem.title | lowercase}}" class="collapse" *ngIf="menuitem.type === 'sub'">
+            <ul class="nav">
+                <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
+                    <a [routerLink]="[menuitem.path, childitem.path]">
+                        <span class="sidebar-mini">{{childitem.ab}}</span>
+                        <span class="sidebar-normal">{{childitem.title | translate}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div> -->
+    <!-- </li> -->
+</ul>

@@ -1,0 +1,12 @@
+table .widthPadronizacao {
+    width: 40px;
+    text-align: center;
+}
+table .day {
+    font-size: 18px;
+}
+table .score span {
+    padding: 2px 15px;
+    border-radius: 4px;
+    color: #fff;
+}

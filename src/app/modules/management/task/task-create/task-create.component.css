@@ -1,0 +1,52 @@
+.collection {
+    margin-bottom: 0px;
+    border: none !important;
+    margin: 0px important;
+}
+.collection .collection-item {
+    background-color: #fff;
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: none;
+}
+.collection .secondary-content {
+    float: right;
+    color: #000000;
+    cursor: pointer;
+}
+
+/* If you put this css in your component then you would be able to use angular material inputs through out that component and if you put this in your style.css or style.scss then you would be able to use it through out your application */
+mat-form-field input {
+    border: none;
+    height: initial !important;
+}
+mat-form-field input:focus {
+    border: none;
+    box-shadow: none;
+    height: initial !important;
+}
+
+.calculadora {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
+}
+
+.modal-header span {
+    font-size: 10px;
+    position: relative;
+    top: -12px;
+    margin: 0px;
+    padding: 5px;
+    /* background: #808080; */
+    border-radius: 4px;
+    color: white;
+    text-transform: uppercase;
+}
+
+ul.cardSelect li {
+    width: 120px;
+    margin: 15px;
+}

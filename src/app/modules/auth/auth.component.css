@@ -1,0 +1,10 @@
+section {
+    background-image: url('../../../assets/images/tetris.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

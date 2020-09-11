@@ -1,0 +1,19 @@
+<div class="sidebar" [ngStyle]="{'background-color': mainStyle}">
+	<div class="logo">
+		<a routerLink="/" routerLinkActive="router-link-active" class="simple-text logo-mini">
+			<div class="logo-img">
+				<img [src]="logo | image | async">
+			</div>
+		</a>
+		<a routerLink="/" routerLinkActive="router-link-active" class="simple-text logo-normal">
+			<div class="title-img">
+				<img [src]="icon | image | async">
+			</div>
+		</a>
+	</div>
+	<div class="sidebar-wrapper">
+		<app-menu></app-menu>
+	</div>
+</div>
+
+<div id="black-filter"></div>

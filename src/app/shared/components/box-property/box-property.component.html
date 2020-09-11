@@ -1,0 +1,9 @@
+<div class="card" [ngStyle]="{'border-color': mainStyle}">
+  <div class="title" [ngStyle]="{'color': mainStyle}">
+    {{ title }}
+  </div>
+  <div class="body">
+    <span [ngStyle]="{'color': mainStyle}" *ngIf="number">{{ number }}</span>
+    <ng-content></ng-content>
+  </div>
+</div>

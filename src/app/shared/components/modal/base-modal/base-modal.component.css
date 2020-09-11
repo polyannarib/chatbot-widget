@@ -1,0 +1,60 @@
+mat-dialog-content {
+    display: block;
+    margin: 0 0px;
+    padding: 15px 0;
+    max-height: 75vh;
+    border-top: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+mat-dialog-title {
+    margin: 0 0 20px;
+    display: block;
+}
+mat-dialog-actions {
+    padding: 8px 0;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 52px;
+    align-items: center;
+    margin-bottom: -13px;
+    margin-top: 10px;
+}
+/* mat-dialog-content {
+    padding: 25px;
+    max-height: 75vh;
+    border-top: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+} */
+/* mat-dialog-content .headerDialog {
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 15px;
+}
+mat-dialog-content .title {
+    font-weight: bold;
+    font-size: 15px;
+} */
+/* mat-dialog-actions {
+    padding: 24px 0px;
+}
+mat-dialog-content .activityDay {
+    border: 1px solid #eee;
+    text-align: center;
+    line-height: 35px;
+    background-color: #ff9d8c;
+    color: white;
+    border-radius: 10px;
+    padding: 5px 35px;
+    font-size: 22px;
+} */
+/* mz-collapsible-item-header {
+    width: 100%;
+}
+mat-dialog-content section .text-header span {
+    font-size: 15px;
+    font-weight: bold;
+}
+mat-dialog-content section {
+    padding-top: 15px;
+} */

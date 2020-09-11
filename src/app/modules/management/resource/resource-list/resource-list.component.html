@@ -1,0 +1,78 @@
+<app-loading [loader]="loader"></app-loading>
+<div *ngIf="players && !loader">
+
+  <div class="row">
+    <div class="col m6 s12">
+      <form [formGroup]="searchResources" (submit)="onSearchResources()" style="display: flex; align-items: center;">
+        <div class="input-field" style="flex-grow: 1; margin-right: 1.5rem; margin-top: 0;">
+          <input matInput formControlName="name" type="text" id="findResource" class="validate" autocomplete="off">
+          <label for="findResource">{{ 'RESOURCES' | translate }}</label>
+        </div>
+
+        <button mat-mini-fab type="submit"  [ngStyle]="{'background-color': mainStyle}">
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+    </div>
+    <div class="col m3 s12">
+      <ul>
+        <li>
+          <a (click)="changeDays('prev')" [ngStyle]="{'background-color': mainStyle}" class="button button-floating">
+            <i class="material-icons">chevron_left</i>
+          </a>
+        </li>
+        <li>
+          <a (click)="changeDays('next')" [ngStyle]="{'background-color': mainStyle}" class="button button-floating">
+            <i class="material-icons">chevron_right</i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <app-loading [loader]="loaderDays"></app-loading>
+
+  <div class="tableOverflow">
+    <table *ngIf="!loaderDays">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="days">Player</th>
+          <th *ngFor="let day of daysOfWeek13">{{ day | date:'E' }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let player of filteredPlayers;">
+          <tr class="card">
+            <td class="spacename"><i class="material-icons tiny">person</i></td>
+            <td class="left-align"><b>{{ player.name }}</b></td>
+            <ng-container *ngFor="let activity of player.tasks">
+              <td class="days">
+                <button [ngStyle]="{'background-color': activity.style}" [ngClass]="{hoverable: activity.validDay}"
+                  [ngClass]="{'border-ok': activity.warning == 'OK', 'border-delayed': activity.warning == 'DELAYED'}"
+                  class="btnDayCalendar" [disabled]="!activity.validDay"
+                  (click)="modalResourceDetails(player.id, activity)">
+                  <span [ngClass]="{'animated infinite fadeIn': !activity.allocated}">
+                    {{ activity.referenceDate | date:'dd' }}
+                  </span>
+                </button>
+              </td>
+            </ng-container>
+          </tr>
+          <tr>
+            <td class="playerAllocated">{{ player.allocated }}%</td>
+            <td>
+              <div class="progress">
+                <div class="determinate" [ngStyle]="{'background-color': secondarytyle}"
+                  [ngStyle]="{'width': player.allocated+'%'}"></div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <app-paginator [pageSize]="pageSize" [totalFound]="totalFound" [pageSelected]="page" (page)="updatePage($event)">
+    </app-paginator>
+  </div>
+
+</div>

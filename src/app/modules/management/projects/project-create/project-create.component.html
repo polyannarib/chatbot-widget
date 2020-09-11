@@ -1,0 +1,73 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div id="modal" *ngIf="!loader">
+  <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+  <div class="modal-header" *ngIf="this.data.type === 'epic'">
+    <span [ngStyle]="{'background-color': mainStyle}"> Épico </span>
+  </div>
+  <form [formGroup]="formCreateProject" (submit)="createProject()">
+    <div class="modal-body">
+      <!-- NOME DO PROJETO -->
+      <div class="input-field">
+        <input id="project_name" type="text" class="validate" formControlName="name" required>
+        <label [class.active]="formCreateProject.controls.name.value != null" for="project_name">
+          {{ (this.data.type === 'epic') ? 'Nome do Épico' : 'PROJECTNAME' | translate }}
+        </label>
+      </div>
+
+      <!-- WORKGOUP DO PROJETO -->
+      <div>
+        <mat-form-field>
+          <mat-label>
+            {{ (this.data.type === 'epic') ? 'Workgroup' : 'CREATE_PROJECT_WORKGROUP' | translate }}
+          </mat-label>
+          <mat-select formControlName="workgroup">
+            <mat-option *ngFor="let workgroup of workgroups" [value]="workgroup.value">
+              {{workgroup.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- GESTOR DO PROJETO -->
+      <div *ngIf="this.data.type === 'edit' || this.data.type === 'epic' || this.data.type === 'create'">
+        <mat-form-field>
+          <mat-label>
+            {{ (this.data.type === 'epic') ? 'Gestor' : 'CREATE_PROJECT_MANAGER' | translate }}
+          </mat-label>
+          <mat-select formControlName="projectManager">
+            <mat-option *ngFor="let manager of managers" [value]="manager.value">
+              {{manager.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- DESCRICAO DO PROJETO -->
+      <div class="input-field">
+        <textarea id="project_description" class="validate materialize-textarea" formControlName="description"
+          required></textarea>
+        <label for="project_description" [class.active]="formCreateProject.controls.description.value != null">
+          {{ (this.data.type === 'epic') ? 'Descrição do Épico' : 'CREATE_PROJECT_DESCRIPTION' | translate }}
+        </label>
+      </div>
+
+      <!-- IDENTIFICACAO DO PROJETO -->
+      <div class="input-field">
+        <input id="project_identify" type="text" class="validate" formControlName="identify" required>
+        <label for="project_identify" [class.active]="formCreateProject.controls.identify.value != null">
+          {{ (this.data.type === 'epic') ? 'Identificador do Épico' : 'CREATE_PROJECT_IDENTIFY' | translate }}
+        </label>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="submit" *ngIf="data.type === 'create'" class="button right"
+        [ngStyle]="{'background-color': mainStyle}">{{ 'CREATE_PROJECT_CONFIRM' | translate }}</button>
+      <button type="submit" *ngIf="data.type === 'edit'" class="button right"
+        [ngStyle]="{'background-color': mainStyle}">{{ 'EDIT_PROJECT_CONFIRM' | translate }}</button>
+      <button type="submit" *ngIf="data.type === 'epic'" class="button right"
+        [ngStyle]="{'background-color': mainStyle}">{{ 'CREATE_EPIC_CONFIRM' | translate }}</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,119 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div *ngIf="projectsList && !loader && scopes">
+
+  <div class="add-project-button" *ngIf="scopes.wpleader || scopes.wpmaster">
+    <a class="waves-effect waves-light btn-small" (click)="modalAddProject()"
+      [ngStyle]="{'background-color': mainStyle}">
+      <i class="material-icons right">add</i>Adicionar projeto
+    </a>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m6">
+      <form [formGroup]="searchProjects" (submit)="onSearchProjects()" style="display: flex; align-items: center;">
+        <div class="input-field" style="flex-grow: 1; margin-right: 1.5rem; margin-top: 0;">
+          <input matInput formControlName="name" type="text" id="findProject" class="validate" autocomplete="off">
+          <label for="findProject">Buscar projetos</label>
+        </div>
+
+        <button mat-mini-fab type="submit" [ngStyle]="{'background-color': mainStyle}">
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+    </div>
+    <div class="col m3 s12">
+      <ul>
+        <li><a (click)="changeDays('prev')" [ngStyle]="{'background-color': mainStyle}"
+            class="button button-floating"><i class="material-icons">chevron_left</i></a></li>
+        <li><a (click)="changeDays('next')" [ngStyle]="{'background-color': mainStyle}"
+            class="button button-floating"><i class="material-icons">chevron_right</i></a></li>
+      </ul>
+    </div>
+    <!-- <div class="col m3 s12">
+      <button class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'ADDPROJECT' | translate }}">
+        <i (click)="finalize()" class="material-icons">add</i>
+      </button>
+    </div> -->
+  </div>
+
+  <app-loading [loader]="loaderDays && !daysOfWeek10"></app-loading>
+
+  <div class="tableOverflow">
+    <table *ngIf="!loaderDays && daysOfWeek10">
+      <thead>
+        <tr>
+          <th class="projectCode">{{ 'CODE' | translate }}</th>
+          <th>{{ 'PROJECTNAME' | translate }}</th>
+          <th *ngFor="let day of daysOfWeek10">{{ day | date:'E' }}</th>
+          <th class="hour">{{ 'HOURS' | translate }}</th>
+          <th>{{ 'DATE' | translate }}</th>
+          <th>{{ 'RSC' | translate }}</th>
+          <th>{{ 'EXP' | translate }}</th>
+          <th>{{ 'EFF' | translate }}</th>
+          <th>{{ 'EDIT' | translate }}</th>
+          <th *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
+            <!-- {{ 'STATUSREPORT' | translate }} -->
+          </th>
+          <th *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
+            <!-- {{ 'GENERATEREPORT' | translate }} -->
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let project of filteredProjectsList">
+          <tr class="card">
+            <td class="projectCode"><b>{{ project.code }}</b></td>
+            <td>{{ project.name }}</td>
+            <ng-container *ngFor="let activity of project.tasks">
+              <td class="days">
+                <button class="btnDayCalendar" [ngClass]="{hoverable: activity.validDay}"
+                  [ngStyle]="{'background-color': activity.style}" [disabled]="!activity.validDay"
+                  (click)="modalProjectDetails(project.id, activity)">
+                  <span [ngClass]="{'animated infinite fadeIn': !activity.allocated}">
+                    {{ activity.referenceDate | date:'dd' }}
+                  </span>
+                </button>
+              </td>
+            </ng-container>
+            <td class="fontMin"><b>Real:</b> {{ project.actualEffort }} <br><b>Prev:</b> {{ project.predictEffort }}
+            </td>
+            <td class="fontMin">{{ project.actualConclusion}} <br> {{ project.predictConclusion }}</td>
+            <td>
+              <i class="material-icons" [ngStyle]="{ 'color': project.riskProject }">fiber_manual_record</i>
+            </td>
+            <td>
+              <i class="material-icons" [ngStyle]="{ 'color': project.expectedStyle }">fiber_manual_record</i>
+            </td>
+            <td>
+              <i class="material-icons" [ngStyle]="{ 'color': project.effortStyle }">fiber_manual_record</i>
+            </td>
+            <td *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
+              <button matTooltip="{{ 'EDIT' | translate }}" mat-icon-button (click)="openProjectEdit(project)"><i
+                  class="material-icons">more_vert</i></button>
+            </td>
+            <td *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
+              <button matTooltip="Adicionar nota" mat-icon-button (click)="openReport(project)"><i
+                  class="material-icons">assignment</i></button>
+            </td>
+            <td *ngIf="scopes.wpleader || scopes.wpboss || scopes.wprule || scopes.wpmaster">
+              <button matTooltip="{{ 'STATUSREPORT' | translate }}" mat-icon-button (click)="generateReport(project)"><i
+                  class="material-icons">flight_takeoff</i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="playerCompleted">{{ project.completed }}%</td>
+            <td>
+              <div class="progress">
+                <div class="determinate" [ngStyle]="{'background-color': secondarytyle}"
+                  [ngStyle]="{'width': project.completed+'%'}"></div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <app-paginator [pageSize]="pageSize" [totalFound]="totalFound" [pageSelected]="page" (page)="updatePage($event)">
+    </app-paginator>
+  </div>
+</div>

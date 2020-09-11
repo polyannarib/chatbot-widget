@@ -1,0 +1,33 @@
+<div id="modal">
+    <div class="modal-header">
+        <a (click)="prevMonth()" matTooltip="{{ prevMonthName() | date:'MMMM' }}" [ngStyle]="{'background-color': mainStyle}" class="button button-floating"><i class="material-icons">chevron_left</i></a>
+        Extrato de {{ date | date:'MMMM' }}
+        <a (click)="nextMonth()" matTooltip="{{ nextMonthName() | date:'MMMM' }}" matTooltip="Anexar" [ngStyle]="{'background-color': mainStyle}" class="button button-floating"><i class="material-icons">chevron_right</i></a>
+        <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+    </div>
+    <div class="modal-body">
+        
+        <app-loading [loader]="loader"></app-loading>
+        <app-count *ngIf="extracts?.length == 0 && !loader">Nenhuma pontuação esse mês!</app-count>
+
+        <table *ngIf="!loader && extracts && extracts?.length > 0">
+            <thead>
+                <tr>
+                    <th class="widthPadronizacao">Dia</th>
+                    <th>Tarefa</th>
+                    <th class="widthPadronizacao">Ponto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of extracts">
+                    <td class="widthPadronizacao day">{{ item.dayReceived }}</td>
+                    <td>{{ item.taskName }}</td>
+                    <td class="widthPadronizacao score"> <span [ngStyle]="{'background-color': mainStyle}">{{ item.experiencePoints }}</span> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- <div class="modal-footer">
+        <button class="button button-primary right" [ngStyle]="{'background-color': mainStyle}" (click)="confirmFinalize()">{{ 'CONFIRM' | translate }}</button>
+    </div> -->
+</div>

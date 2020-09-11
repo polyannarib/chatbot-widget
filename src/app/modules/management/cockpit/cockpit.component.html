@@ -1,0 +1,20 @@
+<div class="container-fluid" *ngIf="scopes">
+
+    <app-loading [loader]="loader"></app-loading>
+  
+    <div *ngIf="!loader">
+      <div class="row">
+        <div class="col s12 m5">
+          <app-resource-list (loaderResource)="loaderResource($event)"></app-resource-list>
+        </div>
+        <div class="col s12 m7">
+          <app-projects-list (loaderProject)="loaderProject($event)"></app-projects-list>
+        </div>
+      </div>
+      <div class="graph">
+        <app-graph (loaderGraph)="loaderGraph($event)"></app-graph>
+      </div>
+    </div>
+  
+  </div>
+  

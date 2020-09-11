@@ -1,0 +1,10 @@
+.info-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: #ffffff8f;
+    padding: 12px;
+    position: relative;
+    text-align: center;
+    color: black;
+    border: 2px solid white;
+}
