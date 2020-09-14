@@ -9,7 +9,7 @@ import { ProfileService } from 'src/app/core/services/profile.service';
   templateUrl: './resource-details.component.html',
   styleUrls: ['./resource-details.component.css']
 })
-export class ResourceDetailsComponent implements OnInit, AfterContentChecked {
+export class ResourceDetailsComponent implements OnInit {
 
   playerActivity: any;
   findTask: any;
@@ -28,10 +28,6 @@ export class ResourceDetailsComponent implements OnInit, AfterContentChecked {
 
   ngOnInit() {
     this.findTasks();
-  }
-
-  ngAfterContentChecked() {
-    //console.log(this.tasksList);
   }
   
   findTasks() {
