@@ -16,11 +16,11 @@
 
 .chatbotFooter {
   position: relative;
-  height: 50px;
-  border-style: solid;
-  border-width: 1px;
+  height: 40px;
+  border: 1px solid;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  overflow: hidden;
 }
 
 .micBlack {
@@ -31,15 +31,9 @@
   color: #d90707;
 }
 
-.formContainer {
-  height: 80%;
-  width: 80%;
-  border: 3px solid red;
-}
-
-.inputContainer {
-  width: 50px;
-  height: inherit;
+input[type=text]:not(.browser-default) {
+  width: calc(100% - 60px);
+  height: 37px;
   outline: none;
   color: #000;
   font-size: 14px;
@@ -49,15 +43,28 @@
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   line-height: 1rem;
+  border-bottom: none;
+  transition: none;
+  margin: 0;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+button:focus {
+  background-color: transparent;
+}
+
+button {
+  position: absolute;
+  right: 5px;
 }
 
 .icon {
   width: 40px;
   height: 40px;
-  margin-top: 4px;
-}
-
-.formButtons {
-  position: absolute;
-  right: 5px;
+  margin-top: 6px;
 }

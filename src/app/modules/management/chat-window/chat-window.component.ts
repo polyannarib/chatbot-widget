@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy, ElementRef } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { MessagesFlowService } from "../../../core/services/messages-flow.service";
 import { OpenChatService } from "../../../core/services/open-chat.service";
