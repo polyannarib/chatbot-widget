@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ProfileService } from 'src/app/core/services/profile.service';
+import { Component, OnInit } from "@angular/core";
+import { ProfileService } from "src/app/core/services/profile.service";
+import { chatColors } from "../../shared/models/chatbotWhiteLabel";
 
 @Component({
-  selector: 'app-management',
-  templateUrl: './management.component.html',
-  styleUrls: ['./management.component.css']
+  selector: "app-management",
+  templateUrl: "./management.component.html",
+  styleUrls: ["./management.component.css"],
 })
 export class ManagementComponent implements OnInit {
-  public whiteLabel = { header: "", bot: "", user: "", buttons: "" };
+  public whiteLabel: chatColors;
 
-  constructor(
-    private profileService: ProfileService
-  ) {
+  constructor(private profileService: ProfileService) {
     // this.getProfile();
   }
 
@@ -24,17 +23,24 @@ export class ManagementComponent implements OnInit {
       (response) => {
         if (response.status == 0) {
           this.profileService.setWhiteLabel(response.object);
-          this.whiteLabel.header = response.object.styles[0].value;
-          this.whiteLabel.bot = response.object.styles[1].value;
-          this.whiteLabel.user = response.object.styles[0].value;
-          this.whiteLabel.buttons = response.object.styles[3].value;
+          let header = response.object.styles[0].value;
+          let bot = response.object.styles[1].value;
+          let user = response.object.styles[0].value;
+          let buttons = response.object.styles[3].value;
+          this.whiteLabel = {
+            header: header,
+            bot: bot,
+            user: user,
+            buttons: buttons,
+          };
           console.log(this.whiteLabel);
           return;
         }
         return;
-      }, (err) => {
+      },
+      (err) => {
         return;
-    })
+      }
+    );
   }
-
 }

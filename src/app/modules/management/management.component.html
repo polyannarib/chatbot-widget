@@ -4,7 +4,9 @@
 
 <div class="content">
   <router-outlet></router-outlet>
-  <app-chatbot-widget windowColor="whiteLabel"></app-chatbot-widget>
+  <div *ngIf="whiteLabel != undefined">
+    <app-chatbot-widget [windowColor]="whiteLabel"></app-chatbot-widget>
+  </div>  
 </div>
 
 <app-footer></app-footer>

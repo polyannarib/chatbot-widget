@@ -14,8 +14,8 @@ export class ChatbotWidgetComponent implements OnInit {
               public chat : OpenChatService) {}
 
   ngOnInit(): void {
-    this.messageService.getCredentials({username: atob(this.meta.username), password: atob(this.meta.password)});
     this.chat.setWhiteLabel(this.windowColor)
+    this.messageService.getCredentials({username: atob(this.meta.username), password: atob(this.meta.password)});
   }
 
 }

@@ -1,20 +1,26 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Subject } from "rxjs";
+import { chatColors } from "../../shared/models/chatbotWhiteLabel";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class OpenChatService {
   public history: Subject<any[]> = new Subject<any[]>();
   public isExpanded = new BehaviorSubject<boolean>(true);
   public isOpen = new BehaviorSubject<boolean>(false);
   private isOpenState: boolean = this.isOpen.value;
-  public whiteLabel;
+  public whiteLabel = new BehaviorSubject<chatColors>({
+    header: "",
+    bot: "",
+    user: "",
+    buttons: "",
+  });
   constructor() {}
 
-  setWhiteLabel(whiteLabel) {
-    this.whiteLabel = whiteLabel;
-    }
+  setWhiteLabel(whiteLabel: chatColors) {
+    this.whiteLabel.next(whiteLabel);
+  }
   openChatboxFromIcon(): void {
     this.isOpen.next(!this.isOpenState);
     this.isExpanded.next(true);

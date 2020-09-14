@@ -11,7 +11,7 @@ export class ChatBoxIconComponent implements OnInit {
   firstInteraction: boolean = true;
   messages: any[] = [];
   botIcon: string =
-    'https://www.puzzel.com/uk/wp-content/uploads/sites/2/2018/08/puzzel-bot-icon.png';
+    '../../../../assets/images/botIcon.png'
   constructor(
     private chat: OpenChatService,
     public messageService: MessagesFlowService

@@ -12,7 +12,13 @@
     <app-chat-box [messages]="historyMessages"></app-chat-box>
     <app-restart-warning (requestStatus)="willRestart($event)" *ngIf="request">
     </app-restart-warning>
-    <div class="chatbotFooter" [ngStyle]="{ 'border-color': mainColor }">
+    <div
+      class="chatbotFooter"
+      [ngStyle]="{
+        'border-color': footerColor,
+        'background-color': footerColor
+      }"
+    >
       <form [formGroup]="userInput" (ngSubmit)="onSubmit()">
         <input
           autocomplete="off"

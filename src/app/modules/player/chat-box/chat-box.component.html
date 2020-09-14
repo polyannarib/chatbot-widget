@@ -1,4 +1,4 @@
-<div class="box" [ngStyle]="{ 'border-color': mainColors.border }">
+<div class="box" [ngStyle]="{ 'border-color': borderColor }">
   <ng-container *ngFor="let message of messages; trackBy: trackByFn">
     <div
       class="msgUser"
@@ -15,7 +15,7 @@
             *ngFor="let button of botRes.buttons"
             (click)="sendButton(button.payload, button.title)"
             class="botButton"
-            [ngStyle]="{ 'color': mainColors.buttons, 'border-color': mainColors.buttons }"
+            [ngStyle]="{ 'color': buttonsColor, 'border-color': buttonsColor }"
             >
             {{ button.title }}
           </button>

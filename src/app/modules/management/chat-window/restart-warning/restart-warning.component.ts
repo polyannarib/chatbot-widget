@@ -1,19 +1,21 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { OpenChatService } from '../../../../core/services/open-chat.service';
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { OpenChatService } from "../../../../core/services/open-chat.service";
 
 @Component({
-  selector: 'app-restart-warning',
-  templateUrl: './restart-warning.component.html',
-  styleUrls: ['./restart-warning.component.css'],
+  selector: "app-restart-warning",
+  templateUrl: "./restart-warning.component.html",
+  styleUrls: ["./restart-warning.component.css"],
 })
 export class RestartWarningComponent implements OnInit {
   @Output() requestStatus = new EventEmitter<boolean>();
-  public mainColor: string;
+  restartColor: string;
 
   constructor(private chat: OpenChatService) {}
 
   ngOnInit(): void {
-    this.mainColor = this.chat.whiteLabel.user;
+    this.chat.whiteLabel.subscribe((colors) => {
+      this.restartColor = colors.user;
+    });
   }
 
   restartRequest(status: boolean) {
