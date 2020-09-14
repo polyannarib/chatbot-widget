@@ -33,7 +33,6 @@ export class ManagementComponent implements OnInit {
             user: user,
             buttons: buttons,
           };
-          console.log(this.whiteLabel);
           return;
         }
         return;

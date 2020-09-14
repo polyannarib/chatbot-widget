@@ -20,6 +20,7 @@ export class OpenChatService {
 
   setWhiteLabel(whiteLabel: chatColors) {
     this.whiteLabel.next(whiteLabel);
+    console.log(whiteLabel);
   }
   openChatboxFromIcon(): void {
     this.isOpen.next(!this.isOpenState);

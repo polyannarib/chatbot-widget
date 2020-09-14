@@ -14,25 +14,19 @@
     </app-restart-warning>
     <div
       class="chatbotFooter"
-      [ngStyle]="{
-        'border-color': footerColor,
-        'background-color': footerColor
-      }"
+      [ngStyle]="{ 'border-color': footerColor }"
     >
       <form
         [formGroup]="userInput"
         (ngSubmit)="onSubmit()"
-        class="formContainer"
       >
         <input
           autocomplete="off"
           placeholder="Envie sua mensagem..."
           type="text"
           formControlName="text"
-          class="inputContainer"
         />
         <button
-          class="formButtons"
           *ngIf="typing; else not_typing"
           mat-icon-button
         >
@@ -40,7 +34,6 @@
         </button>
         <ng-template #not_typing>
           <button
-            class="formButtons"
             (mousedown)="startListening()"
             (mouseup)="stopListening()"
             mat-icon-button

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy, ElementRef } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { MessagesFlowService } from "../../../core/services/messages-flow.service";
 import { OpenChatService } from "../../../core/services/open-chat.service";
@@ -62,8 +62,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.sub = this.userInput.get("text").valueChanges.subscribe((value) => {
+    this.userInput.get("text").valueChanges.subscribe((value) => {
       value !== "" ? (this.typing = true) : (this.typing = false);
+      console.log("works: " + this.typing);
     });
   }
 
