@@ -8,7 +8,7 @@ import { OpenChatService } from "../../../core/services/open-chat.service";
   styleUrls: ["./chatbot-widget.component.css"],
 })
 export class ChatbotWidgetComponent implements OnInit {
-  @Input() meta: { username: string; password: string };
+  //@Input() sender: { profileName: string; sessionId: string };
   @Input() windowColor;
   constructor(
     public messageService: MessagesFlowService,
@@ -17,9 +17,5 @@ export class ChatbotWidgetComponent implements OnInit {
 
   ngOnInit(): void {
     this.chat.setWhiteLabel(this.windowColor);
-    this.messageService.getCredentials({
-      username: atob(this.meta.username),
-      password: atob(this.meta.password),
-    });
   }
 }

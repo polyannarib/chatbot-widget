@@ -1,32 +1,37 @@
-import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router';
-import {Component, OnInit, AfterViewInit, Inject} from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { User } from 'src/app/shared/models/user';
-import { AppConstants } from '../../../app.constants';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
-import { MatBottomSheet } from '@angular/material';
-import { CompanySelectComponent } from '../company-select/company-select.component';
-import { ProfileService } from 'src/app/core/services/profile.service';
+import { AuthService } from "../../../core/services/auth.service";
+import { Router } from "@angular/router";
+import { Component, OnInit, AfterViewInit, Inject } from "@angular/core";
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validators,
+} from "@angular/forms";
+import { User } from "src/app/shared/models/user";
+import { AppConstants } from "../../../app.constants";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { NotifyComponent } from "src/app/shared/components/notify/notify.component";
+import { MatBottomSheet } from "@angular/material";
+import { CompanySelectComponent } from "../company-select/company-select.component";
+import { ProfileService } from "src/app/core/services/profile.service";
+import { MessagesFlowService } from "../../../core/services/messages-flow.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-
   loader: boolean = false;
 
   user: User;
   form: FormGroup = this.formBuilder.group({
     email: [null, [Validators.required, Validators.email]],
     password: [null, [Validators.required]],
-    type: ['WEBPORTAL']
+    type: ["WEBPORTAL"],
   });
   formForgottenPassword: FormGroup = this.formBuilder.group({
-    username: [null, [Validators.required]]
+    username: [null, [Validators.required]],
   });
   forgottenPasswordCard: boolean = false;
   showMessage: boolean = false;
@@ -40,15 +45,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private _snackBar: MatSnackBar,
     private _bottomSheet: MatBottomSheet,
     private profileService: ProfileService,
-  ) { }
+    private chat: MessagesFlowService
+  ) {}
 
   ngAfterViewInit() {
-    if(this.authService.isAuthenticated()) {
-      this.router.navigate(['/management']);
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(["/management"]);
     }
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onLogin() {
     this.loader = true;
@@ -57,33 +63,50 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.authService.login(this.form.value).subscribe(
         (responseAuth) => {
           if (responseAuth.status == 0) {
-            this.authService.setAppToken(responseAuth.object.appToken);
+            this.profileService.getProfile().subscribe((response) => {
+              this.chat.getCredentials({
+                username: this.form.value.email,
+                password: this.form.value.password,
+                profileName: response.object.name,
+                sessionId: response.object.person.personId,
+              });
+              this.authService.setAppToken(responseAuth.object.appToken);
+            });
             this.getWhiteLavel();
+            //this.infoToChatbot();
             return;
-          } if (responseAuth.status == 1) {
-            this.setError('Por favor, digite os campos corretamente!');
+          }
+          if (responseAuth.status == 1) {
+            this.setError("Por favor, digite os campos corretamente!");
             this.loader = false;
-          } if (responseAuth.status == 2) {
-            const bottomSheetRef = this._bottomSheet.open(CompanySelectComponent,
-              { data: {
-                form: this.form.value,
-                companys: responseAuth.object
-            }});
+          }
+          if (responseAuth.status == 2) {
+            const bottomSheetRef = this._bottomSheet.open(
+              CompanySelectComponent,
+              {
+                data: {
+                  form: this.form.value,
+                  companys: responseAuth.object,
+                },
+              }
+            );
             bottomSheetRef.afterDismissed().subscribe((response) => {
-              if(response.selected === true) {
+              if (response.selected === true) {
                 this.getWhiteLavel();
                 return;
               }
-              this.setError('Problemas, contate o administrador!');
+              this.setError("Problemas, contate o administrador!");
               this.loader = false;
             });
           }
-        }, (err) => {
-          this.setError('Problemas ao fazer o login, favor tentar novamente!');
+        },
+        (err) => {
+          this.setError("Problemas ao fazer o login, favor tentar novamente!");
           this.loader = false;
-      })
+        }
+      );
     } else {
-      this.setError('Por favor, digite os campos corretamente!');
+      this.setError("Por favor, digite os campos corretamente!");
       this.loader = false;
     }
   }
@@ -91,19 +114,26 @@ export class LoginComponent implements OnInit, AfterViewInit {
   onForgottenPassword() {
     this.loader = true;
     if (this.formForgottenPassword.valid) {
-      this.authService.forgottenPassword(this.formForgottenPassword.value.username).subscribe(
-        (responseForgottenPassword) => {
-          this.forgottenPasswordStatus = responseForgottenPassword.responseStatus;
-          const message = responseForgottenPassword.responseMessage;
-          this.showMessage = true;
-          this.messageToShow = message;
-          this.loader = false;
-        }, (err) => {
-          this.setError('Problemas ao fazer a requisição, favor tentar novamente!');
-          this.loader = false;
-      });
+      this.authService
+        .forgottenPassword(this.formForgottenPassword.value.username)
+        .subscribe(
+          (responseForgottenPassword) => {
+            this.forgottenPasswordStatus =
+              responseForgottenPassword.responseStatus;
+            const message = responseForgottenPassword.responseMessage;
+            this.showMessage = true;
+            this.messageToShow = message;
+            this.loader = false;
+          },
+          (err) => {
+            this.setError(
+              "Problemas ao fazer a requisição, favor tentar novamente!"
+            );
+            this.loader = false;
+          }
+        );
     } else {
-      this.setError('Por favor, digite os campos corretamente!');
+      this.setError("Por favor, digite os campos corretamente!");
       this.loader = false;
     }
   }
@@ -112,36 +142,54 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.profileService.getWhiteLabel().subscribe(
       (response) => {
         if (response.status == 0) {
-            this.profileService.setWhiteLabel(response.object);
-            this.router.navigate(['/management/cockpit']);
-            return;
+          this.profileService.setWhiteLabel(response.object);
+          this.router.navigate(["/management/cockpit"]);
+          return;
 
-              // let scopes = this.authService.redirectPageByScopes();
-              // window.location.href = AppConstants.URL_SSO + '/cookie'
-              // + '?SSOID=' + response.object.ssoId
-              // + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/management/cockpit`;
+          // let scopes = this.authService.redirectPageByScopes();
+          // window.location.href = AppConstants.URL_SSO + '/cookie'
+          // + '?SSOID=' + response.object.ssoId
+          // + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/management/cockpit`;
         }
-        this.setError('Problemas ao fazer o login, favor tentar novamente!');
+        this.setError("Problemas ao fazer o login, favor tentar novamente!");
         // this._snackBar.openFromComponent(NotifyComponent,
         //   { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
         // return;
-      }, (err) => {
-        this.setError('Problemas ao fazer o login, favor tentar novamente!');
+      },
+      (err) => {
+        this.setError("Problemas ao fazer o login, favor tentar novamente!");
         // this._snackBar.openFromComponent(NotifyComponent,
         //   { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
         // return;
-    })
+      }
+    );
+  }
+
+  infoToChatbot() {
+    this.profileService.getProfile().subscribe((response) => {
+      let user = response.object;
+      console.log("user: " + user);
+      let name = user.name;
+      let session = user.person.personId;
+      this.chat.getCredentials({
+        username: this.form.value.username,
+        password: this.form.value.password,
+        profileName: name,
+        sessionId: session,
+      });
+    });
   }
 
   setError(value) {
-    this._snackBar.openFromComponent(NotifyComponent,
-      { data: { type: 'error', message: value }});
+    this._snackBar.openFromComponent(NotifyComponent, {
+      data: { type: "error", message: value },
+    });
   }
 
   switchForgottenPasswordCard() {
     this.forgottenPasswordCard = !this.forgottenPasswordCard;
     this.showMessage = false;
-    this.formForgottenPassword.setValue({username: ''});
+    this.formForgottenPassword.setValue({ username: "" });
   }
 
   // onLogin() {
@@ -221,5 +269,4 @@ export class LoginComponent implements OnInit, AfterViewInit {
   //       return;
   //   })
   // }
-
 }

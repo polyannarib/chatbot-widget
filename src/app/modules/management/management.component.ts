@@ -9,6 +9,7 @@ import { chatColors } from "../../shared/models/chatbotWhiteLabel";
 })
 export class ManagementComponent implements OnInit {
   public whiteLabel: chatColors;
+ // public senderInfo: { profileName: string; sessionId: string };
 
   constructor(private profileService: ProfileService) {
     // this.getProfile();
@@ -33,7 +34,6 @@ export class ManagementComponent implements OnInit {
             user: user,
             buttons: buttons,
           };
-          console.log(this.whiteLabel);
           return;
         }
         return;
