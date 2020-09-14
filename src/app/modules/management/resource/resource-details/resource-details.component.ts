@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, AfterContentInit, AfterContentChecked } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TaskService } from 'src/app/core/services/task.service';
 import { format } from 'date-fns';
@@ -9,7 +9,7 @@ import { ProfileService } from 'src/app/core/services/profile.service';
   templateUrl: './resource-details.component.html',
   styleUrls: ['./resource-details.component.css']
 })
-export class ResourceDetailsComponent implements OnInit {
+export class ResourceDetailsComponent implements OnInit, AfterContentChecked {
 
   playerActivity: any;
   findTask: any;
@@ -28,6 +28,10 @@ export class ResourceDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.findTasks();
+  }
+
+  ngAfterContentChecked() {
+    //console.log(this.tasksList);
   }
   
   findTasks() {

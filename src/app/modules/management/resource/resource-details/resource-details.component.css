@@ -53,3 +53,8 @@
   color: #000000;
   cursor: pointer;
 }
+
+p.taskDescription {
+  margin-top: 0;
+  padding: 0.5em;
+}
