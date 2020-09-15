@@ -55,6 +55,14 @@
 }
 
 p.taskDescription {
-  margin-top: 0;
-  padding: 0.5em;
+  padding: 1em;
+  border-radius: 3px;
 }
+
+/* .taskDescriptionContainer {
+  margin: 0;
+} */
+
+/* .taskDescriptionHeader {
+  height: auto!important;
+} */
