@@ -2,7 +2,6 @@ import { Injectable, EventEmitter } from "@angular/core";
 import { Subject, BehaviorSubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from "@angular/common/http";
-import * as crypto from "crypto-js";
 
 @Injectable({
   providedIn: "root",
@@ -11,11 +10,16 @@ export class MessagesFlowService {
   interactionstarted: boolean = false;
   clear = new EventEmitter<boolean>();
   chatclear: boolean;
+  loadingBotResponse = new BehaviorSubject<boolean>(false);
   public metadata: {
     username: string;
-    password: string;
-    profileName?: string;
-    sessionId?: string;
+    password?: string;
+    profileName: string;
+    sessionId: string;
+  } = {
+    username: localStorage.getItem("username"),
+    profileName: localStorage.getItem("profileName"),
+    sessionId: localStorage.getItem("botId"),
   };
   public userMsgs: Subject<string> = new Subject<string>();
   public botMsgs: Subject<any[]> = new Subject<any[]>();
@@ -29,27 +33,24 @@ export class MessagesFlowService {
     sessionId: string;
   }) {
     this.metadata = metadataReceived;
-    console.log(this.metadata);
+    localStorage.setItem("usename", metadataReceived.username);
+    localStorage.setItem("profileName", metadataReceived.profileName);
+    localStorage.setItem("sessionId", metadataReceived.sessionId);
   }
 
   userMessages(text: string) {
     text = text.trim();
     this.userMsgs.next(text);
+    this.loadingBotResponse.next(true);
   }
 
   firstInteraction(firstInteraction) {
     if (firstInteraction) {
       this.interactionstarted = true;
       this.botMessages("oi");
+      this.loadingBotResponse.next(true);
     }
   }
-  //setEncryptedPass(pass: string): string {
-  // let encryptedPass: string = crypto.AES.encrypt(
-  //  pass,
-  //  'AIA@Kyros123'
-  //).toString();
-  //return encryptedPass;
-  //}
 
   botMessages(usermsg: string) {
     let response = [];
@@ -87,6 +88,7 @@ export class MessagesFlowService {
             });
           }
           if (response.length > 0) {
+            this.loadingBotResponse.next(false);
             this.botMsgs.next(response);
           }
         },
@@ -97,6 +99,7 @@ export class MessagesFlowService {
               "Desculpe, estou com dificuldades para me comunicar com você. Eu e meus colegas estamos trabalhando para atender aos " +
               "seus pedidos 👾. Tente novamente mais tarde",
           });
+          this.loadingBotResponse.next(false);
           this.botMsgs.next(response);
         }
       );
@@ -110,7 +113,10 @@ export class MessagesFlowService {
     this.http
       .post<any>(
         "https://bot.kyros.com.br/bot",
-        { sender: "Kyros", message: "/restart" },
+        {
+          sender: `${this.metadata.username}-${this.metadata.profileName}-${this.metadata.sessionId}`,
+          message: "/restart",
+        },
         { headers: new HttpHeaders({ "Content-Type": "application/json" }) }
       )
       .subscribe(

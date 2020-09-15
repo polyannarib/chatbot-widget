@@ -12,6 +12,7 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
   clear: boolean;
   borderColor: string;
   buttonsColor: string;
+  loadingMsg: boolean;
   constructor(
     public messageService: MessagesFlowService,
     public chat: OpenChatService,
@@ -19,6 +20,7 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    //Get White label
     this.chat.whiteLabel.subscribe((colors) => {
       this.buttonsColor = colors.buttons;
       this.borderColor = colors.header;
@@ -32,11 +34,14 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
       );
     });
 
+    //Clear Chat
     this.messageService.clear.subscribe((clearedMessages) => {
       if (clearedMessages) {
         this.messages = [];
       }
     });
+
+    //Get messages from user
     this.messageService.userMsgs.subscribe(
       (message) => {
         let i: number = this.messages.length - 1;
@@ -51,11 +56,16 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
       },
       (error) => console.log(error)
     );
-
+    //Get messages from bot
     this.messageService.botMsgs.subscribe(
       (message) => this.messages.push({ bot: message }),
       (error) => console.log(error)
     );
+    //Display text while bot not answer
+    this.messageService.loadingBotResponse.subscribe((loading) => {
+      this.loadingMsg = loading;
+      console.log("loading: " + loading);
+    });
   }
 
   sendButton(buttonAction: string, userText: string) {

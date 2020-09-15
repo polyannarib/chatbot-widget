@@ -1,13 +1,9 @@
 <div class="box" [ngStyle]="{ 'border-color': borderColor }">
   <ng-container *ngFor="let message of messages; trackBy: trackByFn">
-    <div
-      class="msgUser"
-      *ngIf="message.hasOwnProperty('user')">
+    <div class="msgUser" *ngIf="message.hasOwnProperty('user')">
       {{ message.user }}
     </div>
-    <div
-      class="msgBot"
-      *ngIf="message.hasOwnProperty('bot')">
+    <div class="msgBot" *ngIf="message.hasOwnProperty('bot')">
       <ng-container *ngFor="let botRes of message.bot">
         {{ botRes.botText }}
         <div class="buttonsContainer" *ngIf="botRes.hasOwnProperty('buttons')">
@@ -15,12 +11,13 @@
             *ngFor="let button of botRes.buttons"
             (click)="sendButton(button.payload, button.title)"
             class="botButton"
-            [ngStyle]="{ 'color': buttonsColor, 'border-color': buttonsColor }"
-            >
+            [ngStyle]="{ color: buttonsColor, 'border-color': buttonsColor }"
+          >
             {{ button.title }}
           </button>
         </div>
       </ng-container>
     </div>
   </ng-container>
+  <div class="loading" *ngIf="loadingMsg">O assistente está digitando...</div>
 </div>

@@ -12,6 +12,7 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
   clear: boolean;
   borderColor: string;
   buttonsColor: string;
+  loadingMsg: boolean;
   constructor(
     public messageService: MessagesFlowService,
     public chat: OpenChatService,
@@ -56,6 +57,10 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
       (message) => this.messages.push({ bot: message }),
       (error) => console.log(error)
     );
+    //Display text while bot not answer
+    this.messageService.loadingBotResponse.subscribe((loading) => {
+      this.loadingMsg = loading;
+    });
   }
 
   sendButton(buttonAction: string, userText: string) {
