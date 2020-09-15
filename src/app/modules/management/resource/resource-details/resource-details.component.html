@@ -57,6 +57,7 @@
             <mz-collapsible-item-body>
               
               <ul>
+                <!-- Buttons for opening/closing description box -->
                 <li (click)="descriptionExpanded[i] = !descriptionExpanded[i]">
                   <span *ngIf="!descriptionExpanded[i]"
                         class="material-icons btn-flat">
@@ -67,6 +68,8 @@
                     expand_less
                   </span>
                 </li>
+                <!-- END -- Buttons for opening/closing description box -->
+
                 <!-- <li><span>{{ 'PROJECT' | translate}}</span> {{ activity.project.name }} </li> -->
                 <li><span>{{ 'CARD' | translate }}</span> {{ getCardName(activity.cards) }} </li>
                 <li><span>{{ 'PREVIEWSTARTDATE' | translate}}</span>
@@ -106,27 +109,6 @@
 
               <mat-accordion class="taskDescriptionContainer">  
                 <mat-expansion-panel class="z-depth-0" [(expanded)]="descriptionExpanded[i]"  hideToggle>
-                  <!-- <mat-expansion-panel-header 
-                    class="transparent taskDescriptionHeader"
-                  > -->
-                    <!-- <mat-panel-title> -->
-                      <!-- <span class="material-icons">info_outline</span> -->
-                      <!-- {{ activity.description }} -->
-                      <!-- {{ activity.description.substring(0, 200) }} -->
-                    <!-- </mat-panel-title> -->
-
-                    <!-- <mat-panel-description>
-                      Test
-                    </mat-panel-description> -->
-                <!-- <div class="taskDescriptionContainer">
-                  <div>
-                    <span class="material-icons">info_outline</span>
-                  </div>
-                  <p class="taskDescription">
-                    {{ activity.description }}
-                  </p>
-                </div> -->
-                  <!-- </mat-expansion-panel-header> -->
                   <p class="taskDescription blue-grey lighten-5">
                     {{ activity.description }}
                   </p>
