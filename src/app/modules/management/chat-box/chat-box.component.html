@@ -2,7 +2,7 @@
   <img
     class="restart"
     src="../../../../assets/gifs/loading.gif"
-    *ngIf="clear == true"
+    *ngIf="messages.length == 0"
   />
   <ng-container *ngFor="let message of messages; trackBy: trackByFn">
     <div class="msgUser" *ngIf="message.hasOwnProperty('user')">
