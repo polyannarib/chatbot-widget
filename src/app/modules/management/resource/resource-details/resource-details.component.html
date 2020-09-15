@@ -57,11 +57,14 @@
             <mz-collapsible-item-body>
               
               <ul>
-                <li>
-                  <span class="material-icons btn-flat"
-                        (click)="descriptionExpanded[i] = !descriptionExpanded[i]"
-                  >
+                <li (click)="descriptionExpanded[i] = !descriptionExpanded[i]">
+                  <span *ngIf="!descriptionExpanded[i]"
+                        class="material-icons btn-flat">
                     info_outline
+                  </span>
+                  <span *ngIf="descriptionExpanded[i]"
+                        class="material-icons btn-flat">
+                    expand_less
                   </span>
                 </li>
                 <!-- <li><span>{{ 'PROJECT' | translate}}</span> {{ activity.project.name }} </li> -->
