@@ -41,10 +41,15 @@ export class TaskCreateComponent implements OnInit {
     time: [8],
     rule: [this.rule],
     parentId: [this.data.parentId],
-    projectId: [this.data.project.id]
+    projectId: [this.data.project.id],
+    recurrence: [null],
+    recurrenceEndAt: [null],
+    playerToDesignate: [null]
   });
   cardsTypes: any;
   classificationId: any;
+
+  playersList: any;
 
   constructor(
     public dialogRef: MatDialogRef<TaskCreateComponent>,
@@ -72,48 +77,49 @@ export class TaskCreateComponent implements OnInit {
   }
 
   createTask() {
-    this.loader = true;
-    if (this.kysmart) {
-      this.createFromKySmart();
-    } else {
-      if (this.form.valid) {
-        if (this.type.definition == 'EXECUTAVEL') {
-          const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
-          const setTimesStamp = new Date(expectedAt).getTime();
-          this.form.value.expectedAt = setTimesStamp;
-          this.form.value.links = this.attachment;
-          this.form.value.cards = this.cards;
-          this.form.value.rule = this.rule;
-          // this.form.value.cards = this.cards.map(element => new Object({
-          //   cardId: element.knowledgeId,
-          //   classification: { id: this.classificationId }
-          // }));
-        }
-        this.form.value.time = undefined;
-        this.form.value.type = this.types.find(element => element.level == this.createNewType)
-
-        console.log('-------------------')
-        console.log(this.form.value)
-
-        this.taskService.createTask(this.form.value).subscribe(
-          (response) => {
-            if (response.status == 0) {
-              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Projeto atualizado com sucesso!' } });
-              this.dialogRef.close({ confirm: true });
-              this.loader = false;
-              return;
-            }
-            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao criar a tarefa, favor tentar novamente!' } });
-            this.loader = false;
-          }, (err) => {
-            this.loader = false;
-            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao criar a tarefa, favor tentar novamente!' } });
-          })
-      } else {
-        this.loader = false;
-        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' } });
-      }
-    }
+    console.log(this.form);
+    // this.loader = true;
+    // if (this.kysmart) {
+    //   this.createFromKySmart();
+    // } else {
+    //   if (this.form.valid) {
+    //     if (this.type.definition == 'EXECUTAVEL') {
+    //       const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
+    //       const setTimesStamp = new Date(expectedAt).getTime();
+    //       this.form.value.expectedAt = setTimesStamp;
+    //       this.form.value.links = this.attachment;
+    //       this.form.value.cards = this.cards;
+    //       this.form.value.rule = this.rule;
+    //       // this.form.value.cards = this.cards.map(element => new Object({
+    //       //   cardId: element.knowledgeId,
+    //       //   classification: { id: this.classificationId }
+    //       // }));
+    //     }
+    //     this.form.value.time = undefined;
+    //     this.form.value.type = this.types.find(element => element.level == this.createNewType)
+    //
+    //     console.log('-------------------')
+    //     console.log(this.form.value)
+    //
+    //     this.taskService.createTask(this.form.value).subscribe(
+    //       (response) => {
+    //         if (response.status == 0) {
+    //           this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Projeto atualizado com sucesso!' } });
+    //           this.dialogRef.close({ confirm: true });
+    //           this.loader = false;
+    //           return;
+    //         }
+    //         this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao criar a tarefa, favor tentar novamente!' } });
+    //         this.loader = false;
+    //       }, (err) => {
+    //         this.loader = false;
+    //         this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao criar a tarefa, favor tentar novamente!' } });
+    //       })
+    //   } else {
+    //     this.loader = false;
+    //     this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' } });
+    //   }
+    // }
   }
 
   createFromKySmart() {
@@ -325,6 +331,47 @@ export class TaskCreateComponent implements OnInit {
       });
   }
 
+  createRecurrenceTask() {}
+
+  checkPlayerAvailability() {
+    this.loader = true;
+    const dataToSend = {
+      taskDates: [this.form.value.expectedAt.getTime(), this.form.value.recurrenceExpectedAtOption.getTime()],
+      player: {
+        id: this.form.value.playerToDesignate
+      },
+      task: {
+        duration: this.form.value.duration
+      }
+    };
+
+    this.taskService.checkPlayerToDesignateAvailability(dataToSend).subscribe(
+      (response) => {
+        if (response.status === 0) {
+          console.log('deu certo');
+        } else {
+          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
+        }
+      }, (error) => {
+        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
+      }
+    );
+  }
+
+  searchPlayerToDesignate() {
+    this.taskService.getPlayersToDesignate(this.form.value.playerToDesignate).subscribe(
+      (response) => {
+        if (response.status === 0) {
+          this.playersList = response.object;
+        } else {
+          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Nenhum player encontrado.' } });
+        }
+      }, (error) => {
+        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Não foi possível encontrar o player!' } });
+      }
+    );
+  }
+
   myFilter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
     const dateNow = new Date();
@@ -335,7 +382,7 @@ export class TaskCreateComponent implements OnInit {
   searchCard() {
     this.cardService.searchComboCompetence().subscribe(
       (response) => {
-        if (response.status == 0) {
+        if (response.status === 0) {
           this.cardsTypes = response.object;
           return;
         }

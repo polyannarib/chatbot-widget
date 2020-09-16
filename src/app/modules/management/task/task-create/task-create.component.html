@@ -16,21 +16,25 @@
   <form [formGroup]="form">
     <div class="modal-body">
 
+<!--      Nome-->
       <div class="input-field">
         <input id="name" type="text" class="validate" formControlName="name">
         <label for="name">Nome</label>
       </div>
 
+<!--      Descricao-->
       <div class="input-field">
         <input id="description" type="text" class="validate" formControlName="description">
         <label for="description">Descrição</label>
       </div>
 
+<!--      Esforco-->
       <div class="input-field" *ngIf="type.definition == 'EXECUTAVEL' || kysmart == true">
         <input id="duration" type="number" class="validate" formControlName="duration">
         <label for="duration">Esforço</label>
       </div>
 
+<!--      Data prevista inicio-->
       <div *ngIf="type.definition == 'EXECUTAVEL'  || kysmart == true">
         <mat-form-field>
           <input matInput [matDatepicker]="expectedAt" formControlName="expectedAt" placeholder="Data prevista inicio">
@@ -39,6 +43,7 @@
         </mat-form-field>
       </div>
 
+<!--      Horario-->
       <mat-form-field *ngIf="type.definition == 'EXECUTAVEL'">
         <mat-label>Selecione o horário</mat-label>
         <mat-select formControlName="time">
@@ -52,6 +57,39 @@
           <mat-option [value]="17"> 17:00 </mat-option>
         </mat-select>
       </mat-form-field>
+
+<!--      Recorrencia-->
+      <div class="row" *ngIf="type.definition == 'EXECUTAVEL'">
+        <mat-form-field style="margin: 5px;">
+          <mat-label>Recorrência</mat-label>
+          <mat-select formControlName="recurrence">
+            <mat-option [value]="'Não se repete'"> Não se repete </mat-option>
+            <mat-option [value]="'Todos os dias da semana'"> Todos os dias da semana </mat-option>
+            <mat-option [value]="'Semanal'"> Semanal </mat-option>
+            <mat-option [value]="'Mensal'"> Mensal </mat-option>
+            <mat-option [value]="'Anual'"> Anual </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field style="margin: 5px;">
+          <input matInput [matDatepicker]="recurrenceEndAt" formControlName="recurrenceEndAt" placeholder="Termina em">
+          <mat-datepicker-toggle matSuffix [for]="recurrenceEndAt"></mat-datepicker-toggle>
+          <mat-datepicker #recurrenceEndAt></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+<!--      Designar-->
+      <div *ngIf="type.definition == 'EXECUTAVEL'">
+        <i class="material-icons">account_circle</i>
+        <input formControlName="playerToDesignate" style="margin-left: 10px; width: 50%;" type="search" (search)="searchPlayerToDesignate()" placeholder="Procurar player">
+        <button (click)="searchPlayerToDesignate()" matTooltip="Procurar" mat-icon-button><i class="material-icons">search</i></button>
+
+        <ul>
+          <li *ngFor="let player of playersList">
+            <span>{{player.personId}}</span> {{player.name}}
+          </li>
+        </ul>
+      </div>
 
       <!-- <mat-form-field class="example-full-width" *ngIf="type.definition == 'EXECUTAVEL'">
         <mat-label>{{ 'CRITICALLYLEVEL' | translate }}</mat-label>
