@@ -92,9 +92,7 @@
   font-size: 14px;
   margin-top: 5px;
   min-height: 40px;
-  background-color: transparent;
-  border-style: solid;
-  border-width: 1px;
+  border: none;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   border-bottom-left-radius: 8px;
@@ -102,4 +100,8 @@
   width: 100%;
   outline: none;
   cursor: pointer;
+}
+
+.loading {
+  text-align: center;
 }

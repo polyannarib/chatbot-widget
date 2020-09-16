@@ -38,7 +38,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.chat.whiteLabel.subscribe((colors) => {
-      this.footerColor = colors.header;
+      this.footerColor = colors.header.color;
     });
 
     this.chat.history.subscribe((lastMessages) => {

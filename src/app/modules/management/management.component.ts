@@ -8,7 +8,12 @@ import { chatColors } from "../../shared/models/chatbotWhiteLabel";
   styleUrls: ["./management.component.css"],
 })
 export class ManagementComponent implements OnInit {
-  public whiteLabel: chatColors;
+  public whiteLabel: chatColors = {
+    header: { color: "", font: "" },
+    bot: { color: "", font: "" },
+    user: { color: "", font: "" },
+    buttons: { color: "", font: "" } 
+  }
  // public senderInfo: { profileName: string; sessionId: string };
 
   constructor(private profileService: ProfileService) {
@@ -28,12 +33,14 @@ export class ManagementComponent implements OnInit {
           let bot = response.object.styles[1].value;
           let user = response.object.styles[0].value;
           let buttons = response.object.styles[3].value;
-          this.whiteLabel = {
-            header: header,
-            bot: bot,
-            user: user,
-            buttons: buttons,
-          };
+          this.whiteLabel.header.color = header;
+          this.whiteLabel.header.font = "";
+          this.whiteLabel.bot.color = bot;
+          this.whiteLabel.bot.font = "";
+          this.whiteLabel.user.color = user;
+          this.whiteLabel.user.font = "";
+          this.whiteLabel.buttons.color = buttons;
+          this.whiteLabel.buttons.font = "";
           return;
         }
         return;

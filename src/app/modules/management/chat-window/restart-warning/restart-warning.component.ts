@@ -9,12 +9,14 @@ import { OpenChatService } from "../../../../core/services/open-chat.service";
 export class RestartWarningComponent implements OnInit {
   @Output() requestStatus = new EventEmitter<boolean>();
   restartColor: string;
+  fontColor: string;
 
   constructor(private chat: OpenChatService) {}
 
   ngOnInit(): void {
     this.chat.whiteLabel.subscribe((colors) => {
-      this.restartColor = colors.user;
+      this.restartColor = colors.user.color;
+      this.fontColor = colors.user.font;
     });
   }
 

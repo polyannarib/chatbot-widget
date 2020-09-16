@@ -1,9 +1,14 @@
 <div class="box" [ngStyle]="{ 'border-color': borderColor }">
+  <img
+    class="restart"
+    src="../../../../assets/gifs/loading.gif"
+    *ngIf="clear == true"
+  />
   <ng-container *ngFor="let message of messages; trackBy: trackByFn">
-    <div class="msgUser" *ngIf="message.hasOwnProperty('user')">
+    <div class="msgUser" *ngIf="message.hasOwnProperty('user')" [ngStyle]="{ 'color': fontColors[1] }">
       {{ message.user }}
     </div>
-    <div class="msgBot" *ngIf="message.hasOwnProperty('bot')">
+    <div class="msgBot" *ngIf="message.hasOwnProperty('bot')" [ngStyle]="{ 'color': fontColors[2] }">
       <ng-container *ngFor="let botRes of message.bot">
         {{ botRes.botText }}
         <div class="buttonsContainer" *ngIf="botRes.hasOwnProperty('buttons')">
@@ -11,7 +16,7 @@
             *ngFor="let button of botRes.buttons"
             (click)="sendButton(button.payload, button.title)"
             class="botButton"
-            [ngStyle]="{ color: buttonsColor, 'border-color': buttonsColor }"
+            [ngStyle]="{ 'color': fontColors[0], 'background-color': buttonsColor }"
           >
             {{ button.title }}
           </button>

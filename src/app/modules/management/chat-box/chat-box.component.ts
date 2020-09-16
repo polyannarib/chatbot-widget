@@ -12,6 +12,7 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
   clear: boolean;
   borderColor: string;
   buttonsColor: string;
+  fontColors: string[] = [];
   loadingMsg: boolean;
   constructor(
     public messageService: MessagesFlowService,
@@ -22,15 +23,19 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //Get White label
     this.chat.whiteLabel.subscribe((colors) => {
-      this.buttonsColor = colors.buttons;
-      this.borderColor = colors.header;
+      this.buttonsColor = colors.buttons.color;
+      this.borderColor = colors.header.color;
+      this.buttonsColor = colors.buttons.color;
+      this.fontColors[0] = colors.buttons.font;
+      this.fontColors[1] = colors.user.font;
+      this.fontColors[2] = colors.bot.font;
       this.elementRef.nativeElement.style.setProperty(
         "--bubbleUser",
-        colors.user
+        colors.user.color
       );
       this.elementRef.nativeElement.style.setProperty(
         "--bubbleBot",
-        colors.bot
+        colors.bot.color
       );
     });
 
