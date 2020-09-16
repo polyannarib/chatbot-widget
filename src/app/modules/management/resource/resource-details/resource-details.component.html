@@ -36,7 +36,7 @@
         <div class="col s12 m1"><span>{{ 'EFFORT' | translate }}</span></div>
       </div>
       <mz-collapsible [mode]="'accordion'" [popout]="false">
-        <ng-container *ngFor="let activity of tasksList">
+        <ng-container *ngFor="let activity of tasksList; let i = index">
           <mz-collapsible-item [active]="false">
             <mz-collapsible-item-header>
               <div class="row no-padding">
@@ -55,7 +55,21 @@
               </div>
             </mz-collapsible-item-header>
             <mz-collapsible-item-body>
+              
               <ul>
+                <!-- Buttons for opening/closing description box -->
+                <li (click)="descriptionExpanded[i] = !descriptionExpanded[i]">
+                  <span *ngIf="!descriptionExpanded[i]"
+                        class="material-icons btn-flat">
+                    info_outline
+                  </span>
+                  <span *ngIf="descriptionExpanded[i]"
+                        class="material-icons btn-flat">
+                    expand_less
+                  </span>
+                </li>
+                <!-- END -- Buttons for opening/closing description box -->
+
                 <!-- <li><span>{{ 'PROJECT' | translate}}</span> {{ activity.project.name }} </li> -->
                 <li><span>{{ 'CARD' | translate }}</span> {{ getCardName(activity.cards) }} </li>
                 <li><span>{{ 'PREVIEWSTARTDATE' | translate}}</span>
@@ -91,6 +105,18 @@
                   *ngIf="['WAITING', 'EXECUTION', 'DELAYED'].includes(activity.status)">
                 </app-button-give-back>
               </div>
+
+
+              <mat-accordion class="taskDescriptionContainer">  
+                <mat-expansion-panel class="z-depth-0" [(expanded)]="descriptionExpanded[i]"  hideToggle>
+                  <p class="taskDescription blue-grey lighten-5">
+                    {{ activity.description }}
+                  </p>
+                </mat-expansion-panel>
+              </mat-accordion>  
+
+
+
             </mz-collapsible-item-body>
           </mz-collapsible-item>
         </ng-container>
