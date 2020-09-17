@@ -30,13 +30,12 @@ export class ManagementComponent implements OnInit {
         if (response.status == 0) {
           this.profileService.setWhiteLabel(response.object);
           let header = response.object.styles[0].value;
-          let bot = response.object.styles[1].value;
-          let user = response.object.styles[0].value;
+          let user = response.object.styles[1].value;
           let buttons = response.object.styles[3].value;
           this.whiteLabel.header.color = header;
           this.whiteLabel.header.font = "";
-          this.whiteLabel.bot.color = bot;
-          this.whiteLabel.bot.font = "";
+          this.whiteLabel.bot.color = "#F0F0F0";
+          this.whiteLabel.bot.font = "#000";
           this.whiteLabel.user.color = user;
           this.whiteLabel.user.font = "";
           this.whiteLabel.buttons.color = buttons;

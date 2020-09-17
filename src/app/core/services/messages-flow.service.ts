@@ -49,7 +49,7 @@ export class MessagesFlowService {
   firstInteraction(firstInteraction) {
     if (firstInteraction) {
       this.interactionstarted = true;
-      this.botMessages("oi");
+      this.botMessages("oi aia");
       this.loadingBotResponse.next(true);
     }
   }
