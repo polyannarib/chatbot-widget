@@ -64,12 +64,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
         (responseAuth) => {
           if (responseAuth.status == 0) {
             this.profileService.getProfile().subscribe((response) => {
-              this.chat.getCredentials({
-                username: this.form.value.email,
-                password: this.form.value.password,
-                profileName: response.object.name,
-                sessionId: response.object.person.personId,
-              });
+              this.chat.getCredentials(
+                {
+                  username: this.form.value.email,
+                  profileName: response.object.name,
+                  sessionId: responseAuth.object.userToken,
+                },
+                this.form.value.password
+              );
               this.authService.setAppToken(responseAuth.object.appToken);
             });
             this.getWhiteLavel();
@@ -163,21 +165,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
         // return;
       }
     );
-  }
-
-  infoToChatbot() {
-    this.profileService.getProfile().subscribe((response) => {
-      let user = response.object;
-      console.log("user: " + user);
-      let name = user.name;
-      let session = user.person.personId;
-      this.chat.getCredentials({
-        username: this.form.value.username,
-        password: this.form.value.password,
-        profileName: name,
-        sessionId: session,
-      });
-    });
   }
 
   setError(value) {

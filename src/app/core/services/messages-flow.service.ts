@@ -13,29 +13,31 @@ export class MessagesFlowService {
   loadingBotResponse = new BehaviorSubject<boolean>(false);
   public metadata: {
     username: string;
-    password?: string;
     profileName: string;
     sessionId: string;
   } = {
     username: localStorage.getItem("username"),
     profileName: localStorage.getItem("profileName"),
-    sessionId: localStorage.getItem("botId"),
+    sessionId: localStorage.getItem("sessionId"),
   };
   public userMsgs: Subject<string> = new Subject<string>();
   public botMsgs: Subject<any[]> = new Subject<any[]>();
 
   constructor(private http: HttpClient) {}
 
-  getCredentials(metadataReceived: {
-    username: string;
-    password: string;
-    profileName: string;
-    sessionId: string;
-  }) {
+  getCredentials(
+    metadataReceived: {
+      username: string;
+      profileName: string;
+      sessionId: string;
+    },
+    password: string
+  ) {
     this.metadata = metadataReceived;
     localStorage.setItem("usename", metadataReceived.username);
     localStorage.setItem("profileName", metadataReceived.profileName);
     localStorage.setItem("sessionId", metadataReceived.sessionId);
+    this.passCredentialsToBot(password);
   }
 
   userMessages(text: string) {
@@ -56,14 +58,10 @@ export class MessagesFlowService {
     let response = [];
     this.http
       .post<any>(
-        "https://bot.kyros.com.br/bot",
+        "https://bot.kyros.com.br/chatWidget",
         {
           sender: `${this.metadata.username}-${this.metadata.profileName}-${this.metadata.sessionId}`,
           message: usermsg,
-          metadata: JSON.stringify({
-            username: this.metadata.username,
-            password: this.metadata.password,
-          }),
         },
         { headers: new HttpHeaders({ "Content-Type": "application/json" }) }
       )
@@ -112,7 +110,7 @@ export class MessagesFlowService {
     this.interactionstarted = false;
     this.http
       .post<any>(
-        "https://bot.kyros.com.br/bot",
+        "https://bot.kyros.com.br/chatWidget",
         {
           sender: `${this.metadata.username}-${this.metadata.profileName}-${this.metadata.sessionId}`,
           message: "/restart",
@@ -133,6 +131,28 @@ export class MessagesFlowService {
           this.botMsgs.next(response);
         },
         () => this.firstInteraction(true)
+      );
+  }
+  passCredentialsToBot(pass: string) {
+    this.http
+      .post<any>(
+        "https://bot.kyros.com.br/loginWidget",
+        {
+          sender: `${this.metadata.username}-${this.metadata.profileName}-${this.metadata.sessionId}`,
+          metadata: JSON.stringify({
+            username: this.metadata.username,
+            password: pass,
+          }),
+        },
+        { headers: new HttpHeaders({ "Content-Type": "application/json" }) }
+      )
+      .subscribe(
+        (sucess) => {
+          console.log("sucess: " + sucess);
+        },
+        (error) => {
+          console.log(error);
+        }
       );
   }
 }

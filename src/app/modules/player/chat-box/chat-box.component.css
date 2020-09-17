@@ -103,3 +103,14 @@
   outline: none;
   cursor: pointer;
 }
+
+.loading {
+  text-align: center;
+}
+
+.restart {
+  display: block;
+  margin: auto;
+  width: 120px;
+  height: auto;
+}

@@ -9,7 +9,6 @@ import { OpenChatService } from "../../../core/services/open-chat.service";
 })
 export class ChatBoxComponent implements OnInit, OnDestroy {
   @Input() messages: any[];
-  clear: boolean;
   borderColor: string;
   buttonsColor: string;
   loadingMsg: boolean;
