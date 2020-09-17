@@ -64,9 +64,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
         (responseAuth) => {
           if (responseAuth.status == 0) {
             this.profileService.getProfile().subscribe((response) => {
-              this.chat.getCredentials(
+              let getuser = /\w*[^@]/;
+              let username = this.form.value.email.match(getuser);
+                this.chat.getCredentials(
                 {
-                  username: this.form.value.email,
+                  username: username[0],
                   profileName: response.object.name,
                   sessionId: responseAuth.object.userToken,
                 },
