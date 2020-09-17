@@ -62,7 +62,7 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
     );
     //Get messages from bot
     this.messageService.botMsgs.subscribe(
-      (message) => this.messages.push({ bot: message }),
+      (message) => {this.messages.push({ bot: message }), console.log(this.messages)},
       (error) => console.log(error)
     );
     //Display text while bot not answer

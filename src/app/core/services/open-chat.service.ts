@@ -24,27 +24,29 @@ export class OpenChatService {
       let rgb = [];
       let hsp: number;
       Object.entries(whiteLabel).forEach((prop) => {
-        rgb[0] = prop[1].color.slice(1, 3);
-        rgb[1] = prop[1].color.slice(3, 5);
-        rgb[2] = prop[1].color.slice(5);
-        rgb[0] = parseInt(rgb[0], 16);
-        rgb[1] = parseInt(rgb[1], 16);
-        rgb[2] = parseInt(rgb[2], 16);
-        // HSP color model, equation from http://alienryderflex.com/hsp.html
-        hsp = Math.sqrt(
-          0.299 * (rgb[0] * rgb[0]) +
-          0.587 * (rgb[1] * rgb[1]) +
-          0.114 * (rgb[2] * rgb[2])
-        );
-        if(hsp > 127.5) {
-          prop[1].font = "#000";
+        if(!prop[1].hasOwnProperty("bot")) {
+          rgb[0] = prop[1].color.slice(1, 3);
+          rgb[1] = prop[1].color.slice(3, 5);
+          rgb[2] = prop[1].color.slice(5);
+          rgb[0] = parseInt(rgb[0], 16);
+          rgb[1] = parseInt(rgb[1], 16);
+          rgb[2] = parseInt(rgb[2], 16);
+          // HSP color model, equation from http://alienryderflex.com/hsp.html
+          hsp = Math.sqrt(
+            0.299 * (rgb[0] * rgb[0]) +
+            0.587 * (rgb[1] * rgb[1]) +
+            0.114 * (rgb[2] * rgb[2])
+          );
+          if(hsp > 127.5) {
+            prop[1].font = "#000";
+          }
+          else {
+            prop[1].font = "#FFF";
+          }
         }
-        else {
-          prop[1].font = "#FFF";
-        }
-        this.whiteLabel.next(whiteLabel);
-        console.log(whiteLabel);
       })
+      this.whiteLabel.next(whiteLabel);
+      console.log(whiteLabel);
     })
   }
 
