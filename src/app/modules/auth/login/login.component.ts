@@ -15,6 +15,7 @@ import { MatBottomSheet } from "@angular/material";
 import { CompanySelectComponent } from "../company-select/company-select.component";
 import { ProfileService } from "src/app/core/services/profile.service";
 import { MessagesFlowService } from "../../../core/services/messages-flow.service";
+import { Md5 } from "ts-md5/dist/md5";
 
 @Component({
   selector: "app-login",
@@ -64,13 +65,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
         (responseAuth) => {
           if (responseAuth.status == 0) {
             this.profileService.getProfile().subscribe((response) => {
+              let hashSession = Md5.hashStr(
+                responseAuth.object.userToken
+              ).toString();
               let getuser = /\w*[^@]/;
               let username = this.form.value.email.match(getuser);
-                this.chat.getCredentials(
+              this.chat.getCredentials(
                 {
                   username: username[0],
                   profileName: response.object.name,
-                  sessionId: responseAuth.object.userToken,
+                  sessionId: hashSession,
                 },
                 this.form.value.password
               );
