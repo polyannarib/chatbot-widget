@@ -98,44 +98,52 @@ export class TaskCreateComponent implements OnInit {
         this.loader = false;
         this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' } });
       }
+    }
+  }
+
+  createTaskWithoutRecurrence() {
+    this.loader = true;
+    if (this.kysmart) {
+      this.createFromKySmart();
+    } else {
       // SEM RECORRENCIA
-      // if (this.form.valid) {
-      //   if (this.type.definition == 'EXECUTAVEL') {
-      //     const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
-      //     const setTimesStamp = new Date(expectedAt).getTime();
-      //     this.form.value.expectedAt = setTimesStamp;
-      //     this.form.value.links = this.attachment;
-      //     this.form.value.cards = this.cards;
-      //     this.form.value.rule = this.rule;
-      //     // this.form.value.cards = this.cards.map(element => new Object({
-      //     //   cardId: element.knowledgeId,
-      //     //   classification: { id: this.classificationId }
-      //     // }));
-      //   }
-      //   this.form.value.time = undefined;
-      //   this.form.value.type = this.types.find(element => element.level == this.createNewType)
-      //
-      //   console.log('-------------------')
-      //   console.log(this.form.value)
-      //
-      //   this.taskService.createTask(this.form.value).subscribe(
-      //     (response) => {
-      //       if (response.status == 0) {
-      //         this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Projeto atualizado com sucesso!' } });
-      //         this.dialogRef.close({ confirm: true });
-      //         this.loader = false;
-      //         return;
-      //       }
-      //       this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao criar a tarefa, favor tentar novamente!' } });
-      //       this.loader = false;
-      //     }, (err) => {
-      //       this.loader = false;
-      //       this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao criar a tarefa, favor tentar novamente!' } });
-      //     })
-      // } else {
-      //   this.loader = false;
-      //   this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' } });
-      // }
+      if (this.form.valid) {
+        if (this.type.definition == 'EXECUTAVEL') {
+          const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
+          const setTimesStamp = new Date(expectedAt).getTime();
+          this.form.value.expectedAt = setTimesStamp;
+          this.form.value.links = this.attachment;
+          this.form.value.cards = this.cards;
+          this.form.value.rule = this.rule;
+          // this.form.value.cards = this.cards.map(element => new Object({
+          //   cardId: element.knowledgeId,
+          //   classification: { id: this.classificationId }
+          // }));
+        }
+        this.form.value.time = undefined;
+        this.form.value.type = this.types.find(element => element.level == this.createNewType)
+
+        console.log('-------------------')
+        console.log(this.form.value)
+
+        this.taskService.createTask(this.form.value).subscribe(
+          (response) => {
+            if (response.status == 0) {
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Projeto atualizado com sucesso!' } });
+              this.dialogRef.close({ confirm: true });
+              this.loader = false;
+              return;
+            }
+            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao criar a tarefa, favor tentar novamente!' } });
+            this.loader = false;
+          }, (err) => {
+            this.loader = false;
+            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao criar a tarefa, favor tentar novamente!' } });
+          })
+      } else {
+        this.loader = false;
+        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' } });
+      }
     }
   }
 
@@ -362,6 +370,23 @@ export class TaskCreateComponent implements OnInit {
     const differenceTime = secondDate.getTime() - firstDate.getTime();
     const listOfDateToEvaluate = [];
 
+    if (this.form.value.expectedAt === null || this.form.value.expectedAt === undefined) {
+      hasError = true;
+      messageError = 'Insira uma data de início para a atividade.';
+    }
+
+    if (this.form.value.recurrenceEndAt !== null || this.form.value.recurrenceEndAt !== undefined) {
+      if (this.form.value.expectedAt.getTime() > this.form.value.recurrenceEndAt .getTime()) {
+        hasError = true;
+        messageError = 'A data de início da atividade não pode ultrapassar a data de término.';
+      }
+    }
+
+    if (this.form.value.duration === null || this.form.value.duration === undefined || this.form.value.duration <= 0) {
+      hasError = true;
+      messageError = 'Insira um esforço válido para a atividade.';
+    }
+
     if (this.form.value.duration > 8 && this.form.value.recurrence.toLowerCase() !== 'não se repete') {
       hasError = true;
       messageError = 'Para atividades recorrentes, não se deve ultrapassar 8 horas de esforço.';
@@ -372,94 +397,100 @@ export class TaskCreateComponent implements OnInit {
       messageError = 'Selecione um player.';
     }
 
-    switch (this.form.value.recurrence.toLowerCase()) {
-      case 'não se repete':
-        secondDate = firstDate;
-        break;
-
-      case 'todos os dias da semana':
-        const differenceDays = differenceTime / (1000 * 3600 * 24);
-
-        if (differenceDays > 30) {
-          hasError = true;
-          messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 30 dias.';
-        }
-        let currentDate = firstDate;
-        while (currentDate.getTime() !== secondDate.getTime()) {
-          const weekDay = currentDate.toLocaleString('default', { weekday: 'long' });
-          if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
-            listOfDateToEvaluate.push(currentDate.getTime());
+    if (!hasError) {
+      switch (this.form.value.recurrence.toLowerCase()) {
+        case 'não se repete':
+          secondDate = firstDate;
+          if (this.designatedPlayer === null || this.designatedPlayer === undefined) {
+            this.createTaskWithoutRecurrence();
+            return;
           }
-          currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
-        }
-        const finalDay = secondDate.toLocaleString('default', { weekday: 'long' });
-        if (finalDay !== 'sábado' && finalDay !== 'domingo' && finalDay !== 'saturday' && finalDay !== 'sunday') {
-          listOfDateToEvaluate.push(secondDate.getTime());
-        }
-        break;
+          break;
 
-      case 'semanal':
-        let diff = differenceTime / 1000;
-        diff /= (60 * 60 * 24 * 7);
-        const differenceWeeks = Math.abs(Math.round(diff));
+        case 'todos os dias da semana':
+          const differenceDays = differenceTime / (1000 * 3600 * 24);
 
-        if (differenceWeeks > 5) {
-          hasError = true;
-          messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 5 semanas.';
-        }
-        let currentDateS = firstDate;
-        const weekDayS = firstDate.toLocaleString('default', { weekday: 'long' });
-        while (currentDateS.getTime() !== secondDate.getTime()) {
-          const weekDay = currentDateS.toLocaleString('default', { weekday: 'long' });
-          if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
-            if (weekDay === weekDayS) {
+          if (differenceDays > 30) {
+            hasError = true;
+            messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 30 dias.';
+          }
+          let currentDate = firstDate;
+          while (currentDate.getTime() !== secondDate.getTime()) {
+            const weekDay = currentDate.toLocaleString('default', { weekday: 'long' });
+            if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
+              listOfDateToEvaluate.push(currentDate.getTime());
+            }
+            currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
+          }
+          const finalDay = secondDate.toLocaleString('default', { weekday: 'long' });
+          if (finalDay !== 'sábado' && finalDay !== 'domingo' && finalDay !== 'saturday' && finalDay !== 'sunday') {
+            listOfDateToEvaluate.push(secondDate.getTime());
+          }
+          break;
+
+        case 'semanal':
+          let diff = differenceTime / 1000;
+          diff /= (60 * 60 * 24 * 7);
+          const differenceWeeks = Math.abs(Math.round(diff));
+
+          if (differenceWeeks > 5) {
+            hasError = true;
+            messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 5 semanas.';
+          }
+          let currentDateS = firstDate;
+          const weekDayS = firstDate.toLocaleString('default', { weekday: 'long' });
+          while (currentDateS.getTime() !== secondDate.getTime()) {
+            const weekDay = currentDateS.toLocaleString('default', { weekday: 'long' });
+            if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
+              if (weekDay === weekDayS) {
+                listOfDateToEvaluate.push(currentDateS.getTime());
+              }
+            }
+            currentDateS = new Date(currentDateS.setDate(currentDateS.getDate() + 1));
+          }
+          const finalDayS = secondDate.toLocaleString('default', { weekday: 'long' });
+          if (finalDayS !== 'sábado' && finalDayS !== 'domingo' && finalDayS !== 'saturday' && finalDayS !== 'sunday') {
+            if (finalDayS === weekDayS) {
               listOfDateToEvaluate.push(currentDateS.getTime());
             }
           }
-          currentDateS = new Date(currentDateS.setDate(currentDateS.getDate() + 1));
-        }
-        const finalDayS = secondDate.toLocaleString('default', { weekday: 'long' });
-        if (finalDayS !== 'sábado' && finalDayS !== 'domingo' && finalDayS !== 'saturday' && finalDayS !== 'sunday') {
-          if (finalDayS === weekDayS) {
-            listOfDateToEvaluate.push(currentDateS.getTime());
+          break;
+
+        case 'mensal':
+          let months;
+          months = (secondDate.getFullYear() - firstDate.getFullYear()) * 12;
+          months -= firstDate.getMonth();
+          months += secondDate.getMonth();
+          const differenceMonths = months <= 0 ? 0 : months;
+
+          if (differenceMonths > 3) {
+            hasError = true;
+            messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 3 meses.';
           }
-        }
-        break;
-
-      case 'mensal':
-        let months;
-        months = (secondDate.getFullYear() - firstDate.getFullYear()) * 12;
-        months -= firstDate.getMonth();
-        months += secondDate.getMonth();
-        const differenceMonths = months <= 0 ? 0 : months;
-
-        if (differenceMonths > 3) {
-          hasError = true;
-          messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 3 meses.';
-        }
-        let currentDateM = firstDate;
-        const monthDayM = firstDate.getDate();
-        while (currentDateM.getTime() !== secondDate.getTime()) {
-          const weekDay = currentDateM.toLocaleString('default', { weekday: 'long' });
-          if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
-            if (currentDateM.getDate() === monthDayM) {
+          let currentDateM = firstDate;
+          const monthDayM = firstDate.getDate();
+          while (currentDateM.getTime() !== secondDate.getTime()) {
+            const weekDay = currentDateM.toLocaleString('default', { weekday: 'long' });
+            if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
+              if (currentDateM.getDate() === monthDayM) {
+                listOfDateToEvaluate.push(currentDateM.getTime());
+              }
+            }
+            currentDateM = new Date(currentDateM.setDate(currentDateM.getDate() + 1));
+          }
+          const finalDayM = secondDate.toLocaleString('default', { weekday: 'long' });
+          if (finalDayM !== 'sábado' && finalDayM !== 'domingo' && finalDayM !== 'saturday' && finalDayM !== 'sunday') {
+            if (secondDate.getDate() === monthDayM) {
               listOfDateToEvaluate.push(currentDateM.getTime());
             }
           }
-          currentDateM = new Date(currentDateM.setDate(currentDateM.getDate() + 1));
-        }
-        const finalDayM = secondDate.toLocaleString('default', { weekday: 'long' });
-        if (finalDayM !== 'sábado' && finalDayM !== 'domingo' && finalDayM !== 'saturday' && finalDayM !== 'sunday') {
-          if (secondDate.getDate() === monthDayM) {
-            listOfDateToEvaluate.push(currentDateM.getTime());
-          }
-        }
-        break;
+          break;
 
-      default:
-        hasError = true;
-        messageError = 'Escolha a recorrência.';
-        break;
+        default:
+          hasError = true;
+          messageError = 'Escolha a recorrência.';
+          break;
+      }
     }
 
     if (hasError) {
@@ -502,6 +533,9 @@ export class TaskCreateComponent implements OnInit {
             this.loader = false;
             if (response.message === 'PLAYER_NOT_FOUND') {
               this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Algum player deve ser selecionado.' } });
+            }
+            if (response.message.includes('BUSINESS_HOUR_EXCEDED_TO_DATE')) {
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Não é possível criar atividade excedendo o horário comercial.' } });
             }
             // tslint:disable-next-line:max-line-length
             this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });

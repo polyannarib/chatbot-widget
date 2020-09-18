@@ -1,4 +1,4 @@
-import { environment } from '../environments/environment.local';
+import { environment } from '../environments/environment';
 
 export class AppConstants {
 
