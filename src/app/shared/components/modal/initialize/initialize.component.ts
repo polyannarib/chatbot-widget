@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { FinalizeComponent } from '../finalize/finalize.component';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatDialog } from '@angular/material';
 import { TaskService } from 'src/app/core/services/task.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { NotifyComponent } from '../../notify/notify.component';
+import { ConflictInitializeComponent } from '../conflict-initialize/conflict-initialize.component';
 
 @Component({
   selector: 'app-initialize',
@@ -13,7 +13,7 @@ import { NotifyComponent } from '../../notify/notify.component';
 export class InitializeComponent implements OnInit {
 
   @Input() service: string;
-  
+
   loader: boolean = false;
   errMessage: string;
   statusErr: any;
@@ -24,7 +24,8 @@ export class InitializeComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private taskService: TaskService,
     private _snackBar: MatSnackBar,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private dialog: MatDialog
   ) { }
 
 
@@ -35,22 +36,39 @@ export class InitializeComponent implements OnInit {
     this.loader = true;
     this.taskService.initialize(this.data.activityId).subscribe(
       (response) => {
-        if(response.status === 0) {
-          this._snackBar.openFromComponent(NotifyComponent, 
-            { data: { type: 'success', message: 'Tarefa inicializada com sucesso!' }});
+        if (response.status === 0) {
+          this._snackBar.openFromComponent(NotifyComponent,
+            { data: { type: 'success', message: 'Tarefa inicializada com sucesso!' } });
           this.dialogRef.close(response);
-          return;
         }
-        this.statusErr = response.status;
-        this.errMessage = response.message;
-        this._snackBar.openFromComponent(NotifyComponent, 
-          { data: { type: 'error', message: 'Essa tarefa não pode ser iniciada!' }});
-        this.loader = false;
-      }, (err) => {
-        this._snackBar.openFromComponent(NotifyComponent, 
-          { data: { type: 'error', message: 'Essa tarefa não pode ser iniciada!' }});
-        this.statusErr = err.status;
-        this.errMessage = err.message;
+        else {
+          if (response.messageKey == 'MUST_CONCLUDE') {
+            const dataSend = {
+              object: response.object[0],
+              currentId: this.data.activityId
+            };
+
+            const dialogRef = this.dialog.open(ConflictInitializeComponent, {
+              width: '500px',
+              data: dataSend
+            });
+
+            dialogRef.afterClosed().subscribe(
+              response => {
+                this.dialogRef.close(response);
+              }
+            )
+          }
+          else {
+            this._snackBar.openFromComponent(NotifyComponent,
+              { data: { type: 'error', message: 'Essa tarefa não pode ser iniciada!' } });
+            this.loader = false;
+          }
+        }
+      },
+      (err) => {
+        this._snackBar.openFromComponent(NotifyComponent,
+          { data: { type: 'error', message: 'Essa tarefa não pode ser iniciada!' } });
         this.loader = false;
       }
     );

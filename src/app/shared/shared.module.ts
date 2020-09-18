@@ -79,6 +79,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatExpansionModule} from '@angular/material/expansion';
 
 //Serviços
 import { MainColorDirective } from './directives/main-color.directive';
@@ -86,7 +87,7 @@ import { PrimaryColorDirective } from './directives/primary-color.directive';
 import { SecundaryColorDirective } from './directives/secundary-color.directive';
 import { ButtonGiveBackComponent } from './components/buttons/button-give-back/button-give-back.component';
 import { GiveBackComponent } from './components/modal/give-back/give-back.component';
-
+import { ConflictInitializeComponent } from './components/modal/conflict-initialize/conflict-initialize.component';
 
 @NgModule({
   imports: [
@@ -118,8 +119,8 @@ import { GiveBackComponent } from './components/modal/give-back/give-back.compon
     MatTreeModule,
     MatIconModule,
     MatBadgeModule,
-    RouterModule,
-    // NgxPaginationModule
+    MatExpansionModule,
+    RouterModule
   ],
   declarations: [
     SidebarComponent,
@@ -165,7 +166,8 @@ import { GiveBackComponent } from './components/modal/give-back/give-back.compon
     ButtonInitializeComponent,
     InitializeComponent,
     ButtonGiveBackComponent,
-    GiveBackComponent
+    GiveBackComponent,
+    ConflictInitializeComponent
   ],
   exports: [
     MenuComponent,
@@ -202,6 +204,7 @@ import { GiveBackComponent } from './components/modal/give-back/give-back.compon
     MatTreeModule,
     MatIconModule,
     MatBadgeModule,
+    MatExpansionModule,
     ButtonFinalizeComponent,
     ButtonRemoveComponent,
     ButtonSuspendComponent,
@@ -225,7 +228,8 @@ import { GiveBackComponent } from './components/modal/give-back/give-back.compon
     SafePipe,
     ButtonInitializeComponent,
     InitializeComponent,
-    GiveBackComponent
+    GiveBackComponent,
+    ConflictInitializeComponent
   ],
   entryComponents: [
     FinalizeComponent,
@@ -239,7 +243,8 @@ import { GiveBackComponent } from './components/modal/give-back/give-back.compon
     AttachmentComponent,
     ExtractComponent,
     InitializeComponent,
-    GiveBackComponent
+    GiveBackComponent,
+    ConflictInitializeComponent
   ],
   providers: [
     {
