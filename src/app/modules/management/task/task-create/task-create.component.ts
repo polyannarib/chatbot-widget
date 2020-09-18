@@ -384,6 +384,18 @@ export class TaskCreateComponent implements OnInit {
           hasError = true;
           messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 30 dias.';
         }
+        let currentDate = firstDate;
+        while (currentDate.getTime() !== secondDate.getTime()) {
+          const weekDay = currentDate.toLocaleString('default', { weekday: 'long' });
+          if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
+            listOfDateToEvaluate.push(currentDate.getTime());
+          }
+          currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
+        }
+        const finalDay = secondDate.toLocaleString('default', { weekday: 'long' });
+        if (finalDay !== 'sábado' && finalDay !== 'domingo' && finalDay !== 'saturday' && finalDay !== 'sunday') {
+          listOfDateToEvaluate.push(secondDate.getTime());
+        }
         break;
 
       case 'semanal':
@@ -394,6 +406,23 @@ export class TaskCreateComponent implements OnInit {
         if (differenceWeeks > 5) {
           hasError = true;
           messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 5 semanas.';
+        }
+        let currentDateS = firstDate;
+        const weekDayS = firstDate.toLocaleString('default', { weekday: 'long' });
+        while (currentDateS.getTime() !== secondDate.getTime()) {
+          const weekDay = currentDateS.toLocaleString('default', { weekday: 'long' });
+          if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
+            if (weekDay === weekDayS) {
+              listOfDateToEvaluate.push(currentDateS.getTime());
+            }
+          }
+          currentDateS = new Date(currentDateS.setDate(currentDateS.getDate() + 1));
+        }
+        const finalDayS = secondDate.toLocaleString('default', { weekday: 'long' });
+        if (finalDayS !== 'sábado' && finalDayS !== 'domingo' && finalDayS !== 'saturday' && finalDayS !== 'sunday') {
+          if (finalDayS === weekDayS) {
+            listOfDateToEvaluate.push(currentDateS.getTime());
+          }
         }
         break;
 
@@ -408,6 +437,23 @@ export class TaskCreateComponent implements OnInit {
           hasError = true;
           messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 3 meses.';
         }
+        let currentDateM = firstDate;
+        const monthDayM = firstDate.getDate();
+        while (currentDateM.getTime() !== secondDate.getTime()) {
+          const weekDay = currentDateM.toLocaleString('default', { weekday: 'long' });
+          if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
+            if (currentDateM.getDate() === monthDayM) {
+              listOfDateToEvaluate.push(currentDateM.getTime());
+            }
+          }
+          currentDateM = new Date(currentDateM.setDate(currentDateM.getDate() + 1));
+        }
+        const finalDayM = secondDate.toLocaleString('default', { weekday: 'long' });
+        if (finalDayM !== 'sábado' && finalDayM !== 'domingo' && finalDayM !== 'saturday' && finalDayM !== 'sunday') {
+          if (secondDate.getDate() === monthDayM) {
+            listOfDateToEvaluate.push(currentDateM.getTime());
+          }
+        }
         break;
 
       default:
@@ -421,18 +467,6 @@ export class TaskCreateComponent implements OnInit {
       this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: messageError } });
       return;
     } else {
-      let currentDate = firstDate;
-      while (currentDate.getTime() !== secondDate.getTime()) {
-        const weekDay = currentDate.toLocaleString('default', { weekday: 'long' });
-        if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
-          listOfDateToEvaluate.push(currentDate.getTime());
-        }
-        currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
-      }
-      const finalDay = secondDate.toLocaleString('default', { weekday: 'long' });
-      if (finalDay !== 'sábado' && finalDay !== 'domingo' && finalDay !== 'saturday' && finalDay !== 'sunday') {
-        listOfDateToEvaluate.push(secondDate.getTime());
-      }
 
       const dataToSend = {
         taskDates: listOfDateToEvaluate,
@@ -458,8 +492,11 @@ export class TaskCreateComponent implements OnInit {
             const onlyInUn = availableList.filter(this.comparerList(listOfDateToEvaluate));
 
             const unavailableList = onlyInUn.concat(onlyInAv);
-            console.log('player:');
-            console.log(this.designatedPlayer);
+
+            if (unavailableList.length === 0) {
+              this.createRecurrenceTask({unavailableList, availableList, player: this.designatedPlayer});
+            }
+
             this.openConfirmationRecurrence({unavailableList, availableList, player: this.designatedPlayer});
           } else {
             this.loader = false;
@@ -486,44 +523,48 @@ export class TaskCreateComponent implements OnInit {
       (result) => {
         console.log(result);
         if (result && result.confirm) {
-          this.loader = true;
-          const dataToSend = {
-            taskDates: dataSend.availableList,
-            player: {
-              personId: dataSend.player.personId
-            },
-            task: {
-              projectId: this.form.value.projectId,
-              name: this.form.value.name,
-              description: this.form.value.description,
-              duration: this.form.value.duration,
-              rule: {
-                id: this.rule.id
-              },
-              cards: this.form.value.cards,
-              links: this.form.value.links,
-              parentId: this.form.value.parentId
-            }
-          };
-
-          this.taskService.createRecurrenceTask(dataToSend).subscribe(
-            (response) => {
-              if (response.status === 0) {
-                this.loader = false;
-                this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com recorrência criadas com sucesso!' } });
-                this.dialogRef.close({ confirm: true });
-                return;
-              } else {
-                this.loader = false;
-                this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
-              }
-            }, (error) => {
-              this.loader = false;
-              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
-            }
-          );
+          this.createRecurrenceTask(dataSend);
         }
       });
+  }
+
+  createRecurrenceTask(dataSend) {
+    this.loader = true;
+    const dataToSend = {
+      taskDates: dataSend.availableList,
+      player: {
+        personId: dataSend.player.personId
+      },
+      task: {
+        projectId: this.form.value.projectId,
+        name: this.form.value.name,
+        description: this.form.value.description,
+        duration: this.form.value.duration,
+        rule: {
+          id: this.rule.id
+        },
+        cards: this.form.value.cards,
+        links: this.form.value.links,
+        parentId: this.form.value.parentId
+      }
+    };
+
+    this.taskService.createRecurrenceTask(dataToSend).subscribe(
+      (response) => {
+        if (response.status === 0) {
+          this.loader = false;
+          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com recorrência criadas com sucesso!' } });
+          this.dialogRef.close({ confirm: true });
+          return;
+        } else {
+          this.loader = false;
+          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
+        }
+      }, (error) => {
+        this.loader = false;
+        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
+      }
+    );
   }
 
   comparerList(otherArray) {
