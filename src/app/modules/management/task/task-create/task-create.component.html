@@ -2,39 +2,40 @@
 
 <div id="modal" *ngIf="!loader && type">
   <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
-<!--  <div class="calculadora" *ngIf="type.name.toLowerCase() == 'tarefa'">-->
-<!--    <button (click)="openCalculator()" matTooltip="{{ 'OPEN_CALCULATOR' | translate }}" mat-icon-button><i class="material-icons">post_add</i></button>-->
-<!--  </div>-->
+  <!--  <div class="calculadora" *ngIf="type.name.toLowerCase() == 'tarefa'">-->
+  <!--    <button (click)="openCalculator()" matTooltip="{{ 'OPEN_CALCULATOR' | translate }}" mat-icon-button><i class="material-icons">post_add</i></button>-->
+  <!--  </div>-->
   <div class="modal-header">
     <!-- {{ type.name }}  -->
     <span [ngStyle]="{'background-color': mainStyle}"> {{ type.name }} </span>
   </div>
-  <button (click)="openCalculator()" *ngIf="type.name.toLowerCase() == 'tarefa'" matTooltip="{{ 'OPEN_CALCULATOR' | translate }}" mat-icon-button>
+  <button (click)="openCalculator()" *ngIf="type.name.toLowerCase() == 'tarefa'"
+    matTooltip="{{ 'OPEN_CALCULATOR' | translate }}" mat-icon-button>
     <i class="material-icons">post_add</i>
   </button>
 
   <form [formGroup]="form">
     <div class="modal-body">
 
-<!--      Nome-->
+      <!--      Nome-->
       <div class="input-field">
         <input id="name" type="text" class="validate" formControlName="name">
         <label for="name">Nome</label>
       </div>
 
-<!--      Descricao-->
+      <!--      Descricao-->
       <div class="input-field">
         <input id="description" type="text" class="validate" formControlName="description">
         <label for="description">Descrição</label>
       </div>
 
-<!--      Esforco-->
+      <!--      Esforco-->
       <div class="input-field" *ngIf="type.definition == 'EXECUTAVEL' || kysmart == true">
         <input id="duration" type="number" class="validate" formControlName="duration">
         <label for="duration">Esforço</label>
       </div>
 
-<!--      Data prevista inicio-->
+      <!--      Data prevista inicio-->
       <div *ngIf="type.definition == 'EXECUTAVEL'  || kysmart == true">
         <mat-form-field>
           <input matInput [matDatepicker]="expectedAt" formControlName="expectedAt" placeholder="Data prevista inicio">
@@ -43,7 +44,7 @@
         </mat-form-field>
       </div>
 
-<!--      Horario-->
+      <!--      Horario-->
       <mat-form-field *ngIf="type.definition == 'EXECUTAVEL'">
         <mat-label>Selecione o horário</mat-label>
         <mat-select formControlName="time">
@@ -58,7 +59,7 @@
         </mat-select>
       </mat-form-field>
 
-<!--      Recorrencia-->
+      <!--      Recorrencia-->
       <div class="row" *ngIf="type.definition == 'EXECUTAVEL'">
         <mat-form-field style="margin: 5px;">
           <mat-label>Recorrência</mat-label>
@@ -77,17 +78,18 @@
         </mat-form-field>
       </div>
 
-<!--      Designar-->
-      <div *ngIf="type.definition == 'EXECUTAVEL'">
-        <i class="material-icons">account_circle</i>
-        <input formControlName="playerToDesignate" style="margin-left: 10px; width: 50%;" type="search" (search)="searchPlayerToDesignate()" placeholder="Procurar player">
-        <button (click)="searchPlayerToDesignate()" matTooltip="Procurar" mat-icon-button><i class="material-icons">search</i></button>
+      <!--      Designar-->
+      <div style="padding-right: 10px;" *ngIf="type.definition == 'EXECUTAVEL'">
+        <button mat-button id="designate" (click)="openDesignatePlayer()" *ngIf="!designatedPlayer">
+          <mat-icon aria-lable="Designate icon">account_circle</mat-icon>
+          Designar player
+        </button>
 
-        <ul>
-          <li *ngFor="let player of playersList">
-            <span>{{player.personId}}</span> {{player.name}}
-          </li>
-        </ul>
+        <label *ngIf="designatedPlayer">Player</label>
+        <p id="designatedPlayer" [ngStyle]="{'background-color': mainStyle}" (click)="openDesignatePlayer()"
+          *ngIf="designatedPlayer">
+          {{ designatedPlayer.name }}
+        </p>
       </div>
 
       <!-- <mat-form-field class="example-full-width" *ngIf="type.definition == 'EXECUTAVEL'">
@@ -107,7 +109,8 @@
 
       <ul class="collection" *ngIf="type.definition == 'EXECUTAVEL' && (cards.length > 0 || cards != [])">
         <label>Cartas</label>
-        <li *ngFor="let card of cards" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
+        <li *ngFor="let card of cards" class="collection-item dismissable"
+          [ngStyle]="{'background-color': secoundStyle}">
           <div>
             {{ card.cardName }}
             <a (click)="removeCard(card)" class="secondary-content"><i class="material-icons">close</i></a>
@@ -117,7 +120,8 @@
 
       <ul class="collection" *ngIf="form.value.links.length > 0 && type.definition == 'EXECUTAVEL'">
         <label *ngIf="form.value.links.length > 0">Anexos</label>
-        <li *ngFor="let item of form.value.links" class="collection-item dismissable" [ngStyle]="{'background-color': secoundStyle}">
+        <li *ngFor="let item of form.value.links" class="collection-item dismissable"
+          [ngStyle]="{'background-color': secoundStyle}">
           <div>
             <a target="_blank" href="{{ item.url }}">{{ item.description }}</a>
             <!-- <a (click)="removeAttachment(item)" class="secondary-content"><i class="material-icons">close</i></a> -->
@@ -127,9 +131,12 @@
 
     </div>
     <div class="modal-footer">
-      <button *ngIf="type.definition == 'EXECUTAVEL'" (click)="addCard()" class="button left" [ngStyle]="{'background-color': mainStyle}">{{ 'Adicionar carta' | translate }}</button>
-      <button *ngIf="type.definition == 'EXECUTAVEL'" (click)="setAttachment()" matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button>
-      <button (click)="createTask()" type="submit" class="button right" [ngStyle]="{'background-color': mainStyle}">{{ 'Criar' | translate }}</button>
+      <button *ngIf="type.definition == 'EXECUTAVEL'" (click)="addCard()" class="button left"
+        [ngStyle]="{'background-color': mainStyle}">{{ 'Adicionar carta' | translate }}</button>
+      <button *ngIf="type.definition == 'EXECUTAVEL'" (click)="setAttachment()" matTooltip="Anexar" mat-icon-button><i
+          class="material-icons">attach_file</i></button>
+      <button (click)="createTask()" type="submit" class="button right"
+        [ngStyle]="{'background-color': mainStyle}">{{ 'Criar' | translate }}</button>
     </div>
   </form>
 </div>

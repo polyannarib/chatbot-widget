@@ -32,6 +32,7 @@ import { CardFindComponent } from './card/card-find/card-find.component';
 import { ModalKysmartComponent } from './task/modal-kysmart/modal-kysmart.component';
 import { CockpitComponent } from './cockpit/cockpit.component';
 import { ModalRecurrenceComponent } from './task/modal-recurrence/modal-recurrence.component';
+import { DesignatePlayerComponent } from './task/designate-player/designate-player.component';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import { ModalRecurrenceComponent } from './task/modal-recurrence/modal-recurren
     CardFindComponent,
     ModalKysmartComponent,
     ModalRecurrenceComponent,
-    CockpitComponent
+    CockpitComponent,
+    DesignatePlayerComponent
   ],
   entryComponents: [
     ProjectDetailsComponent,
@@ -76,7 +78,8 @@ import { ModalRecurrenceComponent } from './task/modal-recurrence/modal-recurren
     TaskDetailsComponent,
     CardFindComponent,
     ModalKysmartComponent,
-    ModalRecurrenceComponent
+    ModalRecurrenceComponent,
+    DesignatePlayerComponent
   ]
 })
 export class ManagementModule { }

@@ -8,7 +8,8 @@ import {CardFindComponent} from '../../card/card-find/card-find.component';
 import {AttachmentComponent} from 'src/app/shared/components/modal/attachment/attachment.component';
 import {ModalKysmartComponent} from '../modal-kysmart/modal-kysmart.component';
 import {CardService} from 'src/app/core/services/card.service';
-import {ModalRecurrenceComponent} from "../modal-recurrence/modal-recurrence.component";
+import {ModalRecurrenceComponent} from '../modal-recurrence/modal-recurrence.component';
+import { DesignatePlayerComponent } from '../designate-player/designate-player.component';
 
 @Component({
   selector: 'app-task-create',
@@ -40,7 +41,7 @@ export class TaskCreateComponent implements OnInit {
     type: [null],
     links: [this.attachment],
     time: [8],
-    rule: [this.rule],
+    rule: [null],
     parentId: [this.data.parentId],
     projectId: [this.data.project.id],
     recurrence: [null],
@@ -49,8 +50,7 @@ export class TaskCreateComponent implements OnInit {
   });
   cardsTypes: any;
   classificationId: any;
-
-  playersList: any;
+  designatedPlayer;
 
   constructor(
     public dialogRef: MatDialogRef<TaskCreateComponent>,
@@ -506,20 +506,6 @@ export class TaskCreateComponent implements OnInit {
     };
   }
 
-  searchPlayerToDesignate() {
-    this.taskService.getPlayersToDesignate(this.form.value.playerToDesignate).subscribe(
-      (response) => {
-        if (response.status === 0) {
-          this.playersList = response.object;
-        } else {
-          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Nenhum player encontrado.' } });
-        }
-      }, (error) => {
-        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Não foi possível encontrar o player!' } });
-      }
-    );
-  }
-
   myFilter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
     const dateNow = new Date();
@@ -560,6 +546,20 @@ export class TaskCreateComponent implements OnInit {
       }, (err) => {
         // console.log('deu ruim');
       })
+  }
+
+  openDesignatePlayer() {
+    const dialogRef = this.dialog.open(DesignatePlayerComponent, {
+      width: '450px',
+    });
+    dialogRef.afterClosed().subscribe(
+      result => {
+        console.log(result)
+        if (result) {
+          this.designatedPlayer = result;
+        }
+      }
+    )
   }
 
   // inputHidden() {
