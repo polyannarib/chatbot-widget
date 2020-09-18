@@ -22,3 +22,8 @@
   color: white;
   text-transform: uppercase;
 }
+
+mat-selection-list {
+  height: 200px;
+  overflow-y: scroll;
+}
