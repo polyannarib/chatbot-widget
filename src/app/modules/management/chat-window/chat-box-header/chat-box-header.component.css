@@ -1,0 +1,29 @@
+.header-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: 10%;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.header-title {
+  margin-left: 3%;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.header-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 5%;
+  display: inline-block;
+}
+
+.icons {
+  margin-left: auto;
+  margin-right: 5%;
+  height: auto;
+}

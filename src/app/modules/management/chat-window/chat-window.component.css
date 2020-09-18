@@ -1,0 +1,70 @@
+.windowContainer {
+  position: fixed;
+  right: 50px;
+  bottom: 8rem;
+  width: 25vw;
+  z-index: 10000;
+}
+
+.minimized {
+  position: fixed;
+  bottom: -30rem;
+  right: 20rem;
+  width: 25vw;
+  height: 500px;
+}
+
+.chatbotFooter {
+  position: relative;
+  height: 40px;
+  border: 1px solid;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  overflow: hidden;
+}
+
+.micBlack {
+  color: #000;
+}
+
+.micRed {
+  color: #d90707;
+}
+
+input[type=text]:not(.browser-default) {
+  width: calc(100% - 60px);
+  height: 37px;
+  outline: none;
+  color: #000;
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+  padding: 0 45px 0 15px;
+  background-color: white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  line-height: 1rem;
+  border-bottom: none;
+  transition: none;
+  margin: 0;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+button:focus {
+  background-color: transparent;
+}
+
+button {
+  position: absolute;
+  right: 5px;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  margin-top: 6px;
+}

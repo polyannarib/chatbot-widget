@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { AppConstants } from '../../../app.constants';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "src/app/core/services/auth.service";
+import { AppConstants } from "../../../app.constants";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css'],
+  selector: "app-menu",
+  templateUrl: "./menu.component.html",
+  styleUrls: ["./menu.component.css"],
 })
 export class MenuComponent implements OnInit {
-  
-  user: any
+  user: any;
   clearSearch: any;
   menus: any;
   datas: any[] = [];
@@ -18,16 +17,16 @@ export class MenuComponent implements OnInit {
   quantity = 4;
   scopes: any;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.scopes = Object.assign({}, this.authService.getScopes());
   }
 
   logout() {
+    localStorage.removeItem("username");
+    localStorage.removeItem("profileName");
+    localStorage.removeItem("sessionId");
     this.authService.logout();
     // let params = {
     //   "SYSTEM": AppConstants.SYSTEM_NAME
@@ -41,9 +40,8 @@ export class MenuComponent implements OnInit {
     //           this.authService.removeToken();
     //           this.router.navigate( ['/auth/login'], { queryParams: { authenticated: false}} )
     //         }
-    //       )  
+    //       )
     //   }
     // )
   }
-
 }
