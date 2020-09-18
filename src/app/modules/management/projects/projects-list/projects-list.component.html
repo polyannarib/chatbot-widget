@@ -43,9 +43,19 @@
     <table *ngIf="!loaderDays && daysOfWeek10">
       <thead>
         <tr>
+          <td class="monthSpacer" colspan="2"></td>
+          <th id="projectMonthLabelHeader" class="monthLabel" colspan="5" scope="colgroup">
+            {{ startDate | date:'MMMM y' }}
+          </th>
+        </tr>
+        <tr>
           <th class="projectCode">{{ 'CODE' | translate }}</th>
           <th>{{ 'PROJECTNAME' | translate }}</th>
-          <th *ngFor="let day of daysOfWeek10">{{ day | date:'E' }}</th>
+          <th *ngFor="let day of daysOfWeek10; let first=first; let last=last"
+              [ngClass]="{'dayLabelFirst': first, 'dayLabelLast' : last}"
+              headers="projectMonthLabelHeader">
+            {{ day | date:'E' }}
+          </th>
           <th class="hour">{{ 'HOURS' | translate }}</th>
           <th>{{ 'DATE' | translate }}</th>
           <th>{{ 'RSC' | translate }}</th>

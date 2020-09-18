@@ -1,49 +1,19 @@
-<!-- <app-loading [loader]="loader"></app-loading> -->
-
 <div id="modal">
   <div class="modal-header">
-    <span [ngStyle]="{'background-color': mainStyle}" *ngIf="data.project.parent"> {{ data.project.parent.name }} </span> <br *ngIf="data.project.parent">
+    <span [ngStyle]="{'background-color': mainStyle}" *ngIf="data.project.parent"> {{ data.project.parent.name }}
+    </span> <br *ngIf="data.project.parent">
     {{ data.project.name }}
-  <button [ngStyle]="{'background-color': mainStyle}" (click)="addTask(0, 0)" class="button btnAddProject button-floating" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
-    <i class="material-icons" style="color:black">add</i>
-  </button>
+    <button [ngStyle]="{'background-color': mainStyle}" (click)="addTask(0, 0)"
+      class="button btnAddProject button-floating" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
+      <i class="material-icons" style="color:black">add</i>
+    </button>
     <button type="button" class="close btn" [mat-dialog-close]="true">
       <i class="material-icons">close</i>
     </button>
   </div>
   <div class="modal-body">
-
-    <!-- <div class="row dateProgress">
-        <div class="col s12 m4 dateActivity center-align">
-
-        </div>
-        <div class="col s12 m8">
-            <div class="title">{{ 'PROGRESS' | translate }}</div>
-            <app-progress [width]="projectTasks?.progress ? projectTasks?.progress : 0"></app-progress>
-        </div>
-    </div> -->
-
     <app-loading [loader]="loader"></app-loading>
     <app-count *ngIf="tasks?.length == 0 && !loader">Esse projeto está sem task cadastrada no momento!</app-count>
-
-    <!-- <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <button mat-icon-button disabled></button>
-        {{node.item}}
-      </mat-tree-node>
-      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-        <button mat-icon-button
-                [attr.aria-label]="'toggle ' + node.filename" matTreeNodeToggle>
-          <mat-icon class="mat-icon-rtl-mirror">
-            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-          </mat-icon>
-        </button>
-        {{node.item}}
-        <mat-progress-bar *ngIf="node.isLoading"
-                          mode="indeterminate"
-                          class="example-tree-progress-bar"></mat-progress-bar>
-      </mat-tree-node>
-    </mat-tree> -->
 
     <div *ngIf="tasks && !loader && tasks?.length > 0">
       <table class="TreeHeader">
@@ -58,31 +28,36 @@
       </table>
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-          <ng-container *ngIf="note?.status != 'REMOVED'">
+          <ng-container *ngIf="node?.status != 'REMOVED'">
             <button mat-icon-button disabled></button>
-            <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
+            <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button
+              matTooltip="{{ 'Editar' | translate }}">
               <i class="material-icons" style="color:black">edit</i>
             </button>
-            <button *ngIf="typeSon(node)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
+            <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)"
+              class="button button-primary button-floating right" mat-icon-button
+              matTooltip="{{ 'Adicionar' | translate }}">
               <i class="material-icons" style="color:black">add</i>
             </button>
-            <button (click)="removeTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
+            <button (click)="removeTask(node)" class="button button-primary button-floating right" mat-icon-button
+              matTooltip="{{ 'Remover' | translate }}">
               <i class="material-icons" style="color:black">remove</i>
             </button>
-            <!-- <button disabled="true" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ node.status }}"> -->
-              <i *ngIf="node.type.definition == 'EXECUTAVEL'" class="material-icons" matTooltip="{{ node.status | translate }}" [ngStyle]="{'color': getColor(node.status)}">fiber_manual_record</i>
-            <!-- </button> -->
-              <table>
-                <tr>
-                  <td> <span [ngStyle]="{'background-color': secoundStyle}"> {{ node.type.name }} </span> {{ node.name }}</td>
-                  <td class="maxWidth">{{ node.expectedAt | date:'dd/MM/yyyy' }}</td>
-                  <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
-                  <td class="maxWidth">{{ getCardName(node.cards) }}</td>
-                  <td class="maxWidth">{{ node.player?.name }}</td>
-                  <td class="maxWidth">{{ node.duration }}</td>
-                </tr>
-              </table>
-           </ng-container>
+            <i *ngIf="node.type.definition == 'EXECUTAVEL'" class="material-icons"
+              matTooltip="{{ node.status | translate }}"
+              [ngStyle]="{'color': getColor(node.status)}">fiber_manual_record</i>
+            <table>
+              <tr>
+                <td> <span [ngStyle]="{'background-color': secoundStyle}"> {{ node.type.name }} </span> {{ node.name }}
+                </td>
+                <td class="maxWidth">{{ node.expectedAt | date:'dd/MM/yyyy' }}</td>
+                <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
+                <td class="maxWidth">{{ getCardName(node.cards) }}</td>
+                <td class="maxWidth">{{ node.player?.name }}</td>
+                <td class="maxWidth">{{ node.duration }}</td>
+              </tr>
+            </table>
+          </ng-container>
         </mat-tree-node>
         <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
 
@@ -92,21 +67,27 @@
                 {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
               </i>
             </button>
-            <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Editar' | translate }}">
+            <button (click)="editTask(node)" class="button button-primary button-floating right" mat-icon-button
+              matTooltip="{{ 'Editar' | translate }}">
               <i class="material-icons" style="color:black">edit</i>
             </button>
-            <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Adicionar' | translate }}">
+            <button *ngIf="typeSon(node.type)" (click)="addTask(node.type, node.id)"
+              class="button button-primary button-floating right" mat-icon-button
+              matTooltip="{{ 'Adicionar' | translate }}">
               <i class="material-icons" style="color:black">add</i>
             </button>
-            <button [disabled]="isStatus(node.status)" (click)="removeTask(node)" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ 'Remover' | translate }}">
+            <button [disabled]="isStatus(node.status)" (click)="removeTask(node)"
+              class="button button-primary button-floating right" mat-icon-button
+              matTooltip="{{ 'Remover' | translate }}">
               <i class="material-icons" style="color:black">remove</i>
             </button>
-            <!-- <button disabled="true" class="button button-primary button-floating right" mat-icon-button matTooltip="{{ node.status }}"> -->
-              <i *ngIf="node.type.definition == 'EXECUTAVEL'" class="material-icons" matTooltip="{{ node.status | translate }}" [ngStyle]="{'color': getColor(node.status)}">fiber_manual_record</i>
-            <!-- </button> -->
+            <i *ngIf="node.type.definition == 'EXECUTAVEL'" class="material-icons"
+              matTooltip="{{ node.status | translate }}"
+              [ngStyle]="{'color': getColor(node.status)}">fiber_manual_record</i>
             <table>
               <tr>
-                <td> <span [ngStyle]="{'background-color': secoundStyle}"> {{ node.type.name }} </span> {{ node.name }}</td>
+                <td> <span [ngStyle]="{'background-color': secoundStyle}"> {{ node.type.name }} </span> {{ node.name }}
+                </td>
                 <td class="maxWidth">{{ node.expectedAt | date:'dd/MM/yyyy' }}</td>
                 <td class="maxWidth">{{ node.previewedAt | date:'dd/MM/yyyy' }}</td>
                 <td class="maxWidth">{{ getCardName(node.card) }}</td>
@@ -118,18 +99,16 @@
         </mat-tree-node>
       </mat-tree>
     </div>
-
   </div>
+
   <div class="modal-footer">
-
-    <!-- <button (click)="openEditProject()" matTooltip="{{ 'EDITPROJECT' | translate }}" mat-icon-button><i class="material-icons">edit</i></button> -->
-    <button (click)="openReport()" matTooltip="Adicionar nota" mat-icon-button><i class="material-icons">assignment</i></button>
-    <button (click)="editProject()" matTooltip="{{ 'EDIT_PROJECT' | translate }}" mat-icon-button><i class="material-icons">create</i></button>
-    <button (click)="createEpic()" matTooltip="{{ 'CREATE_EPIC' | translate }}" *ngIf="data.project.parent === null" mat-icon-button><i class="material-icons">note_add</i></button>
-    <!-- <button matTooltip="Anexar" mat-icon-button><i class="material-icons">attach_file</i></button> -->
-    <!-- <button matTooltip="Baixar relátorio" mat-icon-button><i class="material-icons">assignment_returned</i></button> -->
-    <!-- <button matTooltip="Calcular" mat-icon-button><i class="material-icons">grid_on</i></button> -->
-    <button [mat-dialog-close]="true" target="_blank" class="button button-primary right">{{ 'OK' | translate }}</button>
-
+    <button (click)="openReport()" matTooltip="Adicionar nota" mat-icon-button><i
+        class="material-icons">assignment</i></button>
+    <button (click)="editProject()" matTooltip="{{ 'EDIT_PROJECT' | translate }}" mat-icon-button><i
+        class="material-icons">create</i></button>
+    <button (click)="createEpic()" matTooltip="{{ 'CREATE_EPIC' | translate }}" *ngIf="data.project.parent === null"
+      mat-icon-button><i class="material-icons">note_add</i></button>
+    <button [mat-dialog-close]="true" target="_blank"
+      class="button button-primary right">{{ 'OK' | translate }}</button>
   </div>
 </div>
