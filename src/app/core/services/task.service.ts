@@ -95,7 +95,7 @@ export class TaskService {
   }
 
   createRecurrenceTask(data): Observable<any> {
-    return this.http.post(`${environment.back_end_url}/task/recurrentTask/createAndAssingAPlayer`, data);
+    return this.http.post(`${environment.back_end_url}/task/recurrentTask/createAndAssignAPlayer`, data);
   }
 
   getPlayersToDesignate(parseName: string): Observable<any> {
