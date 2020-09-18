@@ -458,6 +458,8 @@ export class TaskCreateComponent implements OnInit {
             const onlyInUn = availableList.filter(this.comparerList(listOfDateToEvaluate));
 
             const unavailableList = onlyInUn.concat(onlyInAv);
+            console.log('player:');
+            console.log(this.designatedPlayer);
             this.openConfirmationRecurrence({unavailableList, availableList, player: this.designatedPlayer});
           } else {
             this.loader = false;
@@ -488,7 +490,7 @@ export class TaskCreateComponent implements OnInit {
           const dataToSend = {
             taskDates: dataSend.availableList,
             player: {
-              id: dataSend.player.personId
+              personId: dataSend.player.personId
             },
             task: {
               projectId: this.form.value.projectId,
