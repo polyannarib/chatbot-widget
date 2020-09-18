@@ -376,9 +376,11 @@ export class TaskCreateComponent implements OnInit {
     }
 
     if (this.form.value.recurrenceEndAt !== null || this.form.value.recurrenceEndAt !== undefined) {
-      if (this.form.value.expectedAt.getTime() > this.form.value.recurrenceEndAt .getTime()) {
-        hasError = true;
-        messageError = 'A data de início da atividade não pode ultrapassar a data de término.';
+      if (this.form.value.expectedAt === null || this.form.value.expectedAt === undefined) {
+        if (this.form.value.expectedAt.getTime() > this.form.value.recurrenceEndAt .getTime()) {
+          hasError = true;
+          messageError = 'A data de início da atividade não pode ultrapassar a data de término.';
+        }
       }
     }
 
