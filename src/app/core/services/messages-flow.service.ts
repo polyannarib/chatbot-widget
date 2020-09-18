@@ -140,7 +140,7 @@ export class MessagesFlowService {
         {
           sender: `${this.metadata.username}-${this.metadata.profileName}-${this.metadata.sessionId}`,
           metadata: JSON.stringify({
-            username: this.metadata.username,
+            username: `${this.metadata.username}`,
             password: pass,
           }),
         },
