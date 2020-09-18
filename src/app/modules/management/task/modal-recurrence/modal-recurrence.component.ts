@@ -19,6 +19,7 @@ export class ModalRecurrenceComponent implements OnInit {
   secondStyle = this.profileService.getAppSecondaryColor();
 
   listOfDates: any = [];
+  player: string = this.data.player.name;
 
   constructor(
     public dialogRef: MatDialogRef<ModalRecurrenceComponent>,
@@ -31,7 +32,9 @@ export class ModalRecurrenceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.data.map(date => {
+    console.log('Player: ');
+    console.log(this.data);
+    this.data.unavailableList.map(date => {
       date = new Date(date);
       const dateSet = date.toLocaleDateString('br-PT');
       let hourSet = date.getHours();

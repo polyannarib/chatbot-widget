@@ -348,8 +348,6 @@ export class TaskCreateComponent implements OnInit {
       });
   }
 
-  createRecurrenceTask() {}
-
   checkPlayerAvailability() {
     const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
     const endAt = new Date(this.form.value.recurrenceEndAt).setHours(this.form.value.time);
@@ -367,6 +365,11 @@ export class TaskCreateComponent implements OnInit {
     if (this.form.value.duration > 8 && this.form.value.recurrence.toLowerCase() !== 'não se repete') {
       hasError = true;
       messageError = 'Para atividades recorrentes, não se deve ultrapassar 8 horas de esforço.';
+    }
+
+    if (this.designatedPlayer === null || this.designatedPlayer === undefined) {
+      hasError = true;
+      messageError = 'Selecione um player.';
     }
 
     switch (this.form.value.recurrence.toLowerCase()) {
@@ -434,44 +437,41 @@ export class TaskCreateComponent implements OnInit {
       const dataToSend = {
         taskDates: listOfDateToEvaluate,
         player: {
-          id: this.form.value.playerToDesignate
+          id: this.designatedPlayer.personId
         },
         task: {
           duration: this.form.value.duration
         }
       };
 
-      this.loader = false;
-      this.openConfirmationRecurrence(listOfDateToEvaluate);
+      this.taskService.checkPlayerToDesignateAvailability(dataToSend).subscribe(
+        (response) => {
+          console.log(response);
+          if (response.status === 0) {
+            this.loader = false;
+            console.log('deu certo');
+            console.log(response);
 
-      // this.taskService.checkPlayerToDesignateAvailability(dataToSend).subscribe(
-      //   (response) => {
-      //     console.log(response);
-      //     if (response.status === 0) {
-      //       this.loader = false;
-      //       console.log('deu certo');
-      //       console.log(response);
-      //
-      //       const availableList = response.object;
-      //
-      //       const onlyInAv = listOfDateToEvaluate.filter(this.comparerList(availableList));
-      //       const onlyInUn = availableList.filter(this.comparerList(listOfDateToEvaluate));
-      //
-      //       const unavailableList = onlyInUn.concat(onlyInAv);
-      //       this.openConfirmationRecurrence(unavailableList);
-      //     } else {
-      //       this.loader = false;
-      //       if (response.message === 'PLAYER_NOT_FOUND') {
-      //         this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Algum player deve ser selecionado.' } });
-      //       }
-      //       // tslint:disable-next-line:max-line-length
-      //       this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
-      //     }
-      //   }, (error) => {
-      //     this.loader = false;
-      //     this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
-      //   }
-      // );
+            const availableList = response.object;
+
+            const onlyInAv = listOfDateToEvaluate.filter(this.comparerList(availableList));
+            const onlyInUn = availableList.filter(this.comparerList(listOfDateToEvaluate));
+
+            const unavailableList = onlyInUn.concat(onlyInAv);
+            this.openConfirmationRecurrence({unavailableList, availableList, player: this.designatedPlayer});
+          } else {
+            this.loader = false;
+            if (response.message === 'PLAYER_NOT_FOUND') {
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Algum player deve ser selecionado.' } });
+            }
+            // tslint:disable-next-line:max-line-length
+            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
+          }
+        }, (error) => {
+          this.loader = false;
+          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
+        }
+      );
     }
   }
 
@@ -484,16 +484,42 @@ export class TaskCreateComponent implements OnInit {
       (result) => {
         console.log(result);
         if (result && result.confirm) {
-          // chamar req, enviando dataSend.availableList
-          // const dataToSend = {
-          //   taskDates: dataSend.availableList,
-          //   player: {
-          //     id:
-          //   },
-          //   task: {
-          //     duration: this.form.value.duration
-          //   }
-          // };
+          this.loader = true;
+          const dataToSend = {
+            taskDates: dataSend.availableList,
+            player: {
+              id: dataSend.player.personId
+            },
+            task: {
+              projectId: this.form.value.projectId,
+              name: this.form.value.name,
+              description: this.form.value.description,
+              duration: this.form.value.duration,
+              rule: {
+                id: this.form.value.rule
+              },
+              cards: this.form.value.cards,
+              links: this.form.value.links,
+              parentId: this.form.value.parentId
+            }
+          };
+
+          this.taskService.createRecurrenceTask(dataToSend).subscribe(
+            (response) => {
+              if (response.status === 0) {
+                this.loader = false;
+                this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com recorrência criadas com sucesso!' } });
+                this.dialogRef.close({ confirm: true });
+                return;
+              } else {
+                this.loader = false;
+                this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
+              }
+            }, (error) => {
+              this.loader = false;
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
+            }
+          );
         }
       });
   }
