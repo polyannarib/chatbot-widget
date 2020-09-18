@@ -1,0 +1,22 @@
+<app-loading [loader]="loader"></app-loading>
+
+<div id="modal" *ngIf="!loader">
+  <div class="modal-header">
+    <span [ngStyle]="{'background-color': mainStyle}"> Confirmação </span>
+  </div>
+
+  <div style="margin-left: 20px;">
+    <label style="color: black; font-size: 20px;"> O player {{player}} está indisponível para {{listOfDates.length}} horários solicitados</label>
+  </div>
+
+  <div *ngFor="let date of listOfDates" style="margin: 20px;">{{date}}</div>
+
+  <div style="margin: 20px;">
+    <label style="color: black; font-size: 20px;">Apenas as atividades com disponibilidade serão criadas. Deseja continuar?</label>
+  </div>
+
+  <div class="buttons-bottom">
+    <button mat-flat-button [ngStyle]="{'background': mainStyle}" [mat-dialog-close]="true">Cancelar</button>
+    <button mat-flat-button [ngStyle]="{'background': secondStyle}" style="float: right;" (click)="confirmRequest()">Confirmar</button>
+  </div>
+</div>
