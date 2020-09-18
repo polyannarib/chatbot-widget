@@ -496,7 +496,7 @@ export class TaskCreateComponent implements OnInit {
               description: this.form.value.description,
               duration: this.form.value.duration,
               rule: {
-                id: this.form.value.rule.id
+                id: this.rule.id
               },
               cards: this.form.value.cards,
               links: this.form.value.links,
