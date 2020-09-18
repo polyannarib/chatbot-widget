@@ -83,6 +83,10 @@ export class TaskCreateComponent implements OnInit {
       this.createFromKySmart();
     } else {
       // COM RECORRENCIA
+      if (this.type.definition === 'EXECUTAVEL') {
+        this.createTaskWithoutRecurrence();
+        return;
+      }
       if (this.form.valid) {
         if (this.type.definition === 'EXECUTAVEL') {
           this.form.value.links = this.attachment;
