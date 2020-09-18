@@ -1,0 +1,28 @@
+<div id="designate">
+  <div class="modal-header">
+    <span [ngStyle]="{'background-color': mainStyle}">Designar player</span>
+  </div>
+
+  <div id="search-area">
+    <div class="input-field" style="margin-right: 1rem; flex-grow: 1;">
+      <input [(ngModel)]="playerToDesignate" name="playerToDesignate" id="playerToDesignate" type="text"
+        (search)="searchPlayerToDesignate()" (keyup)="checkEnter($event.keyCode)">
+      <label for="playerToDesignate">Procurar</label>
+    </div>
+
+    <button mat-mini-fab [ngStyle]="{'background-color': mainStyle}" (click)="searchPlayerToDesignate()"
+      matTooltip="Procurar">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+
+  <mat-selection-list #players>
+    <mat-list-option *ngFor="let player of playersList" [value]="player">
+      {{ player.name }}
+    </mat-list-option>
+  </mat-selection-list>
+
+  <div id="designate-button" *ngIf="players.selectedOptions.selected[0]">
+    <button mat-raised-button color="primary" [ngStyle]="{'background-color': mainStyle}" (click)="designatePlayer(players.selectedOptions.selected[0].value)">Designar</button>
+  </div>
+</div>
