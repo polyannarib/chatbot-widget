@@ -82,7 +82,6 @@ export class TaskCreateComponent implements OnInit {
     if (this.kysmart) {
       this.createFromKySmart();
     } else {
-      // COM RECORRENCIA
       if (this.type.definition !== 'EXECUTAVEL') {
         this.createTaskWithoutRecurrence();
         return;
@@ -106,6 +105,10 @@ export class TaskCreateComponent implements OnInit {
   }
 
   createTaskWithoutRecurrence() {
+    delete this.form.value.playerToDesignate;
+    delete this.form.value.recurrenceEndAt;
+    delete this.form.value.recurrence;
+
     this.loader = true;
     if (this.kysmart) {
       this.createFromKySmart();
@@ -374,128 +377,140 @@ export class TaskCreateComponent implements OnInit {
     const differenceTime = secondDate.getTime() - firstDate.getTime();
     const listOfDateToEvaluate = [];
 
-    if (this.form.value.expectedAt === null || this.form.value.expectedAt === undefined) {
+    if (this.form.value.recurrence === null || this.form.value.recurrence === undefined) {
       hasError = true;
-      messageError = 'Insira uma data de início para a atividade.';
-    }
+      messageError = 'Insira um tipo de recorrência.';
+    } else {
 
-    if (this.form.value.recurrenceEndAt !== null || this.form.value.recurrenceEndAt !== undefined) {
-      if (this.form.value.expectedAt === null || this.form.value.expectedAt === undefined) {
-        if (new Date(this.form.value.expectedAt).getTime() > new Date(this.form.value.recurrenceEndAt).getTime()) {
+      if (endAt === -46800000 && this.form.value.recurrence.toLowerCase() !== 'não se repete') {
+        hasError = true;
+        messageError = 'Insira uma data de término para a atividade.';
+      }
+
+      if (this.form.value.duration > 8 && this.form.value.recurrence.toLowerCase() !== 'não se repete') {
+        hasError = true;
+        messageError = 'Para atividades recorrentes, não se deve ultrapassar 8 horas de esforço.';
+      }
+
+      if (this.designatedPlayer === null || this.designatedPlayer === undefined && this.form.value.recurrence.toLowerCase() !== 'não se repete') {
+        hasError = true;
+        messageError = 'Selecione um player.';
+      }
+
+      if (expectedAt === -46800000) {
+        hasError = true;
+        messageError = 'Insira uma data de início para a atividade.';
+      }
+
+      if (this.form.value.duration === null || this.form.value.duration === undefined || this.form.value.duration <= 0) {
+        hasError = true;
+        messageError = 'Insira um esforço válido para a atividade.';
+      }
+
+      if (expectedAt !== -46800000 && endAt !== -46800000) {
+        const df = new Date(expectedAt);
+        const ds = new Date(endAt);
+        if (df >= ds) {
           hasError = true;
           messageError = 'A data de início da atividade não pode ultrapassar a data de término.';
         }
       }
-    }
 
-    if (this.form.value.duration === null || this.form.value.duration === undefined || this.form.value.duration <= 0) {
-      hasError = true;
-      messageError = 'Insira um esforço válido para a atividade.';
-    }
-
-    if (this.form.value.duration > 8 && this.form.value.recurrence.toLowerCase() !== 'não se repete') {
-      hasError = true;
-      messageError = 'Para atividades recorrentes, não se deve ultrapassar 8 horas de esforço.';
-    }
-
-    if (this.designatedPlayer === null || this.designatedPlayer === undefined) {
-      hasError = true;
-      messageError = 'Selecione um player.';
-    }
-
-    if (!hasError) {
-      switch (this.form.value.recurrence.toLowerCase()) {
-        case 'não se repete':
-          secondDate = firstDate;
-          if (this.designatedPlayer === null || this.designatedPlayer === undefined) {
-            this.createTaskWithoutRecurrence();
-            return;
-          }
-          break;
-
-        case 'todos os dias da semana':
-          const differenceDays = differenceTime / (1000 * 3600 * 24);
-
-          if (differenceDays > 30) {
-            hasError = true;
-            messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 30 dias.';
-          }
-          let currentDate = firstDate;
-          while (currentDate.getTime() !== secondDate.getTime()) {
-            const weekDay = currentDate.toLocaleString('default', { weekday: 'long' });
-            if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
-              listOfDateToEvaluate.push(currentDate.getTime());
+      if (!hasError) {
+        switch (this.form.value.recurrence.toLowerCase()) {
+          case 'não se repete':
+            secondDate = firstDate;
+            if (this.designatedPlayer === null || this.designatedPlayer === undefined) {
+              this.createTaskWithoutRecurrence();
+              return;
             }
-            currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
-          }
-          const finalDay = secondDate.toLocaleString('default', { weekday: 'long' });
-          if (finalDay !== 'sábado' && finalDay !== 'domingo' && finalDay !== 'saturday' && finalDay !== 'sunday') {
-            listOfDateToEvaluate.push(secondDate.getTime());
-          }
-          break;
+            listOfDateToEvaluate.push(firstDate);
+            break;
 
-        case 'semanal':
-          let diff = differenceTime / 1000;
-          diff /= (60 * 60 * 24 * 7);
-          const differenceWeeks = Math.abs(Math.round(diff));
+          case 'todos os dias da semana':
+            const differenceDays = differenceTime / (1000 * 3600 * 24);
 
-          if (differenceWeeks > 5) {
-            hasError = true;
-            messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 5 semanas.';
-          }
-          let currentDateS = firstDate;
-          const weekDayS = firstDate.toLocaleString('default', { weekday: 'long' });
-          while (currentDateS.getTime() !== secondDate.getTime()) {
-            const weekDay = currentDateS.toLocaleString('default', { weekday: 'long' });
-            if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
-              if (weekDay === weekDayS) {
+            if (differenceDays > 30) {
+              hasError = true;
+              messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 30 dias.';
+            }
+            let currentDate = firstDate;
+            while (currentDate.getTime() !== secondDate.getTime()) {
+              const weekDay = currentDate.toLocaleString('default', { weekday: 'long' });
+              if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
+                listOfDateToEvaluate.push(currentDate.getTime());
+              }
+              currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
+            }
+            const finalDay = secondDate.toLocaleString('default', { weekday: 'long' });
+            if (finalDay !== 'sábado' && finalDay !== 'domingo' && finalDay !== 'saturday' && finalDay !== 'sunday') {
+              listOfDateToEvaluate.push(secondDate.getTime());
+            }
+            break;
+
+          case 'semanal':
+            let diff = differenceTime / 1000;
+            diff /= (60 * 60 * 24 * 7);
+            const differenceWeeks = Math.abs(Math.round(diff));
+
+            if (differenceWeeks > 5) {
+              hasError = true;
+              messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 5 semanas.';
+            }
+            let currentDateS = firstDate;
+            const weekDayS = firstDate.toLocaleString('default', { weekday: 'long' });
+            while (currentDateS.getTime() !== secondDate.getTime()) {
+              const weekDay = currentDateS.toLocaleString('default', { weekday: 'long' });
+              if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
+                if (weekDay === weekDayS) {
+                  listOfDateToEvaluate.push(currentDateS.getTime());
+                }
+              }
+              currentDateS = new Date(currentDateS.setDate(currentDateS.getDate() + 1));
+            }
+            const finalDayS = secondDate.toLocaleString('default', { weekday: 'long' });
+            if (finalDayS !== 'sábado' && finalDayS !== 'domingo' && finalDayS !== 'saturday' && finalDayS !== 'sunday') {
+              if (finalDayS === weekDayS) {
                 listOfDateToEvaluate.push(currentDateS.getTime());
               }
             }
-            currentDateS = new Date(currentDateS.setDate(currentDateS.getDate() + 1));
-          }
-          const finalDayS = secondDate.toLocaleString('default', { weekday: 'long' });
-          if (finalDayS !== 'sábado' && finalDayS !== 'domingo' && finalDayS !== 'saturday' && finalDayS !== 'sunday') {
-            if (finalDayS === weekDayS) {
-              listOfDateToEvaluate.push(currentDateS.getTime());
+            break;
+
+          case 'mensal':
+            let months;
+            months = (secondDate.getFullYear() - firstDate.getFullYear()) * 12;
+            months -= firstDate.getMonth();
+            months += secondDate.getMonth();
+            const differenceMonths = months <= 0 ? 0 : months;
+
+            if (differenceMonths > 3) {
+              hasError = true;
+              messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 3 meses.';
             }
-          }
-          break;
-
-        case 'mensal':
-          let months;
-          months = (secondDate.getFullYear() - firstDate.getFullYear()) * 12;
-          months -= firstDate.getMonth();
-          months += secondDate.getMonth();
-          const differenceMonths = months <= 0 ? 0 : months;
-
-          if (differenceMonths > 3) {
-            hasError = true;
-            messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 3 meses.';
-          }
-          let currentDateM = firstDate;
-          const monthDayM = firstDate.getDate();
-          while (currentDateM.getTime() !== secondDate.getTime()) {
-            const weekDay = currentDateM.toLocaleString('default', { weekday: 'long' });
-            if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
-              if (currentDateM.getDate() === monthDayM) {
+            let currentDateM = firstDate;
+            const monthDayM = firstDate.getDate();
+            while (currentDateM.getTime() !== secondDate.getTime()) {
+              const weekDay = currentDateM.toLocaleString('default', { weekday: 'long' });
+              if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
+                if (currentDateM.getDate() === monthDayM) {
+                  listOfDateToEvaluate.push(currentDateM.getTime());
+                }
+              }
+              currentDateM = new Date(currentDateM.setDate(currentDateM.getDate() + 1));
+            }
+            const finalDayM = secondDate.toLocaleString('default', { weekday: 'long' });
+            if (finalDayM !== 'sábado' && finalDayM !== 'domingo' && finalDayM !== 'saturday' && finalDayM !== 'sunday') {
+              if (secondDate.getDate() === monthDayM) {
                 listOfDateToEvaluate.push(currentDateM.getTime());
               }
             }
-            currentDateM = new Date(currentDateM.setDate(currentDateM.getDate() + 1));
-          }
-          const finalDayM = secondDate.toLocaleString('default', { weekday: 'long' });
-          if (finalDayM !== 'sábado' && finalDayM !== 'domingo' && finalDayM !== 'saturday' && finalDayM !== 'sunday') {
-            if (secondDate.getDate() === monthDayM) {
-              listOfDateToEvaluate.push(currentDateM.getTime());
-            }
-          }
-          break;
+            break;
 
-        default:
-          hasError = true;
-          messageError = 'Escolha a recorrência.';
-          break;
+          default:
+            hasError = true;
+            messageError = 'Escolha a recorrência.';
+            break;
+        }
       }
     }
 
@@ -508,7 +523,7 @@ export class TaskCreateComponent implements OnInit {
       const dataToSend = {
         taskDates: listOfDateToEvaluate,
         player: {
-          id: this.designatedPlayer.personId
+          personId: this.designatedPlayer.personId
         },
         task: {
           duration: this.form.value.duration
@@ -520,31 +535,48 @@ export class TaskCreateComponent implements OnInit {
           console.log(response);
           if (response.status === 0) {
             this.loader = false;
-            console.log('deu certo');
             console.log(response);
 
             const availableList = response.object;
+
+            if (listOfDateToEvaluate.length === 1) {
+              if (availableList.length !== 0) {
+                this.createRecurrenceTask({unavailableList: null, availableList, player: this.designatedPlayer});
+                return;
+              } else {
+                this.loader = false;
+                this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'O player não está disponível em todas as datas solicitadas.' } });
+                return;
+              }
+            }
 
             const onlyInAv = listOfDateToEvaluate.filter(this.comparerList(availableList));
             const onlyInUn = availableList.filter(this.comparerList(listOfDateToEvaluate));
 
             const unavailableList = onlyInUn.concat(onlyInAv);
 
+            if (availableList.length === 0) {
+              this.loader = false;
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'O player não está disponível em todas as datas solicitadas.' } });
+              return;
+            }
+
             if (unavailableList.length === 0) {
               this.createRecurrenceTask({unavailableList, availableList, player: this.designatedPlayer});
+              return;
             }
 
             this.openConfirmationRecurrence({unavailableList, availableList, player: this.designatedPlayer});
           } else {
             this.loader = false;
+            const businessHourError = 'BUSINESS_HOUR_EXCEDED_TO_DATE_' + this.form.value.expectedAt.toString();
             if (response.message === 'PLAYER_NOT_FOUND') {
               this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Algum player deve ser selecionado.' } });
-            }
-            if (response.message.includes('BUSINESS_HOUR_EXCEDED_TO_DATE')) {
+            } else if (response.message === businessHourError) {
               this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Não é possível criar atividade excedendo o horário comercial.' } });
+            } else {
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
             }
-            // tslint:disable-next-line:max-line-length
-            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
           }
         }, (error) => {
           this.loader = false;
