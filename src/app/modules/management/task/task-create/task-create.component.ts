@@ -83,7 +83,7 @@ export class TaskCreateComponent implements OnInit {
       this.createFromKySmart();
     } else {
       // COM RECORRENCIA
-      if (this.type.definition === 'EXECUTAVEL') {
+      if (this.type.definition !== 'EXECUTAVEL') {
         this.createTaskWithoutRecurrence();
         return;
       }
@@ -381,7 +381,7 @@ export class TaskCreateComponent implements OnInit {
 
     if (this.form.value.recurrenceEndAt !== null || this.form.value.recurrenceEndAt !== undefined) {
       if (this.form.value.expectedAt === null || this.form.value.expectedAt === undefined) {
-        if (this.form.value.expectedAt.getTime() > this.form.value.recurrenceEndAt .getTime()) {
+        if (new Date(this.form.value.expectedAt).getTime() > new Date(this.form.value.recurrenceEndAt).getTime()) {
           hasError = true;
           messageError = 'A data de início da atividade não pode ultrapassar a data de término.';
         }
