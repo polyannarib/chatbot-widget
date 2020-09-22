@@ -40,13 +40,20 @@
 
 <div class="row boxCharactersDeck" *ngIf="playerDeck && !loaderDeck">
   <div class="charactersDeck" *ngFor="let card of playerDeck" [ngClass]="{'help' : status}" matTooltip="{{ card.cardName }}">
-    <img class="card-star" [src]="card.classification.starUrl | image | async">
-    <img class="card-img" width="100%" [src]="card.classification.url | image | async">
-    <img class="logo" [src]="card.url | image | async">
+    <div [ngStyle]="{'background-color': 'black'}" [style.opacity]="1" *ngIf="card.avoid.toLowerCase() === 'inactive'">
+      <img class="card-star" [src]="card.classification.starUrl | image | async">
+      <img class="card-img" width="100%" [src]="card.classification.url | image | async">
+      <img class="logo" [src]="card.url | image | async">
+    </div>
+    <div [ngStyle]="{'background-color': 'black'}" [style.opacity]="0.7" *ngIf="card.avoid.toLowerCase() === 'active'">
+      <img class="card-star" [src]="card.classification.starUrl | image | async">
+      <img class="card-img" width="100%" [src]="card.classification.url | image | async">
+      <img class="logo" [src]="card.url | image | async">
+    </div>
     <div class="row">
       <button [ngStyle]="{'background-color': mainStyle}" class="btn-floating waves-effect waves-light deckButton2"
               [ngClass]="{'isInDeck': isInDeck}" (click)="disableCard(card)">
-        <i class="material-icons" *ngIf="card.avoid.toLowerCase() === 'active'">toggle_on</i>
+        <i class="material-icons-outlined" *ngIf="card.avoid.toLowerCase() === 'active'">toggle_on</i>
         <i class="material-icons" *ngIf="card.avoid.toLowerCase() === 'inactive'">toggle_off</i>
       </button>
       <button [disabled]="getDisabled(card.classification.attributes)"

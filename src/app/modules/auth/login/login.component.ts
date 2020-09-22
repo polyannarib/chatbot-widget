@@ -29,10 +29,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
   form: FormGroup = this.formBuilder.group({
     email: [null, [Validators.required, Validators.email]],
     password: [null, [Validators.required]],
-    type: ["WEBPORTAL"],
+    type: ['WEBPORTAL']
   });
   formForgottenPassword: FormGroup = this.formBuilder.group({
-    username: [null, [Validators.required]],
+    username: [null, [Validators.required]]
   });
   forgottenPasswordCard: boolean = false;
   showMessage: boolean = false;
@@ -122,26 +122,19 @@ export class LoginComponent implements OnInit, AfterViewInit {
   onForgottenPassword() {
     this.loader = true;
     if (this.formForgottenPassword.valid) {
-      this.authService
-        .forgottenPassword(this.formForgottenPassword.value.username)
-        .subscribe(
-          (responseForgottenPassword) => {
-            this.forgottenPasswordStatus =
-              responseForgottenPassword.responseStatus;
-            const message = responseForgottenPassword.responseMessage;
-            this.showMessage = true;
-            this.messageToShow = message;
-            this.loader = false;
-          },
-          (err) => {
-            this.setError(
-              "Problemas ao fazer a requisição, favor tentar novamente!"
-            );
-            this.loader = false;
-          }
-        );
+      this.authService.forgottenPassword(this.formForgottenPassword.value.username).subscribe(
+        (responseForgottenPassword) => {
+          this.forgottenPasswordStatus = responseForgottenPassword.responseStatus;
+          const message = responseForgottenPassword.responseMessage;
+          this.showMessage = true;
+          this.messageToShow = message;
+          this.loader = false;
+        }, (err) => {
+          this.setError('Problemas ao fazer a requisição, favor tentar novamente!');
+          this.loader = false;
+      });
     } else {
-      this.setError("Por favor, digite os campos corretamente!");
+      this.setError('Por favor, digite os campos corretamente!');
       this.loader = false;
     }
   }
@@ -150,39 +143,36 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.profileService.getWhiteLabel().subscribe(
       (response) => {
         if (response.status == 0) {
-          this.profileService.setWhiteLabel(response.object);
-          this.router.navigate(["/management/cockpit"]);
-          return;
+            this.profileService.setWhiteLabel(response.object);
+            this.router.navigate(['/management/cockpit']);
+            return;
 
-          // let scopes = this.authService.redirectPageByScopes();
-          // window.location.href = AppConstants.URL_SSO + '/cookie'
-          // + '?SSOID=' + response.object.ssoId
-          // + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/management/cockpit`;
+              // let scopes = this.authService.redirectPageByScopes();
+              // window.location.href = AppConstants.URL_SSO + '/cookie'
+              // + '?SSOID=' + response.object.ssoId
+              // + '&urlRedirect=' + AppConstants.WORKPLAYER_HOME + `/management/cockpit`;
         }
-        this.setError("Problemas ao fazer o login, favor tentar novamente!");
+        this.setError('Problemas ao fazer o login, favor tentar novamente!');
         // this._snackBar.openFromComponent(NotifyComponent,
         //   { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
         // return;
-      },
-      (err) => {
-        this.setError("Problemas ao fazer o login, favor tentar novamente!");
+      }, (err) => {
+        this.setError('Problemas ao fazer o login, favor tentar novamente!');
         // this._snackBar.openFromComponent(NotifyComponent,
         //   { data: { type: 'error', message: 'Problemas ao fazer o login, favor tentar novamente!' }});
         // return;
-      }
-    );
+    })
   }
 
   setError(value) {
-    this._snackBar.openFromComponent(NotifyComponent, {
-      data: { type: "error", message: value },
-    });
+    this._snackBar.openFromComponent(NotifyComponent,
+      { data: { type: 'error', message: value }});
   }
 
   switchForgottenPasswordCard() {
     this.forgottenPasswordCard = !this.forgottenPasswordCard;
     this.showMessage = false;
-    this.formForgottenPassword.setValue({ username: "" });
+    this.formForgottenPassword.setValue({username: ''});
   }
 
   // onLogin() {

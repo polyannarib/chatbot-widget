@@ -90,4 +90,16 @@ export class TaskService {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/listRule`, { params: rule });
   }
 
+  checkPlayerToDesignateAvailability(data): Observable<any> {
+    return this.http.post(`${environment.back_end_url}/task/recurrentTask/playerAvailability`, data);
+  }
+
+  createRecurrenceTask(data): Observable<any> {
+    return this.http.post(`${environment.back_end_url}/task/recurrentTask/createAndAssignAPlayer`, data);
+  }
+
+  getPlayersToDesignate(parseName: string): Observable<any> {
+    return this.http.get(`${environment.back_end_url}/person/byName/${parseName}`);
+  }
+
 }

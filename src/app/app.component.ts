@@ -1,8 +1,9 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { company } from '../environments/environment'
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileService } from './core/services/profile.service';
+import * as M from "materialize-css/dist/js/materialize";
 
 export interface EventEmitted {
   name: String;
@@ -15,7 +16,7 @@ export interface EventEmitted {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, AfterViewChecked {
   
   btnMenuClass: string;
   private themeWrapper = document.querySelector('body');
@@ -42,6 +43,11 @@ export class AppComponent implements OnInit{
     })
     this.btnMenuClass = 'hamRotate';
     this.toggleMenu('left');
+  }
+
+  ngAfterViewChecked() {
+    //Checks all Materialize text fields for input -- sets active if input found
+    M.updateTextFields();
   }
 
   toggleMenu(position) {

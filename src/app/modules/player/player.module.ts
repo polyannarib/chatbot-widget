@@ -14,6 +14,7 @@ import { ChatWindowComponent } from './chat-window/chat-window.component';
 import { ChatBoxHeaderComponent } from './chat-window/chat-box-header/chat-box-header.component';
 import { RestartWarningComponent } from './chat-window/restart-warning/restart-warning.component';
 import { ChatbotWidgetComponent } from './chatbot-widget/chatbot-widget.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -26,7 +27,8 @@ import { ChatbotWidgetComponent } from './chatbot-widget/chatbot-widget.componen
     ChatWindowComponent,
     ChatBoxHeaderComponent,
     RestartWarningComponent,
-    ChatbotWidgetComponent
+    ChatbotWidgetComponent,
+    ReactiveFormsModule
   ],
   declarations: [
     PlayerComponent, 

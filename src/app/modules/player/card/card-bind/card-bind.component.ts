@@ -7,6 +7,7 @@ import { NotifyComponent } from 'src/app/shared/components/notify/notify.compone
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ProfileService } from 'src/app/core/services/profile.service';
+import {style, transition} from "@angular/animations";
 
 @Component({
   selector: 'app-card-bind',

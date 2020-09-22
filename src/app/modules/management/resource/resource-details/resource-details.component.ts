@@ -18,6 +18,7 @@ export class ResourceDetailsComponent implements OnInit {
   mainStyle = this.profileService.getAppMainColor();
   secoundStyle = this.profileService.getAppSecondaryColor();
   tasksList: any;
+  descriptionExpanded = [];
 
   constructor(
     public dialogRef: MatDialogRef<ResourceDetailsComponent>,
