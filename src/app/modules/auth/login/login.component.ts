@@ -1,22 +1,28 @@
-import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router';
-import {Component, OnInit, AfterViewInit, Inject} from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { User } from 'src/app/shared/models/user';
-import { AppConstants } from '../../../app.constants';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
-import { MatBottomSheet } from '@angular/material';
-import { CompanySelectComponent } from '../company-select/company-select.component';
-import { ProfileService } from 'src/app/core/services/profile.service';
+import { AuthService } from "../../../core/services/auth.service";
+import { Router } from "@angular/router";
+import { Component, OnInit, AfterViewInit, Inject } from "@angular/core";
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validators,
+} from "@angular/forms";
+import { User } from "src/app/shared/models/user";
+import { AppConstants } from "../../../app.constants";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { NotifyComponent } from "src/app/shared/components/notify/notify.component";
+import { MatBottomSheet } from "@angular/material";
+import { CompanySelectComponent } from "../company-select/company-select.component";
+import { ProfileService } from "src/app/core/services/profile.service";
+import { MessagesFlowService } from "../../../core/services/messages-flow.service";
+import { Md5 } from "ts-md5/dist/md5";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-
   loader: boolean = false;
 
   user: User;
@@ -40,15 +46,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private _snackBar: MatSnackBar,
     private _bottomSheet: MatBottomSheet,
     private profileService: ProfileService,
-  ) { }
+    private chat: MessagesFlowService
+  ) {}
 
   ngAfterViewInit() {
-    if(this.authService.isAuthenticated()) {
-      this.router.navigate(['/management']);
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(["/management"]);
     }
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onLogin() {
     this.loader = true;
@@ -57,33 +64,57 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.authService.login(this.form.value).subscribe(
         (responseAuth) => {
           if (responseAuth.status == 0) {
-            this.authService.setAppToken(responseAuth.object.appToken);
+            this.profileService.getProfile().subscribe((response) => {
+              let hashSession = Md5.hashStr(
+                responseAuth.object.userToken
+              ).toString();
+              let getuser = /\w*[^@]/;
+              let username = this.form.value.email.match(getuser);
+              this.chat.getCredentials(
+                {
+                  username: username[0],
+                  profileName: response.object.name,
+                  sessionId: hashSession,
+                },
+                this.form.value.password
+              );
+              this.authService.setAppToken(responseAuth.object.appToken);
+            });
             this.getWhiteLavel();
+            //this.infoToChatbot();
             return;
-          } if (responseAuth.status == 1) {
-            this.setError('Por favor, digite os campos corretamente!');
+          }
+          if (responseAuth.status == 1) {
+            this.setError("Por favor, digite os campos corretamente!");
             this.loader = false;
-          } if (responseAuth.status == 2) {
-            const bottomSheetRef = this._bottomSheet.open(CompanySelectComponent,
-              { data: {
-                form: this.form.value,
-                companys: responseAuth.object
-            }});
+          }
+          if (responseAuth.status == 2) {
+            const bottomSheetRef = this._bottomSheet.open(
+              CompanySelectComponent,
+              {
+                data: {
+                  form: this.form.value,
+                  companys: responseAuth.object,
+                },
+              }
+            );
             bottomSheetRef.afterDismissed().subscribe((response) => {
-              if(response.selected === true) {
+              if (response.selected === true) {
                 this.getWhiteLavel();
                 return;
               }
-              this.setError('Problemas, contate o administrador!');
+              this.setError("Problemas, contate o administrador!");
               this.loader = false;
             });
           }
-        }, (err) => {
-          this.setError('Problemas ao fazer o login, favor tentar novamente!');
+        },
+        (err) => {
+          this.setError("Problemas ao fazer o login, favor tentar novamente!");
           this.loader = false;
-      })
+        }
+      );
     } else {
-      this.setError('Por favor, digite os campos corretamente!');
+      this.setError("Por favor, digite os campos corretamente!");
       this.loader = false;
     }
   }
@@ -221,5 +252,4 @@ export class LoginComponent implements OnInit, AfterViewInit {
   //       return;
   //   })
   // }
-
 }

@@ -31,6 +31,15 @@ import { TaskDetailsComponent } from './task/task-details/task-details.component
 import { CardFindComponent } from './card/card-find/card-find.component';
 import { ModalKysmartComponent } from './task/modal-kysmart/modal-kysmart.component';
 import { CockpitComponent } from './cockpit/cockpit.component';
+
+// Componentes chatbot
+import { ChatBoxComponent } from './chat-box/chat-box.component';
+import { ChatBoxIconComponent } from './chat-box-icon/chat-box-icon.component';
+import { ChatWindowComponent } from './chat-window/chat-window.component';
+import { ChatBoxHeaderComponent } from './chat-window/chat-box-header/chat-box-header.component';
+import { RestartWarningComponent } from './chat-window/restart-warning/restart-warning.component';
+import { ChatbotWidgetComponent } from './chatbot-widget/chatbot-widget.component';
+
 import { ModalRecurrenceComponent } from './task/modal-recurrence/modal-recurrence.component';
 import { DesignatePlayerComponent } from './task/designate-player/designate-player.component';
 
@@ -62,6 +71,13 @@ import { DesignatePlayerComponent } from './task/designate-player/designate-play
     TaskDetailsComponent,
     CardFindComponent,
     ModalKysmartComponent,
+    CockpitComponent,
+    ChatBoxComponent,
+    ChatBoxIconComponent,
+    ChatWindowComponent,
+    ChatBoxHeaderComponent,
+    RestartWarningComponent,
+    ChatbotWidgetComponent,
     ModalRecurrenceComponent,
     CockpitComponent,
     DesignatePlayerComponent

@@ -28,6 +28,9 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
+    localStorage.removeItem("username");
+    localStorage.removeItem("profileName");
+    localStorage.removeItem("sessionId");
     this.authService.logout();
     // let params = {
     //   "SYSTEM": AppConstants.SYSTEM_NAME
@@ -41,9 +44,8 @@ export class MenuComponent implements OnInit {
     //           this.authService.removeToken();
     //           this.router.navigate( ['/auth/login'], { queryParams: { authenticated: false}} )
     //         }
-    //       )  
+    //       )
     //   }
     // )
   }
-
 }

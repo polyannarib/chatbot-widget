@@ -1,0 +1,17 @@
+<div class="clearRequestContainer" [ngStyle]="{ 'background-color': restartColor, 'color': fontColor}">
+    Deseja limpar o histórico de conversa?
+    <div class="clearButtonsContainer">
+      <button
+        mat-flat-button
+        class="buttons"
+        (click)="restartRequest(true)">
+        Sim
+      </button>
+      <button
+        mat-flat-button
+        class="buttons"
+        (click)="restartRequest(false)">
+        Não
+      </button>
+    </div>
+  </div>
