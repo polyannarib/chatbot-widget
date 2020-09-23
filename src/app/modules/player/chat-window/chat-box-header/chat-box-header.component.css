@@ -27,3 +27,9 @@
   margin-right: 5%;
   height: auto;
 }
+@media screen and (max-width: 900px) {
+  .header-icon {
+    width: 30px;
+    height: 30px;
+  }
+}

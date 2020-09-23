@@ -10,7 +10,7 @@ import { MessagesFlowService } from "../../../core/services/messages-flow.servic
 export class ChatBoxIconComponent implements OnInit {
   firstInteraction: boolean = true;
   messages: any[] = [];
-  botIcon: string = "../../../../assets/images/botIcon.png";
+  botIcon: string = "assets/images/botIcon.png";
   constructor(
     private chat: OpenChatService,
     public messageService: MessagesFlowService

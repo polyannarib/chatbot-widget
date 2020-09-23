@@ -46,7 +46,6 @@ export class OpenChatService {
         }
       })
       this.whiteLabel.next(whiteLabel);
-      console.log(whiteLabel);
     })
   }
 
