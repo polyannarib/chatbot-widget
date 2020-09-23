@@ -26,6 +26,10 @@ export class TaskService {
     return this.http.post(`${environment.back_end_url}/${this.prefixService}`, data);
   }
 
+  editTaskDate(data): Observable<any> {
+    return this.http.post(`${environment.back_end_url}/${this.prefixService}/editTaskDates`, data);
+  }
+
   removeTask(id: Number, reason: String): Observable<any> {
     return this.http.get(`${environment.back_end_url}/${this.prefixService}/${id}/remove?reason=${reason}`);
   }
