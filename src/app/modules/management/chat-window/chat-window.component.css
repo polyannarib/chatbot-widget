@@ -21,6 +21,22 @@
   height: 500px;
 }
 
+@media screen and (max-width: 900px) {
+  .windowContainer {
+    right: 10vw;
+    bottom: 9rem;
+    width: 60vw;
+  }
+  .minimized {
+    position: fixed;
+    bottom: -29rem;
+    right: 30vw;
+    width: 60vw;
+    height: 500px;
+  }
+}
+
+
 .chatbotFooter {
   position: relative;
   height: 40px;
