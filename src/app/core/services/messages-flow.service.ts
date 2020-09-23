@@ -56,7 +56,6 @@ export class MessagesFlowService {
 
   botMessages(usermsg: string) {
     let response = [];
-    console.log(this.metadata);
     this.http
       .post<any>(
         "https://bot.kyros.com.br/chatWidget",
@@ -68,7 +67,6 @@ export class MessagesFlowService {
       )
       .subscribe(
         (botMsg) => {
-          console.log(botMsg);
           if (botMsg.length > 0) {
             for (let i = 0; i < botMsg.length; i++) {
               if (botMsg[i].hasOwnProperty("buttons")) {
@@ -149,7 +147,7 @@ export class MessagesFlowService {
       )
       .subscribe(
         (sucess) => {
-          console.log("sucess: " + sucess);
+          console.log('sucess');
         },
         (error) => {
           console.log(error);

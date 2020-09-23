@@ -68,7 +68,6 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
     //Display text while bot not answer
     this.messageService.loadingBotResponse.subscribe((loading) => {
       this.loadingMsg = loading;
-      console.log("loading: " + loading);
     });
   }
 

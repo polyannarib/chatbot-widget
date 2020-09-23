@@ -43,7 +43,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
 
     this.sub = this.chat.history.subscribe((lastMessages) => {
       this.historyMessages = lastMessages;
-      console.log(this.historyMessages);
     });
     if (annyang !== null) {
       annyang.setLanguage("pt-br");
