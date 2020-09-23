@@ -6,6 +6,13 @@
   z-index: 10000;
 }
 
+@media screen and (max-width: 1366px) {
+  .windowContainer {
+    right: 150px;
+    bottom: 2rem;
+  }
+}
+
 .minimized {
   position: fixed;
   bottom: -30rem;
@@ -31,7 +38,7 @@
   color: #d90707;
 }
 
-input[type=text]:not(.browser-default) {
+input[type="text"]:not(.browser-default) {
   width: calc(100% - 60px);
   height: 37px;
   outline: none;
@@ -48,7 +55,7 @@ input[type=text]:not(.browser-default) {
   margin: 0;
 }
 
-input[type=text]:not(.browser-default):focus:not([readonly]) {
+input[type="text"]:not(.browser-default):focus:not([readonly]) {
   border-bottom: none;
   -webkit-box-shadow: none;
   box-shadow: none;

@@ -69,10 +69,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
-    if (annyang.getSpeechRecognizer() !== undefined) {
-      annyang.abort();
-    }
+    //this.sub.unsubscribe(); // retorna undefined
+    //if (annyang.getSpeechRecognizer() !== undefined) { // retorna null
+    // annyang.abort();
+    //}
   }
 
   onSubmit() {

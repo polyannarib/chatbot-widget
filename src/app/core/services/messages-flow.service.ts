@@ -34,7 +34,7 @@ export class MessagesFlowService {
     password: string
   ) {
     this.metadata = metadataReceived;
-    localStorage.setItem("usename", metadataReceived.username);
+    localStorage.setItem("username", metadataReceived.username);
     localStorage.setItem("profileName", metadataReceived.profileName);
     localStorage.setItem("sessionId", metadataReceived.sessionId);
     this.passCredentialsToBot(password);
@@ -56,6 +56,7 @@ export class MessagesFlowService {
 
   botMessages(usermsg: string) {
     let response = [];
+    console.log(this.metadata);
     this.http
       .post<any>(
         "https://bot.kyros.com.br/chatWidget",
