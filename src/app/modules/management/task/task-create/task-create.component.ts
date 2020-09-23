@@ -376,13 +376,15 @@ export class TaskCreateComponent implements OnInit {
     let secondDate = new Date(this.form.value.recurrenceEndAt);
     const differenceTime = secondDate.getTime() - firstDate.getTime();
     const listOfDateToEvaluate = [];
+    const expectedAtToCompare = new Date(expectedAt).setHours(0,0,0,0);
+    const endAtToCompare = new Date(endAt).setHours(0,0,0,0);
 
     if (this.form.value.recurrence === null || this.form.value.recurrence === undefined) {
       hasError = true;
       messageError = 'Insira um tipo de recorrência.';
     } else {
 
-      if (endAt === -46800000 && this.form.value.recurrence.toLowerCase() !== 'não se repete') {
+      if (endAtToCompare === -75600000 && this.form.value.recurrence.toLowerCase() !== 'não se repete') {
         hasError = true;
         messageError = 'Insira uma data de término para a atividade.';
       }
@@ -397,7 +399,7 @@ export class TaskCreateComponent implements OnInit {
         messageError = 'Selecione um player.';
       }
 
-      if (expectedAt === -46800000) {
+      if (expectedAtToCompare === -75600000) {
         hasError = true;
         messageError = 'Insira uma data de início para a atividade.';
       }
@@ -407,9 +409,9 @@ export class TaskCreateComponent implements OnInit {
         messageError = 'Insira um esforço válido para a atividade.';
       }
 
-      if (expectedAt !== -46800000 && endAt !== -46800000) {
-        const df = new Date(expectedAt);
-        const ds = new Date(endAt);
+      if (expectedAtToCompare !== -75600000 && endAtToCompare !== -75600000) {
+        const df = new Date(expectedAtToCompare);
+        const ds = new Date(endAtToCompare);
         if (df >= ds) {
           hasError = true;
           messageError = 'A data de início da atividade não pode ultrapassar a data de término.';
