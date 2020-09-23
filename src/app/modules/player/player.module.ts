@@ -21,18 +21,17 @@ import { ChatbotWidgetComponent } from './chatbot-widget/chatbot-widget.componen
     PlayerRoutingModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
+  ],
+  declarations: [
+    PlayerComponent, 
+    CardBindComponent,
     ChatBoxComponent,
     ChatBoxIconComponent,
     ChatWindowComponent,
     ChatBoxHeaderComponent,
     RestartWarningComponent,
-    ChatbotWidgetComponent,
-    ReactiveFormsModule
-  ],
-  declarations: [
-    PlayerComponent, 
-    CardBindComponent
+    ChatbotWidgetComponent
   ]
 })
 export class PlayerModule { }
