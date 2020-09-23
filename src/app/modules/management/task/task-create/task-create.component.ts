@@ -1,13 +1,15 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TaskService } from 'src/app/core/services/task.service';
-import { ProfileService } from 'src/app/core/services/profile.service';
-import { NotifyComponent } from 'src/app/shared/components/notify/notify.component';
-import { CardFindComponent } from '../../card/card-find/card-find.component';
-import { AttachmentComponent } from 'src/app/shared/components/modal/attachment/attachment.component';
-import { ModalKysmartComponent } from '../modal-kysmart/modal-kysmart.component';
-import { CardService } from 'src/app/core/services/card.service';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {TaskService} from 'src/app/core/services/task.service';
+import {ProfileService} from 'src/app/core/services/profile.service';
+import {NotifyComponent} from 'src/app/shared/components/notify/notify.component';
+import {CardFindComponent} from '../../card/card-find/card-find.component';
+import {AttachmentComponent} from 'src/app/shared/components/modal/attachment/attachment.component';
+import {ModalKysmartComponent} from '../modal-kysmart/modal-kysmart.component';
+import {CardService} from 'src/app/core/services/card.service';
+import {ModalRecurrenceComponent} from '../modal-recurrence/modal-recurrence.component';
+import { DesignatePlayerComponent } from '../designate-player/designate-player.component';
 
 @Component({
   selector: 'app-task-create',
@@ -39,12 +41,16 @@ export class TaskCreateComponent implements OnInit {
     type: [null],
     links: [this.attachment],
     time: [8],
-    rule: [this.rule],
+    rule: [null],
     parentId: [this.data.parentId],
-    projectId: [this.data.project.id]
+    projectId: [this.data.project.id],
+    recurrence: [null],
+    recurrenceEndAt: [null],
+    playerToDesignate: [null]
   });
   cardsTypes: any;
   classificationId: any;
+  designatedPlayer;
 
   constructor(
     public dialogRef: MatDialogRef<TaskCreateComponent>,
@@ -76,6 +82,38 @@ export class TaskCreateComponent implements OnInit {
     if (this.kysmart) {
       this.createFromKySmart();
     } else {
+      if (this.type.definition !== 'EXECUTAVEL') {
+        this.createTaskWithoutRecurrence();
+        return;
+      }
+      if (this.form.valid) {
+        if (this.type.definition === 'EXECUTAVEL') {
+          this.form.value.links = this.attachment;
+          this.form.value.cards = this.cards;
+          this.form.value.rule = this.rule;
+        }
+        this.form.value.type = this.types.find(element => element.level === this.createNewType);
+
+        console.log('-------------------');
+
+        this.checkPlayerAvailability();
+      } else {
+        this.loader = false;
+        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Por favor, digite os campos corretamente!' } });
+      }
+    }
+  }
+
+  createTaskWithoutRecurrence() {
+    delete this.form.value.playerToDesignate;
+    delete this.form.value.recurrenceEndAt;
+    delete this.form.value.recurrence;
+
+    this.loader = true;
+    if (this.kysmart) {
+      this.createFromKySmart();
+    } else {
+      // SEM RECORRENCIA
       if (this.form.valid) {
         if (this.type.definition == 'EXECUTAVEL') {
           const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
@@ -92,11 +130,14 @@ export class TaskCreateComponent implements OnInit {
         this.form.value.time = undefined;
         this.form.value.type = this.types.find(element => element.level == this.createNewType)
 
+        console.log('-------------------')
+        console.log(this.form.value)
+
         this.taskService.createTask(this.form.value).subscribe(
           (response) => {
             if (response.status == 0) {
               this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Projeto atualizado com sucesso!' } });
-              this.dialogRef.close(response);
+              this.dialogRef.close({ confirm: true });
               this.loader = false;
               return;
             }
@@ -322,6 +363,290 @@ export class TaskCreateComponent implements OnInit {
       });
   }
 
+  checkPlayerAvailability() {
+    const expectedAt = new Date(this.form.value.expectedAt).setHours(this.form.value.time);
+    const endAt = new Date(this.form.value.recurrenceEndAt).setHours(this.form.value.time);
+    this.form.value.expectedAt = new Date(expectedAt).getTime();
+    this.form.value.recurrenceEndAt = new Date(endAt).getTime();
+
+    this.loader = true;
+    let messageError;
+    let hasError = false;
+    const firstDate = new Date(this.form.value.expectedAt);
+    let secondDate = new Date(this.form.value.recurrenceEndAt);
+    const differenceTime = secondDate.getTime() - firstDate.getTime();
+    const listOfDateToEvaluate = [];
+
+    if (this.form.value.recurrence === null || this.form.value.recurrence === undefined) {
+      hasError = true;
+      messageError = 'Insira um tipo de recorrência.';
+    } else {
+
+      if (endAt === -46800000 && this.form.value.recurrence.toLowerCase() !== 'não se repete') {
+        hasError = true;
+        messageError = 'Insira uma data de término para a atividade.';
+      }
+
+      if (this.form.value.duration > 8 && this.form.value.recurrence.toLowerCase() !== 'não se repete') {
+        hasError = true;
+        messageError = 'Para atividades recorrentes, não se deve ultrapassar 8 horas de esforço.';
+      }
+
+      if (this.designatedPlayer === null || this.designatedPlayer === undefined && this.form.value.recurrence.toLowerCase() !== 'não se repete') {
+        hasError = true;
+        messageError = 'Selecione um player.';
+      }
+
+      if (expectedAt === -46800000) {
+        hasError = true;
+        messageError = 'Insira uma data de início para a atividade.';
+      }
+
+      if (this.form.value.duration === null || this.form.value.duration === undefined || this.form.value.duration <= 0) {
+        hasError = true;
+        messageError = 'Insira um esforço válido para a atividade.';
+      }
+
+      if (expectedAt !== -46800000 && endAt !== -46800000) {
+        const df = new Date(expectedAt);
+        const ds = new Date(endAt);
+        if (df >= ds) {
+          hasError = true;
+          messageError = 'A data de início da atividade não pode ultrapassar a data de término.';
+        }
+      }
+
+      if (!hasError) {
+        switch (this.form.value.recurrence.toLowerCase()) {
+          case 'não se repete':
+            secondDate = firstDate;
+            if (this.designatedPlayer === null || this.designatedPlayer === undefined) {
+              this.createTaskWithoutRecurrence();
+              return;
+            }
+            listOfDateToEvaluate.push(firstDate);
+            break;
+
+          case 'todos os dias da semana':
+            const differenceDays = differenceTime / (1000 * 3600 * 24);
+
+            if (differenceDays > 30) {
+              hasError = true;
+              messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 30 dias.';
+            }
+            let currentDate = firstDate;
+            while (currentDate.getTime() !== secondDate.getTime()) {
+              const weekDay = currentDate.toLocaleString('default', { weekday: 'long' });
+              if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
+                listOfDateToEvaluate.push(currentDate.getTime());
+              }
+              currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
+            }
+            const finalDay = secondDate.toLocaleString('default', { weekday: 'long' });
+            if (finalDay !== 'sábado' && finalDay !== 'domingo' && finalDay !== 'saturday' && finalDay !== 'sunday') {
+              listOfDateToEvaluate.push(secondDate.getTime());
+            }
+            break;
+
+          case 'semanal':
+            let diff = differenceTime / 1000;
+            diff /= (60 * 60 * 24 * 7);
+            const differenceWeeks = Math.abs(Math.round(diff));
+
+            if (differenceWeeks > 5) {
+              hasError = true;
+              messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 5 semanas.';
+            }
+            let currentDateS = firstDate;
+            const weekDayS = firstDate.toLocaleString('default', { weekday: 'long' });
+            while (currentDateS.getTime() !== secondDate.getTime()) {
+              const weekDay = currentDateS.toLocaleString('default', { weekday: 'long' });
+              if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
+                if (weekDay === weekDayS) {
+                  listOfDateToEvaluate.push(currentDateS.getTime());
+                }
+              }
+              currentDateS = new Date(currentDateS.setDate(currentDateS.getDate() + 1));
+            }
+            const finalDayS = secondDate.toLocaleString('default', { weekday: 'long' });
+            if (finalDayS !== 'sábado' && finalDayS !== 'domingo' && finalDayS !== 'saturday' && finalDayS !== 'sunday') {
+              if (finalDayS === weekDayS) {
+                listOfDateToEvaluate.push(currentDateS.getTime());
+              }
+            }
+            break;
+
+          case 'mensal':
+            let months;
+            months = (secondDate.getFullYear() - firstDate.getFullYear()) * 12;
+            months -= firstDate.getMonth();
+            months += secondDate.getMonth();
+            const differenceMonths = months <= 0 ? 0 : months;
+
+            if (differenceMonths > 3) {
+              hasError = true;
+              messageError = 'A diferença entre a data de inicio e a data de término não pode exceder 3 meses.';
+            }
+            let currentDateM = firstDate;
+            const monthDayM = firstDate.getDate();
+            while (currentDateM.getTime() !== secondDate.getTime()) {
+              const weekDay = currentDateM.toLocaleString('default', { weekday: 'long' });
+              if (weekDay !== 'sábado' && weekDay !== 'domingo' && weekDay !== 'saturday' && weekDay !== 'sunday') {
+                if (currentDateM.getDate() === monthDayM) {
+                  listOfDateToEvaluate.push(currentDateM.getTime());
+                }
+              }
+              currentDateM = new Date(currentDateM.setDate(currentDateM.getDate() + 1));
+            }
+            const finalDayM = secondDate.toLocaleString('default', { weekday: 'long' });
+            if (finalDayM !== 'sábado' && finalDayM !== 'domingo' && finalDayM !== 'saturday' && finalDayM !== 'sunday') {
+              if (secondDate.getDate() === monthDayM) {
+                listOfDateToEvaluate.push(currentDateM.getTime());
+              }
+            }
+            break;
+
+          default:
+            hasError = true;
+            messageError = 'Escolha a recorrência.';
+            break;
+        }
+      }
+    }
+
+    if (hasError) {
+      this.loader = false;
+      this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: messageError } });
+      return;
+    } else {
+
+      const dataToSend = {
+        taskDates: listOfDateToEvaluate,
+        player: {
+          personId: this.designatedPlayer.personId
+        },
+        task: {
+          duration: this.form.value.duration
+        }
+      };
+
+      this.taskService.checkPlayerToDesignateAvailability(dataToSend).subscribe(
+        (response) => {
+          console.log(response);
+          if (response.status === 0) {
+            this.loader = false;
+            console.log(response);
+
+            const availableList = response.object;
+
+            if (listOfDateToEvaluate.length === 1) {
+              if (availableList.length !== 0) {
+                this.createRecurrenceTask({unavailableList: null, availableList, player: this.designatedPlayer});
+                return;
+              } else {
+                this.loader = false;
+                this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'O player não está disponível em todas as datas solicitadas.' } });
+                return;
+              }
+            }
+
+            const onlyInAv = listOfDateToEvaluate.filter(this.comparerList(availableList));
+            const onlyInUn = availableList.filter(this.comparerList(listOfDateToEvaluate));
+
+            const unavailableList = onlyInUn.concat(onlyInAv);
+
+            if (availableList.length === 0) {
+              this.loader = false;
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'O player não está disponível em todas as datas solicitadas.' } });
+              return;
+            }
+
+            if (unavailableList.length === 0) {
+              this.createRecurrenceTask({unavailableList, availableList, player: this.designatedPlayer});
+              return;
+            }
+
+            this.openConfirmationRecurrence({unavailableList, availableList, player: this.designatedPlayer});
+          } else {
+            this.loader = false;
+            const businessHourError = 'BUSINESS_HOUR_EXCEDED_TO_DATE_' + this.form.value.expectedAt.toString();
+            if (response.message === 'PLAYER_NOT_FOUND') {
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Algum player deve ser selecionado.' } });
+            } else if (response.message === businessHourError) {
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Não é possível criar atividade excedendo o horário comercial.' } });
+            } else {
+              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
+            }
+          }
+        }, (error) => {
+          this.loader = false;
+          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
+        }
+      );
+    }
+  }
+
+  openConfirmationRecurrence(dataSend) {
+    const dialogRef = this.dialog.open(ModalRecurrenceComponent, {
+      width: '500px',
+      data: dataSend
+    });
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        console.log(result);
+        if (result && result.confirm) {
+          this.createRecurrenceTask(dataSend);
+        }
+      });
+  }
+
+  createRecurrenceTask(dataSend) {
+    this.loader = true;
+    const dataToSend = {
+      taskDates: dataSend.availableList,
+      player: {
+        personId: dataSend.player.personId
+      },
+      task: {
+        projectId: this.form.value.projectId,
+        name: this.form.value.name,
+        description: this.form.value.description,
+        duration: this.form.value.duration,
+        rule: {
+          id: this.rule.id
+        },
+        cards: this.form.value.cards,
+        links: this.form.value.links,
+        parentId: this.form.value.parentId
+      }
+    };
+
+    this.taskService.createRecurrenceTask(dataToSend).subscribe(
+      (response) => {
+        if (response.status === 0) {
+          this.loader = false;
+          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Tarefas com recorrência criadas com sucesso!' } });
+          this.dialogRef.close({ confirm: true });
+          return;
+        } else {
+          this.loader = false;
+          this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
+        }
+      }, (error) => {
+        this.loader = false;
+        this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Erro ao criar tarefa com recorrência.' } });
+      }
+    );
+  }
+
+  comparerList(otherArray) {
+    return (current) => {
+      return otherArray.filter((other) => {
+        return other === current;
+      }).length === 0;
+    };
+  }
+
   myFilter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
     const dateNow = new Date();
@@ -332,7 +657,7 @@ export class TaskCreateComponent implements OnInit {
   searchCard() {
     this.cardService.searchComboCompetence().subscribe(
       (response) => {
-        if (response.status == 0) {
+        if (response.status === 0) {
           this.cardsTypes = response.object;
           return;
         }
@@ -343,6 +668,7 @@ export class TaskCreateComponent implements OnInit {
   }
 
   getRules() {
+    console.log('Entrou dentro do getRules')
     const data = {
       name: 'ATIVIDADE'
     }
@@ -350,9 +676,45 @@ export class TaskCreateComponent implements OnInit {
       (response) => {
         if (response.status == 0) {
           this.rule = response.object.find(element => element.name == 'ATIVIDADE');
+          console.log('**************************')
+          console.log('--------------------------')
+          console.log(response.object)
+          console.log(this.rule)
+          // this.cardsTypes = response.object;
           return;
         }
+        // console.log('deu ruim');
       }, (err) => {
+        // console.log('deu ruim');
       })
   }
+
+  openDesignatePlayer() {
+    const dialogRef = this.dialog.open(DesignatePlayerComponent, {
+      width: '450px',
+    });
+    dialogRef.afterClosed().subscribe(
+      result => {
+        console.log(result)
+        if (result) {
+          this.designatedPlayer = result;
+        }
+      }
+    )
+  }
+
+  // inputHidden() {
+  //   const type = this.types.find( element => element.level == this.createNewType );
+
+  //   console.log('-------------------')
+  //   console.log('----- type -----')
+  //   console.log(type)
+
+  //   if(type.definition == "EXECUTAVEL") {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
+
 }

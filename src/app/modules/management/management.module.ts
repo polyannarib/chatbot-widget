@@ -40,6 +40,8 @@ import { ChatBoxHeaderComponent } from './chat-window/chat-box-header/chat-box-h
 import { RestartWarningComponent } from './chat-window/restart-warning/restart-warning.component';
 import { ChatbotWidgetComponent } from './chatbot-widget/chatbot-widget.component';
 
+import { ModalRecurrenceComponent } from './task/modal-recurrence/modal-recurrence.component';
+import { DesignatePlayerComponent } from './task/designate-player/designate-player.component';
 
 @NgModule({
   imports: [
@@ -75,7 +77,10 @@ import { ChatbotWidgetComponent } from './chatbot-widget/chatbot-widget.componen
     ChatWindowComponent,
     ChatBoxHeaderComponent,
     RestartWarningComponent,
-    ChatbotWidgetComponent
+    ChatbotWidgetComponent,
+    ModalRecurrenceComponent,
+    CockpitComponent,
+    DesignatePlayerComponent
   ],
   entryComponents: [
     ProjectDetailsComponent,
@@ -88,7 +93,9 @@ import { ChatbotWidgetComponent } from './chatbot-widget/chatbot-widget.componen
     TaskCreateComponent,
     TaskDetailsComponent,
     CardFindComponent,
-    ModalKysmartComponent
+    ModalKysmartComponent,
+    ModalRecurrenceComponent,
+    DesignatePlayerComponent
   ]
 })
 export class ManagementModule { }

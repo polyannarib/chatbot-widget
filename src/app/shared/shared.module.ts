@@ -79,6 +79,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatExpansionModule} from '@angular/material/expansion';
 
 //Serviços
 import { MainColorDirective } from './directives/main-color.directive';
@@ -118,6 +119,7 @@ import { ConflictInitializeComponent } from './components/modal/conflict-initial
     MatTreeModule,
     MatIconModule,
     MatBadgeModule,
+    MatExpansionModule,
     RouterModule
   ],
   declarations: [
@@ -202,6 +204,7 @@ import { ConflictInitializeComponent } from './components/modal/conflict-initial
     MatTreeModule,
     MatIconModule,
     MatBadgeModule,
+    MatExpansionModule,
     ButtonFinalizeComponent,
     ButtonRemoveComponent,
     ButtonSuspendComponent,
