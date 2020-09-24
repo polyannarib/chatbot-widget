@@ -37,13 +37,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.chat.whiteLabel.subscribe((colors) => {
+    this.sub = this.chat.whiteLabel.subscribe((colors) => {
       this.footerColor = colors.header.color;
     });
 
-    this.chat.history.subscribe((lastMessages) => {
+    this.sub = this.chat.history.subscribe((lastMessages) => {
       this.historyMessages = lastMessages;
-      console.log(this.historyMessages);
     });
     if (annyang !== null) {
       annyang.setLanguage("pt-br");
@@ -51,10 +50,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
         alert("Error de rede");
       });
       annyang.addCallback("errorPermissionBlocked", () => {
-        alert("Erro de permissão");
+        alert("Erro de permissão: bloqueada pelo navegador");
       });
       annyang.addCallback("errorPermissionDenied", () => {
-        alert("Erro de permissão");
+        alert("Erro de permissão: negada pelo usuário");
       });
       annyang.addCallback("result", (phrases) => {
         this.userSaid = phrases[0];
@@ -70,7 +69,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-    if (annyang.getSpeechRecognizer() !== undefined) {
+    if (annyang !== null) {
       annyang.abort();
     }
   }

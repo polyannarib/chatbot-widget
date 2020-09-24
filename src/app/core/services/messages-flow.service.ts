@@ -34,7 +34,7 @@ export class MessagesFlowService {
     password: string
   ) {
     this.metadata = metadataReceived;
-    localStorage.setItem("usename", metadataReceived.username);
+    localStorage.setItem("username", metadataReceived.username);
     localStorage.setItem("profileName", metadataReceived.profileName);
     localStorage.setItem("sessionId", metadataReceived.sessionId);
     this.passCredentialsToBot(password);
@@ -67,7 +67,6 @@ export class MessagesFlowService {
       )
       .subscribe(
         (botMsg) => {
-          console.log(botMsg);
           if (botMsg.length > 0) {
             for (let i = 0; i < botMsg.length; i++) {
               if (botMsg[i].hasOwnProperty("buttons")) {
@@ -148,7 +147,7 @@ export class MessagesFlowService {
       )
       .subscribe(
         (sucess) => {
-          console.log("sucess: " + sucess);
+          console.log('sucess');
         },
         (error) => {
           console.log(error);
