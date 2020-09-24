@@ -88,6 +88,7 @@ import { SecundaryColorDirective } from './directives/secundary-color.directive'
 import { ButtonGiveBackComponent } from './components/buttons/button-give-back/button-give-back.component';
 import { GiveBackComponent } from './components/modal/give-back/give-back.component';
 import { ConflictInitializeComponent } from './components/modal/conflict-initialize/conflict-initialize.component';
+import { EditTaskHourComponent } from './components/modal/edit-task-hour/edit-task-hour.component';
 
 @NgModule({
   imports: [
@@ -167,7 +168,8 @@ import { ConflictInitializeComponent } from './components/modal/conflict-initial
     InitializeComponent,
     ButtonGiveBackComponent,
     GiveBackComponent,
-    ConflictInitializeComponent
+    ConflictInitializeComponent,
+    EditTaskHourComponent
   ],
   exports: [
     MenuComponent,
@@ -244,7 +246,8 @@ import { ConflictInitializeComponent } from './components/modal/conflict-initial
     ExtractComponent,
     InitializeComponent,
     GiveBackComponent,
-    ConflictInitializeComponent
+    ConflictInitializeComponent,
+    EditTaskHourComponent
   ],
   providers: [
     {

@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TaskService } from 'src/app/core/services/task.service';
 import { format } from 'date-fns';
 import { ProfileService } from 'src/app/core/services/profile.service';
+import { EditTaskHourComponent } from 'src/app/shared/components/modal/edit-task-hour/edit-task-hour.component';
 
 @Component({
   selector: 'app-resource-details',
@@ -24,7 +25,8 @@ export class ResourceDetailsComponent implements OnInit {
     public dialogRef: MatDialogRef<ResourceDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private taskService: TaskService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -82,5 +84,17 @@ export class ResourceDetailsComponent implements OnInit {
   loadNextDay() {
     this.data.activityDate.setDate(this.data.activityDate.getDate() + 1);
     this.findTasks();
+  }
+
+  openEditHours(activity) {
+    const diag = this.dialog.open(EditTaskHourComponent, {width: '500px', data: activity});
+
+    diag.afterClosed().subscribe(
+      res => {
+        if (res === true) {
+          this.findTasks();
+        }
+      }
+    )
   }
 }

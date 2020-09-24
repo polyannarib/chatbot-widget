@@ -10,6 +10,10 @@
   right: -45px;
 }
 
+#edit-hours:focus {
+  background-color: transparent;
+}
+
 .dateProgress .title {
   font-weight: bold;
 }

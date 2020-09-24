@@ -1,0 +1,56 @@
+<div id="modal">
+  <div class="modal-header">
+    Editar horários da atividade
+    <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
+  </div>
+
+  <div class="modal-body">
+    <div
+      *ngIf="(data.editInfo.startedDate.maxDatetimeAvailable != null) && (data.editInfo.startedDate.minDatetimeAvailable != null)">
+      <p>Editar horário de início da atividade</p>
+
+      <mat-form-field>
+        <input matInput id="startDateInput" [matDatepicker]="startDateInput" placeholder="Data de inicio"
+          [(ngModel)]="startDate" name="startDate" [min]="getMinMax(data.editInfo.startedDate.minDatetimeAvailable)"
+          [max]="getMinMax(data.editInfo.startedDate.maxDatetimeAvailable)"
+          (dateChange)="checkStartHour($event.target.value)">
+        <mat-datepicker-toggle matSuffix [for]="startDateInput"></mat-datepicker-toggle>
+        <mat-datepicker #startDateInput></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Selecione o horário</mat-label>
+        <mat-select [(ngModel)]="startHour" name="startHour">
+          <mat-option [value]="hour" *ngFor="let hour of hours"> {{ hour }}:00 </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div
+      *ngIf="(data.editInfo.finalizedDate.maxDatetimeAvailable != null) && (data.editInfo.finalizedDate.minDatetimeAvailable != null)">
+      <p>Editar horário de finalização da atividade</p>
+
+      <mat-form-field>
+        <input matInput id="finishDateInput" [matDatepicker]="finishDateInput" placeholder="Data de conclusão"
+          [(ngModel)]="finishDate" name="finishDate" [min]="getMinMax(data.editInfo.finalizedDate.minDatetimeAvailable)"
+          [max]="getMinMax(data.editInfo.finalizedDate.maxDatetimeAvailable)"
+          (dateChange)="checkFinishHour($event.target.value)">
+        <mat-datepicker-toggle matSuffix [for]="finishDateInput"></mat-datepicker-toggle>
+        <mat-datepicker #finishDateInput></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Selecione o horário</mat-label>
+        <mat-select [(ngModel)]="finishHour" name="finishHour">
+          <mat-option [value]="hour" *ngFor="let hour of finishHours"> {{ hour }}:00 </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="button button-primary right" [ngStyle]="{'background-color': mainStyle}" (click)="save()">
+      {{ 'CONFIRM' | translate }}
+    </button>
+  </div>
+</div>

@@ -70,7 +70,12 @@
                 </li>
                 <!-- END -- Buttons for opening/closing description box -->
 
-                <!-- <li><span>{{ 'PROJECT' | translate}}</span> {{ activity.project.name }} </li> -->
+                <li>
+                  <button id="edit-hours" mat-icon-button (click)="openEditHours(activity)">
+                    <mat-icon>create</mat-icon>
+                  </button>
+                </li>
+
                 <li><span>{{ 'CARD' | translate }}</span> {{ getCardName(activity.cards) }} </li>
                 <li><span>{{ 'PREVIEWSTARTDATE' | translate}}</span>
                   {{ activity.expectedAt | date:'dd/MM/yyyy HH:mm:ss' }} </li>
