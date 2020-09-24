@@ -268,6 +268,7 @@ export class CardBindComponent implements OnInit {
               this.playerDeck.push(response.object);
               this._snackBar.openFromComponent(NotifyComponent,
                 { data: { type: 'success', message: 'Carta adicionada com sucesso!' }});
+              window.location.reload();
               return;
             }
             this._snackBar.openFromComponent(NotifyComponent,
