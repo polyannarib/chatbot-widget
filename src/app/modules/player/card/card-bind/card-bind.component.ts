@@ -264,11 +264,13 @@ export class CardBindComponent implements OnInit {
       if(element.attribute.manualDefiner == true) {
         this.service.addCard(element.id).subscribe(
           (response) => {
+            console.log(response);
             if(response.status == 0) {
               this.playerDeck.push(response.object);
               this._snackBar.openFromComponent(NotifyComponent,
                 { data: { type: 'success', message: 'Carta adicionada com sucesso!' }});
-              window.location.reload();
+              this.myDeck();
+              // window.location.reload();
               return;
             }
             this._snackBar.openFromComponent(NotifyComponent,
@@ -311,16 +313,16 @@ export class CardBindComponent implements OnInit {
     this.service.disableCard(card.cardId).subscribe(
       (response) => {
         if (response.status === 0) {
-          this.myDeck();
-          if (card.avoid.toLowerCase() === 'active') {
+          if (response.object.avoid.toLowerCase() === 'active') {
             this._snackBar.openFromComponent(NotifyComponent,
               { data: { type: 'success', message: 'Carta desabilitada com sucesso!' }});
           }
-          if (card.avoid.toLowerCase() === 'inactive') {
+          if (response.object.avoid.toLowerCase() === 'inactive') {
             this._snackBar.openFromComponent(NotifyComponent,
               { data: { type: 'success', message: 'Carta habilitada com sucesso!' }});
           }
-          window.location.reload();
+          this.myDeck();
+          // window.location.reload();
           return;
         }
         if (card.avoid.toLowerCase() === 'active') {
@@ -338,7 +340,7 @@ export class CardBindComponent implements OnInit {
         }
         if (card.avoid.toLowerCase() === 'inactive') {
           this._snackBar.openFromComponent(NotifyComponent,
-            { data: { type: 'error', message: 'Problemas ao habilitar a carta ao deck, contate o adminstrador' }});
+            { data: { type: 'error', message: 'Problemas ao desabilitar a carta ao deck, contate o adminstrador' }});
         }
       }
     );
