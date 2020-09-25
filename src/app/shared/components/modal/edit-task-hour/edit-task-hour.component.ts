@@ -11,6 +11,8 @@ import { NotifyComponent } from '../../notify/notify.component';
 })
 export class EditTaskHourComponent implements OnInit {
   loader: boolean = false;
+  startChanged = false;
+  finishChanged = false;
   mainStyle = this.profileService.getAppMainColor();
   hours = [8, 9, 10, 11, 14, 15, 16, 17];
   finishHours = [8, 9, 10, 11, 14, 15, 16, 17];
@@ -27,15 +29,15 @@ export class EditTaskHourComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    console.log(this.data);
     this.startDate = new Date(this.data.startedAt);
     this.startHour = this.startDate.getHours();
-
-    this.finishDate = new Date(this.data.finalizedAt);
-    this.finishHour = this.finishDate.getHours();
-
     this.checkStartHour(this.data.startedAt);
-    this.checkFinishHour(this.data.finalizedAt);
+
+    if (this.data.finalizedAt != null) {
+      this.finishDate = new Date(this.data.finalizedAt);
+      this.finishHour = this.finishDate.getHours();
+      this.checkFinishHour(this.data.finalizedAt);
+    }
   }
 
   getMinMax(date) {
@@ -86,13 +88,13 @@ export class EditTaskHourComponent implements OnInit {
     const startedDate = new Date(this.startDate).setHours(this.startHour);
     const startTimestamp = new Date(startedDate).getTime();
 
-    const finishedDate = new Date(this.finishDate).setHours(this.finishHour);
-    const finishTimestamp = new Date(finishedDate).getTime();
-
     let startDateBody = {
       id: this.data.id,
       startedAt: startTimestamp
     }
+
+    const finishedDate = new Date(this.finishDate).setHours(this.finishHour);
+    const finishTimestamp = new Date(finishedDate).getTime();
 
     let finishDateBody = {
       id: this.data.id,
@@ -104,21 +106,28 @@ export class EditTaskHourComponent implements OnInit {
     this.taskService.editTaskDate(startDateBody).subscribe(
       response => {
         if (response.status === 0) {
-          this.taskService.editTaskDate(finishDateBody).subscribe(
-            response2 => {
-              if (response2.status === 0) {
-                this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Atividade atualizada com sucesso!' } });
-                this.dialogRef.close(true);
-                this.loader = false;
-              }
-              else {
+          if (this.finishDate && this.finishHour) {
+            this.taskService.editTaskDate(finishDateBody).subscribe(
+              response2 => {
+                if (response2.status === 0) {
+                  this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Atividade atualizada com sucesso!' } });
+                  this.dialogRef.close(true);
+                  this.loader = false;
+                }
+                else {
+                  this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao editar a atividade, tente novamente!' } });
+                }
+              },
+              error2 => {
                 this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao editar a atividade, tente novamente!' } });
               }
-            },
-            error2 => {
-              this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao editar a atividade, tente novamente!' } });
-            }
-          )
+            )
+          }
+          else {
+            this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'success', message: 'Atividade atualizada com sucesso!' } });
+            this.dialogRef.close(true);
+            this.loader = false;
+          }
         }
         else {
           this._snackBar.openFromComponent(NotifyComponent, { data: { type: 'error', message: 'Problemas ao editar a atividade, tente novamente!' } });
