@@ -15,7 +15,7 @@ export class EditTaskHourComponent implements OnInit {
   finishChanged = false;
   mainStyle = this.profileService.getAppMainColor();
   hours = [8, 9, 10, 11, 14, 15, 16, 17];
-  finishHours = [8, 9, 10, 11, 14, 15, 16, 17];
+  finishHours = [9, 10, 11, 12, 15, 16, 17, 18];
   startDate;
   startHour;
   finishDate;
@@ -39,6 +39,11 @@ export class EditTaskHourComponent implements OnInit {
       this.checkFinishHour(this.data.finalizedAt);
     }
   }
+
+  removeWeekend = (d: Date): boolean => {
+    const day = d.getDay();
+    return (day !== 0) && (day !== 6);
+  };
 
   getMinMax(date) {
     return new Date(date);
@@ -69,7 +74,7 @@ export class EditTaskHourComponent implements OnInit {
     const minFinish = new Date(this.data.editInfo.finalizedDate.minDatetimeAvailable);
     const maxFinish = new Date(this.data.editInfo.finalizedDate.maxDatetimeAvailable);
 
-    this.finishHours = [8, 9, 10, 11, 14, 15, 16, 17];
+    this.finishHours = [9, 10, 11, 12, 15, 16, 17, 18];
 
     if (d.getDate() === minFinish.getDate()) {
       if (minFinish.getDate() === maxFinish.getDate()) {

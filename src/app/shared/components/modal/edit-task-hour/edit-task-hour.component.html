@@ -13,7 +13,7 @@
         <input matInput id="startDateInput" [matDatepicker]="startDateInput" placeholder="Data de inicio"
           [(ngModel)]="startDate" name="startDate" [min]="getMinMax(data.editInfo.startedDate.minDatetimeAvailable)"
           [max]="getMinMax(data.editInfo.startedDate.maxDatetimeAvailable)"
-          (dateChange)="checkStartHour($event.target.value)">
+          (dateChange)="checkStartHour($event.target.value)" [matDatepickerFilter]="removeWeekend">
         <mat-datepicker-toggle matSuffix [for]="startDateInput"></mat-datepicker-toggle>
         <mat-datepicker #startDateInput></mat-datepicker>
       </mat-form-field>
