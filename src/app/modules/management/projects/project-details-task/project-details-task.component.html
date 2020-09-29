@@ -13,7 +13,7 @@
   </div>
   <div class="modal-body">
     <app-loading [loader]="loader"></app-loading>
-    <app-count *ngIf="tasks?.length == 0 && !loader">Esse projeto está sem task cadastrada no momento!</app-count>
+    <app-count *ngIf="tasks?.length == 0 && !loader">Este projeto está sem task cadastrada no momento!</app-count>
 
     <div *ngIf="tasks && !loader && tasks?.length > 0">
       <table class="TreeHeader">

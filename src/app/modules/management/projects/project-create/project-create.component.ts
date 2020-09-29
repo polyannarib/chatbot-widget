@@ -20,6 +20,7 @@ export class ProjectCreateComponent implements OnInit {
   mainStyle = this.profileService.getAppMainColor();
   scopes: any;
   profile: any;
+  companyId = localStorage.getItem('companyId');
 
   constructor(
     public dialogRef: MatDialogRef<ProjectCreateComponent>,
@@ -32,6 +33,7 @@ export class ProjectCreateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.companyId)
     this.scopes = Object.assign({}, this.authService.getScopes());
     this.loader = true;
     if (this.data.type === 'create') {

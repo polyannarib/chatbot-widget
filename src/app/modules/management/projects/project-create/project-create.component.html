@@ -3,15 +3,18 @@
 <div id="modal" *ngIf="!loader">
   <button type="button" class="close btn" [mat-dialog-close]="true"><i class="material-icons">close</i></button>
   <div class="modal-header" *ngIf="this.data.type === 'epic'">
-    <span [ngStyle]="{'background-color': mainStyle}"> Épico </span>
+    <span [ngStyle]="{'background-color': mainStyle}"> {{ companyId == 6 ? 'Ação/abordagem' : 'Épico' }} </span>
   </div>
   <form [formGroup]="formCreateProject" (submit)="createProject()">
     <div class="modal-body">
       <!-- NOME DO PROJETO -->
       <div class="input-field">
         <input id="project_name" type="text" class="validate" formControlName="name" required>
-        <label [class.active]="formCreateProject.controls.name.value != null" for="project_name">
+        <label [class.active]="formCreateProject.controls.name.value != null" for="project_name" *ngIf="companyId != 6">
           {{ (this.data.type === 'epic') ? 'Nome do Épico' : 'PROJECTNAME' | translate }}
+        </label>
+        <label [class.active]="formCreateProject.controls.name.value != null" for="project_name" *ngIf="companyId == 6">
+          {{ (this.data.type === 'epic') ? 'Nome da ação/abordagem' : 'Nome da campanha' | translate }}
         </label>
       </div>
 
@@ -47,8 +50,11 @@
       <div class="input-field">
         <textarea id="project_description" class="validate materialize-textarea" formControlName="description"
           required></textarea>
-        <label for="project_description" [class.active]="formCreateProject.controls.description.value != null">
+        <label for="project_description" [class.active]="formCreateProject.controls.description.value != null" *ngIf="companyId != 6">
           {{ (this.data.type === 'epic') ? 'Descrição do Épico' : 'CREATE_PROJECT_DESCRIPTION' | translate }}
+        </label>
+        <label for="project_description" [class.active]="formCreateProject.controls.description.value != null" *ngIf="companyId == 6">
+          {{ (this.data.type === 'epic') ? 'Descrição da ação/abordagem' : 'Descrição da campanha' | translate }}
         </label>
       </div>
 
@@ -56,18 +62,18 @@
       <div class="input-field">
         <input id="project_identify" type="text" class="validate" formControlName="identify" required>
         <label for="project_identify" [class.active]="formCreateProject.controls.identify.value != null">
-          {{ (this.data.type === 'epic') ? 'Identificador do Épico' : 'CREATE_PROJECT_IDENTIFY' | translate }}
+          {{ (this.data.type === 'epic') ? 'Identificador da ação/abordagem' : 'Identificador da campanha' | translate }}
         </label>
       </div>
 
     </div>
     <div class="modal-footer">
       <button type="submit" *ngIf="data.type === 'create'" class="button right"
-        [ngStyle]="{'background-color': mainStyle}">{{ 'CREATE_PROJECT_CONFIRM' | translate }}</button>
+        [ngStyle]="{'background-color': mainStyle}">{{ companyId == 6 ? 'Criar campanha' : 'Criar projeto' | translate }}</button>
       <button type="submit" *ngIf="data.type === 'edit'" class="button right"
-        [ngStyle]="{'background-color': mainStyle}">{{ 'EDIT_PROJECT_CONFIRM' | translate }}</button>
+        [ngStyle]="{'background-color': mainStyle}">{{ companyId == 6 ? 'Editar campanha' : 'Editar projeto' | translate }}</button>
       <button type="submit" *ngIf="data.type === 'epic'" class="button right"
-        [ngStyle]="{'background-color': mainStyle}">{{ 'CREATE_EPIC_CONFIRM' | translate }}</button>
+        [ngStyle]="{'background-color': mainStyle}">{{ companyId == 6 ? 'Criar ação/abordagem' : 'Criar épico' | translate }}</button>
     </div>
   </form>
 </div>

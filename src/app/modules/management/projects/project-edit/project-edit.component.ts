@@ -31,6 +31,7 @@ export class ProjectEditComponent implements OnInit {
   });
   loader: boolean = false;
   mainStyle = this.profileService.getAppMainColor();
+  companyId = localStorage.getItem('companyId');
 
   constructor(
     public dialogRef: MatDialogRef<ProjectEditComponent>,
