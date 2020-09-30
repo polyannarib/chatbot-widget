@@ -34,7 +34,7 @@
         <input matInput id="finishDateInput" [matDatepicker]="finishDateInput" placeholder="Data de conclusão"
           [(ngModel)]="finishDate" name="finishDate" [min]="getMinMax(data.editInfo.finalizedDate.minDatetimeAvailable)"
           [max]="getMinMax(data.editInfo.finalizedDate.maxDatetimeAvailable)"
-          (dateChange)="checkFinishHour($event.target.value)">
+          (dateChange)="checkFinishHour($event.target.value)" [matDatepickerFilter]="removeWeekend">
         <mat-datepicker-toggle matSuffix [for]="finishDateInput"></mat-datepicker-toggle>
         <mat-datepicker #finishDateInput></mat-datepicker>
       </mat-form-field>
