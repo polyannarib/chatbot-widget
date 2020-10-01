@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  back_end_url: 'http://192.168.1.235:8989/workplayer-portal/services',
+  back_end_url: 'https://workplayer-hom.kyros.com.br/workplayer-portal/services',
   back_end_kysmart: 'http://192.168.0.240:8081',
   front_end_kysmart: 'http://192.168.0.240:8081/kysmart',
   back_forgotten_password: 'https://portal.kyros.com.br/kyros-sso/exposed/password',
