@@ -50,7 +50,7 @@ export class MessagesFlowService {
     if (firstInteraction) {
       this.interactionstarted = true;
       this.botMessages("oi aia");
-      this.loadingBotResponse.next(true);
+      //this.loadingBotResponse.next(true);
     }
   }
 
@@ -146,9 +146,7 @@ export class MessagesFlowService {
         { headers: new HttpHeaders({ "Content-Type": "application/json" }) }
       )
       .subscribe(
-        (sucess) => {
-          console.log('sucess');
-        },
+        (success) => {},
         (error) => {
           console.log(error);
         }
