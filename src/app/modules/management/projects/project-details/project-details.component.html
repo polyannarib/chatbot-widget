@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <app-count *ngIf="projectTasks?.tasks == null">Esse projeto está sem task no momento!</app-count>
+    <app-count *ngIf="projectTasks?.tasks == null">{{ companyId == 6 ? 'Esta campanha está sem ação/abordagem no momento!' : 'Este projeto está sem task no momento!' }}</app-count>
 
     <section *ngIf="projectTasks?.tasks != null">
       <div class="row headerTextCollapse hide-on-small-only text-header">

@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.authService.login(this.form.value).subscribe(
         (responseAuth) => {
           if (responseAuth.status == 0) {
+            localStorage.setItem('companyId', responseAuth.object.ssoId);
             this.profileService.getProfile().subscribe((response) => {
               let hashSession = Md5.hashStr(
                 responseAuth.object.userToken

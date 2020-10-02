@@ -5,7 +5,7 @@
   <div class="add-project-button" *ngIf="scopes.wpleader || scopes.wpmaster">
     <a class="waves-effect waves-light btn-small" (click)="modalAddProject()"
       [ngStyle]="{'background-color': mainStyle}">
-      <i class="material-icons right">add</i>Adicionar projeto
+      <i class="material-icons right">add</i>Adicionar {{ companyId == 6 ? 'campanha' : 'projeto' }}
     </a>
   </div>
 
@@ -14,7 +14,7 @@
       <form [formGroup]="searchProjects" (submit)="onSearchProjects()" style="display: flex; align-items: center;">
         <div class="input-field" style="flex-grow: 1; margin-right: 1.5rem; margin-top: 0;">
           <input matInput formControlName="name" type="text" id="findProject" class="validate" autocomplete="off">
-          <label for="findProject">Buscar projetos</label>
+          <label for="findProject">Buscar {{ companyId == 6 ? 'campanhas' : 'projetos' }}</label>
         </div>
 
         <button mat-mini-fab type="submit" [ngStyle]="{'background-color': mainStyle}">
@@ -50,7 +50,7 @@
         </tr>
         <tr>
           <th class="projectCode">{{ 'CODE' | translate }}</th>
-          <th>{{ 'PROJECTNAME' | translate }}</th>
+          <th>{{ companyId == 6 ? 'Nome da campanha' : 'Nome do projeto' | translate }}</th>
           <th *ngFor="let day of daysOfWeek10; let first=first; let last=last"
               [ngClass]="{'dayLabelFirst': first, 'dayLabelLast' : last}"
               headers="projectMonthLabelHeader">

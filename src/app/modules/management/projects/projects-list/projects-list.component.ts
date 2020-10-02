@@ -22,6 +22,7 @@ export class ProjectsListComponent implements OnInit {
 
   @Output() loaderProject = new EventEmitter();
 
+  companyId = localStorage.getItem('companyId');
   daysOfWeek10: any;
   projectsList: any;
   filteredProjectsList: any;
