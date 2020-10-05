@@ -89,6 +89,14 @@ import { ButtonGiveBackComponent } from './components/buttons/button-give-back/b
 import { GiveBackComponent } from './components/modal/give-back/give-back.component';
 import { ConflictInitializeComponent } from './components/modal/conflict-initialize/conflict-initialize.component';
 
+// Componentes chatbot
+import { ChatBoxComponent } from './components/chat-box/chat-box.component';
+import { ChatBoxIconComponent } from './components/chat-box-icon/chat-box-icon.component';
+import { ChatWindowComponent } from './components/chat-window/chat-window.component';
+import { ChatBoxHeaderComponent } from './components/chat-window/chat-box-header/chat-box-header.component';
+import { RestartWarningComponent } from './components/chat-window/restart-warning/restart-warning.component';
+import { ChatbotWidgetComponent } from './components/chatbot-widget/chatbot-widget.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -167,7 +175,13 @@ import { ConflictInitializeComponent } from './components/modal/conflict-initial
     InitializeComponent,
     ButtonGiveBackComponent,
     GiveBackComponent,
-    ConflictInitializeComponent
+    ConflictInitializeComponent,
+    ChatBoxComponent,
+    ChatBoxIconComponent,
+    ChatWindowComponent,
+    ChatBoxHeaderComponent,
+    RestartWarningComponent,
+    ChatbotWidgetComponent
   ],
   exports: [
     MenuComponent,
@@ -229,7 +243,13 @@ import { ConflictInitializeComponent } from './components/modal/conflict-initial
     ButtonInitializeComponent,
     InitializeComponent,
     GiveBackComponent,
-    ConflictInitializeComponent
+    ConflictInitializeComponent,
+    ChatBoxComponent,
+    ChatBoxIconComponent,
+    ChatWindowComponent,
+    ChatBoxHeaderComponent,
+    RestartWarningComponent,
+    ChatbotWidgetComponent
   ],
   entryComponents: [
     FinalizeComponent,

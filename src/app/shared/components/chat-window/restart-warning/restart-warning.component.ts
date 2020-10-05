@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { OpenChatService } from "../../../../core/services/open-chat.service";
+import {MessagesFlowService} from '../../../../core/services/messages-flow.service'
 
 @Component({
   selector: "app-restart-warning",
@@ -11,7 +12,7 @@ export class RestartWarningComponent implements OnInit {
   restartColor: string;
   fontColor: string;
 
-  constructor(private chat: OpenChatService) {}
+  constructor(private chat: OpenChatService, private massagesService: MessagesFlowService) {}
 
   ngOnInit(): void {
     this.chat.whiteLabel.subscribe((colors) => {
@@ -21,6 +22,10 @@ export class RestartWarningComponent implements OnInit {
   }
 
   restartRequest(status: boolean) {
-    this.requestStatus.emit(status);
+    if(!status){
+      this.massagesService.clearRequest.next(false)
+    } else {
+      this.massagesService.clearChat()
+    }
   }
 }

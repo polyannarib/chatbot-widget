@@ -9,7 +9,7 @@ import { HttpHeaders } from "@angular/common/http";
 export class MessagesFlowService {
   interactionstarted: boolean = false;
   clear = new EventEmitter<boolean>();
-  chatclear: boolean;
+  clearRequest  = new BehaviorSubject<boolean>(false);
   loadingBotResponse = new BehaviorSubject<boolean>(false);
   public metadata: {
     username: string;
@@ -50,7 +50,6 @@ export class MessagesFlowService {
     if (firstInteraction) {
       this.interactionstarted = true;
       this.botMessages("oi aia");
-      this.loadingBotResponse.next(true);
     }
   }
 
@@ -102,10 +101,10 @@ export class MessagesFlowService {
       );
   }
 
-  clearChat(willClear: boolean) {
+  clearChat() {
     let response = [];
-    this.chatclear = willClear;
-    this.clear.emit(this.chatclear);
+    this.clear.emit(true);
+    this.clearRequest.next(false);
     this.interactionstarted = false;
     this.http
       .post<any>(
@@ -146,9 +145,7 @@ export class MessagesFlowService {
         { headers: new HttpHeaders({ "Content-Type": "application/json" }) }
       )
       .subscribe(
-        (sucess) => {
-          console.log('sucess');
-        },
+        (success) => {},
         (error) => {
           console.log(error);
         }

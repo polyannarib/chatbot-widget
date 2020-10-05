@@ -8,7 +8,6 @@ import { OpenChatService } from "../../../core/services/open-chat.service";
   styleUrls: ["./chatbot-widget.component.css"],
 })
 export class ChatbotWidgetComponent implements OnInit {
-  //@Input() sender: { profileName: string; sessionId: string };
   @Input() windowColor;
   constructor(
     public messageService: MessagesFlowService,
@@ -16,6 +15,7 @@ export class ChatbotWidgetComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('initialized chatbox')
     this.chat.setWhiteLabel(this.windowColor);
   }
 }

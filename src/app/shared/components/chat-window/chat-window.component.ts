@@ -37,6 +37,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.messageService.clearRequest.subscribe((request) => {
+      this.request = request;
+    });
+
     this.sub = this.chat.whiteLabel.subscribe((colors) => {
       this.footerColor = colors.header.color;
     });
@@ -63,11 +67,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
 
     this.userInput.get("text").valueChanges.subscribe((value) => {
       value !== "" ? (this.typing = true) : (this.typing = false);
-      console.log("works: " + this.typing);
     });
   }
 
   ngOnDestroy() {
+    this.chat.isOpen.next(false);
     this.sub.unsubscribe();
     if (annyang !== null) {
       annyang.abort();
@@ -117,17 +121,5 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   closeChatbot(closed) {
     this.opened = closed;
     this.expanded = false;
-  }
-
-  restartAlert(request: boolean) {
-    console.log("request: " + request);
-    this.request = request;
-  }
-
-  willRestart(restart: boolean) {
-    this.request = false;
-    if (restart) {
-      this.messageService.clearChat(true);
-    }
   }
 }

@@ -4,13 +4,13 @@
   [ngClass]="{ minimized: expanded == false }"
 >
   <app-chat-box-header
-    (restartRequest)="restartAlert($event)"
+    
     (close)="closeChatbot($event)"
   >
   </app-chat-box-header>
   <div *ngIf="expanded">
     <app-chat-box [messages]="historyMessages"></app-chat-box>
-    <app-restart-warning (requestStatus)="willRestart($event)" *ngIf="request">
+    <app-restart-warning  *ngIf="request">
     </app-restart-warning>
     <div
       class="chatbotFooter"

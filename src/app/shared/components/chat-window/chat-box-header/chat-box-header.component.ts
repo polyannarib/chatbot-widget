@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { OpenChatService } from "../../../../core/services/open-chat.service";
 import { Output, EventEmitter } from "@angular/core";
 import { MessagesFlowService } from "../../../../core/services/messages-flow.service";
+
 
 @Component({
   selector: "app-chat-box-header",
@@ -14,6 +15,7 @@ export class ChatBoxHeaderComponent implements OnInit {
   minimizeOrMaximize: string = "remove";
   headerColor: string;
   fontColor: string;
+  request: boolean;
   headerIcon: string =
     "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Flh3.googleusercontent.com%2FpE5dgP2JoUsdqmsqCVRmsUQutQ7FH80O4ajh_yH4LW2kj3W7vMmbe_-tpzduyy3tDA%3Dw300&f=1&nofb=1";
   constructor(
@@ -34,12 +36,13 @@ export class ChatBoxHeaderComponent implements OnInit {
       this.headerColor = colors.header.color;
       this.fontColor = colors.header.font;
     });
+
   }
   closeChat() {
     this.close.emit(this.chat.closeChatbox());
   }
   clearChat() {
-    this.restartRequest.emit(true);
+      this.messageService.clearRequest.next(true); 
   }
   minimize() {
     this.chat.expandOrMinimize();
