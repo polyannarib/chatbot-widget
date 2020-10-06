@@ -63,7 +63,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
 
     this.userInput.get("text").valueChanges.subscribe((value) => {
       value !== "" ? (this.typing = true) : (this.typing = false);
-      console.log("works: " + this.typing);
     });
   }
 

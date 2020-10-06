@@ -90,6 +90,14 @@ import { GiveBackComponent } from './components/modal/give-back/give-back.compon
 import { ConflictInitializeComponent } from './components/modal/conflict-initialize/conflict-initialize.component';
 import { EditTaskHourComponent } from './components/modal/edit-task-hour/edit-task-hour.component';
 
+// Componentes chatbot
+import { ChatBoxComponent } from './components/chat-box/chat-box.component';
+import { ChatBoxIconComponent } from './components/chat-box-icon/chat-box-icon.component';
+import { ChatWindowComponent } from './components/chat-window/chat-window.component';
+import { ChatBoxHeaderComponent } from './components/chat-window/chat-box-header/chat-box-header.component';
+import { RestartWarningComponent } from './components/chat-window/restart-warning/restart-warning.component';
+import { ChatbotWidgetComponent } from './components/chatbot-widget/chatbot-widget.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -170,6 +178,12 @@ import { EditTaskHourComponent } from './components/modal/edit-task-hour/edit-ta
     GiveBackComponent,
     ConflictInitializeComponent,
     EditTaskHourComponent
+    ChatBoxComponent,
+    ChatBoxIconComponent,
+    ChatWindowComponent,
+    ChatBoxHeaderComponent,
+    RestartWarningComponent,
+    ChatbotWidgetComponent
   ],
   exports: [
     MenuComponent,
@@ -231,7 +245,13 @@ import { EditTaskHourComponent } from './components/modal/edit-task-hour/edit-ta
     ButtonInitializeComponent,
     InitializeComponent,
     GiveBackComponent,
-    ConflictInitializeComponent
+    ConflictInitializeComponent,
+    ChatBoxComponent,
+    ChatBoxIconComponent,
+    ChatWindowComponent,
+    ChatBoxHeaderComponent,
+    RestartWarningComponent,
+    ChatbotWidgetComponent
   ],
   entryComponents: [
     FinalizeComponent,

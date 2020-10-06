@@ -1,15 +1,15 @@
 <div class="box" [ngStyle]="{ 'border-color': borderColor }">
-  <img
+  <!--<img
     class="restart"
     src="assets/gifs/loading.gif"
     *ngIf="messages.length == 0"
-  />
+  />-->
   <ng-container *ngFor="let message of messages; trackBy: trackByFn">
     <div class="msgUser" *ngIf="message.hasOwnProperty('user')" [ngStyle]="{ 'color': fontColors[1] }">
       {{ message.user }}
     </div>
-    <div class="msgBot" *ngIf="message.hasOwnProperty('bot')" [ngStyle]="{ 'color': fontColors[2] }">
-      <ng-container *ngFor="let botRes of message.bot">
+    <ng-container *ngIf="message.hasOwnProperty('bot')">
+      <div class="msgBot" [ngStyle]="{ 'color': fontColors[2] }" *ngFor="let botRes of message.bot">
         {{ botRes.botText }}
         <div class="buttonsContainer" *ngIf="botRes.hasOwnProperty('buttons')">
           <button
@@ -21,8 +21,8 @@
             {{ button.title }}
           </button>
         </div>
-      </ng-container>
-    </div>
+      </div>
+    </ng-container>
   </ng-container>
   <div class="loading" *ngIf="loadingMsg">O assistente está digitando...</div>
 </div>

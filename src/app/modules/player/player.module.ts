@@ -7,14 +7,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardBindComponent } from './card/card-bind/card-bind.component';
 
-// Componentes chatbot
-import { ChatBoxComponent } from './chat-box/chat-box.component';
-import { ChatBoxIconComponent } from './chat-box-icon/chat-box-icon.component';
-import { ChatWindowComponent } from './chat-window/chat-window.component';
-import { ChatBoxHeaderComponent } from './chat-window/chat-box-header/chat-box-header.component';
-import { RestartWarningComponent } from './chat-window/restart-warning/restart-warning.component';
-import { ChatbotWidgetComponent } from './chatbot-widget/chatbot-widget.component';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -25,13 +17,7 @@ import { ChatbotWidgetComponent } from './chatbot-widget/chatbot-widget.componen
   ],
   declarations: [
     PlayerComponent, 
-    CardBindComponent,
-    ChatBoxComponent,
-    ChatBoxIconComponent,
-    ChatWindowComponent,
-    ChatBoxHeaderComponent,
-    RestartWarningComponent,
-    ChatbotWidgetComponent
+    CardBindComponent
   ]
 })
 export class PlayerModule { }

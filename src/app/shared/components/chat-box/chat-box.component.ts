@@ -20,6 +20,12 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    let i = 0;
+    this.chat.history.subscribe((msgHistory) => {
+        console.log(i);
+        i++;
+        this.messages = msgHistory;
+    })
     //Get White label
     this.chat.whiteLabel.subscribe((colors) => {
       this.buttonsColor = colors.buttons.color;
@@ -81,6 +87,7 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    console.log("onDestroy")
     this.chat.storeMessages(this.messages);
     this.messages = [];
   }
