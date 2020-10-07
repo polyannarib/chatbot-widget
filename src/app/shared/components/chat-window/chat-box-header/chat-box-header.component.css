@@ -34,3 +34,23 @@
     height: 30px;
   }
 }
+
+button {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+button:focus {
+  background-color: transparent;
+}
+
+mat-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+}
+
+.iconBttn {
+  line-height: 20px;
+}

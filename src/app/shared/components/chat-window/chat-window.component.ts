@@ -15,12 +15,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   private micPressed: boolean = false;
   private userSaid: string = "";
   public micColor: boolean = false;
+  request: boolean = false;
   footerColor: string;
   historyMessages = [];
   typing: boolean = false;
   opened: boolean;
   expanded: boolean = false;
-  request: boolean;
   userInput: FormGroup = new FormGroup({
     text: new FormControl(""),
   });

@@ -12,7 +12,7 @@ export class RestartWarningComponent implements OnInit {
   restartColor: string;
   fontColor: string;
 
-  constructor(private chat: OpenChatService, private massagesService: MessagesFlowService) {}
+  constructor(private chat: OpenChatService, private messageService: MessagesFlowService) {}
 
   ngOnInit(): void {
     this.chat.whiteLabel.subscribe((colors) => {
@@ -23,9 +23,11 @@ export class RestartWarningComponent implements OnInit {
 
   restartRequest(status: boolean) {
     if(!status){
-      this.massagesService.clearRequest.next(false)
-    } else {
-      this.massagesService.clearChat()
+      this.messageService.clearRequest.next(false);
+    }
+    else {
+      this.messageService.clearChat();
+      this.messageService.disableRestart.next(true);
     }
   }
 }

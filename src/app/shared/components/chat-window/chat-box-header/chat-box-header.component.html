@@ -1,21 +1,31 @@
 <div class="header-container" [ngStyle]="{ 'background-color': headerColor }">
   <img class="header-icon" [src]="headerIcon" alt="icone workplayer" />
   <span class="header-title" [ngStyle]="{ 'color': fontColor }">Workplayer</span>
-  <span class="icons">
-    <mat-icon
-      [ngStyle]="{ color: 'white', cursor: 'pointer' }"
+  <div class="icons">
+    <button mat-icon-button
+      [ngStyle]="{ color: fontColor }"
       (click)="minimize()"
-      >{{ minimizeOrMaximize }}</mat-icon
     >
-    <mat-icon
-      [ngStyle]="{ color: 'white', cursor: 'pointer' }"
+      <mat-icon class="iconBttn">
+        {{ minMax }}
+      </mat-icon>
+    </button>
+    <button mat-icon-button
+      [ngStyle]="!bool ? { 'color': fontColor } : { 'color': '#BBBBBB' }"
       (click)="clearChat()"
-      >replay</mat-icon
+      [disabled] = "bool"
     >
-    <mat-icon
-      [ngStyle]="{ color: 'white', cursor: 'pointer' }"
+      <mat-icon class="iconBttn">
+        replay
+      </mat-icon>
+    </button>
+    <button mat-icon-button
+      [ngStyle]="{ color: fontColor }"
       (click)="closeChat()"
-      >clear</mat-icon
     >
-  </span>
+      <mat-icon class="iconBttn">
+        clear
+      </mat-icon>
+  </button>
+  </div>
 </div>

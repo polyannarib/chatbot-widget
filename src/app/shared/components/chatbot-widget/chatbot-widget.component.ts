@@ -15,7 +15,6 @@ export class ChatbotWidgetComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('initialized chatbox')
     this.chat.setWhiteLabel(this.windowColor);
   }
 }

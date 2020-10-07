@@ -16,7 +16,9 @@ export class ChatBoxIconComponent implements OnInit {
     public messageService: MessagesFlowService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
   chatOpen() {
     this.chat.openChatboxFromIcon();
     this.messageService.firstInteraction(this.firstInteraction);

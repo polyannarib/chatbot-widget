@@ -10,7 +10,6 @@ import { Subscription } from "rxjs";
 })
 export class ChatBoxComponent implements OnInit, OnDestroy {
   @Input() messages: any[];
-  private sub: Subscription;
   borderColor: string;
   buttonsColor: string;
   fontColors: string[] = [];
@@ -22,9 +21,6 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.sub = this.chat.history.subscribe((msgHistory) => {
-        this.messages = msgHistory;
-    })
     //Get White label
     this.chat.whiteLabel.subscribe((colors) => {
       this.buttonsColor = colors.buttons.color;
@@ -87,10 +83,7 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log("onDestroy")
     this.chat.storeMessages(this.messages);
-    console.log(this.messages)
-    this.sub.unsubscribe()
     this.messages = [];
   }
 }
