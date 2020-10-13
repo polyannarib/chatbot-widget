@@ -22,7 +22,7 @@ export class MessagesFlowService {
   };
   public userMsgs: Subject<string> = new Subject<string>();
   public botMsgs: Subject<any[]> = new Subject<any[]>();
-  public disableRestart = new BehaviorSubject<boolean>(true);
+  public disableButtons = new BehaviorSubject<boolean>(true);
 
   constructor(private http: HttpClient) {}
 
@@ -87,7 +87,7 @@ export class MessagesFlowService {
           if (response.length > 0) {
             this.loadingBotResponse.next(false);
             this.botMsgs.next(response);
-            this.disableRestart.next(false);
+            this.disableButtons.next(false);
           }
         },
         (error) => {
@@ -99,7 +99,7 @@ export class MessagesFlowService {
           });
           this.loadingBotResponse.next(false);
           this.botMsgs.next(response);
-          this.disableRestart.next(false);
+          this.disableButtons.next(false);
         }
       );
   }

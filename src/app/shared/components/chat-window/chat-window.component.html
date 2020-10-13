@@ -26,21 +26,24 @@
           type="text"
           formControlName="text"
         />
-        <button
+        <button mat-icon-button
+          [disabled] = "bool"
           *ngIf="typing; else not_typing"
-          mat-icon-button
         >
-          <mat-icon class="icon">send</mat-icon>
+          <mat-icon
+            [ngStyle]="bool ? { 'color': '#BBBBBB' } : null">
+              send
+          </mat-icon>
         </button>
         <ng-template #not_typing>
-          <button
+          <button mat-icon-button
+            [disabled] = "bool"
             (mousedown)="startListening()"
             (mouseup)="stopListening()"
-            mat-icon-button
           >
             <mat-icon
-              class="icon"
               [ngClass]="{ micRed: micColor, micBlack: !micColor }"
+              [ngStyle]="bool ? { 'color': '#BBBBBB' } : null"
             >
               mic
             </mat-icon>

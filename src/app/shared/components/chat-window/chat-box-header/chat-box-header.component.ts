@@ -29,7 +29,7 @@ export class ChatBoxHeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.sub = this.messageService.disableRestart.subscribe((disable => {
+    this.sub = this.messageService.disableButtons.subscribe((disable => {
       this.bool = disable;
       })
     );

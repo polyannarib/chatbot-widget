@@ -27,7 +27,7 @@ export class RestartWarningComponent implements OnInit {
     }
     else {
       this.messageService.clearChat();
-      this.messageService.disableRestart.next(true);
+      this.messageService.disableButtons.next(true);
     }
   }
 }

@@ -49,7 +49,6 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
     //Get messages from user
     this.messageService.userMsgs.subscribe(
       (message) => {
-        console.log(message)
         let i: number = this.messages.length - 1;
         if (this.messages[i].hasOwnProperty("bot")) {
           for (let z = 0; z < this.messages[i].bot.length; z++) {

@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { MessagesFlowService } from "../../../core/services/messages-flow.service";
 import { OpenChatService } from "../../../core/services/open-chat.service";
 import { Subscription } from "rxjs";
-declare const annyang: any;
+declare var annyang: any;
 
 @Component({
   selector: "app-chat-window",
@@ -15,6 +15,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   private micPressed: boolean = false;
   private userSaid: string = "";
   public micColor: boolean = false;
+  public bool: boolean = false
   request: boolean = false;
   footerColor: string;
   historyMessages = [];
@@ -37,7 +38,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.messageService.clearRequest.subscribe((request) => {
+    this.sub = this.messageService.clearRequest.subscribe((request) => {
       this.request = request;
     });
 
@@ -48,7 +49,18 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     this.sub = this.chat.history.subscribe((lastMessages) => {
       this.historyMessages = lastMessages;
     });
-    if (annyang !== null) {
+
+    this.sub = this.messageService.disableButtons.subscribe((disable) => {
+      this.bool = disable;
+    })
+
+    let browser = window.navigator.userAgent.toLocaleLowerCase();
+    if(browser.includes("edg") || browser.includes("edge")) {
+      console.log(browser);
+      console.log(true)
+      annyang = null;
+    }
+    else if (annyang !== null) {
       annyang.setLanguage("pt-br");
       annyang.addCallback("errorNetwork", () => {
         alert("Error de rede");
@@ -72,6 +84,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.chat.isOpen.next(false);
+    console.log(this.sub);
     this.sub.unsubscribe();
     if (annyang !== null) {
       annyang.abort();
@@ -85,6 +98,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
       this.userInput.setValue({ text: "" });
     } else if (this.micPressed) {
       this.waitFor(() => this.userSaid !== "").then(() => {
+        console.log(this.userSaid)
         this.messageService.userMessages(this.userSaid);
         this.messageService.botMessages(this.userSaid);
         this.userSaid = "";
@@ -95,6 +109,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
 
   startListening() {
     if (annyang !== null) {
+      console.log("start")
       this.micPressed = true;
       annyang.start();
       this.micColor = true;
@@ -104,6 +119,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 
   stopListening() {
+    console.log("stop")
     this.micColor = false;
   }
 
